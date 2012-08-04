@@ -29,7 +29,7 @@ public class SparksActor extends JumplingActor {
 	
 	private final static Filter SPARKS_FILTER;
 	
-	// ------------------------------------------------- Variables estáticas
+	// ------------------------------------------------- Variables estï¿½ticas
 	
 	// Vivo
 	protected final static Bitmap[] bmpsSparkles;
@@ -47,7 +47,7 @@ public class SparksActor extends JumplingActor {
 	
 	protected Paint paint;
 	
-	// ----------------------------------------------- Inicialización estática
+	// ----------------------------------------------- Inicializaciï¿½n estï¿½tica
 	
 	static {
 		SPARKS_FILTER = new Filter();
@@ -68,7 +68,7 @@ public class SparksActor extends JumplingActor {
 		
 	}
 	
-	// ---------------------------------------------------- Métodos estáticos
+	// ---------------------------------------------------- Mï¿½todos estï¿½ticos
 	
 	
 	// --------------------------------------------------- Constructor
@@ -88,7 +88,7 @@ public class SparksActor extends JumplingActor {
 	}
 
 
-	// --------------------------------------------- Métodos heredados
+	// --------------------------------------------- Mï¿½todos heredados
 	
 	@Override
 	protected void initBodies(PointF worldPos) {
@@ -120,7 +120,7 @@ public class SparksActor extends JumplingActor {
 	
 	
 	@Override
-	public void draw(Canvas canvas) {
+	protected void drawBitmaps(Canvas canvas) {
 		paint.setAlpha(alpha);
 		jWorld.drawBitmap(canvas, this.mainBody, bmpSparkle, paint);
 	}

@@ -1,5 +1,6 @@
 package net.garrapeta.demo.scenario;
 
+import net.garrapeta.demo.JumplingsApplication;
 import net.garrapeta.demo.JumplingsGameWorld;
 import net.garrapeta.demo.R;
 import net.garrapeta.demo.wave.CampaignSurvivalWave;
@@ -28,12 +29,12 @@ public class Scenario {
 	
 	// cielo
 	Layer layerBg0;
-	// montañas
+	// montaï¿½as
 	Layer layerBg1;
 	// nubes
 	Layer layerBg2;
 
-	/** si el escenario está desapareciendo */
+	/** si el escenario estï¿½ desapareciendo */
 	public boolean fadingOut = false;
 
 	/** Tiempo que le queda al escenario para terminar de desaparecer */
@@ -50,7 +51,7 @@ public class Scenario {
 	public Scenario(JumplingsGameWorld dWorld) {
 		this.dWorld = dWorld;
 		
-		// Inicialización de las layers
+		// Inicializaciï¿½n de las layers
 		Resources r = dWorld.jgActivity.getResources();
 		{
 			Bitmap bmp = BitmapFactory.decodeResource(r, R.drawable.bg_blue_sky);
@@ -92,7 +93,7 @@ public class Scenario {
 		layerBg2.onGameOver();
 	}
 	
-	// --------------------------------------------- Métodos propios
+	// --------------------------------------------- Mï¿½todos propios
 	
 	public void processFrame(float gameTimeStep, float physicsTimeStep) {
 		if (fadingOut) {
@@ -107,10 +108,11 @@ public class Scenario {
 	
 
 	public void draw(Canvas canvas) {
-						
-		layerBg0.draw(canvas, paint);
-		layerBg1.draw(canvas, paint);
-		layerBg2.draw(canvas, paint);
+		if (JumplingsApplication.DRAW_SCENARIO) {				
+			layerBg0.draw(canvas, paint);
+			layerBg1.draw(canvas, paint);
+			layerBg2.draw(canvas, paint);
+		}
 	}
 
 }

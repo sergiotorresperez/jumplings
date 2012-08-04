@@ -22,7 +22,7 @@ public abstract class EnemyActor extends MainActor {
 	// ---------------------------------------------------- Constantes
 
 
-	// ------------------------------------------ Variables estáticas
+	// ------------------------------------------ Variables estï¿½ticas
 
 	// vivo
 	protected final static Bitmap BMP_EYE_2_RIGHT;
@@ -55,7 +55,7 @@ public abstract class EnemyActor extends MainActor {
 	protected Bitmap bmpDebrisEyeRight;
 	protected Bitmap bmpDebrisEyeLeft;
 	
-	// --------------------------------------------------- Inicialización estática
+	// --------------------------------------------------- Inicializaciï¿½n estï¿½tica
 
 	static  {
 		
@@ -76,7 +76,7 @@ public abstract class EnemyActor extends MainActor {
 		BMP_DEBRIS_EYE_0_LEFT		= BMP_EYE_0_LEFT;
 	}
 
-	// ---------------------------------------------------------- Métodos estáticos
+	// ---------------------------------------------------------- Mï¿½todos estï¿½ticos
 	
 	static double getSimpleEnemyActorHitCount() {
 		return 1;
@@ -93,11 +93,16 @@ public abstract class EnemyActor extends MainActor {
 		ah = new AnthropomorphicHelper(this);
 	}
 	
-	// ------------------------------------------- Métodos Heredados
+	// ------------------------------------------- Mï¿½todos Heredados
 
 	@Override
-	public void draw(Canvas canvas) {
-		ah.draw(canvas);
+	public final void drawShapes(Canvas canvas) {
+		ah.drawShapes(canvas);
+	}
+	
+	@Override
+	protected final void drawBitmaps(Canvas canvas) {
+		ah.drawBitmaps(canvas);
 	}
 		
 	@Override
@@ -116,7 +121,7 @@ public abstract class EnemyActor extends MainActor {
 	}
 
 
-	// ------------------------------------------------ Métodos propios
+	// ------------------------------------------------ Mï¿½todos propios
 	
 	
 	@Override

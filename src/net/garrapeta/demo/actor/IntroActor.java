@@ -23,7 +23,7 @@ public class IntroActor extends JumplingActor {
 	public final static int Z_INDEX = 0;
 	
 	
-	// ------------------------------------------------- Variables estáticas
+	// ------------------------------------------------- Variables estï¿½ticas
 	
 	// vivo
 	protected final static Bitmap BMP_INTRO_BODY;
@@ -53,7 +53,7 @@ public class IntroActor extends JumplingActor {
 	protected Bitmap bmpEyeRight;
 	protected Bitmap bmpEyeLeft;
 	
-	// ----------------------------------------------- Inicialización estática
+	// ----------------------------------------------- Inicializaciï¿½n estï¿½tica
 	
 	static {
 	
@@ -73,7 +73,7 @@ public class IntroActor extends JumplingActor {
 		
 	}
 	
-	// ---------------------------------------------------- Métodos estáticos
+	// ---------------------------------------------------- Mï¿½todos estï¿½ticos
 	
 	
 	// --------------------------------------------------- Constructor
@@ -97,7 +97,7 @@ public class IntroActor extends JumplingActor {
 	}
 
 
-	// --------------------------------------------- Métodos heredados
+	// --------------------------------------------- Mï¿½todos heredados
 	
 	@Override
 	protected void initBodies(PointF worldPos) {
@@ -125,9 +125,14 @@ public class IntroActor extends JumplingActor {
 
 	}
 	
-	
-	public void draw(Canvas canvas) {
-		ah.draw(canvas);
+	@Override
+	public final void drawShapes(Canvas canvas) {
+		ah.drawShapes(canvas);
+	}
+
+	@Override
+	protected final void drawBitmaps(Canvas canvas) {
+		ah.drawBitmaps(canvas);
 	}
 	
 }

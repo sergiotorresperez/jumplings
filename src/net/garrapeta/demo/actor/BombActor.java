@@ -40,7 +40,7 @@ public class BombActor extends MainActor {
 	/** Tiempo que permanecen las chispas, en ms. Al explotar las bombas */
 	private final static int SPARKLE_LONGEVITY_EXPLOSION	= 4000;
 	
-	/** Número de chispas que salen al explotar la bomba */
+	/** Nï¿½mero de chispas que salen al explotar la bomba */
 	private final static int SPARKS_AT_EXPLOSION = 12;
 	
 	/** Fuerza de las chispas al explotar la bomba */
@@ -52,7 +52,7 @@ public class BombActor extends MainActor {
 	/** Radio de las onda expansiva */
 	private float BLAST_RADIUS    = 6;
 	
-	// ------------------------------------------------- Variables estáticas
+	// ------------------------------------------------- Variables estï¿½ticas
 	
 	// Vivo
 	protected final static Bitmap BMP_BOMB_BODY;
@@ -69,7 +69,7 @@ public class BombActor extends MainActor {
 	
 	private MediaPlayer fusePlayer;
 	
-	// ---------------------------------------------------- Métodos estáticos
+	// ---------------------------------------------------- Mï¿½todos estï¿½ticos
 	
 	static double getBombHitCount() {
 		return 0f;
@@ -84,7 +84,7 @@ public class BombActor extends MainActor {
 		initPhysics(worldPos);
 	}
 
-	// ----------------------------------------------- Inicialización estática
+	// ----------------------------------------------- Inicializaciï¿½n estï¿½tica
 	
 	static {
 		
@@ -98,7 +98,7 @@ public class BombActor extends MainActor {
 		BMP_DEBRIS_BOMB_BODY	= BitmapFactory.decodeResource(r, R.drawable.bomb_debris_body);
 		BMP_DEBRIS_BOMB_FUSE	= BitmapFactory.decodeResource(r, R.drawable.bomb_debris_fuse);
 	}
-	// --------------------------------------------- Métodos heredados
+	// --------------------------------------------- Mï¿½todos heredados
 	
 	@Override
 	protected void initBodies(PointF worldPos) {
@@ -135,7 +135,7 @@ public class BombActor extends MainActor {
 			f.setFilterData(NO_CONTACT_FILTER);
 			polygonShape.dispose();
 			
-			// Unión
+			// Uniï¿½n
 			WeldJointDef jointDef = new WeldJointDef();
 
 			
@@ -191,15 +191,9 @@ public class BombActor extends MainActor {
 	
 	
 	@Override
-	public void draw(Canvas canvas) {
-		if (BMP_BOMB_BODY == null) {
-			super.draw(canvas);
-		} else {
-			jgWorld.drawBitmap(canvas, this.mainBody, 		BMP_BOMB_BODY);
-			
-			jgWorld.drawBitmap(canvas, this.fuseBody, 		BMP_BOMB_FUSE);
-			
-		}
+	protected void drawBitmaps(Canvas canvas) {
+		jgWorld.drawBitmap(canvas, this.mainBody, 		BMP_BOMB_BODY);
+		jgWorld.drawBitmap(canvas, this.fuseBody, 		BMP_BOMB_FUSE);
 	}
 	
 	@Override
@@ -221,7 +215,7 @@ public class BombActor extends MainActor {
 		}
 	}
 	
-	// ------------------------------------------------ Métodos propios
+	// ------------------------------------------------ Mï¿½todos propios
 
 	@Override
 	public void onHitted() {
@@ -242,7 +236,7 @@ public class BombActor extends MainActor {
 			jgWorld.applyForce(mainBody.getWorldCenter(), a.mainBody, BLAST_RADIUS, BLAST_FORCE);		
 		}
 
-		// Se crean chispas de la explosión 		
+		// Se crean chispas de la explosiï¿½n 		
 		Vector2 aux = mainBody.getWorldCenter();
 		ArrayList<JumplingActor> sparkles = new ArrayList<JumplingActor>();
 		for (int i = 0; i < SPARKS_AT_EXPLOSION; i++) {

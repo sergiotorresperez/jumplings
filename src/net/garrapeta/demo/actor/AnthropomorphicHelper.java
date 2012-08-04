@@ -73,7 +73,7 @@ public class AnthropomorphicHelper {
 		this.actor = actor;
 	}
 	
-	// ---------------------------------------------- Métodos
+	// ---------------------------------------------- Mï¿½todos
 	
 	public void initBitmaps(Bitmap bmpBody,
 							Bitmap bmpFootRight,
@@ -282,21 +282,20 @@ public class AnthropomorphicHelper {
 		
 	}
 	
-	public void draw(Canvas canvas) {
-		if (bmpBody == null) {
-			actor.drawShapes(canvas);
-		} else {
-			actor.jWorld.drawBitmap(canvas, this.leftHandBody, 	bmpHandLeft);
-			actor.jWorld.drawBitmap(canvas, this.leftFootBody, 	bmpFootLeft);
-			
-			actor.jWorld.drawBitmap(canvas, this.rightHandBody,	bmpHandRight);
-			actor.jWorld.drawBitmap(canvas, this.rightFootBody, bmpFootRight);
-			
-			actor.jWorld.drawBitmap(canvas, actor.mainBody, 		bmpBody);
-			
-			actor.jWorld.drawBitmap(canvas, this.leftEyeBody, 	bmpEyeLeft);
-			actor.jWorld.drawBitmap(canvas, this.rightEyeBody, 	bmpEyeRight);
-			
-		}
+	void drawShapes(Canvas canvas) {
+		actor.drawShapes(canvas);
+	}
+
+	void drawBitmaps(Canvas canvas) {
+		actor.jWorld.drawBitmap(canvas, this.leftHandBody, 	bmpHandLeft);
+		actor.jWorld.drawBitmap(canvas, this.leftFootBody, 	bmpFootLeft);
+		
+		actor.jWorld.drawBitmap(canvas, this.rightHandBody,	bmpHandRight);
+		actor.jWorld.drawBitmap(canvas, this.rightFootBody, bmpFootRight);
+		
+		actor.jWorld.drawBitmap(canvas, actor.mainBody, 		bmpBody);
+		
+		actor.jWorld.drawBitmap(canvas, this.leftEyeBody, 	bmpEyeLeft);
+		actor.jWorld.drawBitmap(canvas, this.rightEyeBody, 	bmpEyeRight);
 	}
 }

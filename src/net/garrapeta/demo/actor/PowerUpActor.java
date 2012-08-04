@@ -24,7 +24,7 @@ public abstract class PowerUpActor extends MainActor {
 	// ----------------------------------------------------------- Constantes
 	public  final static float  DEFAULT_RADIUS = BASE_RADIUS * 1.05f;
 	
-	// ------------------------------------------------- Variables estáticas
+	// ------------------------------------------------- Variables estï¿½ticas
 	
 	// vivo
 	protected final static Bitmap BMP_POWERUP_BG;
@@ -61,7 +61,7 @@ public abstract class PowerUpActor extends MainActor {
 		bmpDebrisBg = BMP_DEBRIS_POWERUP_BG;
 	}
 
-	// ----------------------------------------------- Inicialización estática
+	// ----------------------------------------------- Inicializaciï¿½n estï¿½tica
 	
 	static {
 		
@@ -73,7 +73,7 @@ public abstract class PowerUpActor extends MainActor {
 		// muerto
 		BMP_DEBRIS_POWERUP_BG	= BitmapFactory.decodeResource(r, R.drawable.powerup_debris_bg);
 	}
-	// --------------------------------------------- Métodos heredados
+	// --------------------------------------------- Mï¿½todos heredados
 	
 	@Override
 	protected void initBodies(PointF worldPos) {
@@ -108,7 +108,7 @@ public abstract class PowerUpActor extends MainActor {
 			f.setFilterData(NO_CONTACT_FILTER);
 			polygonShape.dispose();
 			
-			// Unión
+			// Uniï¿½n
 			WeldJointDef jointDef = new WeldJointDef();
 
 			
@@ -150,15 +150,11 @@ public abstract class PowerUpActor extends MainActor {
 	}
 	
 	@Override
-	public void draw(Canvas canvas) {
-		if (bmpBg == null) {
-			super.draw(canvas);
-		} else {
-			jgWorld.drawBitmap(canvas, this.mainBody, 		bmpBg);
-			jgWorld.drawBitmap(canvas, this.iconBody, 		bmpIcon);
-		}
+	protected void drawBitmaps(Canvas canvas) {
+		jgWorld.drawBitmap(canvas, this.mainBody, 		bmpBg);
+		jgWorld.drawBitmap(canvas, this.iconBody, 		bmpIcon);
 	}
 	
-	// ------------------------------------------------ Métodos propios
+	// ------------------------------------------------ Mï¿½todos propios
 
 }

@@ -13,15 +13,20 @@ import com.facebook.android.Facebook;
 import com.openfeint.api.OpenFeintSettings;
 
 /**
- * Encapsula algunas variables y estado global de la aplicación, 
+ * Encapsula algunas variables y estado global de la aplicaciï¿½n, 
  * @author GaRRaPeTa
  */
 public class JumplingsApplication extends Application {
 
 	
-	// ------------------------------------------ Constantes de configuración
+	// ------------------------------------------ Constantes de configuraciï¿½n
 	
-	// Enabled features	
+	// Enabled features
+	
+    public static boolean DRAW_ACTOR_SHAPES = false;
+    public static boolean DRAW_ACTOR_BITMAPS = true;
+    public static final boolean DRAW_SCENARIO = true;
+    
 	public static boolean DEBUG_ENABLED					 	= true;
 	public static boolean DEBUG_THREAD_BARS_ENABLED		 	= false;
 
@@ -74,7 +79,7 @@ public class JumplingsApplication extends Application {
 	
 	private final static String GAME_FONT_PATH = "fonts/AnuDaw.ttf";
 
-	// ---------------------------------------------- Variables estáticas
+	// ---------------------------------------------- Variables estï¿½ticas
 	
 	// FACEBOOK
 	public static Facebook facebook = new Facebook(facebokAppID);
@@ -92,7 +97,7 @@ public class JumplingsApplication extends Application {
 	
 	public static  Typeface game_font;
 	
-	// ---------------------------------------------- Inicialización estática
+	// ---------------------------------------------- Inicializaciï¿½n estï¿½tica
 	
 	static {
 		if (FEINT_ENABLED) {
@@ -103,20 +108,20 @@ public class JumplingsApplication extends Application {
 		}
 		
 	}
-	// ---------------------------------------------------- Métodos estáticos
+	// ---------------------------------------------------- Mï¿½todos estï¿½ticos
 	
 	public static JumplingsApplication getInstance() {
 		return instance;
 	}
 	
-	// --------------------------------------------------- Métodos heredados
+	// --------------------------------------------------- Mï¿½todos heredados
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		Log.i(LOG_SRC,"onCreate " + this);
 		
-		// Preparación de la instancia del singleton
+		// Preparaciï¿½n de la instancia del singleton
 		instance = this;
 		 
         game_font = Typeface.createFromAsset(getAssets(), GAME_FONT_PATH);        

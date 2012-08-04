@@ -1,9 +1,11 @@
 package net.garrapeta.demo.actor;
 
 import net.garrapeta.MathUtils;
+import net.garrapeta.demo.JumplingsApplication;
 import net.garrapeta.demo.JumplingsWorld;
 import net.garrapeta.gameengine.box2d.Box2DActor;
 import net.garrapeta.gameengine.box2d.PhysicsUtils;
+import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
@@ -14,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 /**
- * Clase base de los actores físicos 
+ * Clase base de los actores fï¿½sicos 
  * @author GaRRaPeTa
  */
 public abstract class JumplingActor extends Box2DActor {
@@ -59,7 +61,7 @@ public abstract class JumplingActor extends Box2DActor {
 	protected boolean entered;
 
 
-	// --------------------------------------------------- Inicialización estática
+	// --------------------------------------------------- Inicializaciï¿½n estï¿½tica
 	
 	static  {
 		
@@ -89,7 +91,7 @@ public abstract class JumplingActor extends Box2DActor {
 	}
 	
 	
-	// ----------------------------------------- Métodos de Box2DActor
+	// ----------------------------------------- Mï¿½todos de Box2DActor
 	
 	@Override
 	public void onAddedToWorld() {
@@ -104,12 +106,12 @@ public abstract class JumplingActor extends Box2DActor {
 		if (actorB instanceof WallActor) {
 			WallActor wall = (WallActor) actorB;
 			if (!entered) {
-				// está entrando se le deja pasar
+				// estï¿½ entrando se le deja pasar
 				contact.setEnabled(false);
 			} else if (wall.floor) {
 				// se va a escapar!
 				float v = bodyA.getLinearVelocity().y;
-				// si va muy rápido hacia abajo se perdona al jugador y se deja que rebote
+				// si va muy rï¿½pido hacia abajo se perdona al jugador y se deja que rebote
 				if (v > BOUNCING_VEL) {
 					// se deja que se escape
 					contact.setEnabled(false);
@@ -151,27 +153,37 @@ public abstract class JumplingActor extends Box2DActor {
 	}
 	
 	
-	
-	
+	@Override
+	public final void draw(Canvas canvas) {
+		if (JumplingsApplication.DRAW_ACTOR_SHAPES) {
+			super.drawShapes(canvas);
+		}
+		if (JumplingsApplication.DRAW_ACTOR_BITMAPS) {
+			drawBitmaps(canvas);
+		}
+	}
 	
 
-	// ------------------------------------------------ Métodos propios
+	// ------------------------------------------------ Mï¿½todos propios
 	
+	protected abstract void drawBitmaps(Canvas canvas);
+
+
 	/**
-	 *  Inicializa todo lo relativo a la física
+	 *  Inicializa todo lo relativo a la fï¿½sica
 	 */
 	protected final void initPhysics(PointF worldPos) {
 		initBodies(worldPos);
 		
-		// Para que el actor se comporte con una restitución global, se pone 
-		// al cuerpo principal una restitución apropiada
+		// Para que el actor se comporte con una restituciï¿½n global, se pone 
+		// al cuerpo principal una restituciï¿½n apropiada
 		double ratio = getMainMassRatio();
 		float mainBodyRestitution = (float) (OVERALL_ACTOR_RESTITUTION * (1 / ratio));
 		mainBody.getFixtureList().get(0).setRestitution(mainBodyRestitution);
 	}
 	
 	/**
-	 * Crea los cuerpos y los elementos físicos
+	 * Crea los cuerpos y los elementos fï¿½sicos
 	 * @param worldPos
 	 */
 	protected abstract void initBodies(PointF worldPos);

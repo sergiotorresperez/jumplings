@@ -29,7 +29,7 @@ public class DebrisActor extends JumplingActor {
 	/** Tiempo que permanece el actor en pantalla, en ms */
 	private final static int    DEFAULT_LONGEVITY			= 2500;
 	
-	// ------------------------------------------------ Variables estáticas
+	// ------------------------------------------------ Variables estï¿½ticas
 		
 	protected Bitmap bitmap;
 	
@@ -43,7 +43,7 @@ public class DebrisActor extends JumplingActor {
 	
 	float lifeTime = longevity;
 	
-	// --------------------------------------------------- Inicialización estática
+	// --------------------------------------------------- Inicializaciï¿½n estï¿½tica
 	
 	static  {
 		
@@ -72,7 +72,7 @@ public class DebrisActor extends JumplingActor {
 		initPhysics(null);
 	}
 
-	// ------------------------------------------------------------- Métodos
+	// ------------------------------------------------------------- Mï¿½todos
 
 	@Override
 	protected void initBodies(PointF worldPos) {
@@ -86,14 +86,9 @@ public class DebrisActor extends JumplingActor {
 		}
 	}
 	
-	@Override
-	public void draw(Canvas canvas) {
-		if (bitmap != null) {
-			paint.setAlpha(alpha);
-			jWorld.drawBitmap(canvas, mainBody, bitmap, paint);
-		} else {
-			super.draw(canvas);
-		}
+	protected void drawBitmaps(Canvas canvas) {
+		paint.setAlpha(alpha);
+		jWorld.drawBitmap(canvas, mainBody, bitmap, paint);
 	}
 	
 	@Override
