@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+          android:orientation="horizontal" 
+          android:layout_height="wrap_content"  
+          android:layout_width="wrap_content"  
+          android:id="@+id/lifes_counter_layout"
+          >
+
+		<ImageView android:layout_width="wrap_content" 
+		           android:layout_height="wrap_content" 
+		           android:src="@drawable/life_counter1" 
+		           android:id="@+id/lifes_life1">
+		</ImageView>
+		
+		<ImageView android:layout_width="wrap_content" 
+		           android:layout_height="wrap_content" 
+		           android:src="@drawable/life_counter2" 
+		           android:id="@+id/lifes_life2">
+		</ImageView>
+		
+		<ImageView android:layout_width="wrap_content" 
+		           android:layout_height="wrap_content" 
+		           android:src="@drawable/life_counter3" 
+		           android:id="@+id/lifes_life3">
+		</ImageView>
+		
+		<ImageView android:layout_width="wrap_content" 
+		           android:layout_height="wrap_content" 
+		           android:src="@drawable/life_counter4" 
+		           android:id="@+id/lifes_life4">
+		</ImageView>
+		
+		<ImageView android:layout_width="wrap_content" 
+		           android:layout_height="wrap_content" 
+		           android:src="@drawable/life_counter5" 
+		           android:id="@+id/lifes_life5">
+		</ImageView>
+
+</LinearLayout>

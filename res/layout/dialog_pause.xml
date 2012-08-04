@@ -1,0 +1,40 @@
+<!-- pause layout -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   			  android:orientation="vertical" 
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"              
+              style="@style/CustomDialogContent">
+    
+   	<net.garrapeta.demo.ui.CustomFontTextView   
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:text="Game Paused"
+	    style="@style/MainFont.CustomFontTextView.h1"
+    />
+    
+    <LinearLayout 
+ 			   android:orientation="horizontal" 
+               android:layout_width="match_parent" 
+               android:layout_height="wrap_content">
+      		       		  
+	    <net.garrapeta.demo.ui.CustomFontButton 
+	    	 android:id="@+id/pauseDialog_resumeBtn" 
+	    	 android:text="Resume" 
+			 android:layout_width="0dp"
+			 android:layout_height="wrap_content"
+			 android:layout_weight="0.5"
+	         style="@style/ColorfulButton"/>
+	   	
+	    <net.garrapeta.demo.ui.CustomFontButton
+	    	android:id="@+id/pauseDialog_mainMenuBtn"
+	    	android:text="Main menu"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+		    android:layout_weight="0.5"
+	        style="@style/ColorfulButton"/>
+	        
+	</LinearLayout>
+   	    	  
+</LinearLayout>
+<!-- /pause layout -->

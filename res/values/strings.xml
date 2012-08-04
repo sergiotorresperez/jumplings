@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jumplings</string>
+    <string name="config_sound">CFGSOUND</string>
+    <string name="config_vibrator">CFGVIBRATOR</string>
+    <string name="config_flash">CFGFLASH</string>
+    <string name="config_shake">CFGSHAKE</string>
+    <string name="config_level_all">CFGLEVELALL</string>
+    <string name="config_level_some">CFGLEVELSOME</string>
+    <string name="config_level_none">CFGLEVELNONE</string>
+</resources>

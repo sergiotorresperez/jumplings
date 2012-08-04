@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+          android:orientation="horizontal" 
+          android:layout_height="wrap_content" 
+          android:layout_width="fill_parent" 
+          style="@style/MainFont.ScoreListHeaderLayout"
+          >
+
+		<net.garrapeta.demo.ui.CustomFontTextView
+		    android:id="@+id/scoreHeader_index"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.05"
+		    android:text="#."
+		    style="@style/MainFont.CustomFontTextView.ScoreListHeaderText"/>
+			          
+		<net.garrapeta.demo.ui.CustomFontTextView
+		    android:id="@+id/scoreHeader_playerName"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.45"
+		    android:text="Player Name"
+		    style="@style/MainFont.CustomFontTextView.ScoreListHeaderText"/>
+			
+		<net.garrapeta.demo.ui.CustomFontTextView
+		    android:id="@+id/scoreHeader_globalRank"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.20"
+		    android:text="Global Rank"
+		    android:gravity="right"
+		    style="@style/MainFont.CustomFontTextView.ScoreListHeaderText"/>
+				
+		<net.garrapeta.demo.ui.CustomFontTextView 
+		    android:id="@+id/scoreHeader_level"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.10"
+		    android:text="Level"
+		    android:gravity="right"
+		    style="@style/MainFont.CustomFontTextView.ScoreListHeaderText"/>
+		
+		<net.garrapeta.demo.ui.CustomFontTextView 
+		    android:id="@+id/scoreHeader_score"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.2"
+		    android:text="Score"
+		    android:gravity="right"
+		    style="@style/MainFont.CustomFontTextView.ScoreListHeaderText"/>
+
+</LinearLayout>

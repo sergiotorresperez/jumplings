@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id = "@+id/game_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+	
+	<net.garrapeta.gameengine.GameView 
+		android:id = "@+id/game_surface"
+		android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"/>
+
+	<!-- GUI -->
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:padding="9dp">
+	    
+	    <!-- lifes -->
+	    <FrameLayout 
+	    	android:layout_height="wrap_content" 
+	    	android:layout_width="wrap_content" 
+	    	android:layout_alignParentLeft="true"
+	    	android:layout_alignParentTop="true">
+	   		
+	   			<include layout="@layout/lifes"/>
+		
+		</FrameLayout>
+		<!-- /lifes -->
+
+
+		<!-- special weapon bar  -->
+		<ProgressBar
+			android:id="@+id/game_specialWeaponBar"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			style="?android:attr/progressBarStyleHorizontal"
+			android:minWidth="300dp"
+			android:maxWidth="300dp"
+			android:layout_centerHorizontal="true" 
+			android:layout_alignParentBottom="true">
+		</ProgressBar>
+		<!-- /special weapon bar  -->
+		
+		<!-- scores  -->
+		<net.garrapeta.demo.ui.CustomFontTextView  
+		    android:id="@+id/game_scoreTextView"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="150dp"
+		    android:layout_alignParentTop="true"
+		    style="@style/MainFont.CustomFontTextView.GameScore"/>
+
+    	<net.garrapeta.demo.ui.CustomFontTextView  
+		    android:id="@+id/game_localHightscoreTextView"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="250dp"
+		    android:layout_alignParentTop="true"
+			style="@style/MainFont.CustomFontTextView.GameScore"/>
+		
+    	    	  
+		<!-- / scores  -->
+	
+		<!-- pause button -->
+	   	<ImageButton 
+	   		 android:src="@drawable/icon_pause" 
+	   		 android:id="@+id/game_pauseBtn" 
+	         android:layout_width="wrap_content" 
+	         android:layout_height="wrap_content"
+	         android:layout_alignParentTop="true" 
+		  	 android:layout_alignParentRight="true"
+		  	 style="@style/TransparentButton"/>
+	    <!-- /pause button -->
+	    
+	    
+
+		
+		
+		
+		<!-- DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG -->
+		
+		<!-- thread bars  -->
+		<LinearLayout android:id="@+id/game_threadBars" 
+              android:layout_width="wrap_content" 
+              android:layout_height="wrap_content"
+              android:orientation="vertical" 
+			  android:layout_alignParentTop="true"
+			  android:layout_centerHorizontal="true"
+			  android:visibility="gone">
+			  
+			<ProgressBar
+				android:id="@+id/game_threadRatio"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" 
+				style="?android:attr/progressBarStyleHorizontal"
+				android:minWidth="300dp"
+				android:maxWidth="300dp"
+				android:layout_centerHorizontal="true">
+			</ProgressBar>
+			
+			<ProgressBar
+				android:id="@+id/game_allowedThreadGeneration"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" 
+				style="?android:attr/progressBarStyleHorizontal"
+				android:minWidth="300dp"
+				android:maxWidth="300dp"
+				android:layout_centerHorizontal="true"
+				>
+			</ProgressBar>
+			
+			<ProgressBar
+				android:id="@+id/game_acumulatedThreat"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" 
+				style="?android:attr/progressBarStyleHorizontal"
+				android:minWidth="300dp"
+				android:maxWidth="300dp"
+				android:layout_centerHorizontal="true"
+				>
+			</ProgressBar>
+		</LinearLayout>
+		<!-- /thread bars  -->
+		
+		<!-- test button  -->
+		<net.garrapeta.demo.ui.CustomFontButton 
+			 android:text="Test" android:id="@+id/game_testBtn" 
+	         android:layout_width="wrap_content" 
+	         android:layout_height="wrap_content"
+			 android:layout_alignParentLeft="true"
+			 android:layout_alignParentBottom="true"	
+		  	 android:visibility="gone"
+	         style="@style/ColorfulButton"/>
+	    <!-- /test button  -->
+	    
+		<!-- weapons group -->
+		<RadioGroup android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" 
+	            android:orientation="horizontal"
+	            android:layout_alignParentBottom="true"
+	            android:layout_centerHorizontal="true"
+	            android:id="@+id/game_weaponsBtnGroup"
+	            android:visibility="gone"
+	            >
+	                 
+	  		  	<RadioButton 
+			 		android:text="Gun" 
+			 	    android:id="@+id/game_weaponsRadioBtnGun" 
+			 	    android:layout_width="wrap_content" 
+			 	    android:layout_height="wrap_content">
+				</RadioButton>
+				
+	  		  	<RadioButton 
+			 		android:text="Shotgun" 
+			 	    android:id="@+id/game_weaponsRadioBtnShotgun" 
+			 	    android:layout_width="wrap_content" 
+			 	    android:layout_height="wrap_content">
+				</RadioButton>
+				
+	  		  	<RadioButton 
+			 		android:text="Blade" 
+			 	    android:id="@+id/game_weaponsRadioBtnBlade" 
+			 	    android:layout_width="wrap_content" 
+			 	    android:layout_height="wrap_content">
+				</RadioButton>
+			
+		</RadioGroup>
+		<!-- /weapons group -->
+		
+		<!-- DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG -->
+		
+	</RelativeLayout>
+	<!-- GUI -->
+	
+</RelativeLayout>

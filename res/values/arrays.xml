@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="effectsLevelEntries">
+        <item>All</item>
+        <item>Some</item>
+        <item>None</item>
+    </string-array>
+     
+    <string-array name="effectsLevelValues">
+        <item>@string/config_level_all</item>
+        <item>@string/config_level_some</item>
+        <item>@string/config_level_none</item>
+    </string-array> 
+</resources>

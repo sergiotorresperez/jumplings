@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+          android:orientation="horizontal" 
+          android:layout_height="wrap_content" 
+          android:layout_width="fill_parent"  
+          >
+
+		<net.garrapeta.demo.ui.CustomFontTextView  
+		    android:id="@+id/scoreItem_index"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.05"
+		    android:text="#."
+		    style="@style/MainFont.CustomFontTextView"/>
+
+			          
+		<net.garrapeta.demo.ui.CustomFontTextView  
+		    android:id="@+id/scoreItem_playerName"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.45"
+		    android:text="playername"
+			style="@style/MainFont.CustomFontTextView"/>
+			
+		<net.garrapeta.demo.ui.CustomFontTextView  
+		    android:id="@+id/scoreItem_globalRank"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.20"
+		    android:text="rank"
+		    android:gravity="right"
+			style="@style/MainFont.CustomFontTextView"/>
+				
+		<net.garrapeta.demo.ui.CustomFontTextView  
+		    android:id="@+id/scoreItem_level"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.10"
+		    android:text="level"
+		    android:gravity="right"
+			style="@style/MainFont.CustomFontTextView"/>
+		
+		<net.garrapeta.demo.ui.CustomFontTextView  
+		    android:id="@+id/scoreItem_score"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.20"
+		    android:text="score"
+		    android:gravity="right"
+			style="@style/MainFont.CustomFontTextView"/>
+
+</LinearLayout>
