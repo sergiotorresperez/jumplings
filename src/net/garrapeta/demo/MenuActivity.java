@@ -27,29 +27,29 @@ public class MenuActivity extends JumplingsActivity {
     
     // ----------------------------------------------------------------- Constantes
 	
-	// ----------------------------------------------------- Variables estáticas
+	// ----------------------------------------------------- Variables estï¿½ticas
 	
 	// ----------------------------------------------------- Variables de instancia
 	
 	ImageButton feintLeaderBoardBtn;
 
-	// ------------------------------------------- Variables de configuración
+	// ------------------------------------------- Variables de configuraciï¿½n
 	
-	// ---------------------------------------------------- Métodos estáticos
+	// ---------------------------------------------------- Mï¿½todos estï¿½ticos
 	
-	// -------------------------------------------------- Métodos de Activity
+	// -------------------------------------------------- Mï¿½todos de Activity
 	
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Preparación ventana
+		// Preparaciï¿½n ventana
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
         
-        // Preparación de la UI
+        // Preparaciï¿½n de la UI
 		setContentView(R.layout.menu);
 		
 		// OPEN FEINT
@@ -150,7 +150,7 @@ public class MenuActivity extends JumplingsActivity {
 		super.onStart();
 		Log.i(JumplingsApplication.LOG_SRC,"onStart " + this);
 		
-		// Si ahora está logeado se activa el botón de Feint
+		// Si ahora estï¿½ logeado se activa el botï¿½n de Feint
 		if (JumplingsApplication.FEINT_ENABLED && OpenFeint.isUserLoggedIn()) {
 			enableFeintLeaderboardButton();
 		}
@@ -159,7 +159,7 @@ public class MenuActivity extends JumplingsActivity {
 		jWorld.setFPS(60);
 		jWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
 		
-		// Preparación de la wave
+		// Preparaciï¿½n de la wave
 		
 		jWorld.wave = new IntroWave(jWorld, null);
 	}
@@ -202,9 +202,9 @@ public class MenuActivity extends JumplingsActivity {
 
 
 	
-	// ---------------------------------------------------- Métodos propios
+	// ---------------------------------------------------- Mï¿½todos propios
 	
-	// ---------------------------- Métodos de componentes de interacción
+	// ---------------------------- Mï¿½todos de componentes de interacciï¿½n
 	
 	void startTutorial() {
 //		Intent i = new Intent(this, ShapelingsGameActivity.class);

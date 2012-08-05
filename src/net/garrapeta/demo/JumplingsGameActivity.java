@@ -34,7 +34,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 	// Constantes de keys del bundle
 	public static final  String  WAVE_BUNDLE_KEY          = "waveKey";
 	
-	/** ID de diálogos */
+	/** ID de diï¿½logos */
 	public static final int DIALOG_PAUSE_ID 	= 0;
 	public static final int DIALOG_GAMEOVER_ID 	= 1;
 	public static final int DIALOG_AD_ID 		= 2;
@@ -75,7 +75,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 	public JumplingsGameWorld jgWorld;
 	
 	/**
-	 *  Si el juego está pausado
+	 *  Si el juego estï¿½ pausado
 	 */
 	private boolean paused;
 	
@@ -104,7 +104,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 	private String waveKey;
 
 
-	// ------------------------------------------- Variables de configuración
+	// ------------------------------------------- Variables de configuraciï¿½n
 	
 	public boolean 	soundOn;
 	
@@ -113,7 +113,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 	public short 	shakeCfgLevel;
 
 		
-	// -------------------------------------------------- Métodos de Activity
+	// -------------------------------------------------- Mï¿½todos de Activity
 	
 	/** Called when the activity is first created. */
     @Override
@@ -133,7 +133,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 
 		// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 		
-		// Preparación de la UI
+		// Preparaciï¿½n de la UI
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -197,7 +197,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 		updateScoreTextView();
 		
 		
-		// Preparación variables de configuración
+		// Preparaciï¿½n variables de configuraciï¿½n
 		PermData pd			= PermData.getInstance();
 		soundOn				= pd.getSoundConfig();
 		vibrateCfgLevel		= pd.getVibratorConfig();	
@@ -205,7 +205,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 		shakeCfgLevel		= pd.getShakeConfig();
 		
 		
-		// Preparación samples sonido
+		// Preparaciï¿½n samples sonido
 		if (soundOn) {
 		
 			SoundManager sm = SoundManager.getInstance();
@@ -240,7 +240,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 
 		}
 		
-		// Preparación vibraciones
+		// Preparaciï¿½n vibraciones
 		if (vibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
 			VibratorManager vm = VibratorManager.getInstance();
 			vm.init(this);
@@ -249,11 +249,11 @@ public class JumplingsGameActivity extends JumplingsActivity {
 			vm.add(VIBRATION_PATTERN_FAIL,  VIBRATION_FAIL);
 		}
 		
-		// Preparación del diálogo de anuncions
+		// Preparaciï¿½n del diï¿½logo de anuncions
 		AdDialogFactory.getInstance().init(this);
 		
 
-		// Preparación de la wave
+		// Preparaciï¿½n de la wave
 		
 		if (waveKey.equals(CampaignSurvivalWave.WAVE_KEY)) {
 			jgWorld.wave = new CampaignSurvivalWave(jgWorld, null);
@@ -377,9 +377,9 @@ public class JumplingsGameActivity extends JumplingsActivity {
 	
 
 	
-	// ---------------------------------------------------- Métodos propios
+	// ---------------------------------------------------- Mï¿½todos propios
 
-	// ------------------------------ Métodos de gestión del estado del mundo
+	// ------------------------------ Mï¿½todos de gestiï¿½n del estado del mundo
 	
 	/**
 	 * Pausa el juego
@@ -402,14 +402,14 @@ public class JumplingsGameActivity extends JumplingsActivity {
 	}
 	
 	/**
-	 *  @return si el juego está pausado
+	 *  @return si el juego estï¿½ pausado
 	 */
 	boolean isGamePaused() {
 		return paused;
 	}
 	
 	/**
-	 * Continúa el juego
+	 * Continï¿½a el juego
 	 */
 	void resumeGame() {
 		pauseBtn.setVisibility(View.VISIBLE);
@@ -457,10 +457,10 @@ public class JumplingsGameActivity extends JumplingsActivity {
 	
 
 	   
-	// ---------------------------- Métodos de componentes de interacción
+	// ---------------------------- Mï¿½todos de componentes de interacciï¿½n
 	
 	/**
-	 *  Actualización del contador de vidas
+	 *  Actualizaciï¿½n del contador de vidas
 	 */
 	public void updateLifeCounterView() {
 		runOnUiThread(new Runnable() {
@@ -483,7 +483,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 	}
 	
 	/**
-	 *  Actualización de la barra de arma especial
+	 *  Actualizaciï¿½n de la barra de arma especial
 	 */
 	public void updateSpecialWeaponBar() {
 		Weapon weapon = jgWorld.weapon;
@@ -509,7 +509,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 
 	
 	/**
-	 *  Actualización del texto de score
+	 *  Actualizaciï¿½n del texto de score
 	 */
 	public void updateScoreTextView() {
 		runOnUiThread(new Runnable() {
@@ -567,7 +567,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 	
 	
 	/**
-	 *  va a la actividad de introducción de nuevo highscores
+	 *  va a la actividad de introducciï¿½n de nuevo highscores
 	 */
 	private void gotoGameOverActivity() {
 		finish();

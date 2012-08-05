@@ -71,9 +71,9 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 	
 	
 	
-	// -------------------------------------------------------- Variables estáticas
+	// -------------------------------------------------------- Variables estï¿½ticas
 
-	// -------------------------------------------------------- Métodos de Activity
+	// -------------------------------------------------------- Mï¿½todos de Activity
 	
 	/** Called when the activity is first created. */
     @Override
@@ -86,13 +86,13 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         localScoreList = PermData.getInstance().getLocalScoresList();
         globalScoreList = PermData.getInstance().getGlobalScoresList();
         
-        // Preparación de la UI
+        // Preparaciï¿½n de la UI
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
         setContentView(R.layout.highscores_listing);
         
-        // Preparación de Tabs
+        // Preparaciï¿½n de Tabs
         TabHost mTabHost = getTabHost();
         
         // NOTE: http://ondrejcermak.info/programovani/custom-tabs-in-android-tutorial/comment-page-1/
@@ -124,7 +124,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         
         mTabHost.setCurrentTabByTag(TAB_LOCALSCORES_ID);
         
-        // Preparación de contenido de tab local
+        // Preparaciï¿½n de contenido de tab local
 		
         localHighScoresView = (ListView) findViewById(R.id.highscoresListing_localHighScoresListView);
 		
@@ -133,7 +133,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 		feedLocalHighScoresView();
 		
 		
-		// Preparación de contenido de tab global
+		// Preparaciï¿½n de contenido de tab global
 	
 		// Se elimina la columna Global Rank en header de lista global
 		findViewById(id.highscoresListing_globalScoresTabContent).findViewById(id.scoreHeader_globalRank).setVisibility(View.INVISIBLE);
@@ -142,7 +142,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
  		globalHighScoresView = (ListView) findViewById(R.id.highscoresListing_globalHighScoresListView);
  		feedGlobalHighScoresView();
 		
- 		// Preparación de los botones
+ 		// Preparaciï¿½n de los botones
  		
  		Button backBtn = (Button) findViewById(R.id.highscoresListing_backBtn);
  		backBtn.setOnClickListener(new OnClickListener() {
@@ -224,7 +224,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 	}
 	
     
-	// ---------------------------------------------- Métodos propios
+	// ---------------------------------------------- Mï¿½todos propios
 
 	/**
 	 * Alimenta la lista de scores locales
@@ -305,7 +305,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 			showDialog(SERVER_COMUNICATION_PROGRESS_DIALOG);
 			
 			JSONObject jsonObject = new JSONObject();
-			// se pone la acción
+			// se pone la acciï¿½n
 			jsonObject.put(HighScore.JSON_REQUEST_OBJ_STR, HighScore.JSON_REQUEST_OBJ_RETRIEVE_VALUE);
 			// se mandan scores locales, para que el servidor comunique el ranking
 			jsonObject.put(HighScore.JSON_LOCALSCORES_ARRAY_STR, HighScore.formatJSON(localScoreList));
@@ -346,7 +346,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 	}
 	
 	/** 
-	 * Ejecutado cuando recibimos una actualización del ranking de los scores locales
+	 * Ejecutado cuando recibimos una actualizaciï¿½n del ranking de los scores locales
 	 * @param scores 
 	 * @throws JSONException 
 	 */
@@ -377,7 +377,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 	
 
 
-	// ------------------------------------------------------ Métodos de OnTabChangeListener
+	// ------------------------------------------------------ Mï¿½todos de OnTabChangeListener
 	
 	@Override
 	public void onTabChanged(String tabId) {
@@ -403,7 +403,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 	}
 	
 
-	//------------------------------------------------- Métodos de ResponseListener
+	//------------------------------------------------- Mï¿½todos de ResponseListener
 	
 
 	@Override
@@ -513,7 +513,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 		}
 		
 
-		// ---------------------------------------- Métodes de BaseAdapter
+		// ---------------------------------------- Mï¿½todes de BaseAdapter
 		@Override
 		public int getCount() {
 			return list.size();

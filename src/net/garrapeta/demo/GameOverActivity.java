@@ -89,10 +89,10 @@ public class GameOverActivity extends Activity {
 	/** Wave de la partida jugada */
 	private String waveKey;
 	
-	// -------------------------------------------------------- Variables estáticas
+	// -------------------------------------------------------- Variables estï¿½ticas
 
 
-	// -------------------------------------------------------- Métodos de Activity
+	// -------------------------------------------------------- Mï¿½todos de Activity
 	
 	/** Called when the activity is first created. */
     @Override
@@ -118,7 +118,7 @@ public class GameOverActivity extends Activity {
 		}
 		// DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG
 		
-        // Preparación de la UI
+        // Preparaciï¿½n de la UI
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -257,13 +257,13 @@ public class GameOverActivity extends Activity {
 		Log.i(JumplingsApplication.LOG_SRC,"onNewIntent " + this);
 			
 		/* 
-		 *  Este método funciona como callback de la autenticación hecha por 
+		 *  Este mï¿½todo funciona como callback de la autenticaciï¿½n hecha por 
 		 *  Twitter.
 		 *  
-		 *  Cuando Twitter ha concedido la autentiación invoca el callback 
+		 *  Cuando Twitter ha concedido la autentiaciï¿½n invoca el callback 
 		 *  "twitter4j://authenticated".
 		 *  El SSOO abre esta actividad (por el intent-filter), y al haberse
-		 *  declarado singleInstance se ejecuta este método. 
+		 *  declarado singleInstance se ejecuta este mï¿½todo. 
 		 */
 		onBackFromTwitterLogin(intent);
 
@@ -343,7 +343,7 @@ public class GameOverActivity extends Activity {
         }
     }
     
-	// -------------------------------------------------------- Métodos propios
+	// -------------------------------------------------------- Mï¿½todos propios
         
 	/**
 	 *  Salva el score
@@ -395,7 +395,7 @@ public class GameOverActivity extends Activity {
 	 *  Manda el score a Twitter
 	 */
 	private void submitHighScoreToTwitter() {
-		// Se comprueba que está logeado
+		// Se comprueba que estï¿½ logeado
 		try {
 			AccessToken acessToken = JumplingsApplication.twitter.getOAuthAccessToken();
 			if (acessToken == null) {
@@ -416,7 +416,7 @@ public class GameOverActivity extends Activity {
 			}}
 		);
 
-    	// TODO: usar llamada asíncrona, de la versión nueva de Twitter4j
+    	// TODO: usar llamada asï¿½ncrona, de la versiï¿½n nueva de Twitter4j
     	new Thread(new Runnable() {
     		@Override
     		public void run() {
@@ -484,7 +484,7 @@ public class GameOverActivity extends Activity {
 	    			"http://twitter.com/oauth/access_token",
 	    			"http://twitter.com/oauth/authorize");
 	    	
-	    	// FIXME: el botón se cuelga al abrir actividad
+	    	// FIXME: el botï¿½n se cuelga al abrir actividad
 			final String authUrl = JumplingsApplication.twitterHttpOauthprovider.retrieveRequestToken(JumplingsApplication.twitterHttpOauthConsumer, JumplingsApplication.twitterCallbackUrl);
 	    	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl)));
 

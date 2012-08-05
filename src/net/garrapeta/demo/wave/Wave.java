@@ -1,5 +1,6 @@
 package net.garrapeta.demo.wave;
 
+import net.garrapeta.demo.JumplingsApplication;
 import net.garrapeta.demo.JumplingsWorld;
 import net.garrapeta.demo.actor.BladePowerUpActor;
 import net.garrapeta.demo.actor.BombActor;
@@ -21,7 +22,7 @@ public abstract class Wave {
 	// ------------------------------------------------- Constantes
 	
 	/** tag del log */
-	public static final String LOG_SRC = "wave";
+	public static final String LOG_SRC = JumplingsApplication.LOG_SRC_JUMPLINGS + ".wave";
 	
 	public static float ENEMY_OFFSET = JumplingActor.BASE_RADIUS * 2.5f;
 

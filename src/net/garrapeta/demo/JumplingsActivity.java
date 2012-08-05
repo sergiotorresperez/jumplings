@@ -11,7 +11,7 @@ public abstract class JumplingsActivity extends Activity {
     
     // ----------------------------------------------------------------- Constantes
 	
-	// ----------------------------------------------------- Variables estáticas
+	// ----------------------------------------------------- Variables estï¿½ticas
 
 	// ----------------------------------------------------- Variables de instancia
 	
@@ -26,9 +26,9 @@ public abstract class JumplingsActivity extends Activity {
 	boolean worldStarted;
 	
 	
-	// ---------------------------------------------------- Métodos estáticos
+	// ---------------------------------------------------- Mï¿½todos estï¿½ticos
 			
-	// -------------------------------------------------- Métodos de Activity
+	// -------------------------------------------------- Mï¿½todos de Activity
 	
 	/** Called when the activity is first created. */
     @Override
@@ -38,9 +38,9 @@ public abstract class JumplingsActivity extends Activity {
 		Log.i(JumplingsApplication.LOG_SRC,"onCreate " + this);
     }
     
-	// ------------------------------------------------------ Métodos propios
+	// ------------------------------------------------------ Mï¿½todos propios
 	
-    // ------------------------------ Métodos de gestión del estado del mundo
+    // ------------------------------ Mï¿½todos de gestiï¿½n del estado del mundo
 	
 	/**
 	 *  Comienza el mundo
@@ -55,7 +55,7 @@ public abstract class JumplingsActivity extends Activity {
 		
 		// Se arranca el game loop
 		jWorld.startLooping();
-		// Se activa la lógica
+		// Se activa la lï¿½gica
 		jWorld.play();
 		// Se activa la wave
 		jWorld.wave.start();

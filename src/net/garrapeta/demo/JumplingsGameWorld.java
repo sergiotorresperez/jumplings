@@ -28,6 +28,7 @@ public class JumplingsGameWorld extends JumplingsWorld {
 
 	// -------------------------------------------------------- Constantes
 	
+    
 	public static final float LIFE_LOSS_FACTOR 				= 5;
 	
 	public static final float INVULNERABLE_TIME				= 1500;
@@ -52,11 +53,11 @@ public class JumplingsGameWorld extends JumplingsWorld {
 
 	public ArrayList<EnemyActor> enemies = new ArrayList<EnemyActor>();
 	
-	// Número de bombar actuales
+	// Nï¿½mero de bombar actuales
 	public int bombCount = 0;
 	
 	
-	/** Duranción en ms del shake actual */
+	/** Duranciï¿½n en ms del shake actual */
 	private float shakeDuration  = 0;
 	/** Tiempo que le queda al shake actual */
 	private float shakeRemaining = 0;
@@ -71,7 +72,7 @@ public class JumplingsGameWorld extends JumplingsWorld {
 	/** Escenario actual */
 	Scenario scenario;
 
-	/** Escenario que está desapareciendo */
+	/** Escenario que estï¿½ desapareciendo */
 	Scenario fadingScenario;
 	
 	
@@ -83,7 +84,7 @@ public class JumplingsGameWorld extends JumplingsWorld {
 		player = new Player(this);
 	}
 	
-	// ----------------------------------------------------- Métodos de World
+	// ----------------------------------------------------- Mï¿½todos de World
 	
 	@Override
 	public void create() {
@@ -99,7 +100,7 @@ public class JumplingsGameWorld extends JumplingsWorld {
 			}
 		}
 		
-		// Inicialización del arma
+		// Inicializaciï¿½n del arma
 		setWeapon(Gun.WEAPON_CODE_GUN);
 		
 		nextScenario();
@@ -178,7 +179,7 @@ public class JumplingsGameWorld extends JumplingsWorld {
 	private void drawWorldBackground(Canvas canvas) {
 		super.drawBackground(canvas);
 		
-		// TODO: evitar esta comporbación de nulidad
+		// TODO: evitar esta comporbaciï¿½n de nulidad
 		// TODO: pasar las medidas de la pantalla al escenario en reset()
 		if (scenario != null) {
 			scenario.draw(canvas);	
@@ -190,10 +191,10 @@ public class JumplingsGameWorld extends JumplingsWorld {
 
 
 
-	// -------------------------------------------------------- Métodos propios
+	// -------------------------------------------------------- Mï¿½todos propios
 	
 	public void nextScenario() {
-		Log.i(JumplingsApplication.LOG_SRC, " Next Scenario");
+		Log.i(LOG_SRC, " Next Scenario");
 		if (scenario != null) {
 			fadingScenario = scenario;
 			fadingScenario.fadingOut = true;
@@ -205,7 +206,7 @@ public class JumplingsGameWorld extends JumplingsWorld {
 	
 
 	
-	// Métodos de gestión de actores
+	// Mï¿½todos de gestiï¿½n de actores
 	
 	@Override
 	public synchronized void addActor(Actor a) {
@@ -409,7 +410,7 @@ public class JumplingsGameWorld extends JumplingsWorld {
 		
 	}
 	
-	// Métodos de ciclo de vida del juego
+	// Mï¿½todos de ciclo de vida del juego
 	public void dispatchMotionEvent(double[] info) {
 
 
@@ -486,7 +487,7 @@ public class JumplingsGameWorld extends JumplingsWorld {
 	
 	
 	/**
-	 *  Método ejecutado cuando el jugador falla
+	 *  Mï¿½todo ejecutado cuando el jugador falla
 	 */
 	private void onFail() {
 		if (jgActivity.soundOn) {

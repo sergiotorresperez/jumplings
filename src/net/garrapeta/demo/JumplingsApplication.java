@@ -18,7 +18,12 @@ import com.openfeint.api.OpenFeintSettings;
  */
 public class JumplingsApplication extends Application {
 
-	
+    // ---------------------------------------------------------- Constantes
+    
+    /** Source trazas de log */
+    public static final String LOG_SRC_JUMPLINGS = "jumplings";
+    public static final String LOG_SRC = LOG_SRC_JUMPLINGS + ".misc";
+    
 	// ------------------------------------------ Constantes de configuraci�n
 	
 	// Enabled features
@@ -37,10 +42,9 @@ public class JumplingsApplication extends Application {
 	public static boolean FEINT_ENABLED					 	= true;
 	public static boolean TWITTER_ENABLED					= true;
 	
-	// ---------------------------------------------------------- Constantes
+	// ---------------------------------------------------- Otras Constantes
 
-	/** Source trazas de log */
-	public static final String LOG_SRC = "jumplings";
+
 	
 	// SCORE SERVER
 	// local 

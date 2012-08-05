@@ -24,6 +24,8 @@ public class JumplingsWorld extends Box2DWorld {
 
     // -------------------------------------------------------- Constantes
 
+    public static final String LOG_SRC = JumplingsApplication.LOG_SRC_JUMPLINGS + ".world";
+    
     // ------------------------------------------------------------ Variables
 
     public JumplingsActivity jActivity;
@@ -49,7 +51,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     public void create() {
 
-        Log.i(JumplingsApplication.LOG_SRC, "create " + this);
+        Log.i(LOG_SRC, "create " + this);
 
         this.setTimeFactor(1);
 
@@ -134,7 +136,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     @Override
     public void onGameViewSizeChanged(int width, int height) {
-        Log.i(JumplingsApplication.LOG_SRC, "surfaceChanged " + this);
+        Log.i(LOG_SRC, "surfaceChanged " + this);
         this.viewport.setWorldHeight(14);
     }
 
@@ -148,11 +150,11 @@ public class JumplingsWorld extends Box2DWorld {
     // -------------------------------------------------------- M�todos propios
 
     public void onWaveStarted() {
-        Log.i(JumplingsApplication.LOG_SRC, "Wave started");
+        Log.i(LOG_SRC, "Wave started");
     }
 
     public void onWaveCompleted() {
-        Log.i(JumplingsApplication.LOG_SRC, "Wave completed");
+        Log.i(LOG_SRC, "Wave completed");
     }
 
     public void drawBitmap(Canvas canvas, Body body, Bitmap bitmap) {
