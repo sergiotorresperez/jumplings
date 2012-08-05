@@ -32,7 +32,7 @@ public class PermData {
 
 	// -------------------------------------------------- Variables de instancia
 	
-	// ------------------------------------------------------- Métodos estáticos
+	// ------------------------------------------------------- Mï¿½todos estï¿½ticos
 
 	/**
 	 * @return instancia de PermData
@@ -45,9 +45,9 @@ public class PermData {
 	}
 
 	// ------------------------------------------------------------------
-	// Métodos
+	// Mï¿½todos
 
-	// ---------------------------------------------- Métodos relativos al score
+	// ---------------------------------------------- Mï¿½todos relativos al score
 
 	/**
 	 * @return
@@ -78,7 +78,7 @@ public class PermData {
 	}
 	
 	/**
-	 * @return lista con scores más altos
+	 * @return lista con scores mï¿½s altos
 	 */
 	public ArrayList<HighScore> getLocalScoresList() {
 		ArrayList<HighScore> localScoreList = new ArrayList<HighScore>();
@@ -130,7 +130,7 @@ public class PermData {
 	
 	
 	/**
-	 * @return lista con scores más altos
+	 * @return lista con scores mï¿½s altos
 	 */
 	public ArrayList<HighScore> getGlobalScoresList() {
 		
@@ -171,7 +171,7 @@ public class PermData {
 	
 	
 	/**
-	 * @return el nombre del último jugador que introdujo un score
+	 * @return el nombre del ï¿½ltimo jugador que introdujo un score
 	 */
 	public String getLastPlayerName() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());		
@@ -179,7 +179,7 @@ public class PermData {
 	}
 
 	/**
-	 * salva el nombre del último jugador que introdujo un score
+	 * salva el nombre del ï¿½ltimo jugador que introdujo un score
 	 */
 	public void saveLastPlayerName(String name) {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());		
@@ -190,42 +190,45 @@ public class PermData {
 	
 	public boolean getSoundConfig() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
-		return sharedPref.getBoolean(JumplingsApplication.getInstance().getResources().getString(R.string.config_sound), true);
+		Resources r = JumplingsApplication.getInstance().getResources();
+		boolean defaultValue = Boolean.parseBoolean(r.getString(R.string.confing_sound_enabled_default));
+		return sharedPref.getBoolean(r.getString(R.string.config_sound_key), defaultValue);
 	}
 	
 
 	public short getVibratorConfig() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
 		Resources r = JumplingsApplication.getInstance().getResources();
-		
-		return parseConfigLevel(sharedPref.getString(r.getString(R.string.config_vibrator), r.getString(R.string.config_level_all)));
+		String defaultValue = r.getString(R.string.config_value_default);
+		return parseConfigLevel(sharedPref.getString(r.getString(R.string.config_vibrator_key), defaultValue));
 	}
 	
 	public short getShakeConfig() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
 		Resources r = JumplingsApplication.getInstance().getResources();
-		
-		return parseConfigLevel(sharedPref.getString(r.getString(R.string.config_shake), r.getString(R.string.config_level_all)));
+		String defaultValue = r.getString(R.string.config_value_default);
+		return parseConfigLevel(sharedPref.getString(r.getString(R.string.config_shake_key), defaultValue));
 	}
 	
 	public short getFlashConfig() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
 		Resources r = JumplingsApplication.getInstance().getResources();
-		
-		return parseConfigLevel(sharedPref.getString(r.getString(R.string.config_flash), r.getString(R.string.config_level_all)));
+		String defaultValue = r.getString(R.string.config_value_default);
+		return parseConfigLevel(sharedPref.getString(r.getString(R.string.config_flash_key), defaultValue));
 	}
 	
 	private short parseConfigLevel(String str) {
 		Resources r = JumplingsApplication.getInstance().getResources();
-		if (str.equals(r.getString(R.string.config_level_all))) {
+		if (str.equals(r.getString(R.string.config_value_all))) {
 			return CFG_LEVEL_ALL;
-		} else if (str.equals(r.getString(R.string.config_level_some))) {
+		} else if (str.equals(r.getString(R.string.config_value_some))) {
 			return CFG_LEVEL_SOME;
-		} else if (str.equals(r.getString(R.string.config_level_none))) {
+		} else if (str.equals(r.getString(R.string.config_value_none))) {
 			return CFG_LEVEL_NONE;
+		} else {
+		    Log.w(JumplingsApplication.LOG_SRC, "Invalid configuration level string: " + str);
+		    throw new IllegalArgumentException("Illegal configuration value: " + str);
 		}
-		Log.w(JumplingsApplication.LOG_SRC, "Invalid configuration level string: " + str);
-		return CFG_LEVEL_ALL;
 	}
 	
 	public String getFacebookAccessToken() {

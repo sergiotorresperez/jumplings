@@ -7,8 +7,8 @@
     </string-array>
      
     <string-array name="effectsLevelValues">
-        <item>@string/config_level_all</item>
-        <item>@string/config_level_some</item>
-        <item>@string/config_level_none</item>
+        <item>@string/config_value_all</item>
+        <item>@string/config_value_some</item>
+        <item>@string/config_value_none</item>
     </string-array> 
 </resources>

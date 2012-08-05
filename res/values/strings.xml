@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Jumplings</string>
-    <string name="config_sound">CFGSOUND</string>
-    <string name="config_vibrator">CFGVIBRATOR</string>
-    <string name="config_flash">CFGFLASH</string>
-    <string name="config_shake">CFGSHAKE</string>
-    <string name="config_level_all">CFGLEVELALL</string>
-    <string name="config_level_some">CFGLEVELSOME</string>
-    <string name="config_level_none">CFGLEVELNONE</string>
+    
+    <string name="config_sound_key">CFGSOUND</string>
+    <string name="config_vibrator_key">CFGVIBRATOR</string>
+    <string name="config_flash_key">CFGFLASH</string>
+    <string name="config_shake_key">CFGSHAKE</string>
+    <string name="config_value_all">CFGLEVELALL</string>
+    <string name="config_value_some">CFGLEVELSOME</string>
+    <string name="config_value_none">CFGLEVELNONE</string>
+    <string name="config_value_default">@string/config_value_all</string>
+    <string name="confing_sound_enabled_default">true</string>
 </resources>
