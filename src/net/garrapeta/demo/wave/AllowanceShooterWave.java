@@ -36,13 +36,13 @@ public class AllowanceShooterWave extends AllowanceWave {
 	
 	private float maxBombs;
 	
-	/** Número de enemigos que hay que matar */
+	/** Nï¿½mero de enemigos que hay que matar */
 	private int totalKills; 
-	/** Número de enemigos muertos */
+	/** Nï¿½mero de enemigos muertos */
 	private int kills; 
 
 
-	/** Acción que consiste en crear un powerup */ 
+	/** Acciï¿½n que consiste en crear un powerup */ 
 	private RealTimeWaveAction generatePowerUpAction;	
 	
 	// -------------------------------------------------------- Constructor
@@ -53,7 +53,7 @@ public class AllowanceShooterWave extends AllowanceWave {
 		
 		nextJumperCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
 		
-		// Inicialización de probabilidades y riesgos
+		// Inicializaciï¿½n de probabilidades y riesgos
 		setMaxThreat(2 + (level * 2));
 
 		bombProbability 	   		   = Math.min(0.35f, 0.025f + (level * 0.075f));
@@ -80,7 +80,7 @@ public class AllowanceShooterWave extends AllowanceWave {
 		
 	}
 
-	// ------------------------------------------------- Métodos heredados
+	// ------------------------------------------------- Mï¿½todos heredados
 	
 	
 	@Override
@@ -116,7 +116,7 @@ public class AllowanceShooterWave extends AllowanceWave {
 		return kills * 100 / totalKills;
 	}
 	
-	// -------------------------------------------------- Métodos propios
+	// -------------------------------------------------- Mï¿½todos propios
 
 	private short generateJumperCode() {
 		short code;
@@ -278,8 +278,8 @@ public class AllowanceShooterWave extends AllowanceWave {
 		float XFACTOR = 0.9f;
 		float YFACTOR = 0.75f;
 		
-		// Distancia máxima que pueda viajar verticalmente
-		RectF bounds =  jgWorld.worldBoundaries;
+		// Distancia mï¿½xima que pueda viajar verticalmente
+		RectF bounds =  jgWorld.viewport.getWorldBoundaries();
 		float boundsHeight = bounds.top - bounds.bottom;
 
 		// Distancia vertical que va a alcanzar. Se le hace un poco aleatoria.
@@ -302,9 +302,9 @@ public class AllowanceShooterWave extends AllowanceWave {
 		
 		float worldWidth = bounds.right - bounds.left;
 
-		// Distancia máxima que pueda viajar horizontalmente
+		// Distancia mï¿½xima que pueda viajar horizontalmente
 		float maxXDistance;
-		// Dependiendo de la posición se le tira a la izquierda o derecha
+		// Dependiendo de la posiciï¿½n se le tira a la izquierda o derecha
 		if (pos.x > bounds.left + (worldWidth / 2)) {
 			maxXDistance = bounds.left - pos.x;
 		} else {

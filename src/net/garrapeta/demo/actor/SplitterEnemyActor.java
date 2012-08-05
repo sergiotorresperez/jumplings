@@ -24,7 +24,7 @@ public class SplitterEnemyActor extends EnemyActor {
 	public  final static float  DEFAULT_BASE_RADIUS = BASE_RADIUS * 1f;
 	
 	/**
-	 *  Factor usado para determinar el tamaño del actor en conjunción con el baseRadiusSize
+	 *  Factor usado para determinar el tamaï¿½o del actor en conjunciï¿½n con el baseRadiusSize
 	 */
 	private final static float RADIUS_FACTOR = 0.2f;
 	
@@ -36,7 +36,7 @@ public class SplitterEnemyActor extends EnemyActor {
 	// ---------------------------------------------------- Variables
 	
 	/**
-	 *  Nivel de anidamiendo. Si 1 se divide en dos atómicos.
+	 *  Nivel de anidamiendo. Si 1 se divide en dos atï¿½micos.
 	 */
 	private int level;
 	
@@ -76,7 +76,7 @@ public class SplitterEnemyActor extends EnemyActor {
 	protected final static Bitmap BMP_DEBRIS_YELLOW_0_HAND_RIGHT;
 	protected final static Bitmap BMP_DEBRIS_YELLOW_0_HAND_LEFT;
 
-	// ----------------------------------------------------- Métodos estáticos
+	// ----------------------------------------------------- Mï¿½todos estï¿½ticos
 	
 	static {
 		Resources r = JumplingsApplication.getInstance().getResources();
@@ -205,12 +205,12 @@ public class SplitterEnemyActor extends EnemyActor {
 		initPhysics(worldPos);
 	}
 	
-	// ----------------------------------------- Métodos de EnemyActor
+	// ----------------------------------------- Mï¿½todos de EnemyActor
 	
 
 	
 	private final float getRestorationInitVy(float posY) {
-		float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (jgWorld.worldBoundaries.top -  jgWorld.worldBoundaries.bottom - posY);
+		float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (jgWorld.viewport.getWorldBoundaries().top -  jgWorld.viewport.getWorldBoundaries().bottom - posY);
 		return (float) getInitialYVelocity(maxHeight);
 	}
 	
@@ -223,7 +223,7 @@ public class SplitterEnemyActor extends EnemyActor {
 		return count;
 	}
 	
-	// ----------------------------------------- Métodos de SimpleActor
+	// ----------------------------------------- Mï¿½todos de SimpleActor
 	
 	@Override
 	protected void initBodies(PointF worldPos) {
@@ -233,14 +233,14 @@ public class SplitterEnemyActor extends EnemyActor {
 			mainBody = jgWorld.createBody(this, worldPos, true);
 			mainBody.setBullet(true);
 			
-			// número de segmentos que conforman la circunferencia
-			// se hace el mínimo con 8, por una limitación que tiene box2d
+			// nï¿½mero de segmentos que conforman la circunferencia
+			// se hace el mï¿½nimo con 8, por una limitaciï¿½n que tiene box2d
 			int sides = Math.min(8, 3 + (2 * level));
 			
 			// Create Shape with Properties
 			PolygonShape polygonShape = new PolygonShape();
 			
-			// vértices que conforman la "circunferencia" (polígono)
+			// vï¿½rtices que conforman la "circunferencia" (polï¿½gono)
 			float [][] aux = MathUtils.getPolyconVertexes(0, 0, radius, sides);
 			Vector2[] vertices = new Vector2[aux.length];
 			
@@ -268,14 +268,14 @@ public class SplitterEnemyActor extends EnemyActor {
 	@Override
 	public void onHitted() {
 		if (level > 0) {
-			RectF b = jgWorld.worldBoundaries;
+			RectF b = jgWorld.viewport.getWorldBoundaries();
 			EnemyActor actor1 = null;
 			EnemyActor actor2 = null;
 			
 			Vector2 wc = mainBody.getWorldCenter();
 			
 			// Coordenadas de los nuevos enemigos. 
-			// Se aplica corrección para que salgan dentro de la pantalla.
+			// Se aplica correcciï¿½n para que salgan dentro de la pantalla.
 			float posX1 = Math.max(b.left + radius, wc.x - radius);
 			posX1 = Math.min(posX1, b.right - radius);
 			float posY1 = Math.max(b.bottom + radius, wc.y - radius);

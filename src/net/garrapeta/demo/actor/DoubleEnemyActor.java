@@ -23,7 +23,7 @@ public class DoubleEnemyActor extends EnemyActor {
 		
 	public final static short JUMPER_CODE_DOUBLE   	   = 1;
 	
-	// ------------------------------------------------------ Variables estáticas
+	// ------------------------------------------------------ Variables estï¿½ticas
 	
 	// vivo
 	protected final static Bitmap BMP_ORANGE_BODY;
@@ -46,7 +46,7 @@ public class DoubleEnemyActor extends EnemyActor {
 	// ---------------------------------------------------------------- Variables
 	
 
-	// ------------------------------------------------------ Métodos estáticos
+	// ------------------------------------------------------ Mï¿½todos estï¿½ticos
 	
 	static {
 		Resources r = JumplingsApplication.getInstance().getResources();
@@ -138,10 +138,10 @@ public class DoubleEnemyActor extends EnemyActor {
 		ah.createLimbs(worldPos, radius);
 	}
 	
-	// -------------------------------------------------------- Métodos propios
+	// -------------------------------------------------------- Mï¿½todos propios
 	
 	private final float getRestorationInitVy(float posY) {
-		float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (jgWorld.worldBoundaries.top -  posY);
+		float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (jgWorld.viewport.getWorldBoundaries().top -  posY);
 		return (float) getInitialYVelocity(maxHeight);
 	}
 	

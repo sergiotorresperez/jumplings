@@ -28,13 +28,13 @@ public abstract class Wave {
 	
 	// ------------------------------------ Variables de instancia
 	
-	/** mundo dueño de la wave  */
+	/** mundo dueï¿½o de la wave  */
 	protected JumplingsWorld jWorld;
 	
 	/** listener de la wave */
 	protected IWaveEndListener listener;
 	
-	/** Si la wave está en ejecución  */
+	/** Si la wave estï¿½ en ejecuciï¿½n  */
 	protected boolean playing = false;
 	
 	/** nivel */
@@ -52,7 +52,7 @@ public abstract class Wave {
 		jworld.setGravityY(- SensorManager.GRAVITY_EARTH);
 	}
 	
-	// --------------------------------------------------- Métodos
+	// --------------------------------------------------- Mï¿½todos
 
 	/**
 	 *  Comienza la wave
@@ -73,14 +73,14 @@ public abstract class Wave {
 	}
 	
 	/**
-	 * Pone en ejecución la wave
+	 * Pone en ejecuciï¿½n la wave
 	 */
 	public void play() {
 		this.playing = true;
 	}
 	
 	/**
-	 * @return si está en ejecución
+	 * @return si estï¿½ en ejecuciï¿½n
 	 */
 	public boolean isPlaying() {
 		return playing;
@@ -101,7 +101,7 @@ public abstract class Wave {
 	}
 	
 	/**
-	 * Método ejecutado cuando un enemigo escapa de pantalla
+	 * Mï¿½todo ejecutado cuando un enemigo escapa de pantalla
 	 * @return si el evento es consumido por la wave
 	 */
 	public boolean onEnemyScaped(EnemyActor e) {
@@ -109,7 +109,7 @@ public abstract class Wave {
 	}
 	
 	/**
-	 * Método ejecutado cuando una bomba estalla
+	 * Mï¿½todo ejecutado cuando una bomba estalla
 	 * @return si el evento es consumido por la wave
 	 */
 	public boolean onBombExploded(BombActor bomb) {
@@ -117,7 +117,7 @@ public abstract class Wave {
 	}
 
 	/**
-	 * Método ejecutado cuando el usuario coge un power up de vida
+	 * Mï¿½todo ejecutado cuando el usuario coge un power up de vida
 	 * @return si el evento es consumido por la wave
 	 */
 	public boolean onLifePowerUp(LifePowerUpActor lifePowerUpActor) {
@@ -125,7 +125,7 @@ public abstract class Wave {
 	}
 	
 	/**
-	 * Método ejecutado cuando el usuario coge un power up de blade
+	 * Mï¿½todo ejecutado cuando el usuario coge un power up de blade
 	 * @return si el evento es consumido por la wave
 	 */
 	public boolean onBladePowerUp(BladePowerUpActor bladePowerUpActor) {
@@ -134,7 +134,7 @@ public abstract class Wave {
 
 	
 	/**
-	 * Método ejecutado cuando el jugador mata un enemigo
+	 * Mï¿½todo ejecutado cuando el jugador mata un enemigo
 	 * @return si el evento es consumido por la wave
 	 */
 	public boolean onEnemyKilled(EnemyActor enemy) {
@@ -142,7 +142,7 @@ public abstract class Wave {
 	}
 
 	/**
-	 * Método ejecutado cuando el jugador pierde el juego
+	 * Mï¿½todo ejecutado cuando el jugador pierde el juego
 	 * @return si el evento es consumido por la wave
 	 */
 	public boolean onGameOver() {
@@ -154,35 +154,35 @@ public abstract class Wave {
 	 */
 	public abstract float getProgress();
 	
-	// --------------------------------------------------- Métodos abstractos
+	// --------------------------------------------------- Mï¿½todos abstractos
 	
 	/** 
-	 *  Lógica que se procesa en esta pantalla en cada frame 
+	 *  Lï¿½gica que se procesa en esta pantalla en cada frame 
 	 *  @param physicsTimeStep
 	 */
 	public abstract void processFrame(float gameTimeStep, float physicsTimeStep);
 
 	
-	// ------------------------------ Métodos de utilidad para crear enemigos
+	// ------------------------------ Mï¿½todos de utilidad para crear enemigos
 	
 	protected float getLeftPos() {
-		return jWorld.worldBoundaries.left - ENEMY_OFFSET;
+		return jWorld.viewport.getWorldBoundaries().left - ENEMY_OFFSET;
 	}
 	
 	protected float getRightPos() {
-		return jWorld.worldBoundaries.right + ENEMY_OFFSET;
+		return jWorld.viewport.getWorldBoundaries().right + ENEMY_OFFSET;
 	}
 	
 	protected float getTopPos() {
-		return jWorld.worldBoundaries.top + ENEMY_OFFSET;
+		return jWorld.viewport.getWorldBoundaries().top + ENEMY_OFFSET;
 	}
 	
 	protected float getBottomPos() {
-		return jWorld.worldBoundaries.bottom - ENEMY_OFFSET;
+		return jWorld.viewport.getWorldBoundaries().bottom - ENEMY_OFFSET;
 	}
 	
 	protected float getRandomPosX() {
-		RectF bounds =  jWorld.worldBoundaries;
+		RectF bounds =  jWorld.viewport.getWorldBoundaries();
 		
 		float init =  bounds.left  + ENEMY_OFFSET;
 		float fin  =  bounds.right - ENEMY_OFFSET;
@@ -191,7 +191,7 @@ public abstract class Wave {
 	}
 	
 	protected float getRandomPosY() {
-		RectF bounds =  jWorld.worldBoundaries;
+		RectF bounds =  jWorld.viewport.getWorldBoundaries();
 		float minY = bounds.bottom;
 		float maxY = (bounds.top - bounds.bottom) / 2;
 		return (float) (minY + (Math.random() * (maxY - minY)));
@@ -199,13 +199,13 @@ public abstract class Wave {
 	
 	protected Vector2 getInitialVelocity(PointF initPos) {
 		float g = jWorld.getGravityY();
-		RectF bounds =  jWorld.worldBoundaries;
+		RectF bounds =  jWorld.viewport.getWorldBoundaries();
 		
 		// Factor de aletoriedad (0 - 1)
 		float XFACTOR = 0.9f;
 		float YFACTOR = 0.7f;
 		
-		// Distancia máxima que pueda viajar verticalmente
+		// Distancia mï¿½xima que pueda viajar verticalmente
 		float maxYDistance = bounds.top - initPos.y;
 		
 		// Distancia que va a viajer verticalmente. Se le hace un poco aleatoria.
@@ -218,9 +218,9 @@ public abstract class Wave {
 		
 		float worldWidth = bounds.right - bounds.left;
 
-		// Distancia máxima que pueda viajar horizontalmente
+		// Distancia mï¿½xima que pueda viajar horizontalmente
 		float maxXDistance;
-		// Dependiendo de la posición se le tira a la izquierda o derecha
+		// Dependiendo de la posiciï¿½n se le tira a la izquierda o derecha
 		if (initPos.x > bounds.left + (worldWidth / 2)) {
 			maxXDistance = bounds.left - initPos.x;
 		} else {
