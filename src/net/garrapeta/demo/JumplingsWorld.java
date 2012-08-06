@@ -53,8 +53,6 @@ public class JumplingsWorld extends Box2DWorld {
 
         Log.i(LOG_SRC, "create " + this);
 
-        this.setTimeFactor(1);
-
         // Paredes
         // -----------------------------------------------------------------
 
@@ -110,7 +108,7 @@ public class JumplingsWorld extends Box2DWorld {
     }
 
     @Override
-    public synchronized void processFrame(float gameTimeStep, float physicsTimeStep) {
+    public synchronized void processFrame(float gameTimeStep) {
 
         // FIXME: Chapuza para evitar problema del cuelgue al inicial el juego
         if (!view.isSyncDrawing() && currentPhysicsMillis() > 100) {
@@ -120,7 +118,7 @@ public class JumplingsWorld extends Box2DWorld {
         // La generaci�n de enemigos, regeneraci�n de vida, comprobaci�n de
         // satisfacci�n
         // de condiciones de victoria derrota, etc, se delega en el wave-
-        wave.processFrame(gameTimeStep, physicsTimeStep);
+        wave.processFrame(gameTimeStep);
 
     }
 

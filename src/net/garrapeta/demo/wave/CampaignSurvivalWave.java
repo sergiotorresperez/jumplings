@@ -20,7 +20,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 	private final static int INIT_LEVEL = 1;
 	
 	/** Ms que hay desde que termina la wave hasta que se realiza la
-	 *  siguiente acción */
+	 *  siguiente acciï¿½n */
 	public static final int AFTER_WAVE_END_REALTIME    = 500;
 	
 	/** Ms que hay desde que se cambia de wave hasta que empieza la siguiente */
@@ -29,7 +29,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 	/** Vidas que se ganan al pasar de nivel */ 
 	public static final int  NEW_LEVEL_EXTRA_LIFES = 0;
 	
-	/** Tiempo mínimo entre diálogos de anuncios. Se mostrarán al acabar la wave. En ms.*/
+	/** Tiempo mï¿½nimo entre diï¿½logos de anuncios. Se mostrarï¿½n al acabar la wave. En ms.*/
 	private int ADS_MIN_TIME_LAPSE = 60 * 2 * 1000 ;
 	// ----------------------------------------- Variables de instancia
 
@@ -40,16 +40,16 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 	 */
 	private Wave currentWave;
 
-	/** Acción que consiste en cambiar de wave */ 
+	/** Acciï¿½n que consiste en cambiar de wave */ 
 	private RealTimeWaveAction waveSwitchAction;
 	
-	/** Acción que consiste en empezarla wave */ 
+	/** Acciï¿½n que consiste en empezarla wave */ 
 	private RealTimeWaveAction waveStartAction;
 	
-	/** Acción que consiste en mostrar Toast con el nivel actual */ 
+	/** Acciï¿½n que consiste en mostrar Toast con el nivel actual */ 
 	private RealTimeWaveAction showLevelAction;
 	
-	/** Timestamp de cuando se mostró el último anuncio */
+	/** Timestamp de cuando se mostrï¿½ el ï¿½ltimo anuncio */
 	private long lastAdTimeStamp = 0;
 	
 	// --------------------------------------------------- Constructor
@@ -71,7 +71,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 		showLevelAction = new RealTimeWaveAction(this) {
 			@Override
 			public void run() {
-				//sólo se muestra toast al cambiar de nivel
+				//sï¿½lo se muestra toast al cambiar de nivel
 				CampaignSurvivalWave.this.jgWorld.getActivity().runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
@@ -90,7 +90,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 		};
 	}
 
-	// ------------------------------------------- Métodos Heredados
+	// ------------------------------------------- Mï¿½todos Heredados
 
 	@Override
 	public void start() {
@@ -100,9 +100,9 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 	}
 
 	@Override
-	protected void processFrameSub(float realTimeStep, float physicsTimeStep) {
+	protected void processFrameSub(float realTimeStep) {
 		if (currentWave != null) {
-			currentWave.processFrame(realTimeStep, physicsTimeStep);
+			currentWave.processFrame(realTimeStep);
 		}
 	}
 	
@@ -133,7 +133,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 	}
 
 	
-	// ---------------------------------- Métodos de IWaveEventListener
+	// ---------------------------------- Mï¿½todos de IWaveEventListener
 
 	@Override
 	public void onWaveStarted() {
@@ -149,7 +149,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 		jgWorld.onWaveCompleted();
 	}
 
-	// ------------------------------------------------ Métodos propios
+	// ------------------------------------------------ Mï¿½todos propios
 
 	private void switchWave() {
 		Player player = jgWorld.getPlayer();

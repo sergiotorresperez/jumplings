@@ -17,7 +17,7 @@ public class IntroWave extends ActionBasedWave {
 	
 	// --------------------------------------------------- Variables
 	
-	/** Acción que consiste en sacar al muñeco saltarín */ 
+	/** Acciï¿½n que consiste en sacar al muï¿½eco saltarï¿½n */ 
 	private RealTimeWaveAction jumplingCreationAction;
 	
 	// ------------------------------------------------------------- Constructor
@@ -42,7 +42,7 @@ public class IntroWave extends ActionBasedWave {
 	}
 	
 	
-	// ------------------------------------------------------- Métodos heredados	
+	// ------------------------------------------------------- Mï¿½todos heredados	
 	@Override
 	public  void start() {
 		super.start();
@@ -57,7 +57,7 @@ public class IntroWave extends ActionBasedWave {
 	}
 
 	@Override
-	protected void processFrameSub(float realTimeStep, float physicsTimeStep) {
+	protected void processFrameSub(float realTimeStep) {
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class IntroWave extends ActionBasedWave {
 		return 0;
 	}
 	
-	// ---------------------------------------------------- Métodos propios
+	// ---------------------------------------------------- Mï¿½todos propios
 	
 	private void createJumplingWave() {
 		Log.i(LOG_SRC, "Creating intro jumpling");

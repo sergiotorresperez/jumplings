@@ -159,9 +159,8 @@ public abstract class Wave {
 	
 	/** 
 	 *  L�gica que se procesa en esta pantalla en cada frame 
-	 *  @param physicsTimeStep
 	 */
-	public abstract void processFrame(float gameTimeStep, float physicsTimeStep);
+	public abstract void processFrame(float gameTimeStep);
 
 	
 	// ------------------------------ M�todos de utilidad para crear enemigos

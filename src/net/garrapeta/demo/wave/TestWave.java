@@ -51,7 +51,7 @@ public class TestWave extends Wave {
 	// ------------------------------------------------------ M�todos de BaseWave 
 
 	@Override
-	public void processFrame(float gameTimeStep, float physicsTimeStep) {
+	public void processFrame(float gameTimeStep) {
 	}
 	
 

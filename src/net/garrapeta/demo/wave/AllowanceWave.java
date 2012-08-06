@@ -15,13 +15,13 @@ public abstract class AllowanceWave extends ActionBasedWave {
 	// --------------------------------------------------- Variables
 
 	
-	/** Thread máximo de la wave  */
+	/** Thread mï¿½ximo de la wave  */
 	private double maxThreat;
 
 	/** Thread que se permite crear en este ciclo */
 	protected double allowedThreadGeneration;
 	
-	/** Thread creado desde la última vez que fue 0 */
+	/** Thread creado desde la ï¿½ltima vez que fue 0 */
 	double acumulated = 0;
 	
 	ProgressBar threadRatioBar ;
@@ -40,14 +40,14 @@ public abstract class AllowanceWave extends ActionBasedWave {
 	}
 	
 	
-	// ------------------------------------------------------- Métodos heredados	
+	// ------------------------------------------------------- Mï¿½todos heredados	
 	@Override
 	public  void start() {
 		super.start();
 	}
 	
 	@Override
-	protected void processFrameSub(float stepTime, float physicsStepTime) {
+	protected void processFrameSub(float stepTime) {
 		if (JumplingsApplication.DEBUG_THREAD_BARS_ENABLED) {
 			updateThreadRatioBar();
 			updateAllowedThreadGenerationBar();
@@ -79,7 +79,7 @@ public abstract class AllowanceWave extends ActionBasedWave {
 	
 
 
-	// ---------------------------------------------------- Métodos propios
+	// ---------------------------------------------------- Mï¿½todos propios
 
 	/**
 	 * Establece maxTreat
@@ -121,7 +121,7 @@ public abstract class AllowanceWave extends ActionBasedWave {
 	
 
 	
-	// Métodos de debug
+	// Mï¿½todos de debug
 	
 	private void updateThreadRatioBar() {
 		jWorld.jActivity.runOnUiThread(new Runnable(){
@@ -156,7 +156,7 @@ public abstract class AllowanceWave extends ActionBasedWave {
 	}
 	
 	
-	// Métodos abstractos
+	// Mï¿½todos abstractos
 	
 	protected abstract float getCurrentThreat();
 		

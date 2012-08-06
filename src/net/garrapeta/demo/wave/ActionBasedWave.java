@@ -15,10 +15,10 @@ public abstract class ActionBasedWave extends Wave {
 	private ArrayList<WaveAction> actions;
 	
 	
-	/** ms reales en el momento de inicialización de la wave */
+	/** ms reales en el momento de inicializaciï¿½n de la wave */
 	private long initizationRealMillis;
 	
-	/** ms en el mundo físco en el momento de inicialización de la wave */
+	/** ms en el mundo fï¿½sco en el momento de inicializaciï¿½n de la wave */
 	private double initializationPhysicsMillis;
 	
 
@@ -44,10 +44,10 @@ public abstract class ActionBasedWave extends Wave {
 		this.actions.clear();
 	}
 	
-	//------------------------------------------------------------ Métodos de IWave
+	//------------------------------------------------------------ Mï¿½todos de IWave
 	
 	@Override
-	public final void processFrame(float gameTimeStep, float physicsTimeStep) {
+	public final void processFrame(float gameTimeStep) {
 
 		if (playing) {
 			Log.v(LOG_SRC, "ProcessFrame (" + gameTimeStep + ")" + this);
@@ -55,11 +55,11 @@ public abstract class ActionBasedWave extends Wave {
 			// se comprueba que la wave no ha terminado por tiempo
 			if (isFinished()) {
 				// no se comunica el fin de la wave hasta que todos los enemigos
-				// están muertos
+				// estï¿½n muertos
 				if (listener != null) {
 					end();	
 				}
-				// no se procesa más, porque ya ha terminado la wave
+				// no se procesa mï¿½s, porque ya ha terminado la wave
 				return;
 			}			
 				
@@ -77,11 +77,11 @@ public abstract class ActionBasedWave extends Wave {
 			}
 			
 			// procesamiento real
-			processFrameSub(gameTimeStep, physicsTimeStep);
+			processFrameSub(gameTimeStep);
 		}
 	}
 
-	// ------------------------------------------------------------- Métodos propios
+	// ------------------------------------------------------------- Mï¿½todos propios
 
 	
 	protected abstract boolean isFinished();
@@ -89,36 +89,35 @@ public abstract class ActionBasedWave extends Wave {
 	
 	
 	/**
-	 * @return ms reales transcurridos desde la inicialización de la wave
+	 * @return ms reales transcurridos desde la inicializaciï¿½n de la wave
 	 */
 	protected long currentRealMillis() {
 		return System.currentTimeMillis() - initizationRealMillis;
 	}
 	
 	/**
-	 * @return ms en el mundo físico transcurridos desde la inicialización de la wave
+	 * @return ms en el mundo fï¿½sico transcurridos desde la inicializaciï¿½n de la wave
 	 */
 	protected double currentPhysicsMillis() {
 		return jWorld.currentPhysicsMillis() - initializationPhysicsMillis;
 	}
 	
-	// ---------------------------------------------------- Métodos abstractos
+	// ---------------------------------------------------- Mï¿½todos abstractos
 	
 	/**
-	 * Método de sub-proceso de frame
+	 * Mï¿½todo de sub-proceso de frame
 	 * A ser implementado por subclases
 	 * 
 	 * @param realTimeStep
-	 * @param physicsTimeStep
 	 */
-	protected abstract void processFrameSub(float realTimeStep, float physicsTimeStep);
+	protected abstract void processFrameSub(float realTimeStep);
 	
 	// -------------------------------------------------------- Clases internas
 	
 
 	/**
 	 * 
-	 * Acciones que se van programando y procesando según avanza la wave
+	 * Acciones que se van programando y procesando segï¿½n avanza la wave
 	 * 
 	 * @author GaRRaPeTa
 	 */
@@ -145,7 +144,7 @@ public abstract class ActionBasedWave extends Wave {
 		}
 		
 		/**
-		 * @return si la acción está pendiente de ser ejecutada
+		 * @return si la acciï¿½n estï¿½ pendiente de ser ejecutada
 		 */
 		public boolean isPending() {
 			synchronized (actions) {
@@ -188,7 +187,7 @@ public abstract class ActionBasedWave extends Wave {
 	
 	
 	/**
-	 * Accione progamables por tiempo físico
+	 * Accione progamables por tiempo fï¿½sico
 	 * @author GaRRaPeTa
 	 */
 	public abstract class PhysicsTimeWaveAction extends WaveAction {

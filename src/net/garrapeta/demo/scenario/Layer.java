@@ -14,11 +14,11 @@ class Layer {
 	
 	// ------------------------------------------------ Constantes
 	
-	// TODO: hacer esto en función del FPS
+	// TODO: hacer esto en funciï¿½n del FPS
 	/** Ciclos que tarda en reflejarse un update de progreso */
 	private float PROGRESS_UPDATE_CICLES = 5;
 	
-	/** Ciclos que tarda la caída cuando el jugador muere */
+	/** Ciclos que tarda la caï¿½da cuando el jugador muere */
 	private float GAMEOVER_FALL_CICLES   = 50;
 	
 	// ------------------------------------ Variables de instancia
@@ -32,11 +32,11 @@ class Layer {
 	private float xPos = 0;
 	private float yPos = 0;
 	
-	/** Posción y a la que se tiene que llegar por un update */
+	/** Posciï¿½n y a la que se tiene que llegar por un update */
 	private float desiredYPos = 0;
 	
-	// velocidades, en píxeles por ciclo
-	// TODO: expresar las velocidades en píxeles por segundo
+	// velocidades, en pï¿½xeles por ciclo
+	// TODO: expresar las velocidades en pï¿½xeles por segundo
 	float xVel = 0;
 	float yVel = 0;
 	
@@ -57,7 +57,7 @@ class Layer {
 	private boolean tileHorizontally = false;
 	private boolean tileVertically   = false;
 	
-	// Altura máxima del layer
+	// Altura mï¿½xima del layer
 	float maxHeight;
 	
 	// ----------------------------------------------- Constructor
@@ -89,7 +89,7 @@ class Layer {
 		this.tileVertically   = tileVertically;
 	}
 	
-	// -------------------------------------------- Métodos propios
+	// -------------------------------------------- Mï¿½todos propios
 	
 	/**
 	 *  Reseteo
@@ -110,13 +110,13 @@ class Layer {
 	 * @param gameTimeStep
 	 * @param physicsTimeStep
 	 */
-	void processFrame(float gameTimeStep, float physicsTimeStep) {
+	void processFrame(float gameTimeStep) {
 		xPos += xVel; //xVel * (gameTimeStep / 1000);
 		yPos += yVel; //yVel * (gameTimeStep / 1000);
 		
 		
 		
-		// aportación de velocidad por el update
+		// aportaciï¿½n de velocidad por el update
 		if (updateYVel != 0) {
 			if (updateYVel > 0) {
 				yPos = Math.min(desiredYPos, yPos + updateYVel);

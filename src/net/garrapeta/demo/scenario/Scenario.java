@@ -95,15 +95,15 @@ public class Scenario {
 	
 	// --------------------------------------------- M�todos propios
 	
-	public void processFrame(float gameTimeStep, float physicsTimeStep) {
+	public void processFrame(float gameTimeStep) {
 		if (fadingOut) {
 			fadingOutRemainigTime = Math.max(0, fadingOutRemainigTime - gameTimeStep);
 			int alpha = (int) (255 * fadingOutRemainigTime / FADE_OUT_TIME);
 			paint.setAlpha(alpha);
 		}
-		layerBg0.processFrame(gameTimeStep, physicsTimeStep);
-		layerBg1.processFrame(gameTimeStep, physicsTimeStep);
-		layerBg2.processFrame(gameTimeStep, physicsTimeStep);
+		layerBg0.processFrame(gameTimeStep);
+		layerBg1.processFrame(gameTimeStep);
+		layerBg2.processFrame(gameTimeStep);
 	}
 	
 

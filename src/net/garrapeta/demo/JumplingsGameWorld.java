@@ -109,7 +109,7 @@ public class JumplingsGameWorld extends JumplingsWorld {
 	
 	
 	@Override
-	public synchronized void processFrame(float gameTimeStep, float physicsTimeStep) {
+	public synchronized void processFrame(float gameTimeStep) {
 		if (weapon.getWeaponCode() != Gun.WEAPON_CODE_GUN) {
 			if (weapon.getRemainingTime() <= 0) {
 				setWeapon(Gun.WEAPON_CODE_GUN);
@@ -120,16 +120,16 @@ public class JumplingsGameWorld extends JumplingsWorld {
 		
 		dispatchMotionEvents();
 		
-		super.processFrame(gameTimeStep, physicsTimeStep);
+		super.processFrame(gameTimeStep);
 		
 		if (shakeRemaining > 0) { 
 			shakeRemaining -= gameTimeStep;
 		}
 		
 		// scenario
-		scenario.processFrame(gameTimeStep, physicsTimeStep);
+		scenario.processFrame(gameTimeStep);
 		if (fadingScenario != null) {
-			fadingScenario.processFrame(gameTimeStep, physicsTimeStep);
+			fadingScenario.processFrame(gameTimeStep);
 			if (fadingScenario.fadingOutRemainigTime <= 0) {
 				fadingScenario = null;
 			}
