@@ -17,10 +17,7 @@ public abstract class ActionBasedWave extends Wave {
 	
 	/** ms reales en el momento de inicializaci�n de la wave */
 	private long initizationRealMillis;
-	
-	/** ms en el mundo f�sco en el momento de inicializaci�n de la wave */
-	private double initializationPhysicsMillis;
-	
+
 
 	
 	// ---------------------------------------------------------------- Constructor
@@ -40,7 +37,6 @@ public abstract class ActionBasedWave extends Wave {
 		this.actions 		 = new ArrayList<WaveAction>();
 		
 		this.initizationRealMillis        = System.currentTimeMillis();
-		this.initializationPhysicsMillis  = world.currentPhysicsMillis();
 		this.actions.clear();
 	}
 	
@@ -95,12 +91,7 @@ public abstract class ActionBasedWave extends Wave {
 		return System.currentTimeMillis() - initizationRealMillis;
 	}
 	
-	/**
-	 * @return ms en el mundo f�sico transcurridos desde la inicializaci�n de la wave
-	 */
-	protected double currentPhysicsMillis() {
-		return jWorld.currentPhysicsMillis() - initializationPhysicsMillis;
-	}
+
 	
 	// ---------------------------------------------------- M�todos abstractos
 	
@@ -158,14 +149,14 @@ public abstract class ActionBasedWave extends Wave {
 	 * Accione progamables por tiempo real
 	 * @author GaRRaPeTa
 	 */
-	public abstract class RealTimeWaveAction extends WaveAction {
+	public abstract class GameWaveAction extends WaveAction {
 
 		private float realTimeDelay;
 		
 		private long addedRealTimeStamp;
 
 		
-		public RealTimeWaveAction (ActionBasedWave wave) {
+		public GameWaveAction (ActionBasedWave wave) {
 			super(wave);
 		}
 		
@@ -186,34 +177,5 @@ public abstract class ActionBasedWave extends Wave {
 	}
 	
 	
-	/**
-	 * Accione progamables por tiempo f�sico
-	 * @author GaRRaPeTa
-	 */
-	public abstract class PhysicsTimeWaveAction extends WaveAction {
 
-		private float   physicalTimeDelay;
-		
-		private double  addedPhysicalTimeStamp;
-
-		
-		public PhysicsTimeWaveAction (ActionBasedWave wave) {
-			super(wave);
-		}
-		
-		public final void schedule(float delay) {
-			Log.i(LOG_SRC, "Scheduled real time action, delay: " + delay);
-			synchronized (actions) {
-				actions.add(this);
-				pending = true;
-			}
-			physicalTimeDelay      = delay;
-			addedPhysicalTimeStamp = jWorld.currentPhysicsMillis();
-			
-		}
-
-		final boolean testExecution() {
-			return  (jWorld.currentPhysicsMillis() - addedPhysicalTimeStamp >= physicalTimeDelay);
-		}
-	}
 }

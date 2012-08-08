@@ -43,7 +43,7 @@ public class AllowanceShooterWave extends AllowanceWave {
 
 
 	/** Acci�n que consiste en crear un powerup */ 
-	private RealTimeWaveAction generatePowerUpAction;	
+	private GameWaveAction generatePowerUpAction;	
 	
 	// -------------------------------------------------------- Constructor
 	
@@ -68,7 +68,7 @@ public class AllowanceShooterWave extends AllowanceWave {
 		
 		totalKills = 50 + level * 10;
 		
-		generatePowerUpAction = new RealTimeWaveAction(this) {
+		generatePowerUpAction = new GameWaveAction(this) {
 			@Override
 			public void run() {
 				generatePowerUp();

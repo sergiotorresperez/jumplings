@@ -18,7 +18,7 @@ public class IntroWave extends ActionBasedWave {
 	// --------------------------------------------------- Variables
 	
 	/** Acci�n que consiste en sacar al mu�eco saltar�n */ 
-	private RealTimeWaveAction jumplingCreationAction;
+	private GameWaveAction jumplingCreationAction;
 	
 	// ------------------------------------------------------------- Constructor
 	
@@ -30,7 +30,7 @@ public class IntroWave extends ActionBasedWave {
 		
 		jWorld.setGravityY(-SensorManager.GRAVITY_EARTH);
 		
-		jumplingCreationAction = new RealTimeWaveAction(this) {
+		jumplingCreationAction = new GameWaveAction(this) {
 			@Override
 			public void run() {
 				createJumplingWave();

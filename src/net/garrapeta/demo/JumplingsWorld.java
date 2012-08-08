@@ -111,7 +111,7 @@ public class JumplingsWorld extends Box2DWorld {
     public synchronized void processFrame(float gameTimeStep) {
 
         // FIXME: Chapuza para evitar problema del cuelgue al inicial el juego
-        if (!view.isSyncDrawing() && currentPhysicsMillis() > 100) {
+        if (!view.isSyncDrawing() && currentGameMillis() > 100) {
             view.setSyncDrawing(true);
         }
 

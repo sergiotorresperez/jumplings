@@ -41,13 +41,13 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 	private Wave currentWave;
 
 	/** Acci�n que consiste en cambiar de wave */ 
-	private RealTimeWaveAction waveSwitchAction;
+	private GameWaveAction waveSwitchAction;
 	
 	/** Acci�n que consiste en empezarla wave */ 
-	private RealTimeWaveAction waveStartAction;
+	private GameWaveAction waveStartAction;
 	
 	/** Acci�n que consiste en mostrar Toast con el nivel actual */ 
-	private RealTimeWaveAction showLevelAction;
+	private GameWaveAction showLevelAction;
 	
 	/** Timestamp de cuando se mostr� el �ltimo anuncio */
 	private long lastAdTimeStamp = 0;
@@ -61,14 +61,14 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 		super(jgWorld, listener, INIT_LEVEL);
 		this.jgWorld = jgWorld;
 	
-		waveSwitchAction = new RealTimeWaveAction(this) {
+		waveSwitchAction = new GameWaveAction(this) {
 			@Override
 			public void run() {
 				switchWave();
 			}
 		};
 		
-		showLevelAction = new RealTimeWaveAction(this) {
+		showLevelAction = new GameWaveAction(this) {
 			@Override
 			public void run() {
 				//s�lo se muestra toast al cambiar de nivel
@@ -82,7 +82,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 			}
 		};
 		
-		waveStartAction = new RealTimeWaveAction(this) {
+		waveStartAction = new GameWaveAction(this) {
 			@Override
 			public void run() {
 				startCurrentWave();

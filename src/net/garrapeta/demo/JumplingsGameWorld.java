@@ -136,7 +136,7 @@ public class JumplingsGameWorld extends JumplingsWorld {
 		}
 		
 		// FIXME: Chapuza para evitar problema del cuelgue al inicial el juego
-		if (!view.isSyncDrawing() && currentPhysicsMillis() > 100) {
+		if (!view.isSyncDrawing() && currentGameMillis() > 100) {
 			view.setSyncDrawing(true);
 		}
 	}
