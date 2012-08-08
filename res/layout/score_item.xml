@@ -4,7 +4,7 @@
           android:layout_width="fill_parent"  
           >
 
-		<net.garrapeta.demo.ui.CustomFontTextView  
+		<net.garrapeta.jumplings.ui.CustomFontTextView  
 		    android:id="@+id/scoreItem_index"
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"
@@ -13,7 +13,7 @@
 		    style="@style/MainFont.CustomFontTextView"/>
 
 			          
-		<net.garrapeta.demo.ui.CustomFontTextView  
+		<net.garrapeta.jumplings.ui.CustomFontTextView  
 		    android:id="@+id/scoreItem_playerName"
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
 		    android:text="playername"
 			style="@style/MainFont.CustomFontTextView"/>
 			
-		<net.garrapeta.demo.ui.CustomFontTextView  
+		<net.garrapeta.jumplings.ui.CustomFontTextView  
 		    android:id="@+id/scoreItem_globalRank"
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
 		    android:gravity="right"
 			style="@style/MainFont.CustomFontTextView"/>
 				
-		<net.garrapeta.demo.ui.CustomFontTextView  
+		<net.garrapeta.jumplings.ui.CustomFontTextView  
 		    android:id="@+id/scoreItem_level"
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
 		    android:gravity="right"
 			style="@style/MainFont.CustomFontTextView"/>
 		
-		<net.garrapeta.demo.ui.CustomFontTextView  
+		<net.garrapeta.jumplings.ui.CustomFontTextView  
 		    android:id="@+id/scoreItem_score"
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"

@@ -19,7 +19,7 @@
                android:layout_width="match_parent" 
                android:layout_height="wrap_content">
 	        		  
-	    <net.garrapeta.demo.ui.CustomFontButton 
+	    <net.garrapeta.jumplings.ui.CustomFontButton 
 	    	 android:text="Get Rid of ads" 
 	    	 android:id="@+id/addialog_buy" 
 			 android:layout_width="0dp"
@@ -27,7 +27,7 @@
 			 android:layout_weight="0.5"
 	         style="@style/ColorfulButton"/>
 	   	
-	    <net.garrapeta.demo.ui.CustomFontButton
+	    <net.garrapeta.jumplings.ui.CustomFontButton
 	    	android:text="Play"  
 	    	android:id="@+id/addialog_continue"
 			android:layout_width="0dp"

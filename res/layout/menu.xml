@@ -80,14 +80,14 @@
 			    android:layout_centerHorizontal="true"
 			    android:layout_alignParentBottom="true">
 	    
-				<net.garrapeta.demo.ui.CustomFontButton 
+				<net.garrapeta.jumplings.ui.CustomFontButton 
 						android:text="Test" android:id="@+id/menu_testBtn" 
 				        android:layout_width="wrap_content" 
 				        android:layout_height="wrap_content"
 				        android:visibility="gone"
 				        style="@style/ColorfulButton"/>
 	
-				<net.garrapeta.demo.ui.CustomFontButton  
+				<net.garrapeta.jumplings.ui.CustomFontButton  
 						android:text="Exit" android:id="@+id/menu_exitBtn" 
 				        android:layout_width="wrap_content" 
 				        android:layout_height="wrap_content"

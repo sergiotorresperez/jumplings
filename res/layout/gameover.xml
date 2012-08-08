@@ -22,7 +22,7 @@
 				android:layout_weight="0">
 
 				<!-- Score: XX -->
-				<net.garrapeta.demo.ui.CustomFontTextView  
+				<net.garrapeta.jumplings.ui.CustomFontTextView  
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content" 
 					android:id="@+id/gameover_scoreTextView"
@@ -30,7 +30,7 @@
 				
 
 				<!-- Mensaje -->
-				<net.garrapeta.demo.ui.CustomFontTextView  
+				<net.garrapeta.jumplings.ui.CustomFontTextView  
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content" 
 					android:id="@+id/gameover_messageTextView"
@@ -54,7 +54,7 @@
 					android:layout_centerInParent="true"
 					android:visibility="invisible">
 	
-					<net.garrapeta.demo.ui.CustomFontTextView  
+					<net.garrapeta.jumplings.ui.CustomFontTextView  
 						android:text="Your name: "
 						android:layout_height="wrap_content" 
 						android:layout_width="wrap_content"
@@ -75,7 +75,7 @@
 							>
 						</EditText>
 						
-						<net.garrapeta.demo.ui.CustomFontButton android:text="OK"
+						<net.garrapeta.jumplings.ui.CustomFontButton android:text="OK"
 							android:id="@+id/gameover_saveScoreBtn"
 							android:layout_width="wrap_content" 
 							android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
 						android:layout_height="wrap_content"
 						android:layout_gravity="center_horizontal">
 	
-						<net.garrapeta.demo.ui.CustomFontButton 
+						<net.garrapeta.jumplings.ui.CustomFontButton 
 							 android:text="Post to Feint"
 						    android:drawableLeft="@drawable/icon_feint"
 							android:id="@+id/gameover_postToFeintBtn"
@@ -110,7 +110,7 @@
 							android:visibility="gone"
 							style="@style/ColorfulButton"/>
 		
-						<net.garrapeta.demo.ui.CustomFontButton 
+						<net.garrapeta.jumplings.ui.CustomFontButton 
 							android:text="Post to Twitter"
 						    android:drawableLeft="@drawable/icon_twitter"
 							android:id="@+id/gameover_postToTwitterBtn"
@@ -119,7 +119,7 @@
 							android:visibility="gone"
 							style="@style/ColorfulButton"/>
 		
-						<net.garrapeta.demo.ui.CustomFontButton 
+						<net.garrapeta.jumplings.ui.CustomFontButton 
 							android:text="Post to Facebook"
 							android:id="@+id/gameover_postToFacebookBtn"
 							android:drawableLeft="@drawable/icon_facebook"
@@ -135,7 +135,7 @@
 						android:layout_height="wrap_content"
 						android:layout_gravity="center_horizontal">
 						
-						<net.garrapeta.demo.ui.CustomFontButton 
+						<net.garrapeta.jumplings.ui.CustomFontButton 
 							android:text="View high scores"
 							android:id="@+id/gameover_viewHighScoresBtn"
 							android:drawableLeft="@drawable/icon_score"
@@ -143,14 +143,14 @@
 							android:layout_height="wrap_content"
 							style="@style/ColorfulButton"/>
 		
-						<net.garrapeta.demo.ui.CustomFontButton 
+						<net.garrapeta.jumplings.ui.CustomFontButton 
 							android:text="Play again" 
 							android:id="@+id/gameover_replayBtn"
 							android:layout_width="wrap_content" 
 							android:layout_height="wrap_content"
 							style="@style/ColorfulButton"/>
 		
-						<net.garrapeta.demo.ui.CustomFontButton 
+						<net.garrapeta.jumplings.ui.CustomFontButton 
 							android:text="Menu" 
 							android:id="@+id/gameover_menuBtn"
 							android:layout_width="wrap_content" 

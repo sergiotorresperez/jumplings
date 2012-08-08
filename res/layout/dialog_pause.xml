@@ -5,7 +5,7 @@
               android:layout_height="wrap_content"              
               style="@style/CustomDialogContent">
     
-   	<net.garrapeta.demo.ui.CustomFontTextView   
+   	<net.garrapeta.jumplings.ui.CustomFontTextView   
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center_horizontal"
@@ -18,7 +18,7 @@
                android:layout_width="match_parent" 
                android:layout_height="wrap_content">
       		       		  
-	    <net.garrapeta.demo.ui.CustomFontButton 
+	    <net.garrapeta.jumplings.ui.CustomFontButton 
 	    	 android:id="@+id/pauseDialog_resumeBtn" 
 	    	 android:text="Resume" 
 			 android:layout_width="0dp"
@@ -26,7 +26,7 @@
 			 android:layout_weight="0.5"
 	         style="@style/ColorfulButton"/>
 	   	
-	    <net.garrapeta.demo.ui.CustomFontButton
+	    <net.garrapeta.jumplings.ui.CustomFontButton
 	    	android:id="@+id/pauseDialog_mainMenuBtn"
 	    	android:text="Main menu"
 			android:layout_width="0dp"

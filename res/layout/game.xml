@@ -43,7 +43,7 @@
 		<!-- /special weapon bar  -->
 		
 		<!-- scores  -->
-		<net.garrapeta.demo.ui.CustomFontTextView  
+		<net.garrapeta.jumplings.ui.CustomFontTextView  
 		    android:id="@+id/game_scoreTextView"
 		    android:layout_width="wrap_content" 
 		    android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
 		    android:layout_alignParentTop="true"
 		    style="@style/MainFont.CustomFontTextView.GameScore"/>
 
-    	<net.garrapeta.demo.ui.CustomFontTextView  
+    	<net.garrapeta.jumplings.ui.CustomFontTextView  
 		    android:id="@+id/game_localHightscoreTextView"
 		    android:layout_width="wrap_content" 
 		    android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
 		<!-- /thread bars  -->
 		
 		<!-- test button  -->
-		<net.garrapeta.demo.ui.CustomFontButton 
+		<net.garrapeta.jumplings.ui.CustomFontButton 
 			 android:text="Test" android:id="@+id/game_testBtn" 
 	         android:layout_width="wrap_content" 
 	         android:layout_height="wrap_content"

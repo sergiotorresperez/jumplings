@@ -93,7 +93,7 @@
 		    android:layout_weight="0"
 		    android:layout_gravity="right">
 
-			<net.garrapeta.demo.ui.CustomFontButton  
+			<net.garrapeta.jumplings.ui.CustomFontButton  
 				  android:text="Clear" 
 			      android:id="@+id/highscoresListing_clearLocalScoresBtn" 
 		          android:layout_width="wrap_content" 
@@ -101,21 +101,21 @@
 		          android:visibility="gone"
 		          style="@style/ColorfulButton"/>
 		    
-		    <net.garrapeta.demo.ui.CustomFontButton  
+		    <net.garrapeta.jumplings.ui.CustomFontButton  
 		          android:text="Update" 
 			      android:id="@+id/highscoresListing_updateBtn" 
 		          android:layout_width="wrap_content" 
 		          android:layout_height="wrap_content"
 				  style="@style/ColorfulButton"/>
 			
-			<net.garrapeta.demo.ui.CustomFontButton 
+			<net.garrapeta.jumplings.ui.CustomFontButton 
 			      android:text="Submit" 
 			      android:id="@+id/highscoresListing_submitBtn" 
 		          android:layout_width="wrap_content" 
 		          android:layout_height="wrap_content"
 		          style="@style/ColorfulButton"/>
 		     
-			<net.garrapeta.demo.ui.CustomFontButton 
+			<net.garrapeta.jumplings.ui.CustomFontButton 
 			    android:text="Feint leaderboard" 
 				android:id="@+id/highscoresListing_feintLeaderBoardBtn" 
 		        android:drawableLeft="@drawable/icon_feint"
@@ -124,7 +124,7 @@
 		        android:visibility="gone"
 		        style="@style/ColorfulButton"/>
 		    
-			<net.garrapeta.demo.ui.CustomFontButton
+			<net.garrapeta.jumplings.ui.CustomFontButton
 			      android:text="Back" 
 			      android:id="@+id/highscoresListing_backBtn" 
 		          android:layout_width="wrap_content" 

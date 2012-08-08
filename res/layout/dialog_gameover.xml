@@ -5,7 +5,7 @@
               android:layout_height="wrap_content"              
               style="@style/CustomDialogContent">
         		  
-	<net.garrapeta.demo.ui.CustomFontTextView   
+	<net.garrapeta.jumplings.ui.CustomFontTextView   
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center_horizontal"
@@ -13,7 +13,7 @@
 	    style="@style/MainFont.CustomFontTextView.h1"
     />
    	
-    <net.garrapeta.demo.ui.CustomFontButton  
+    <net.garrapeta.jumplings.ui.CustomFontButton  
     	android:text="Proceed" 
     	android:id="@+id/gameoverDialog_proceedBtn"
     	android:layout_width="wrap_content" 
