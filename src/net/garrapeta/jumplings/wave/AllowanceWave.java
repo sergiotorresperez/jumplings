@@ -35,8 +35,6 @@ public abstract class AllowanceWave extends ActionBasedWave {
 	 */
 	public AllowanceWave(JumplingsWorld jWorld, IWaveEndListener listener, int level) {
 		super(jWorld, listener, level);
-		
-		jWorld.setGravityY(-SensorManager.GRAVITY_EARTH);
 	}
 	
 	

@@ -157,7 +157,6 @@ public class MenuActivity extends JumplingsActivity {
 		}
 		
 		jWorld   = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface));
-		jWorld.setFPS(60);
 		jWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
 		
 		// Preparaci�n de la wave

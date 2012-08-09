@@ -10,6 +10,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.hardware.SensorManager;
 import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
@@ -25,6 +26,8 @@ public class JumplingsWorld extends Box2DWorld {
     // -------------------------------------------------------- Constantes
 
     public static final String LOG_SRC = JumplingsApplication.LOG_SRC_JUMPLINGS + ".world";
+    
+    public static final int WORLD_HEIGHT = 14;
     
     // ------------------------------------------------------------ Variables
 
@@ -42,9 +45,6 @@ public class JumplingsWorld extends Box2DWorld {
     public JumplingsWorld(JumplingsActivity jActivity, GameView gameView) {
         super(jActivity, gameView);
         this.jActivity = jActivity;
-
-        // FIXME: Chapuza para evitar problema del cuelgue al inicial el juego
-        view.setSyncDrawing(false);
     }
 
     // ----------------------------------------------------- M�todos de World
@@ -104,16 +104,14 @@ public class JumplingsWorld extends Box2DWorld {
         // pared de seguridad derecha
         addActor(new WallActor(this, new PointF(0, 0), new PointF(securityRight, securityBottom), new PointF(
                 securityRight, securityTop), false, true));
+        
+        setGravityY(-SensorManager.GRAVITY_EARTH / 6);
 
     }
 
     @Override
     public synchronized void processFrame(float gameTimeStep) {
-
-        // FIXME: Chapuza para evitar problema del cuelgue al inicial el juego
-        if (!view.isSyncDrawing() && currentGameMillis() > 100) {
-            view.setSyncDrawing(true);
-        }
+        super.processFrame(gameTimeStep);
 
         // La generaci�n de enemigos, regeneraci�n de vida, comprobaci�n de
         // satisfacci�n
@@ -135,7 +133,7 @@ public class JumplingsWorld extends Box2DWorld {
     @Override
     public void onGameViewSizeChanged(int width, int height) {
         Log.i(LOG_SRC, "surfaceChanged " + this);
-        this.viewport.setWorldHeight(14);
+        this.viewport.setWorldHeight(WORLD_HEIGHT);
     }
 
     @Override

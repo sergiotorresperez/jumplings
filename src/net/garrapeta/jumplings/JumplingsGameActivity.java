@@ -190,7 +190,6 @@ public class JumplingsGameActivity extends JumplingsActivity {
 		
 	
 		super.jWorld = jgWorld   = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface));
-		jgWorld.setFPS(60);
 		jgWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
 		
 		updateLifeCounterView();

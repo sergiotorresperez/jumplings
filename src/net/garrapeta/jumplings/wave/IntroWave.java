@@ -28,8 +28,6 @@ public class IntroWave extends ActionBasedWave {
 	public IntroWave(JumplingsWorld jWorld, IWaveEndListener listener) {
 		super(jWorld, listener, 0);
 		
-		jWorld.setGravityY(-SensorManager.GRAVITY_EARTH);
-		
 		jumplingCreationAction = new GameWaveAction(this) {
 			@Override
 			public void run() {

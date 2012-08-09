@@ -50,7 +50,6 @@ public abstract class Wave {
 		
 		// Se resetean defaults
 		jworld.setGravityX(0);
-		jworld.setGravityY(- SensorManager.GRAVITY_EARTH);
 	}
 	
 	// --------------------------------------------------- M�todos
