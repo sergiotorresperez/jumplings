@@ -1,10 +1,10 @@
 package net.garrapeta.jumplings.actor;
 
 import net.garrapeta.MathUtils;
-import net.garrapeta.gameengine.box2d.Box2DActor;
-import net.garrapeta.gameengine.box2d.PhysicsUtils;
+import net.garrapeta.gameengine.actor.Box2DActor;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsWorld;
+import net.garrapeta.utils.PhysicsUtils;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.graphics.RectF;

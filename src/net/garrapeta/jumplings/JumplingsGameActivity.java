@@ -3,8 +3,8 @@ package net.garrapeta.jumplings;
 
 import net.garrapeta.jumplings.R;
 import net.garrapeta.gameengine.GameView;
-import net.garrapeta.gameengine.SoundManager;
-import net.garrapeta.gameengine.VibratorManager;
+import net.garrapeta.gameengine.sound.SoundManager;
+import net.garrapeta.gameengine.vibrator.VibratorManager;
 import net.garrapeta.jumplings.ui.AdDialogFactory;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import net.garrapeta.jumplings.wave.TestWave;

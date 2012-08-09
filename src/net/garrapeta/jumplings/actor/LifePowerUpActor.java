@@ -63,9 +63,6 @@ public class LifePowerUpActor extends PowerUpActor {
 	
 	// --------------------------------------------- M�todos heredados
 
-	@Override
-	public void doLogic(float gameTimeStep) {
-	}
 	
 	@Override
 	public void onHitted() {

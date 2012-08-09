@@ -2,8 +2,8 @@ package net.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import net.garrapeta.gameengine.box2d.Box2DWorld;
-import net.garrapeta.gameengine.box2d.actor.Box2DEdgeActor;
+import net.garrapeta.gameengine.Box2DWorld;
+import net.garrapeta.gameengine.actor.Box2DEdgeActor;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 

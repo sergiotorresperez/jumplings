@@ -129,7 +129,7 @@ public abstract class PowerUpActor extends MainActor {
 			Body body = mainBody;
 			DebrisActor debrisActor = new DebrisActor(jgWorld,  body, bmpDebrisBg); 
 			
-			gameWorld.addActor(debrisActor);
+			mGameWorld.addActor(debrisActor);
 			debrisActors.add(debrisActor);
 		}
 		
@@ -138,17 +138,13 @@ public abstract class PowerUpActor extends MainActor {
 			Body body = iconBody;
 			DebrisActor debrisActor = new DebrisActor(jgWorld,  body, bmpDebrisIcon); 
 
-			gameWorld.addActor(debrisActor);
+			mGameWorld.addActor(debrisActor);
 			debrisActors.add(debrisActor);
 		}
 		
 		return debrisActors;
 	}
 
-	@Override
-	public void doLogic(float gameTimeStep) {
-	}
-	
 	@Override
 	protected void drawBitmaps(Canvas canvas) {
 		jgWorld.drawBitmap(canvas, this.mainBody, 		bmpBg);

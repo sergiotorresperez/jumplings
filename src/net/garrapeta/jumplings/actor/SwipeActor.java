@@ -2,7 +2,7 @@ package net.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import net.garrapeta.gameengine.SoundManager;
+import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.jumplings.JumplingsGameActivity;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.PermData;
@@ -45,7 +45,7 @@ public class SwipeActor extends HarmerActor {
 	
 
 	@Override
-	public void doLogic(float gameTimeStep) {
+	public void processFrame(float gameTimeStep) {
 		
 		synchronized (swipePoints) {
 		
@@ -86,7 +86,7 @@ public class SwipeActor extends HarmerActor {
 			}
 		}
 		
-		super.doLogic(gameTimeStep);
+		super.processFrame(gameTimeStep);
 	}
 
 	@Override

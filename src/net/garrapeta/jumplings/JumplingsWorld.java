@@ -1,11 +1,12 @@
 package net.garrapeta.jumplings;
 
+import net.garrapeta.gameengine.Box2DWorld;
 import net.garrapeta.gameengine.GameView;
-import net.garrapeta.gameengine.box2d.Box2DWorld;
 import net.garrapeta.jumplings.actor.WallActor;
 import net.garrapeta.jumplings.wave.Wave;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
@@ -105,29 +106,23 @@ public class JumplingsWorld extends Box2DWorld {
         addActor(new WallActor(this, new PointF(0, 0), new PointF(securityRight, securityBottom), new PointF(
                 securityRight, securityTop), false, true));
         
-        setGravityY(-SensorManager.GRAVITY_EARTH / 6);
+        setGravityY(-SensorManager.GRAVITY_EARTH);
 
     }
 
     @Override
-    public synchronized void processFrame(float gameTimeStep) {
-        super.processFrame(gameTimeStep);
-
+    public synchronized boolean processFrame(float gameTimeStep) {
         // La generaci�n de enemigos, regeneraci�n de vida, comprobaci�n de
         // satisfacci�n
         // de condiciones de victoria derrota, etc, se delega en el wave-
         wave.processFrame(gameTimeStep);
 
+        return false;
     }
 
     @Override
-    protected void drawWorld(Canvas canvas) {
-        drawWorldBackground(canvas);
-        drawActors(canvas);
-    }
-
-    private void drawWorldBackground(Canvas canvas) {
-        canvas.drawARGB(255, 255, 255, 255);
+    protected void drawBackground(Canvas canvas) {
+        canvas.drawColor(Color.WHITE);
     }
 
     @Override

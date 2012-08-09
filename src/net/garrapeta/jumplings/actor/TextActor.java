@@ -49,12 +49,12 @@ public abstract class TextActor extends Actor {
     // -------------------------------------------------------- M�todos
 
     @Override
-    public void doLogic(float gameTimeStep) {
+    public void processFrame(float gameTimeStep) {
         worldPos.y += yVel * (gameTimeStep / 1000);
 
         lifeTime = Math.max(0, lifeTime - gameTimeStep);
         if (lifeTime <= 0) {
-            gameWorld.removeActor(this);
+            mGameWorld.removeActor(this);
         }
     }
 

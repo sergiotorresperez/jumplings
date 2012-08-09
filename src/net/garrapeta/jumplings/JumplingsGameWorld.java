@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import net.garrapeta.gameengine.Actor;
 import net.garrapeta.gameengine.GameView;
-import net.garrapeta.gameengine.SoundManager;
-import net.garrapeta.gameengine.VibratorManager;
+import net.garrapeta.gameengine.sound.SoundManager;
+import net.garrapeta.gameengine.vibrator.VibratorManager;
 import net.garrapeta.jumplings.actor.BladePowerUpActor;
 import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
@@ -108,7 +108,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     @Override
-    public synchronized void processFrame(float gameTimeStep) {
+    public synchronized boolean processFrame(float gameTimeStep) {
         if (weapon.getWeaponCode() != Gun.WEAPON_CODE_GUN) {
             if (weapon.getRemainingTime() <= 0) {
                 setWeapon(Gun.WEAPON_CODE_GUN);
@@ -133,15 +133,14 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
                 fadingScenario = null;
             }
         }
+
+        return false;
     }
 
     @Override
-    protected void drawWorld(Canvas canvas) {
-        drawWorldBackground(canvas);
-
+    protected void drawActors(Canvas canvas) {
         if (this.shakeRemaining <= 0) {
-            drawActors(canvas);
-
+            super.drawActors(canvas);
         } else {
             float intensity = (shakeRemaining / shakeDuration) * shakeIntensity;
 
@@ -159,14 +158,14 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
             canvas.save();
             canvas.translate(pixelsX, pixelsY);
-            drawActors(canvas);
+            super.drawActors(canvas);
 
             canvas.restore();
-
         }
     }
 
-    private void drawWorldBackground(Canvas canvas) {
+    @Override
+    protected void drawBackground(Canvas canvas) {
         super.drawBackground(canvas);
 
         // TODO: evitar esta comporbaci�n de nulidad
@@ -177,6 +176,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
                 fadingScenario.draw(canvas);
             }
         }
+
     }
 
     // -------------------------------------------------------- M�todos propios

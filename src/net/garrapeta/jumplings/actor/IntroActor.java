@@ -121,8 +121,7 @@ public class IntroActor extends JumplingActor {
 	}
 
 	@Override
-	public void doLogic(float gameTimeStep) {
-
+	public void processFrame(float gameTimeStep) {
 	}
 	
 	@Override

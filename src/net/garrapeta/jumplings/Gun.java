@@ -1,6 +1,6 @@
 package net.garrapeta.jumplings;
 
-import net.garrapeta.gameengine.SoundManager;
+import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.jumplings.actor.BulletActor;
 import net.garrapeta.jumplings.actor.FlashActor;
 import android.graphics.PointF;

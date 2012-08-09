@@ -4,7 +4,7 @@ package net.garrapeta.jumplings.actor;
 import java.util.ArrayList;
 
 import net.garrapeta.jumplings.R;
-import net.garrapeta.gameengine.SoundManager;
+import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameActivity;
 import net.garrapeta.jumplings.JumplingsGameWorld;
@@ -86,7 +86,7 @@ public abstract class EnemyActor extends MainActor {
 	// ---------------------------------------------------------------- Constructor
 	
 	/**
-	 * @param gameWorld
+	 * @param mGameWorld
 	 */
 	public EnemyActor(JumplingsGameWorld jgWorld, PointF worldPos) {
 		super(jgWorld, worldPos, Z_INDEX);
@@ -105,8 +105,6 @@ public abstract class EnemyActor extends MainActor {
 		ah.drawBitmaps(canvas);
 	}
 		
-	@Override
-	public void doLogic(float gameTimeStep) {}
 	
 	@Override
 	public void onAddedToWorld() {
@@ -154,7 +152,7 @@ public abstract class EnemyActor extends MainActor {
 			
 		
 			
-			gameWorld.addActor(debrisActor);
+			mGameWorld.addActor(debrisActor);
 			debrisActors.add(debrisActor);
 		}
 		
@@ -163,7 +161,7 @@ public abstract class EnemyActor extends MainActor {
 			Body body = ah.leftHandBody;
 			DebrisActor debrisActor = new DebrisActor(jgWorld,  body, bmpDebrisHandLeft); 
 						
-			gameWorld.addActor(debrisActor);
+			mGameWorld.addActor(debrisActor);
 			debrisActors.add(debrisActor);
 		}
 		
@@ -172,7 +170,7 @@ public abstract class EnemyActor extends MainActor {
 			Body body = ah.rightHandBody;
 			DebrisActor debrisActor = new DebrisActor(jgWorld,  body, bmpDebrisHandRight); 
 			
-			gameWorld.addActor(debrisActor);
+			mGameWorld.addActor(debrisActor);
 			debrisActors.add(debrisActor);
 		}
 		
@@ -181,7 +179,7 @@ public abstract class EnemyActor extends MainActor {
 			Body body = ah.leftFootBody;
 			DebrisActor debrisActor = new DebrisActor(jgWorld,  body, bmpDebrisFootLeft); 
 			
-			gameWorld.addActor(debrisActor);
+			mGameWorld.addActor(debrisActor);
 			debrisActors.add(debrisActor);
 		}
 		
@@ -198,7 +196,7 @@ public abstract class EnemyActor extends MainActor {
 			Body body = ah.leftEyeBody;
 			DebrisActor debrisActor = new DebrisActor(jgWorld,  body, bmpDebrisEyeLeft); 
 			
-			gameWorld.addActor(debrisActor);
+			mGameWorld.addActor(debrisActor);
 			debrisActors.add(debrisActor);
 		}
 		
@@ -207,7 +205,7 @@ public abstract class EnemyActor extends MainActor {
 			Body body = ah.rightEyeBody;
 			DebrisActor debrisActor = new DebrisActor(jgWorld,  body, bmpDebrisEyeRight); 
 			
-			gameWorld.addActor(debrisActor);
+			mGameWorld.addActor(debrisActor);
 			debrisActors.add(debrisActor);
 		}
 		

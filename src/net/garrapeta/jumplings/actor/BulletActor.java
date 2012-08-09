@@ -58,15 +58,15 @@ public class BulletActor extends HarmerActor {
 	// ----------------------------------------------- M�todos heredados
 	
 	@Override
-	public void doLogic(float gameTimeStep) {
+	public void processFrame(float gameTimeStep) {
 	
 		// vida de la bala		
 		lifeTime = Math.max(0, lifeTime - gameTimeStep);
 		if (lifeTime <= 0) {
-			gameWorld.removeActor(this);
+			mGameWorld.removeActor(this);
 		}
 		
-		super.doLogic(gameTimeStep);
+		super.processFrame(gameTimeStep);
 		
 		firstFrame = false;
 	}
@@ -114,5 +114,6 @@ public class BulletActor extends HarmerActor {
 		}
 		return false;
 	}
+
 	
 }

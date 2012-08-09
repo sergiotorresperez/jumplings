@@ -60,11 +60,6 @@ public class BladePowerUpActor extends PowerUpActor {
 	}
 	
 	// --------------------------------------------- M�todos heredados
-	
-	@Override
-	public void doLogic(float gameTimeStep) {
-	}
-
 	@Override
 	public void onHitted() {
 		jgWorld.onBladePowerUp(this);

@@ -101,6 +101,4 @@ public class DoubleSonEnemyActor extends EnemyActor {
 		ah.createLimbs(worldPos, radius);
 	}
 
-
-
 }

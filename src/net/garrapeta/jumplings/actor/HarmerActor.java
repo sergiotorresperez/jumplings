@@ -20,7 +20,8 @@ public abstract class HarmerActor extends Actor {
 
     // ----------------------------------------------- M�todos de Actor
 
-    public void doLogic(float gameTimeStep) {
+    @Override
+    protected void processFrame(float gameTimeStep) {
         // efectos sobre los mainActors
         Object[] as = jgWorld.mainActors.toArray();
 

@@ -110,10 +110,10 @@ public class SparksActor extends JumplingActor {
 	}
 
 	@Override
-	public void doLogic(float gameTimeStep) {
+	public void processFrame(float gameTimeStep) {
 		lifeTime = Math.max(0, lifeTime - gameTimeStep);
 		if (lifeTime <= 0) {
-			gameWorld.removeActor(this);
+			mGameWorld.removeActor(this);
 		}
 		alpha = (int) (255 * lifeTime / longevity);
 	}

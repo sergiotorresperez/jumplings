@@ -3,8 +3,8 @@ package net.garrapeta.jumplings.actor;
 import java.util.ArrayList;
 
 import net.garrapeta.jumplings.R;
-import net.garrapeta.gameengine.SoundManager;
 import net.garrapeta.gameengine.Viewport;
+import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameActivity;
 import net.garrapeta.jumplings.JumplingsGameWorld;
@@ -157,7 +157,7 @@ public class BombActor extends MainActor {
 			Body body = mainBody;
 			DebrisActor debrisActor = new DebrisActor(jgWorld,  body, BMP_DEBRIS_BOMB_BODY); 
 						
-			gameWorld.addActor(debrisActor);
+			mGameWorld.addActor(debrisActor);
 			debrisActors.add(debrisActor);
 		}
 		
@@ -166,7 +166,7 @@ public class BombActor extends MainActor {
 			Body body = fuseBody;
 			DebrisActor debrisActor = new DebrisActor(jgWorld,  body, BMP_DEBRIS_BOMB_FUSE); 
 			
-			gameWorld.addActor(debrisActor);
+			mGameWorld.addActor(debrisActor);
 			debrisActors.add(debrisActor);
 		}
 		
@@ -174,7 +174,7 @@ public class BombActor extends MainActor {
 	}
 
 	@Override
-	public void doLogic(float gameTimeStep) {
+	public void processFrame(float gameTimeStep) {
 		long now = System.currentTimeMillis();
 		if (now - lastSparkle >= SPARKS_LAPSE) {
 			int sparkles = (int) (Math.random() * SPARKS_PER_LAPSE);
