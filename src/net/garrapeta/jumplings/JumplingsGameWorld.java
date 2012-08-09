@@ -3,6 +3,7 @@ package net.garrapeta.jumplings;
 import java.util.ArrayList;
 
 import net.garrapeta.gameengine.Actor;
+import net.garrapeta.gameengine.GameMessage;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.gameengine.vibrator.VibratorManager;
@@ -64,7 +65,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     /** Intensidad, en unidades del mundo, del shake actual */
     private float shakeIntensity = 0;
 
-    private ArrayList<double[]> motionEvents = new ArrayList<double[]>();
 
     /** Arma actual */
     public Weapon weapon;
@@ -116,8 +116,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
                 jgActivity.updateSpecialWeaponBar();
             }
         }
-
-        dispatchMotionEvents();
 
         super.processFrame(gameTimeStep);
 
@@ -357,47 +355,16 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        synchronized (motionEvents) {
-            motionEvents.add(new double[] { event.getAction(), event.getX(), event.getY(), System.currentTimeMillis() });
+        if (!jgActivity.isGameOver() && !jgActivity.isGamePaused()) {
+            final double[] info = new double[] { event.getAction(), event.getX(), event.getY(), System.currentTimeMillis()};
+            post(new GameMessage() {
+                @Override
+                public void process() {
+                    weapon.onTouchEvent(info);
+                }
+            });
         }
         return true;
-    }
-
-    public void dispatchMotionEvents() {
-        synchronized (motionEvents) {
-
-            if (!jgActivity.isGameOver() && !jgActivity.isGamePaused()) {
-                for (int i = 0; i < motionEvents.size(); i++) {
-                    double[] info = motionEvents.get(i);
-                    dispatchMotionEvent(info);
-                }
-            }
-            motionEvents.clear();
-        }
-
-    }
-
-    // M�todos de ciclo de vida del juego
-    public void dispatchMotionEvent(double[] info) {
-
-        weapon.onTouchEvent(info);
-
-        /*
-         * if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction()
-         * == MotionEvent.ACTION_MOVE) { boolean success = false;
-         * 
-         * synchronized (this) {
-         * 
-         * int size = enemies.size(); Object[] es = enemies.toArray();
-         * 
-         * 
-         * for (int i = 0; i < size; i++) { ShapeActor e = (ShapeActor) es[i];
-         * success |= e.onTouchEvent(event); if (success) { e.explode();
-         * this.onEnemyKilled(e); break; } }
-         * 
-         * if (!success) { if (!cActivity.isGamePlaying()) { return; }
-         * //onMissed(); } } }
-         */
     }
 
     public Player getPlayer() {
