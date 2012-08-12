@@ -187,7 +187,7 @@ public abstract class EnemyActor extends MainActor {
 		{
 			Body body = ah.rightFootBody;
 			DebrisActor debrisActor = new DebrisActor(jgWorld,  body, bmpDebrisFootRight); 
-
+			mGameWorld.addActor(debrisActor);
 			debrisActors.add(debrisActor);
 		}
 		

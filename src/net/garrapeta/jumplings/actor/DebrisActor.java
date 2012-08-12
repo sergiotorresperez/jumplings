@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.util.Log;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -27,7 +28,7 @@ public class DebrisActor extends JumplingActor {
 	public  final static int    DEBRIS_FILTER_BIT     	= 0x00004;
 	
 	/** Tiempo que permanece el actor en pantalla, en ms */
-	private final static int    DEFAULT_LONGEVITY			= 2500;
+	private final static int    DEFAULT_LONGEVITY			= 1500;
 	
 	// ------------------------------------------------ Variables est�ticas
 		

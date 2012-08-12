@@ -1,7 +1,9 @@
 package net.garrapeta.jumplings.actor;
 
 import net.garrapeta.MathUtils;
-import net.garrapeta.gameengine.actor.Box2DActor;
+import net.garrapeta.gameengine.Box2DActor;
+import net.garrapeta.gameengine.GameMessage;
+import net.garrapeta.gameengine.GameWorld;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsWorld;
 import net.garrapeta.utils.PhysicsUtils;
@@ -12,6 +14,7 @@ import android.graphics.RectF;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
@@ -177,6 +180,7 @@ public abstract class JumplingActor extends Box2DActor {
 		
 		// Para que el actor se comporte con una restituci�n global, se pone 
 		// al cuerpo principal una restituci�n apropiada
+		//TODO: ¿que era esto??
 		double ratio = getMainMassRatio();
 		float mainBodyRestitution = (float) (OVERALL_ACTOR_RESTITUTION * (1 / ratio));
 		mainBody.getFixtureList().get(0).setRestitution(mainBodyRestitution);

@@ -72,7 +72,7 @@ public class WallActor extends Box2DEdgeActor {
 
 	@Override
 	public void draw(Canvas canvas) {
-//		super.draw(canvas);
+		super.draw(canvas);
 	}
 	
 	// -------------------------------------------------------- M�todos de Box2dActor

@@ -55,18 +55,18 @@ public class Scenario {
 		Resources r = dWorld.jgActivity.getResources();
 		{
 			Bitmap bmp = BitmapFactory.decodeResource(r, R.drawable.bg_blue_sky);
-			int maxHeight = (int) (dWorld.view.getHeight() * 1.5);
+			int maxHeight = (int) (dWorld.mView.getHeight() * 1.5);
 			layerBg0 = new Layer(this, bmp, maxHeight, 0, 0, 2, 0, true, true);
 		}
 		{
 			Bitmap bmp = BitmapFactory.decodeResource(r, R.drawable.bg_green_hills);
-			int maxHeight = (int) (dWorld.view.getHeight() * 2);
-			float initYPos = dWorld.view.getHeight() - bmp.getHeight();
+			int maxHeight = (int) (dWorld.mView.getHeight() * 2);
+			float initYPos = dWorld.mView.getHeight() - bmp.getHeight();
 			layerBg1 = new Layer(this, bmp, maxHeight, 0, initYPos, 0, 0, false, false);
 		}
 		{
 			Bitmap bmp = BitmapFactory.decodeResource(r, R.drawable.bg_clouds);
-			int maxHeight = (int) (dWorld.view.getHeight() * 2.7);
+			int maxHeight = (int) (dWorld.mView.getHeight() * 2.7);
 			float initYPos = -maxHeight + bmp.getHeight();
 			layerBg2 = new Layer(this, bmp, maxHeight, 0, initYPos, 3, 0, true, false);
 		}

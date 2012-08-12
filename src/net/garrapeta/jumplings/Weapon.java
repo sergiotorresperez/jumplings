@@ -5,14 +5,14 @@ public abstract class Weapon {
 	// ---------------------------------------------------- Contantes
 	
 	// --------------------------------------- Variables de instancia
-	protected JumplingsGameWorld jgWorld;
+	protected JumplingsGameWorld mJGWorld;
 	
 	private long creationTimeStamp;
 	
 	// ------------------------------------------------- Constructores
 	
 	public Weapon(JumplingsGameWorld jgWorld) {
-		this.jgWorld = jgWorld;
+		this.mJGWorld = jgWorld;
 		this.creationTimeStamp = jgWorld.currentGameMillis();
 	}
 	
@@ -27,7 +27,9 @@ public abstract class Weapon {
 	
 	public abstract int getMaxTime();
 	
+	public abstract void onEnded();
+	
 	public int getRemainingTime() {
-		return getMaxTime() - (int) (jgWorld.currentGameMillis() - creationTimeStamp);
+		return getMaxTime() - (int) (mJGWorld.currentGameMillis() - creationTimeStamp);
 	}
 }

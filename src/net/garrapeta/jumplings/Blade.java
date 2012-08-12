@@ -12,19 +12,18 @@ public class Blade extends Weapon {
 	private static int WEAPON_TIME_BLADE = 10000;
 	
 	// -------------------------------------------------------- Variables de instancia
-	SwipeActor swipe;
+	SwipeActor mSwipe;
 	
 		
 	public Blade(JumplingsGameWorld demoWorld) {
 		super(demoWorld);
-		swipe = new SwipeActor(demoWorld);
-		demoWorld.addActor(swipe);
-		
+		mSwipe = new SwipeActor(demoWorld);
+		demoWorld.addActor(mSwipe);
 	}
 
 	@Override
 	public void onTouchEvent(double[] info) {
-		swipe.onTouchEvent(info);
+		mSwipe.onTouchEvent(info);
 	}
 	
 	public short getWeaponCode() {
@@ -34,4 +33,10 @@ public class Blade extends Weapon {
 	public int getMaxTime() {
 		return WEAPON_TIME_BLADE;
 	}
+	
+    @Override
+    public void onEnded() {
+        mJGWorld.removeActor(mSwipe);
+    }
+
 }

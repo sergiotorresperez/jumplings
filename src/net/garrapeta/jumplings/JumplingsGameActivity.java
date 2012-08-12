@@ -260,6 +260,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 //						world.wave = new CampaignTutorialWave(world, null, 1);
 		} else  if (waveKey.equals(TestWave.WAVE_KEY)) {
 			jgWorld.wave = new TestWave(jgWorld, null);
+//		    jgWorld.wave = new CampaignSurvivalWave(jgWorld, null);
 		} else {
 			throw new IllegalArgumentException("Cannot create wave: " + waveKey);
 		}
@@ -485,7 +486,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 	 *  Actualizaci�n de la barra de arma especial
 	 */
 	public void updateSpecialWeaponBar() {
-		Weapon weapon = jgWorld.weapon;
+		Weapon weapon = jgWorld.mWeapon;
 		int progress = weapon.getRemainingTime();
 		specialWeaponBar.setProgress(progress);
 	}
@@ -496,7 +497,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 			public void run() {
 				if (active) {
 					specialWeaponBar.setVisibility(View.VISIBLE);
-					specialWeaponBar.setMax(jgWorld.weapon.getMaxTime());
+					specialWeaponBar.setMax(jgWorld.mWeapon.getMaxTime());
 					updateSpecialWeaponBar();
 				} else {
 					specialWeaponBar.setVisibility(View.INVISIBLE);

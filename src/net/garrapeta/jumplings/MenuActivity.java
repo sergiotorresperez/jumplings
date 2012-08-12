@@ -11,6 +11,7 @@ import net.garrapeta.jumplings.R;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import net.garrapeta.jumplings.wave.IntroWave;
+import net.garrapeta.jumplings.wave.TestWave;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -221,11 +222,11 @@ public class MenuActivity extends JumplingsActivity {
 	}
 	
 	void startTest() {
-//		Intent i = new Intent(this, JumplingsGameActivity.class);
-//		i.putExtra(JumplingsGameActivity.WAVE_BUNDLE_KEY, TestWave.WAVE_KEY);
-//		startActivity(i);
-		Intent i = new Intent(this, GameOverActivity.class);
+		Intent i = new Intent(this, JumplingsGameActivity.class);
+		i.putExtra(JumplingsGameActivity.WAVE_BUNDLE_KEY, TestWave.WAVE_KEY);
 		startActivity(i);
+//		Intent i = new Intent(this, GameOverActivity.class);
+//		startActivity(i);
 	}
 	
 	void showHighScores() {

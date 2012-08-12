@@ -1,6 +1,11 @@
 package net.garrapeta.jumplings;
 
 
+import java.security.spec.MGF1ParameterSpec;
+
+import net.garrapeta.gameengine.GameMessage;
+import net.garrapeta.gameengine.GameWorld;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,10 +53,9 @@ public abstract class JumplingsActivity extends Activity {
 	void startWorld() {
 		Log.i(JumplingsApplication.LOG_SRC,"startNewGame " + this);
 		
+		
 		worldStarted = true;
 		
-	 	// Se crea el mundo
-		jWorld.create();
 		
 		// Se arranca el game loop
 		jWorld.startLooping();

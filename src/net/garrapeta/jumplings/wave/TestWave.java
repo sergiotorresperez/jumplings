@@ -1,5 +1,7 @@
 package net.garrapeta.jumplings.wave;
 
+import net.garrapeta.gameengine.GameMessage;
+import net.garrapeta.gameengine.GameWorld;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.actor.BombActor;
@@ -45,6 +47,7 @@ public class TestWave extends Wave {
 		if (JumplingsApplication.DEBUG_ENABLED) {
 			this.jgWorld.jgActivity.testBtn.setVisibility(View.VISIBLE);
 			this.jgWorld.jgActivity.weaponsRadioGroup.setVisibility(View.VISIBLE);
+			this.jgWorld.setGravityY(-1);
 		}
 	}
 
@@ -66,8 +69,14 @@ public class TestWave extends Wave {
 //			}
 //		});
 //		
-		createEnemy();
-//		createPowerUp();
+	    jgWorld.post(new GameMessage() {
+
+            @Override
+            public void process(GameWorld world) {
+                createEnemy();
+//              createPowerUp();
+            }});
+
 		
 	}
 	
@@ -82,11 +91,16 @@ public class TestWave extends Wave {
 		return false;
 	}
 	
+    public boolean onFail() {
+        return true;
+    }
 	// ---------------------------------------------------- M�todos propios
 
 	
 
 	public void createEnemy() {
+	    
+	    
 		
 		boolean debug = false;
 		

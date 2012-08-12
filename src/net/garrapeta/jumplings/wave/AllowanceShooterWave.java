@@ -123,7 +123,7 @@ public class AllowanceShooterWave extends AllowanceWave {
 		
 		do {
 			while (true) { 
-				if (Math.random() < bombProbability && jgWorld.bombCount + 1 <= maxBombs && jgWorld.weapon.getWeaponCode() == Gun.WEAPON_CODE_GUN) {
+				if (Math.random() < bombProbability && jgWorld.bombCount + 1 <= maxBombs && jgWorld.mWeapon.getWeaponCode() == Gun.WEAPON_CODE_GUN) {
 					code = BombActor.JUMPER_CODE_BOMB;
 					break;
 				} 

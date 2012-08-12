@@ -43,27 +43,27 @@ public class Gun extends Weapon {
 		if (info[0] == MotionEvent.ACTION_DOWN && 
 				(System.currentTimeMillis() - lastShootTimeStamp) >= shootTimeGap) {
 			
-			if (jgWorld.jgActivity.flashCfgLevel == PermData.CFG_LEVEL_ALL) {
-				FlashActor flash = new FlashActor(jgWorld,
+			if (mJGWorld.jgActivity.flashCfgLevel == PermData.CFG_LEVEL_ALL) {
+				FlashActor flash = new FlashActor(mJGWorld,
 						                          FlashActor.FLASH_SHOT_COLOR, 
 						                          FlashActor.FLASH_SHOT_ALPHA, 
 						                          FlashActor.FLASH_SHOT_DURATION);
 				
-				jgWorld.addActor(flash);
+				mJGWorld.addActor(flash);
 			}
 
-			if (jgWorld.jgActivity.soundOn) {
+			if (mJGWorld.jgActivity.soundOn) {
 				SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_GUNSHOT);
 			}
 			
 			lastShootTimeStamp = System.currentTimeMillis();
 			
-			PointF worldPos = jgWorld.viewport.screenToWorld((float)info[1], (float)info[2]);
-			BulletActor bullet = new BulletActor(jgWorld, worldPos, bulletRadius);
+			PointF worldPos = mJGWorld.viewport.screenToWorld((float)info[1], (float)info[2]);
+			BulletActor bullet = new BulletActor(mJGWorld, worldPos, bulletRadius);
 			bullet.longevity = bulletLongevity;
 			bullet.lifeTime = bulletLongevity;
 			
-			jgWorld.addActor(bullet);
+			mJGWorld.addActor(bullet);
 		}
 	}
 	
@@ -74,5 +74,9 @@ public class Gun extends Weapon {
 	public int getMaxTime() {
 		return WEAPON_TIME_GUN;
 	}
+
+    @Override
+    public void onEnded() {
+    }
 
 }

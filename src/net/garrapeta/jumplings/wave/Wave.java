@@ -141,6 +141,10 @@ public abstract class Wave {
 		return false;
 	}
 
+    public boolean onFail() {
+        return false;
+    }
+    
 	/**
 	 * M�todo ejecutado cuando el jugador pierde el juego
 	 * @return si el evento es consumido por la wave
@@ -238,6 +242,8 @@ public abstract class Wave {
 	public void onTestButtonClicked(Button showAdBtn) {
 	}
 	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+
+
 
 
 
