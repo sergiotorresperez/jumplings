@@ -17,7 +17,7 @@ public class BulletActor extends HarmerActor {
 
 	private final static float KILL_RADIUS    = 0.7f;
 	private final static float BLAST_RADIUS   = 3;
-	private final static float BLAST_FORCE    = 25;
+	private final static float BLAST_FORCE    = 35;
 
 	// ----------------------------------------- Variables de instancia
 	
@@ -78,7 +78,7 @@ public class BulletActor extends HarmerActor {
 				j.onHitted();
 			} else {
 				// se aplica onda expansiva
-				cWorld.applyForce(Viewport.pointFToVector2(worldPos), j.mainBody, BLAST_RADIUS, BLAST_FORCE);
+				cWorld.applyBlast(Viewport.pointFToVector2(worldPos), j.mainBody, BLAST_RADIUS, BLAST_FORCE);
 			}
 		}
 	}

@@ -233,7 +233,7 @@ public class BombActor extends MainActor {
 		
 		for (int i = 0; i < l; i++) {
 			JumplingActor a = (JumplingActor)as[i];
-			jgWorld.applyForce(mainBody.getWorldCenter(), a.mainBody, BLAST_RADIUS, BLAST_FORCE);		
+			jgWorld.applyBlast(mainBody.getWorldCenter(), a.mainBody, BLAST_RADIUS, BLAST_FORCE);		
 		}
 
 		// Se crean chispas de la explosi�n 		

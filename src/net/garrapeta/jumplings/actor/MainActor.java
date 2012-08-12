@@ -25,7 +25,7 @@ public abstract class MainActor extends JumplingActor {
 	public long timestamp;
 	
 	/** Fuerza con la que se desintegran los actores en basurilla  */
-	public final static float DESINTEGRATION_FORCE = 310;
+	public final static float DESINTEGRATION_FORCE = 100;
 	
 	// ------------------------------------------ Variables de instancia
 	
@@ -90,7 +90,7 @@ public abstract class MainActor extends JumplingActor {
 	/**
 	 * Explosi�n del actor
 	 */
-	public void disintegrateInDebris() { 
+	public void desintegrateInDebris() { 
 		// se rompen las joints
 		if (joints != null) {
 			Object[] aux = joints.toArray();
@@ -145,7 +145,7 @@ public abstract class MainActor extends JumplingActor {
 	}
 
 	public void onHitted() {
-		disintegrateInDebris();
+		desintegrateInDebris();
 		jgWorld.removeActor(this);
 	}
 	
