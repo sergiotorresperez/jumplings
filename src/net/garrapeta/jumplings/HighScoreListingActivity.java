@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import net.garrapeta.jumplings.R;
-import net.garrapeta.gameengine.R.id;
 import net.garrapeta.utils.IOUtils;
 import net.garrapeta.utils.AsynchronousHttpSender.AsynchronousHttpSender;
 import net.garrapeta.utils.AsynchronousHttpSender.ResponseListener;
@@ -137,7 +136,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 		// Preparaci�n de contenido de tab global
 	
 		// Se elimina la columna Global Rank en header de lista global
-		findViewById(id.highscoresListing_globalScoresTabContent).findViewById(id.scoreHeader_globalRank).setVisibility(View.INVISIBLE);
+		findViewById(R.id.highscoresListing_globalScoresTabContent).findViewById(R.id.scoreHeader_globalRank).setVisibility(View.INVISIBLE);
 		
 		// Se rellenan los scores globales
  		globalHighScoresView = (ListView) findViewById(R.id.highscoresListing_globalHighScoresListView);
@@ -549,7 +548,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 			
 			{
 				// player name
-				TextView view = (TextView) convertView.findViewById(id.scoreItem_playerName);
+				TextView view = (TextView) convertView.findViewById(R.id.scoreItem_playerName);
 				view.setText(String.valueOf(hs.playerName));
 			}
 			
@@ -566,7 +565,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 			
 			{
 				// level
-				TextView view = (TextView) convertView.findViewById(id.scoreItem_level);
+				TextView view = (TextView) convertView.findViewById(R.id.scoreItem_level);
 				view.setText(String.valueOf(hs.level));
 			}
 			

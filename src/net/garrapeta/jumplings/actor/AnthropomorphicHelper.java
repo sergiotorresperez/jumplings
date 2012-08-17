@@ -283,7 +283,7 @@ public class AnthropomorphicHelper {
 	}
 	
 	void drawShapes(Canvas canvas) {
-		actor.drawShapes(canvas);
+		actor.drawBodiesShapes(canvas);
 	}
 
 	void drawBitmaps(Canvas canvas) {

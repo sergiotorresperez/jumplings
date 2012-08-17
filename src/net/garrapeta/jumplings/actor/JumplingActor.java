@@ -159,7 +159,7 @@ public abstract class JumplingActor extends Box2DActor {
 	@Override
 	public final void draw(Canvas canvas) {
 		if (JumplingsApplication.DRAW_ACTOR_SHAPES) {
-			super.drawShapes(canvas);
+			super.drawBodiesShapes(canvas);
 		}
 		if (JumplingsApplication.DRAW_ACTOR_BITMAPS) {
 			drawBitmaps(canvas);

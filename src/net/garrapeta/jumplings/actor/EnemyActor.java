@@ -96,7 +96,7 @@ public abstract class EnemyActor extends MainActor {
 	// ------------------------------------------- M�todos Heredados
 
 	@Override
-	public final void drawShapes(Canvas canvas) {
+	public final void drawBodiesShapes(Canvas canvas) {
 		ah.drawShapes(canvas);
 	}
 	
