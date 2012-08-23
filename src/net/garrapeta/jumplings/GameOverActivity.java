@@ -213,7 +213,7 @@ public class GameOverActivity extends Activity {
 			}
 		});
 		
-		if (JumplingsApplication.FEINT_ENABLED) { 
+		if (JumplingsApplication.FEINT_ENABLED && OpenFeint.isUserLoggedIn()) { 
 			postToFeintButton = (Button) findViewById(R.id.gameover_postToFeintBtn);
 			postToFeintButton.setOnClickListener(new OnClickListener() {
 				@Override
@@ -221,6 +221,7 @@ public class GameOverActivity extends Activity {
 					submitHighScoreToFeint();
 				}
 			});
+			postToFeintButton.setVisibility(View.VISIBLE);
 		}
 		
 		if (JumplingsApplication.FACEBOOK_ENABLED) {
@@ -373,7 +374,11 @@ public class GameOverActivity extends Activity {
 		
 		s.submitTo(l, new Score.SubmitToCB() {
 			@Override public void onSuccess(boolean newHighScore) {				
-				// No pongo el Toast, porque Feint ya hace algo para dar feedback
+				// TODO: No daba Feint feedback del success??
+			    
+                Toast.makeText(GameOverActivity.this, "Your score has been posted to Feint!",
+                Toast.LENGTH_SHORT).show();
+                
 				dismissDialog(FEINT_COMUNICATION_PROGRESS_DIALOG);
 				
 				postToFeintButton.setVisibility(View.GONE);

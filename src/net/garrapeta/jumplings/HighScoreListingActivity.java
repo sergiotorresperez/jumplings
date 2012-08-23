@@ -175,8 +175,6 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 		});
 		
 		if (JumplingsApplication.FEINT_ENABLED) {
-			
-						
 			feintLeaderBoardBtn = (Button) findViewById(R.id.highscoresListing_feintLeaderBoardBtn);
 			feintLeaderBoardBtn.setOnClickListener(new OnClickListener() {
 				@Override
