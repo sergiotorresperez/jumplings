@@ -156,7 +156,8 @@ public class GameOverActivity extends Activity {
 				@Override
 				public boolean onEditorAction(TextView tv, int actionId, KeyEvent event) {
 			        // If the event is a key-down event on the "enter" button
-			        if ((event.getAction() == KeyEvent.ACTION_DOWN) && (actionId == EditorInfo.IME_NULL)) {
+				    // TODO: Event is sometimes null: http://stackoverflow.com/questions/11301061/null-keyevent-and-actionid-0-in-oneditoraction-jelly-bean-nexus-7
+			        if (event != null && (event.getAction() == KeyEvent.ACTION_DOWN) && (actionId == EditorInfo.IME_NULL)) {
 			        	InputMethodManager imm = (InputMethodManager)getSystemService(GameOverActivity.INPUT_METHOD_SERVICE);
 			        	imm.hideSoftInputFromWindow(tv.getWindowToken(), 0);
 			        	return true;
