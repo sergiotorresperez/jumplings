@@ -53,7 +53,7 @@ public class Gun extends Weapon {
 			}
 
 			if (mJGWorld.jgActivity.soundOn) {
-				SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_GUNSHOT);
+				SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_SLAP);
 			}
 			
 			lastShootTimeStamp = System.currentTimeMillis();

@@ -48,7 +48,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 	public static final int SAMPLE_ENEMY_KILLED  = 2;
 	public static final int SAMPLE_FAIL    		 = 3;
 	
-	public static final int SAMPLE_GUNSHOT    	 = 4;
+	public static final int SAMPLE_SLAP           = 4;
 	public static final int SAMPLE_BLADE_WHIP    = 5;
 	
 	public static final int SAMPLE_FUSE		     = 6;
@@ -222,8 +222,8 @@ public class JumplingsGameActivity extends JumplingsActivity {
 			
 			sm.add(R.raw.crush,		SAMPLE_ENEMY_KILLED, 	this);
 			sm.add(R.raw.wrong,		SAMPLE_FAIL, 			this);
-			
-			sm.add(R.raw.gunshot,	SAMPLE_GUNSHOT, 		this);
+			    
+			sm.add(R.raw.slap,	    SAMPLE_SLAP, 		    this);
 			
 			sm.add(R.raw.blade, 	SAMPLE_BLADE_WHIP, 		this);
 			
