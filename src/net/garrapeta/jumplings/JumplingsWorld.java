@@ -1,9 +1,6 @@
 package net.garrapeta.jumplings;
-
-import net.garrapeta.gameengine.Actor;
 import net.garrapeta.gameengine.Box2DWorld;
 import net.garrapeta.gameengine.GameView;
-import net.garrapeta.jumplings.actor.SplitterEnemyActor;
 import net.garrapeta.jumplings.actor.WallActor;
 import net.garrapeta.jumplings.wave.Wave;
 import android.graphics.Bitmap;

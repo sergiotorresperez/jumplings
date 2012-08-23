@@ -1,11 +1,6 @@
 package net.garrapeta.jumplings;
 
 
-import java.security.spec.MGF1ParameterSpec;
-
-import net.garrapeta.gameengine.GameMessage;
-import net.garrapeta.gameengine.GameWorld;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
