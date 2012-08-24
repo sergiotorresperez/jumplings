@@ -71,10 +71,6 @@ public class JumplingsGameActivity extends JumplingsActivity {
      */
     public JumplingsGameWorld jgWorld;
 
-    /**
-     * Si el juego est� pausado
-     */
-    private boolean paused;
 
     /**
      * Si el jugador ha muerto
@@ -272,7 +268,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
         super.onStop();
 
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
-        if (jWorld.isPlaying()) {
+        if (jWorld.isStarted()) {
             pauseGame();
         }
     }
@@ -375,11 +371,10 @@ public class JumplingsGameActivity extends JumplingsActivity {
      * Pausa el juego
      */
     void pauseGame() {
-        if (!isGamePaused()) {
+        if (!jWorld.isPaused()) {
             showDialog(DIALOG_PAUSE_ID);
             pauseBtn.setVisibility(View.GONE);
             onGamePaused();
-            paused = true;
         }
     }
 
@@ -402,19 +397,10 @@ public class JumplingsGameActivity extends JumplingsActivity {
     }
 
     /**
-     * @return si el juego est� pausado
-     */
-    boolean isGamePaused() {
-        return paused;
-    }
-
-    /**
      * Contin�a el juego
      */
     void resumeGame() {
         pauseBtn.setVisibility(View.VISIBLE);
-        paused = false;
-
         onGameResumed();
     }
 
@@ -422,7 +408,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
      * Invocado al continuar el juego
      */
     public void onGameResumed() {
-        jWorld.play();
+        jWorld.resume();
         if (soundOn) {
             SoundManager.getInstance().resumeAll();
         }

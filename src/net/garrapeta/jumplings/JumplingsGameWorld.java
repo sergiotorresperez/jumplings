@@ -362,7 +362,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (!jgActivity.isGameOver() && !jgActivity.isGamePaused()) {
+        if (!jgActivity.isGameOver() && !isPaused()) {
             final double[] info = new double[] { event.getAction(), event.getX(), event.getY(), System.currentTimeMillis()};
             post(new GameMessage() {
                 @Override

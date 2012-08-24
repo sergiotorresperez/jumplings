@@ -53,9 +53,7 @@ public abstract class JumplingsActivity extends Activity {
 		
 		
 		// Se arranca el game loop
-		jWorld.startLooping();
-		// Se activa la l�gica
-		jWorld.play();
+		jWorld.startRunning();
 		// Se activa la wave
 		jWorld.wave.start();
 		
@@ -75,7 +73,7 @@ public abstract class JumplingsActivity extends Activity {
 	void destroyGame() {
 		worldStarted = false;
 		
-		jWorld.stopLooping();
+		jWorld.stopRunning();
 		jWorld.dispose();
 	}
 	

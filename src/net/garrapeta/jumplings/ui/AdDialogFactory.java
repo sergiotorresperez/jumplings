@@ -112,7 +112,7 @@ public class AdDialogFactory implements MobclixAdViewListener, Runnable {
 				adDialog.setOnShowListener(new OnShowListener() {
 					@Override
 					public void onShow(DialogInterface dialog) {
-						if (cActivity.jgWorld.isPlaying()) {
+						if (cActivity.jgWorld.isStarted()) {
 							cActivity.onGamePaused();
 						}
 						continueBtn.setEnabled(false);
