@@ -1,6 +1,5 @@
 package net.garrapeta.jumplings;
 
-import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.jumplings.actor.BulletActor;
 import net.garrapeta.jumplings.actor.FlashActor;
 import android.graphics.PointF;
@@ -52,9 +51,7 @@ public class Gun extends Weapon {
 				mJGWorld.addActor(flash);
 			}
 
-			if (mJGWorld.jgActivity.soundOn) {
-				SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_SLAP);
-			}
+			mJGWorld.getSoundManager().play(JumplingsGameActivity.SAMPLE_SLAP);
 			
 			lastShootTimeStamp = System.currentTimeMillis();
 			

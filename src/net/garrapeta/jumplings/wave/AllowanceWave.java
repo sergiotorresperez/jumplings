@@ -3,7 +3,6 @@ package net.garrapeta.jumplings.wave;
 import net.garrapeta.gameengine.R.id;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsWorld;
-import android.hardware.SensorManager;
 import android.view.View;
 import android.widget.ProgressBar;
 

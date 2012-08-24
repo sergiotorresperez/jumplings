@@ -1,8 +1,8 @@
 package net.garrapeta.jumplings.ui;
 
-import net.garrapeta.jumplings.R;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameActivity;
+import net.garrapeta.jumplings.R;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;

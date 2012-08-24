@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import net.garrapeta.jumplings.R;
 import net.garrapeta.utils.IOUtils;
 import net.garrapeta.utils.AsynchronousHttpSender.AsynchronousHttpSender;
 import net.garrapeta.utils.AsynchronousHttpSender.ResponseListener;

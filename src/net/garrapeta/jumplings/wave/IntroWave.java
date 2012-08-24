@@ -3,7 +3,6 @@ package net.garrapeta.jumplings.wave;
 import net.garrapeta.jumplings.JumplingsWorld;
 import net.garrapeta.jumplings.actor.IntroActor;
 import android.graphics.PointF;
-import android.hardware.SensorManager;
 import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;

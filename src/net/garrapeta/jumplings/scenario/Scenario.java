@@ -1,8 +1,8 @@
 package net.garrapeta.jumplings.scenario;
 
-import net.garrapeta.jumplings.R;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
+import net.garrapeta.jumplings.R;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import android.content.res.Resources;
 import android.graphics.Bitmap;

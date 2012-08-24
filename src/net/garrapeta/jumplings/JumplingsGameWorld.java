@@ -6,7 +6,6 @@ import net.garrapeta.gameengine.Actor;
 import net.garrapeta.gameengine.GameMessage;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.GameWorld;
-import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.gameengine.vibrator.VibratorManager;
 import net.garrapeta.jumplings.actor.BladePowerUpActor;
 import net.garrapeta.jumplings.actor.BombActor;
@@ -278,9 +277,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public void onEnemyKilled(EnemyActor enemy) {
         if (!wave.onEnemyKilled(enemy)) {
-            if (jgActivity.soundOn) {
-                SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_ENEMY_KILLED);
-            }
+            getSoundManager().play(JumplingsGameActivity.SAMPLE_ENEMY_KILLED);
             if (jgActivity.vibrateCfgLevel == PermData.CFG_LEVEL_ALL) {
                 VibratorManager.getInstance().play(JumplingsGameActivity.VIBRATION_ENEMY_KILLED);
             }
@@ -328,9 +325,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     private void onPostLifePowerUp(LifePowerUpActor lifePowerUpActor) {
-        if (jgActivity.soundOn) {
-            SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_LIFE_UP);
-        }
+        getSoundManager().play(JumplingsGameActivity.SAMPLE_LIFE_UP);
+
         if (jgActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
             FlashActor flash = new FlashActor(this, FlashActor.FLASH_LIFEUP_COLOR, FlashActor.FLASH_LIFEUP_ALPHA, FlashActor.FLASH_LIFEUP_DURATION);
             addActor(flash);
@@ -380,9 +376,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         boolean active = false;
         switch (weaponId) {
         case Gun.WEAPON_CODE_GUN:
-            if (jgActivity.soundOn) {
-                SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_GUN_CLIP);
-            }
+            getSoundManager().play(JumplingsGameActivity.SAMPLE_GUN_CLIP);
             mWeapon = new Gun(this);
             active = false;
             break;
@@ -391,9 +385,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         // active = true;
         // break;
         case Blade.WEAPON_CODE_BLADE:
-            if (jgActivity.soundOn) {
-                SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_SWORD_DRAW);
-            }
+            getSoundManager().play(JumplingsGameActivity.SAMPLE_SWORD_DRAW);
             mWeapon = new Blade(this);
             active = true;
             break;
@@ -413,9 +405,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
      */
     private void onFail() {
         if (!wave.onFail()) {
-            if (jgActivity.soundOn) {
-                SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_FAIL);
-            }
+            getSoundManager().play(JumplingsGameActivity.SAMPLE_FAIL);
             if (jgActivity.vibrateCfgLevel >= PermData.CFG_LEVEL_SOME) {
                 VibratorManager.getInstance().play(JumplingsGameActivity.VIBRATION_FAIL);
             }

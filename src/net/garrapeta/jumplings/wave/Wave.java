@@ -10,7 +10,6 @@ import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.utils.PhysicsUtils;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.hardware.SensorManager;
 import android.widget.Button;
 
 import com.badlogic.gdx.math.Vector2;

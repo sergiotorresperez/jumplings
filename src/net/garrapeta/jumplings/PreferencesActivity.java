@@ -1,6 +1,5 @@
 package net.garrapeta.jumplings;
 
-import net.garrapeta.jumplings.R;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 

@@ -1,6 +1,5 @@
 package net.garrapeta.jumplings;
 
-import net.garrapeta.jumplings.R;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.gameengine.vibrator.VibratorManager;
@@ -11,12 +10,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.KeyEvent;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -183,15 +180,17 @@ public class JumplingsGameActivity extends JumplingsActivity {
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
 
+        // Preparaci�n variables de configuraci�n
+        PermData pd = PermData.getInstance();
+        boolean soundOn = pd.getSoundConfig();
+        
         super.mWorld = mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface));
         mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
+        mWorld.getSoundManager().setSoundEnabled(soundOn);
 
         updateLifeCounterView();
         updateScoreTextView();
 
-        // Preparaci�n variables de configuraci�n
-        PermData pd = PermData.getInstance();
-        soundOn = pd.getSoundConfig();
         vibrateCfgLevel = pd.getVibratorConfig();
         flashCfgLevel = pd.getFlashConfig();
         shakeCfgLevel = pd.getShakeConfig();
@@ -199,7 +198,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
         // Preparaci�n samples sonido
         if (soundOn) {
 
-            SoundManager sm = SoundManager.getInstance();
+            SoundManager sm = mWorld.getSoundManager();
 
             sm.add(R.raw.boing1, SAMPLE_ENEMY_BOING, this);
             sm.add(R.raw.boing2, SAMPLE_ENEMY_BOING, this);
@@ -267,7 +266,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
     protected void onStop() {
         super.onStop();
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
-        
+        pauseGame();
     }
 
     @Override
@@ -280,7 +279,6 @@ public class JumplingsGameActivity extends JumplingsActivity {
     protected void onPause() {
         super.onPause();
         Log.i(JumplingsApplication.LOG_SRC, "onPause " + this);
-        pauseGame();
     }
 
     @Override
@@ -297,9 +295,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 
         destroyGame();
 
-        if (soundOn) {
-            SoundManager.getInstance().clearAll();
-        }
+        mWorld.getSoundManager().clearAll();
         if (vibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
             VibratorManager.getInstance().clearAll();
         }

@@ -1,7 +1,6 @@
 package net.garrapeta.jumplings;
 import net.garrapeta.gameengine.Box2DWorld;
 import net.garrapeta.gameengine.GameView;
-import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.jumplings.actor.WallActor;
 import net.garrapeta.jumplings.wave.Wave;
 import android.graphics.Bitmap;
@@ -55,20 +54,6 @@ public class JumplingsWorld extends Box2DWorld {
 
     protected void onGameLoopStarted() {
         create();
-    }
-
-    @Override
-    protected void onPaused() {
-        if (jActivity.soundOn) {
-            SoundManager.getInstance().pauseAll();
-        }
-    }
-
-    @Override
-    protected void onResumed() {
-        if (jActivity.soundOn) {
-            SoundManager.getInstance().resumeAll();
-        }
     }
 
     public void create() {

@@ -2,12 +2,11 @@ package net.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import net.garrapeta.jumplings.R;
 import net.garrapeta.gameengine.Viewport;
-import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameActivity;
 import net.garrapeta.jumplings.JumplingsGameWorld;
+import net.garrapeta.jumplings.R;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -67,6 +66,7 @@ public class BombActor extends MainActor {
 	
 	private long lastSparkle;
 	
+	//TODO: make this static???
 	private MediaPlayer fusePlayer;
 	
 	// ---------------------------------------------------- M�todos est�ticos
@@ -200,18 +200,16 @@ public class BombActor extends MainActor {
 	public void onAddedToWorld() {
 		super.onAddedToWorld();
 		jgWorld.bombCount++;
-		if (jgWorld.jgActivity.soundOn) {
-			SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_BOMB_LAUNCH);
-			fusePlayer = SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_FUSE, true, false);
-		}
+		jgWorld.getSoundManager().play(JumplingsGameActivity.SAMPLE_BOMB_LAUNCH);
+		fusePlayer = jgWorld.getSoundManager().play(JumplingsGameActivity.SAMPLE_FUSE, true, false);
 	}
 	
 	@Override
 	public void onRemovedFromWorld() {
 		super.onRemovedFromWorld();
 		jgWorld.bombCount--;
-		if (jgWorld.bombCount == 0 && jgWorld.jgActivity.soundOn) {
-			SoundManager.getInstance().stop(fusePlayer);
+		if (jgWorld.bombCount == 0 && fusePlayer != null) {
+		    jgWorld.getSoundManager().stop(fusePlayer);
 		}
 	}
 	
@@ -222,9 +220,7 @@ public class BombActor extends MainActor {
 		jgWorld.onBombExploded(this);
 		
 		// sonido
-		if (jgWorld.jgActivity.soundOn) {
-			SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_BOMB_BOOM);
-		}
+	    jgWorld.getSoundManager().play(JumplingsGameActivity.SAMPLE_BOMB_BOOM);
 
 		// Se genera una onda expansiva sobre los enemigos
 		Object[] as = jgWorld.jumplingActors.toArray();

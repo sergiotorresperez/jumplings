@@ -1,18 +1,11 @@
 package net.garrapeta.jumplings;
 
 
-import net.garrapeta.jumplings.ui.AdDialogFactory;
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 
 
@@ -30,11 +23,6 @@ public abstract class JumplingsActivity extends Activity {
 	 */
 	JumplingsWorld mWorld; 
 	
-	
-	//TODO: declared here but used only in the game activity
-	public boolean soundOn;
-	
-    
 	// ---------------------------------------------------- M�todos est�ticos
 			
 	// -------------------------------------------------- M�todos de Activity

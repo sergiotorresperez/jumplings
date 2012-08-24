@@ -3,11 +3,10 @@ package net.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import net.garrapeta.jumplings.R;
-import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameActivity;
 import net.garrapeta.jumplings.JumplingsGameWorld;
+import net.garrapeta.jumplings.R;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -109,12 +108,10 @@ public abstract class EnemyActor extends MainActor {
 	@Override
 	public void onAddedToWorld() {
 		super.onAddedToWorld();
-		if (jgWorld.jgActivity.soundOn) {
-			if (getWorldPos().y > jgWorld.viewport.getWorldBoundaries().top) {
-				SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_ENEMY_THROW);
-			} else {
-				SoundManager.getInstance().play(JumplingsGameActivity.SAMPLE_ENEMY_BOING);
-			}
+		if (getWorldPos().y > jgWorld.viewport.getWorldBoundaries().top) {
+		    jgWorld.getSoundManager().play(JumplingsGameActivity.SAMPLE_ENEMY_THROW);
+		} else {
+		    jgWorld.getSoundManager().play(JumplingsGameActivity.SAMPLE_ENEMY_BOING);
 		}
 	}
 

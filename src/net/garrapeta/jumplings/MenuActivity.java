@@ -1,13 +1,6 @@
 package net.garrapeta.jumplings;
 
 
-import com.openfeint.api.OpenFeint;
-import com.openfeint.api.OpenFeintDelegate;
-import com.openfeint.api.resource.CurrentUser;
-import com.openfeint.api.resource.User;
-import com.openfeint.api.ui.Dashboard;
-
-import net.garrapeta.jumplings.R;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import net.garrapeta.jumplings.wave.IntroWave;
@@ -17,11 +10,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import com.openfeint.api.OpenFeint;
+import com.openfeint.api.OpenFeintDelegate;
+import com.openfeint.api.resource.CurrentUser;
+import com.openfeint.api.resource.User;
+import com.openfeint.api.ui.Dashboard;
 
 
 

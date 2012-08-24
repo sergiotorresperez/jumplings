@@ -1,9 +1,9 @@
 package net.garrapeta.jumplings.actor;
 
-import net.garrapeta.jumplings.R;
 import net.garrapeta.gameengine.Viewport;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
+import net.garrapeta.jumplings.R;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

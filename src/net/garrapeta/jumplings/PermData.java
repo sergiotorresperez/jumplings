@@ -2,8 +2,6 @@ package net.garrapeta.jumplings;
 
 import java.util.ArrayList;
 
-import net.garrapeta.jumplings.R;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
