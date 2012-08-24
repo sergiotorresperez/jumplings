@@ -44,8 +44,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public JumplingsGameActivity jgActivity;
 
-    /** Jugador */
-    private Player player;
 
     /** Si el mundo ha sido creado */
     boolean isCreated;
@@ -374,9 +372,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         return true;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
 
     public void setWeapon(short weaponId) {
         if (mWeapon != null) {

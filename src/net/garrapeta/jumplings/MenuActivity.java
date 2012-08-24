@@ -43,12 +43,8 @@ public class MenuActivity extends JumplingsActivity {
 	
 	/** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		// Preparaci�n ventana
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
         
         // Preparaci�n de la UI
@@ -157,12 +153,12 @@ public class MenuActivity extends JumplingsActivity {
 			enableFeintLeaderboardButton();
 		}
 		
-		jWorld   = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface));
-		jWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
+		mWorld   = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface));
+		mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
 		
 		// Preparaci�n de la wave
 		
-		jWorld.wave = new IntroWave(jWorld, null);
+		mWorld.wave = new IntroWave(mWorld, null);
 	}
 	
 	@Override
@@ -170,7 +166,7 @@ public class MenuActivity extends JumplingsActivity {
 		super.onRestart();
 		Log.i(JumplingsApplication.LOG_SRC,"onRestart " + this);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();

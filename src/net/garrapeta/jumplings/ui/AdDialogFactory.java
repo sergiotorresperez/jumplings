@@ -95,7 +95,7 @@ public class AdDialogFactory implements MobclixAdViewListener, Runnable {
 							cActivity.dismissDialog(JumplingsGameActivity.DIALOG_AD_ID);
 							Toast toast = Toast.makeText(cActivity, "TODO: buy app", Toast.LENGTH_SHORT);
 							toast.show();
-							cActivity.onGameResumed();
+							cActivity.getWorld().resume();
 						}
 					});
 				}
@@ -103,7 +103,7 @@ public class AdDialogFactory implements MobclixAdViewListener, Runnable {
 				continueBtn.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						cActivity.onGameResumed();
+					    cActivity.getWorld().resume();
 						cActivity.dismissDialog(JumplingsGameActivity.DIALOG_AD_ID);
 						adView.getAd();
 					}
@@ -112,8 +112,8 @@ public class AdDialogFactory implements MobclixAdViewListener, Runnable {
 				adDialog.setOnShowListener(new OnShowListener() {
 					@Override
 					public void onShow(DialogInterface dialog) {
-						if (cActivity.jgWorld.isStarted()) {
-							cActivity.onGamePaused();
+						if (cActivity.getWorld().isStarted()) {
+						    cActivity.getWorld().pause();
 						}
 						continueBtn.setEnabled(false);
 						new Thread(AdDialogFactory.this).start();

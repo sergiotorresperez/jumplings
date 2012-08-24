@@ -29,13 +29,15 @@ public class JumplingsGameActivity extends JumplingsActivity {
     // -----------------------------------------------------------------
     // Constantes
 
-    // Constantes de keys del bundle
-    public static final String WAVE_BUNDLE_KEY = "waveKey";
-
     /** ID de di�logos */
     public static final int DIALOG_PAUSE_ID = 0;
     public static final int DIALOG_GAMEOVER_ID = 1;
     public static final int DIALOG_AD_ID = 2;
+
+    
+    // Constantes de keys del bundle
+    public static final String WAVE_BUNDLE_KEY = "waveKey";
+
 
     /** Lapso de parpadeo de la barra de vida, en ms */
     private static final int LIFEBAR_BLINKING_LAPSE = 100;
@@ -69,14 +71,18 @@ public class JumplingsGameActivity extends JumplingsActivity {
     /**
      * Mundo
      */
-    public JumplingsGameWorld jgWorld;
+    public JumplingsGameWorld mWorld;
 
+    /** Wave actual */
+    String waveKey;
 
     /**
      * Si el jugador ha muerto
      */
     private boolean gameOver = false;
 
+    private ImageButton pauseBtn;
+    
     ViewGroup lifeCounterView;
     ProgressBar specialWeaponBar;
 
@@ -86,7 +92,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 
     TextView localHighScoreTextView;
 
-    ImageButton pauseBtn;
+    
 
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     // DEBUG
@@ -95,12 +101,8 @@ public class JumplingsGameActivity extends JumplingsActivity {
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     // DEBUG
 
-    /** Wave actual */
-    private String waveKey;
 
     // ------------------------------------------- Variables de configuraci�n
-
-    public boolean soundOn;
 
     public short vibrateCfgLevel;
     public short flashCfgLevel;
@@ -130,18 +132,9 @@ public class JumplingsGameActivity extends JumplingsActivity {
 
         // Preparaci�n de la UI
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.game);
-
-        lifeCounterView = (ViewGroup) findViewById(R.id.lifes_counter_layout);
-
-        specialWeaponBar = (ProgressBar) findViewById(R.id.game_specialWeaponBar);
-
-        scoreTextView = (TextView) findViewById(R.id.game_scoreTextView);
-        localHighScoreTextView = (TextView) findViewById(R.id.game_localHightscoreTextView);
-
+        
         pauseBtn = (ImageButton) findViewById(R.id.game_pauseBtn);
         pauseBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -149,6 +142,13 @@ public class JumplingsGameActivity extends JumplingsActivity {
                 pauseGame();
             }
         });
+
+        lifeCounterView = (ViewGroup) findViewById(R.id.lifes_counter_layout);
+
+        specialWeaponBar = (ProgressBar) findViewById(R.id.game_specialWeaponBar);
+
+        scoreTextView = (TextView) findViewById(R.id.game_scoreTextView);
+        localHighScoreTextView = (TextView) findViewById(R.id.game_localHightscoreTextView);
 
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
@@ -158,7 +158,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
             testBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    jgWorld.wave.onTestButtonClicked(testBtn);
+                    mWorld.wave.onTestButtonClicked(testBtn);
                 }
             });
 
@@ -169,11 +169,11 @@ public class JumplingsGameActivity extends JumplingsActivity {
                 @Override
                 public void onCheckedChanged(RadioGroup rg, int id) {
                     if (id == R.id.game_weaponsRadioBtnGun) {
-                        jgWorld.setWeapon(Gun.WEAPON_CODE_GUN);
+                        mWorld.setWeapon(Gun.WEAPON_CODE_GUN);
                         // } else if (id == R.id.game_weaponsRadioBtnShotgun) {
                         // world.setWeapon(Shotgun.WEAPON_CODE_SHOTGUN);
                     } else if (id == R.id.game_weaponsRadioBtnBlade) {
-                        jgWorld.setWeapon(Blade.WEAPON_CODE_BLADE);
+                        mWorld.setWeapon(Blade.WEAPON_CODE_BLADE);
                     }
 
                 }
@@ -183,8 +183,8 @@ public class JumplingsGameActivity extends JumplingsActivity {
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
 
-        super.jWorld = jgWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface));
-        jgWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
+        super.mWorld = mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface));
+        mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
 
         updateLifeCounterView();
         updateScoreTextView();
@@ -245,11 +245,11 @@ public class JumplingsGameActivity extends JumplingsActivity {
         // Preparaci�n de la wave
 
         if (waveKey.equals(CampaignSurvivalWave.WAVE_KEY)) {
-            jgWorld.wave = new CampaignSurvivalWave(jgWorld, null);
+            mWorld.wave = new CampaignSurvivalWave(mWorld, null);
             // } else if (waveKey.equals(CampaignTutorialWave.WAVE_KEY)) {
             // world.wave = new CampaignTutorialWave(world, null, 1);
         } else if (waveKey.equals(TestWave.WAVE_KEY)) {
-            jgWorld.wave = new TestWave(jgWorld, null);
+            mWorld.wave = new TestWave(mWorld, null);
             // jgWorld.wave = new CampaignSurvivalWave(jgWorld, null);
         } else {
             throw new IllegalArgumentException("Cannot create wave: " + waveKey);
@@ -266,11 +266,8 @@ public class JumplingsGameActivity extends JumplingsActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
-        if (jWorld.isStarted()) {
-            pauseGame();
-        }
+        
     }
 
     @Override
@@ -283,14 +280,14 @@ public class JumplingsGameActivity extends JumplingsActivity {
     protected void onPause() {
         super.onPause();
         Log.i(JumplingsApplication.LOG_SRC, "onPause " + this);
+        pauseGame();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Log.i(JumplingsApplication.LOG_SRC, "onResume " + this);
-        jWorld.requestDraw();
-        // FIXME: no se realiza repintado. El onDraw de la vista no se llama...
+        // Do not resume game here: user will resume by pressing button in pause dialog
     }
 
     @Override
@@ -365,18 +362,37 @@ public class JumplingsGameActivity extends JumplingsActivity {
 
     // ---------------------------------------------------- M�todos propios
 
-    // ------------------------------ M�todos de gesti�n del estado del mundo
+    public JumplingsGameWorld getWorld() {
+        return mWorld;
+    }
+    
+    /**
+     * va a la actividad de introducci�n de nuevo highscores
+     */
+    private void gotoGameOverActivity() {
+        finish();
+        Intent i = new Intent(this, GameOverActivity.class);
+
+        HighScore highScore = new HighScore(this);
+        highScore.score = mWorld.getPlayer().getScore();
+        highScore.level = mWorld.wave.getLevel();
+
+        i.putExtra(GameOverActivity.NEW_HIGHSCORE_KEY, highScore);
+        i.putExtra(JumplingsGameActivity.WAVE_BUNDLE_KEY, waveKey);
+
+        startActivity(i);
+    }
 
     /**
-     * Pausa el juego
+     * va a la actividad del main menu
      */
-    void pauseGame() {
-        if (!jWorld.isPaused()) {
-            showDialog(DIALOG_PAUSE_ID);
-            pauseBtn.setVisibility(View.GONE);
-            onGamePaused();
-        }
+    private void gotoMenuActivity() {
+        finish();
+        Intent i = new Intent(this, MenuActivity.class);
+        startActivity(i);
     }
+
+    // ------------------------------ M�todos de gesti�n del estado del mundo
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -386,13 +402,15 @@ public class JumplingsGameActivity extends JumplingsActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+
     /**
-     * Invocado al pausar el juego
+     * Pausa el juego
      */
-    public void onGamePaused() {
-        jWorld.pause();
-        if (soundOn) {
-            SoundManager.getInstance().pauseAll();
+    void pauseGame() {
+        if (!mWorld.isPaused()) {
+            showDialog(DIALOG_PAUSE_ID);
+            pauseBtn.setVisibility(View.GONE);
+            mWorld.pause();
         }
     }
 
@@ -401,18 +419,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
      */
     void resumeGame() {
         pauseBtn.setVisibility(View.VISIBLE);
-        onGameResumed();
-    }
-
-    /**
-     * Invocado al continuar el juego
-     */
-    public void onGameResumed() {
-        jWorld.resume();
-        if (soundOn) {
-            SoundManager.getInstance().resumeAll();
-        }
-
+        mWorld.resume();
     }
 
     /**
@@ -427,9 +434,9 @@ public class JumplingsGameActivity extends JumplingsActivity {
      */
     public void onGameOver() {
         gameOver = true;
-        jgWorld.scenario.onGameOver();
+        mWorld.scenario.onGameOver();
 
-        jgWorld.wave.pause();
+        mWorld.wave.pause();
 
         runOnUiThread(new Runnable() {
             @Override
@@ -449,7 +456,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Player player = jgWorld.getPlayer();
+                Player player = mWorld.getPlayer();
                 int lifesLeft = player.getLifes();
                 ViewGroup lifes = (ViewGroup) lifeCounterView;
                 int count = lifes.getChildCount();
@@ -469,7 +476,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
      * Actualizaci�n de la barra de arma especial
      */
     public void updateSpecialWeaponBar() {
-        Weapon weapon = jgWorld.mWeapon;
+        Weapon weapon = mWorld.mWeapon;
         int progress = weapon.getRemainingTime();
         specialWeaponBar.setProgress(progress);
     }
@@ -480,7 +487,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
             public void run() {
                 if (active) {
                     specialWeaponBar.setVisibility(View.VISIBLE);
-                    specialWeaponBar.setMax(jgWorld.mWeapon.getMaxTime());
+                    specialWeaponBar.setMax(mWorld.mWeapon.getMaxTime());
                     updateSpecialWeaponBar();
                 } else {
                     specialWeaponBar.setVisibility(View.INVISIBLE);
@@ -497,7 +504,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                scoreTextView.setText(String.valueOf(jgWorld.getPlayer().getScore()));
+                scoreTextView.setText(String.valueOf(mWorld.getPlayer().getScore()));
             }
         });
 
@@ -549,31 +556,6 @@ public class JumplingsGameActivity extends JumplingsActivity {
         });
     }
 
-    /**
-     * va a la actividad de introducci�n de nuevo highscores
-     */
-    private void gotoGameOverActivity() {
-        finish();
-        Intent i = new Intent(this, GameOverActivity.class);
-
-        HighScore highScore = new HighScore(this);
-        highScore.score = jgWorld.getPlayer().getScore();
-        highScore.level = jgWorld.wave.getLevel();
-
-        i.putExtra(GameOverActivity.NEW_HIGHSCORE_KEY, highScore);
-        i.putExtra(JumplingsGameActivity.WAVE_BUNDLE_KEY, waveKey);
-
-        startActivity(i);
-    }
-
-    /**
-     * va a la actividad del main menu
-     */
-    private void gotoMenuActivity() {
-        finish();
-        Intent i = new Intent(this, MenuActivity.class);
-        startActivity(i);
-    }
 
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 

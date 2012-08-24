@@ -1,6 +1,7 @@
 package net.garrapeta.jumplings;
 import net.garrapeta.gameengine.Box2DWorld;
 import net.garrapeta.gameengine.GameView;
+import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.jumplings.actor.WallActor;
 import net.garrapeta.jumplings.wave.Wave;
 import android.graphics.Bitmap;
@@ -35,6 +36,9 @@ public class JumplingsWorld extends Box2DWorld {
 
     /** Wave actual */
     Wave wave;
+    
+    /** Jugador */
+    Player player;
 
     // centro de la pantalla
     float centerX;
@@ -52,7 +56,21 @@ public class JumplingsWorld extends Box2DWorld {
     protected void onGameLoopStarted() {
         create();
     }
-    
+
+    @Override
+    protected void onPaused() {
+        if (jActivity.soundOn) {
+            SoundManager.getInstance().pauseAll();
+        }
+    }
+
+    @Override
+    protected void onResumed() {
+        if (jActivity.soundOn) {
+            SoundManager.getInstance().resumeAll();
+        }
+    }
+
     public void create() {
 
         Log.i(LOG_SRC, "create " + this);
@@ -136,12 +154,21 @@ public class JumplingsWorld extends Box2DWorld {
 
     @Override
     public void onGameWorldSizeChanged() {
-        if (!jActivity.isWorldStarted()) {
-            jActivity.startWorld();
+        if (!isStarted()) {
+            Log.i(JumplingsApplication.LOG_SRC,"startNewGame " + this);
+            
+            // Se arranca el game loop
+            startRunning();
+            // Se activa la wave
+            wave.start();
         }
     }
 
     // -------------------------------------------------------- M�todos propios
+
+    public Player getPlayer() {
+        return player;
+    }
 
     public void onWaveStarted() {
         Log.i(LOG_SRC, "Wave started");
