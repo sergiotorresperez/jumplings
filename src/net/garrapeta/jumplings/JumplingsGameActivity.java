@@ -112,6 +112,8 @@ public class JumplingsGameActivity extends JumplingsActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.e(JumplingsApplication.LOG_SRC, "CREATE GAME");
+        
         Bundle b = getIntent().getExtras();
         if (b != null) {
             waveKey = b.getString(WAVE_BUNDLE_KEY);
@@ -266,7 +268,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
     protected void onStop() {
         super.onStop();
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
-        pauseGame();
+        
     }
 
     @Override
@@ -279,6 +281,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
     protected void onPause() {
         super.onPause();
         Log.i(JumplingsApplication.LOG_SRC, "onPause " + this);
+        pauseGame();
     }
 
     @Override
@@ -292,13 +295,17 @@ public class JumplingsGameActivity extends JumplingsActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
+        mWorld.stopRunning();
+        // If the user presses the on / off button of the phone and the activity is destroyed, we
+        // want to show the menu activity when going to the task again.
+        finish();
 
-        destroyGame();
+//        destroyGame();
 
-        mWorld.getSoundManager().clearAll();
-        if (vibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
-            VibratorManager.getInstance().clearAll();
-        }
+//        mWorld.getSoundManager().clearAll();
+//        if (vibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
+//            VibratorManager.getInstance().clearAll();
+//        }
     }
 
     @Override
@@ -404,8 +411,11 @@ public class JumplingsGameActivity extends JumplingsActivity {
      */
     void pauseGame() {
         if (!mWorld.isPaused()) {
-            showDialog(DIALOG_PAUSE_ID);
-            pauseBtn.setVisibility(View.GONE);
+            if (!gameOver) {
+                //If the game is over the game over dialog will be active
+                showDialog(DIALOG_PAUSE_ID);
+                pauseBtn.setVisibility(View.GONE);
+            }
             mWorld.pause();
         }
     }
