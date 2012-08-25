@@ -1,7 +1,7 @@
 package net.garrapeta.jumplings;
 
 import net.garrapeta.gameengine.GameView;
-import net.garrapeta.gameengine.vibrator.VibratorManager;
+import net.garrapeta.gameengine.module.VibratorManager;
 import net.garrapeta.jumplings.ui.AdDialogFactory;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import net.garrapeta.jumplings.wave.TestWave;
