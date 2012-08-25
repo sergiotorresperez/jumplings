@@ -52,7 +52,7 @@ public class Scenario {
 		this.dWorld = dWorld;
 		
 		// Inicializaci�n de las layers
-		Resources r = dWorld.jgActivity.getResources();
+		Resources r = dWorld.mGameActivity.getResources();
 		{
 			Bitmap bmp = BitmapFactory.decodeResource(r, R.drawable.bg_blue_sky);
 			int maxHeight = (int) (dWorld.mView.getHeight() * 1.5);

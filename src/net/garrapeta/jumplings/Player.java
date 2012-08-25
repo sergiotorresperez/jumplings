@@ -69,7 +69,7 @@ public class Player {
 		newLifes = Math.min(newLifes, maxLifes);
 		newLifes = Math.max(0, newLifes);
 		this.life = newLifes;
-		world.jgActivity.updateLifeCounterView();
+		world.mGameActivity.updateLifeCounterView();
 	}
 	
 	public int getMaxLifes() {
@@ -113,7 +113,7 @@ public class Player {
 	 */
 	private void setScore(int score) {
 		this.score = score;
-		world.jgActivity.updateScoreTextView();
+		world.mGameActivity.updateScoreTextView();
 	}
 	
 	public boolean isVulnerable() {
@@ -121,13 +121,13 @@ public class Player {
 	}
 
 	public void makeVulnerable() {
-		world.jgActivity.stopBlinkingLifeBar();
+		world.mGameActivity.stopBlinkingLifeBar();
 		this.isVulnerable = true;
 	}
 	
 	public void makeInvulnerable(final float time) {
 		this.isVulnerable = false;
-		world.jgActivity.startBlinkingLifeBar();
+		world.mGameActivity.startBlinkingLifeBar();
 		
 		if (time > 0) {
 			new Thread(new Runnable() {

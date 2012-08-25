@@ -162,7 +162,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 			jgWorld.getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					jgWorld.jgActivity.showDialog(GameActivity.DIALOG_AD_ID);
+					jgWorld.mGameActivity.showDialog(GameActivity.DIALOG_AD_ID);
 				}});
 			
 			lastAdTimeStamp = jgWorld.currentGameMillis();

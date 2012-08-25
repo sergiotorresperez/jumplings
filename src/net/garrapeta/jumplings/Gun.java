@@ -42,7 +42,7 @@ public class Gun extends Weapon {
 		if (info[0] == MotionEvent.ACTION_DOWN && 
 				(System.currentTimeMillis() - lastShootTimeStamp) >= shootTimeGap) {
 			
-			if (mJGWorld.jgActivity.flashCfgLevel == PermData.CFG_LEVEL_ALL) {
+			if (mJGWorld.mGameActivity.flashCfgLevel == PermData.CFG_LEVEL_ALL) {
 				FlashActor flash = new FlashActor(mJGWorld,
 						                          FlashActor.FLASH_SHOT_COLOR, 
 						                          FlashActor.FLASH_SHOT_ALPHA, 

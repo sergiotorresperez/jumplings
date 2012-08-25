@@ -119,7 +119,7 @@ public class SwipeActor extends HarmerActor {
 							timestamp = System.currentTimeMillis();
 							
 						    jgWorld.getSoundManager().play(GameActivity.SAMPLE_BLADE_WHIP);
-							if (jgWorld.jgActivity.flashCfgLevel == PermData.CFG_LEVEL_ALL) {
+							if (jgWorld.mGameActivity.flashCfgLevel == PermData.CFG_LEVEL_ALL) {
 								FlashActor flash = new FlashActor(jgWorld ,Color.WHITE, 50, 250);
 								jgWorld.addActor(flash);
 							}

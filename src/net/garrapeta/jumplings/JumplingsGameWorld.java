@@ -20,7 +20,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.TextView;
 
 /**
  * Mundo del juego
@@ -41,7 +40,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     // ------------------------------------------------------------ Variables
 
-    public GameActivity jgActivity;
+    public GameActivity mGameActivity;
 
 
     /** Si el mundo ha sido creado */
@@ -78,9 +77,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     // ----------------------------------------------------------- Constructor
 
-    public JumplingsGameWorld(GameActivity jgActivity, GameView gameView) {
-        super(jgActivity, gameView);
-        this.jgActivity = jgActivity;
+    public JumplingsGameWorld(GameActivity gameActivity, GameView gameView) {
+        super(gameActivity, gameView);
+        this.mGameActivity = gameActivity;
         mPlayer = new Player(this);
         mView.setOnTouchListener(this);
     }
@@ -92,24 +91,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     @Override
-    public void create() {
-        super.create();
-
-        jgActivity.runOnUiThread(new Runnable(){
-
-            @Override
-            public void run() {
-                // Se pone el HighScore
-                HighScore hs = PermData.getInstance().getLocalGetHighScore();
-                if (hs != null) {
-                    long localHighScore = hs.score;
-                    if (localHighScore > 0) {
-                        TextView highScoreTextView = jgActivity.localHighScoreTextView;
-                        highScoreTextView.setText(" Highscore: " + localHighScore);
-                    }
-                }
-            }} );
-
+    public void onCreated() {
+        super.onCreated();
 
         // Inicializaci�n del arma
         setWeapon(Gun.WEAPON_CODE_GUN);
@@ -124,7 +107,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             if (mWeapon.getRemainingTime() <= 0) {
                 setWeapon(Gun.WEAPON_CODE_GUN);
             } else {
-                jgActivity.updateSpecialWeaponBar();
+                mGameActivity.updateSpecialWeaponBar();
             }
         }
 
@@ -264,7 +247,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     public void onEnemyScaped(EnemyActor e) {
-        if (!jgActivity.isGameOver()) {
+        if (!mGameActivity.isGameOver()) {
 
             if (mPlayer.isVulnerable() && !wave.onEnemyScaped(e)) {
                 onPostEnemyScaped(e);
@@ -273,7 +256,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     public void onPostEnemyScaped(EnemyActor e) {
-        if (jgActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
+        if (mGameActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
             FlashActor flash = new FlashActor(this, FlashActor.FLASH_ENEMY_SCAPED_COLOR, FlashActor.FLASH_ENEMY_SCAPED_ALPHA,
                     FlashActor.FLASH_ENEMY_SCAPED_DURATION);
             addActor(flash);
@@ -285,14 +268,14 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public void onEnemyKilled(EnemyActor enemy) {
         if (!wave.onEnemyKilled(enemy)) {
             getSoundManager().play(GameActivity.SAMPLE_ENEMY_KILLED);
-            if (jgActivity.vibrateCfgLevel == PermData.CFG_LEVEL_ALL) {
+            if (mGameActivity.vibrateCfgLevel == PermData.CFG_LEVEL_ALL) {
                 VibratorManager.getInstance().play(GameActivity.VIBRATION_ENEMY_KILLED);
             }
 
             mPlayer.onEnemyKilled(enemy);
             scenario.setProgress(wave.getProgress());
 
-            if (jgActivity.shakeCfgLevel == PermData.CFG_LEVEL_ALL) {
+            if (mGameActivity.shakeCfgLevel == PermData.CFG_LEVEL_ALL) {
                 createShake(100f, 0.20f);
             }
 
@@ -301,7 +284,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     public void onBombExploded(BombActor bomb) {
-        if (!jgActivity.isGameOver()) {
+        if (!mGameActivity.isGameOver()) {
 
             if (mPlayer.isVulnerable() && !wave.onBombExploded(bomb)) {
                 onPostBombExploded(bomb);
@@ -310,7 +293,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     private void onPostBombExploded(BombActor bomb) {
-        if (jgActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
+        if (mGameActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
             FlashActor flash = new FlashActor(this, FlashActor.FLASH_BOMB_COLOR, FlashActor.FLASH_BOMB_ALPHA, FlashActor.FLASH_BOMB_DURATION);
             addActor(flash);
 
@@ -323,7 +306,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     public void onLifePowerUp(LifePowerUpActor lifePowerUpActor) {
-        if (!jgActivity.isGameOver()) {
+        if (!mGameActivity.isGameOver()) {
 
             if (mPlayer.isVulnerable() && !wave.onLifePowerUp(lifePowerUpActor)) {
                 onPostLifePowerUp(lifePowerUpActor);
@@ -334,7 +317,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     private void onPostLifePowerUp(LifePowerUpActor lifePowerUpActor) {
         getSoundManager().play(GameActivity.SAMPLE_LIFE_UP);
 
-        if (jgActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
+        if (mGameActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
             FlashActor flash = new FlashActor(this, FlashActor.FLASH_LIFEUP_COLOR, FlashActor.FLASH_LIFEUP_ALPHA, FlashActor.FLASH_LIFEUP_DURATION);
             addActor(flash);
         }
@@ -343,7 +326,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     public void onBladePowerUp(BladePowerUpActor bladePowerUpActor) {
-        if (!jgActivity.isGameOver()) {
+        if (!mGameActivity.isGameOver()) {
 
             if (mPlayer.isVulnerable() && !wave.onBladePowerUp(bladePowerUpActor)) {
                 onPostBladePowerUp(bladePowerUpActor);
@@ -354,7 +337,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     private void onPostBladePowerUp(BladePowerUpActor bladePowerUpActor) {
         setWeapon(Blade.WEAPON_CODE_BLADE);
 
-        if (jgActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
+        if (mGameActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
             FlashActor flash = new FlashActor(this, FlashActor.FLASH_BLADE_DRAWN_COLOR, FlashActor.FLASH_BLADE_DRAWN_ALPHA,
                     FlashActor.FLASH_BLADE_DRAWN_DURATION);
             addActor(flash);
@@ -363,7 +346,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (!jgActivity.isGameOver() && !isPaused()) {
+        if (!mGameActivity.isGameOver() && !isPaused()) {
             final double[] info = new double[] { event.getAction(), event.getX(), event.getY(), System.currentTimeMillis()};
             post(new GameMessage() {
                 @Override
@@ -398,11 +381,11 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             break;
         }
 
-        jgActivity.activateSpecialWeaponBar(active);
+        mGameActivity.activateSpecialWeaponBar(active);
 
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         if (JumplingsApplication.DEBUG_ENABLED) {
-            jgActivity.updateWeaponsRadioGroup(weaponId);
+            mGameActivity.updateWeaponsRadioGroup(weaponId);
         }
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     }
@@ -413,7 +396,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     private void onFail() {
         if (!wave.onFail()) {
             getSoundManager().play(GameActivity.SAMPLE_FAIL);
-            if (jgActivity.vibrateCfgLevel >= PermData.CFG_LEVEL_SOME) {
+            if (mGameActivity.vibrateCfgLevel >= PermData.CFG_LEVEL_SOME) {
                 VibratorManager.getInstance().play(GameActivity.VIBRATION_FAIL);
             }
     
@@ -421,13 +404,13 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             player.subLifes(1);
             player.makeInvulnerable(INVULNERABLE_TIME);
     
-            if (jgActivity.shakeCfgLevel >= PermData.CFG_LEVEL_SOME) {
+            if (mGameActivity.shakeCfgLevel >= PermData.CFG_LEVEL_SOME) {
                 createShake(425f, 0.75f);
             }
     
             if (player.getLifes() <= 0) {
                 if (!wave.onGameOver()) {
-                    jgActivity.onGameOver();
+                    mGameActivity.onGameOver();
                 }
             }
         }

@@ -79,16 +79,16 @@ public class GameActivity extends Activity {
      */
     private boolean gameOver = false;
 
-    private ImageButton pauseBtn;
+    private ImageButton mPauseBtn;
 
-    ViewGroup lifeCounterView;
-    ProgressBar specialWeaponBar;
+    ViewGroup mLifeCounterView;
+    ProgressBar mSpecialWeaponBar;
 
     boolean blinkingLifeBar = false;
 
-    TextView scoreTextView;
+    TextView mScoreTextView;
 
-    TextView localHighScoreTextView;
+    TextView mLocalHighScoreTextView;
 
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     // DEBUG
@@ -109,10 +109,33 @@ public class GameActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(JumplingsApplication.LOG_SRC, "CREATE GAME");
-
+        
+        // Initialisation of views and GUI 
+        
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        
+        setContentView(R.layout.game);
+        
+        mPauseBtn = (ImageButton) findViewById(R.id.game_pauseBtn);
+        mPauseBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pauseGame();
+            }
+        });
+        mLifeCounterView = (ViewGroup) findViewById(R.id.lifes_counter_layout);
+        mSpecialWeaponBar = (ProgressBar) findViewById(R.id.game_specialWeaponBar);
+        mScoreTextView = (TextView) findViewById(R.id.game_scoreTextView);
+        mLocalHighScoreTextView = (TextView) findViewById(R.id.game_localHightscoreTextView);
+        HighScore hs = PermData.getInstance().getLocalGetHighScore();
+        if (hs != null) {
+            long localHighScore = hs.score;
+            if (localHighScore > 0) {
+                TextView highScoreTextView = mLocalHighScoreTextView;
+                highScoreTextView.setText(" Highscore: " + localHighScore);
+            }
+        }
 
         Bundle b = getIntent().getExtras();
         if (b != null) {
@@ -129,25 +152,17 @@ public class GameActivity extends Activity {
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
 
-        // Preparaci�n de la UI
+        // Preparaci�n variables de configuraci�n
+        PermData pd = PermData.getInstance();
+        vibrateCfgLevel = pd.getVibratorConfig();
+        flashCfgLevel = pd.getFlashConfig();
+        shakeCfgLevel = pd.getShakeConfig();
+        boolean soundOn = pd.getSoundConfig();
 
-        setContentView(R.layout.game);
-
-        pauseBtn = (ImageButton) findViewById(R.id.game_pauseBtn);
-        pauseBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pauseGame();
-            }
-        });
-
-        lifeCounterView = (ViewGroup) findViewById(R.id.lifes_counter_layout);
-
-        specialWeaponBar = (ProgressBar) findViewById(R.id.game_specialWeaponBar);
-
-        scoreTextView = (TextView) findViewById(R.id.game_scoreTextView);
-        localHighScoreTextView = (TextView) findViewById(R.id.game_localHightscoreTextView);
-
+        mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface));
+        mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
+        mWorld.getSoundManager().setSoundEnabled(soundOn);
+        
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
 
@@ -180,21 +195,6 @@ public class GameActivity extends Activity {
 
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
-
-        // Preparaci�n variables de configuraci�n
-        PermData pd = PermData.getInstance();
-        boolean soundOn = pd.getSoundConfig();
-
-        mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface));
-        mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
-        mWorld.getSoundManager().setSoundEnabled(soundOn);
-
-        updateLifeCounterView();
-        updateScoreTextView();
-
-        vibrateCfgLevel = pd.getVibratorConfig();
-        flashCfgLevel = pd.getFlashConfig();
-        shakeCfgLevel = pd.getShakeConfig();
 
         // Preparaci�n samples sonido
         if (soundOn) {
@@ -241,6 +241,10 @@ public class GameActivity extends Activity {
 
         // Preparaci�n del di�logo de anuncions
         AdDialogFactory.getInstance().init(this);
+
+
+        updateLifeCounterView();
+        updateScoreTextView();
 
         // Preparaci�n de la wave
 
@@ -295,18 +299,14 @@ public class GameActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
-        mWorld.stopRunning();
+        // TODO dispose the vibratror as is done with the sound manager
+        VibratorManager vm = VibratorManager.getInstance();
+        vm.clearAll();
+        mWorld.finish();
         // If the user presses the on / off button of the phone and the activity
         // is destroyed, we
         // want to show the menu activity when going to the task again.
         finish();
-
-        // destroyGame();
-
-        // mWorld.getSoundManager().clearAll();
-        // if (vibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
-        // VibratorManager.getInstance().clearAll();
-        // }
     }
 
     @Override
@@ -365,7 +365,7 @@ public class GameActivity extends Activity {
     }
 
     // ---------------------------------------------------- M�todos propios
-
+ 
     public JumplingsGameWorld getWorld() {
         return mWorld;
     }
@@ -414,7 +414,7 @@ public class GameActivity extends Activity {
             if (!gameOver) {
                 // If the game is over the game over dialog will be active
                 showDialog(DIALOG_PAUSE_ID);
-                pauseBtn.setVisibility(View.GONE);
+                mPauseBtn.setVisibility(View.GONE);
             }
             mWorld.pause();
         }
@@ -424,7 +424,7 @@ public class GameActivity extends Activity {
      * Contin�a el juego
      */
     void resumeGame() {
-        pauseBtn.setVisibility(View.VISIBLE);
+        mPauseBtn.setVisibility(View.VISIBLE);
         mWorld.resume();
     }
 
@@ -464,7 +464,7 @@ public class GameActivity extends Activity {
             public void run() {
                 Player player = mWorld.getPlayer();
                 int lifesLeft = player.getLifes();
-                ViewGroup lifes = (ViewGroup) lifeCounterView;
+                ViewGroup lifes = (ViewGroup) mLifeCounterView;
                 int count = lifes.getChildCount();
                 for (int i = 0; i < count; i++) {
                     View life = lifes.getChildAt(i);
@@ -484,7 +484,7 @@ public class GameActivity extends Activity {
     public void updateSpecialWeaponBar() {
         Weapon weapon = mWorld.mWeapon;
         int progress = weapon.getRemainingTime();
-        specialWeaponBar.setProgress(progress);
+        mSpecialWeaponBar.setProgress(progress);
     }
 
     public void activateSpecialWeaponBar(final boolean active) {
@@ -492,11 +492,11 @@ public class GameActivity extends Activity {
             @Override
             public void run() {
                 if (active) {
-                    specialWeaponBar.setVisibility(View.VISIBLE);
-                    specialWeaponBar.setMax(mWorld.mWeapon.getMaxTime());
+                    mSpecialWeaponBar.setVisibility(View.VISIBLE);
+                    mSpecialWeaponBar.setMax(mWorld.mWeapon.getMaxTime());
                     updateSpecialWeaponBar();
                 } else {
-                    specialWeaponBar.setVisibility(View.INVISIBLE);
+                    mSpecialWeaponBar.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -510,7 +510,7 @@ public class GameActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                scoreTextView.setText(String.valueOf(mWorld.getPlayer().getScore()));
+                mScoreTextView.setText(String.valueOf(mWorld.getPlayer().getScore()));
             }
         });
 
@@ -532,8 +532,8 @@ public class GameActivity extends Activity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                int state = (lifeCounterView.getVisibility() == View.INVISIBLE) ? View.VISIBLE : View.INVISIBLE;
-                                lifeCounterView.setVisibility(state);
+                                int state = (mLifeCounterView.getVisibility() == View.INVISIBLE) ? View.VISIBLE : View.INVISIBLE;
+                                mLifeCounterView.setVisibility(state);
                             }
                         });
 
@@ -557,7 +557,7 @@ public class GameActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                lifeCounterView.setVisibility(View.VISIBLE);
+                mLifeCounterView.setVisibility(View.VISIBLE);
             }
         });
     }

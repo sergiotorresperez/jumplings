@@ -50,13 +50,9 @@ public class JumplingsWorld extends Box2DWorld {
 
     // ----------------------------------------------------- M�todos de World
 
-    protected void onGameLoopStarted() {
-        create();
-    }
-
-    public void create() {
-
-        Log.i(LOG_SRC, "create " + this);
+    @Override
+    protected void onCreated() {
+        Log.i(LOG_SRC, "onCreated " + this);
 
         // Paredes
         // -----------------------------------------------------------------
@@ -111,8 +107,8 @@ public class JumplingsWorld extends Box2DWorld {
                 securityRight, securityTop), false, true));
         
         setGravityY(-SensorManager.GRAVITY_EARTH);
-
     }
+
 
     @Override
     public boolean processFrame(float gameTimeStep) {
@@ -141,7 +137,7 @@ public class JumplingsWorld extends Box2DWorld {
             Log.i(JumplingsApplication.LOG_SRC,"startNewGame " + this);
             
             // Se arranca el game loop
-            startRunning();
+            start();
             // Se activa la wave
             wave.start();
         }
