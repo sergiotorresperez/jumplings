@@ -4,7 +4,6 @@ package net.garrapeta.jumplings.actor;
 import java.util.ArrayList;
 
 import net.garrapeta.jumplings.JumplingsApplication;
-import net.garrapeta.jumplings.GameActivity;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.R;
 import android.content.res.Resources;
@@ -109,9 +108,9 @@ public abstract class EnemyActor extends MainActor {
 	public void onAddedToWorld() {
 		super.onAddedToWorld();
 		if (getWorldPos().y > jgWorld.viewport.getWorldBoundaries().top) {
-		    jgWorld.getSoundManager().play(GameActivity.SAMPLE_ENEMY_THROW);
+		    jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_THROW);
 		} else {
-		    jgWorld.getSoundManager().play(GameActivity.SAMPLE_ENEMY_BOING);
+		    jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_BOING);
 		}
 	}
 

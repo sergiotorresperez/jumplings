@@ -6,6 +6,7 @@ import net.garrapeta.gameengine.Actor;
 import net.garrapeta.gameengine.GameMessage;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.GameWorld;
+import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.gameengine.vibrator.VibratorManager;
 import net.garrapeta.jumplings.actor.BladePowerUpActor;
 import net.garrapeta.jumplings.actor.BombActor;
@@ -37,6 +38,31 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public static final int WEAPON_GUN = 0;
     public static final int WEAPON_SHOTGUN = 1;
     public static final int WEAPON_BLADE = 2;
+    
+    // ------------------------------------ Consantes de sonidos y vibraciones
+    
+    public static final int SAMPLE_ENEMY_BOING = 0;
+    public static final int SAMPLE_ENEMY_THROW = 1;
+    public static final int SAMPLE_ENEMY_KILLED = 2;
+    public static final int SAMPLE_FAIL = 3;
+
+    public static final int SAMPLE_SLAP = 4;
+    public static final int SAMPLE_BLADE_WHIP = 5;
+
+    public static final int SAMPLE_FUSE = 6;
+    public static final int SAMPLE_BOMB_BOOM = 7;
+    public static final int SAMPLE_BOMB_LAUNCH = 8;
+
+    public static final int SAMPLE_SWORD_DRAW = 9;
+    public static final int SAMPLE_GUN_CLIP = 10;
+
+    public static final int SAMPLE_LIFE_UP = 11;
+
+    public static final int VIBRATION_ENEMY_KILLED = 0;
+    public static final int VIBRATION_FAIL = 1;
+
+    private static final long[] VIBRATION_PATTERN_ENEMY_KILLED = { 0, 90 };
+    private static final long[] VIBRATION_PATTERN_FAIL = { 0, 100, 50, 400 };
 
     // ------------------------------------------------------------ Variables
 
@@ -75,6 +101,12 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     /** Escenario que est� desapareciendo */
     Scenario fadingScenario;
 
+    // ------------------------------------------- Variables de configuraci�n
+
+    public short mVibrateCfgLevel;
+    public short mFlashCfgLevel;
+    public short mShakeCfgLevel;
+
     // ----------------------------------------------------------- Constructor
 
     public JumplingsGameWorld(GameActivity gameActivity, GameView gameView) {
@@ -94,6 +126,57 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public void onCreated() {
         super.onCreated();
 
+        // Preparaci�n variables de configuraci�n
+        PermData pd = PermData.getInstance();
+        mVibrateCfgLevel = pd.getVibratorConfig();
+        mFlashCfgLevel = pd.getFlashConfig();
+        mShakeCfgLevel = pd.getShakeConfig();
+        getSoundManager().setSoundEnabled(pd.getSoundConfig());
+
+        // Preparaci�n samples sonido
+        
+        SoundManager sm = getSoundManager();
+        if (sm.isSoundEnabled()) {
+            sm.add(R.raw.boing1, SAMPLE_ENEMY_BOING, mActivity);
+            sm.add(R.raw.boing2, SAMPLE_ENEMY_BOING, mActivity);
+            sm.add(R.raw.boing3, SAMPLE_ENEMY_BOING, mActivity);
+
+            sm.add(R.raw.boing1, SAMPLE_ENEMY_BOING, mActivity);
+            sm.add(R.raw.boing2, SAMPLE_ENEMY_BOING, mActivity);
+            sm.add(R.raw.boing3, SAMPLE_ENEMY_BOING, mActivity);
+
+            sm.add(R.raw.whip, SAMPLE_ENEMY_THROW, mActivity);
+
+            sm.add(R.raw.crush, SAMPLE_ENEMY_KILLED, mActivity);
+            sm.add(R.raw.wrong, SAMPLE_FAIL, mActivity);
+
+            sm.add(R.raw.slap, SAMPLE_SLAP, mActivity);
+
+            sm.add(R.raw.blade, SAMPLE_BLADE_WHIP, mActivity);
+
+            sm.add(R.raw.fuse, SAMPLE_FUSE, mActivity);
+
+            sm.add(R.raw.bomb_boom, SAMPLE_BOMB_BOOM, mActivity);
+            sm.add(R.raw.bomb_launch, SAMPLE_BOMB_LAUNCH, mActivity);
+
+            sm.add(R.raw.sword_draw, SAMPLE_SWORD_DRAW, mActivity);
+            sm.add(R.raw.clip_in, SAMPLE_GUN_CLIP, mActivity);
+
+            sm.add(R.raw.life_up, SAMPLE_LIFE_UP, mActivity);
+
+        }
+        
+        
+        
+        // TODO: do this as with the sound manager
+        // Preparaci�n vibraciones
+       if (mVibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
+           VibratorManager vm = VibratorManager.getInstance();
+           vm.init(mActivity);
+
+           vm.add(VIBRATION_PATTERN_ENEMY_KILLED, VIBRATION_ENEMY_KILLED);
+           vm.add(VIBRATION_PATTERN_FAIL, VIBRATION_FAIL);
+       }
         // Inicializaci�n del arma
         setWeapon(Gun.WEAPON_CODE_GUN);
 
@@ -256,7 +339,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     public void onPostEnemyScaped(EnemyActor e) {
-        if (mGameActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
+        if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
             FlashActor flash = new FlashActor(this, FlashActor.FLASH_ENEMY_SCAPED_COLOR, FlashActor.FLASH_ENEMY_SCAPED_ALPHA,
                     FlashActor.FLASH_ENEMY_SCAPED_DURATION);
             addActor(flash);
@@ -267,15 +350,15 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public void onEnemyKilled(EnemyActor enemy) {
         if (!wave.onEnemyKilled(enemy)) {
-            getSoundManager().play(GameActivity.SAMPLE_ENEMY_KILLED);
-            if (mGameActivity.vibrateCfgLevel == PermData.CFG_LEVEL_ALL) {
-                VibratorManager.getInstance().play(GameActivity.VIBRATION_ENEMY_KILLED);
+            getSoundManager().play(SAMPLE_ENEMY_KILLED);
+            if (mVibrateCfgLevel == PermData.CFG_LEVEL_ALL) {
+                VibratorManager.getInstance().play(VIBRATION_ENEMY_KILLED);
             }
 
             mPlayer.onEnemyKilled(enemy);
             scenario.setProgress(wave.getProgress());
 
-            if (mGameActivity.shakeCfgLevel == PermData.CFG_LEVEL_ALL) {
+            if (mShakeCfgLevel == PermData.CFG_LEVEL_ALL) {
                 createShake(100f, 0.20f);
             }
 
@@ -293,7 +376,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     private void onPostBombExploded(BombActor bomb) {
-        if (mGameActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
+        if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
             FlashActor flash = new FlashActor(this, FlashActor.FLASH_BOMB_COLOR, FlashActor.FLASH_BOMB_ALPHA, FlashActor.FLASH_BOMB_DURATION);
             addActor(flash);
 
@@ -315,9 +398,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     private void onPostLifePowerUp(LifePowerUpActor lifePowerUpActor) {
-        getSoundManager().play(GameActivity.SAMPLE_LIFE_UP);
+        getSoundManager().play(SAMPLE_LIFE_UP);
 
-        if (mGameActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
+        if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
             FlashActor flash = new FlashActor(this, FlashActor.FLASH_LIFEUP_COLOR, FlashActor.FLASH_LIFEUP_ALPHA, FlashActor.FLASH_LIFEUP_DURATION);
             addActor(flash);
         }
@@ -337,7 +420,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     private void onPostBladePowerUp(BladePowerUpActor bladePowerUpActor) {
         setWeapon(Blade.WEAPON_CODE_BLADE);
 
-        if (mGameActivity.flashCfgLevel >= PermData.CFG_LEVEL_SOME) {
+        if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
             FlashActor flash = new FlashActor(this, FlashActor.FLASH_BLADE_DRAWN_COLOR, FlashActor.FLASH_BLADE_DRAWN_ALPHA,
                     FlashActor.FLASH_BLADE_DRAWN_DURATION);
             addActor(flash);
@@ -366,7 +449,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         boolean active = false;
         switch (weaponId) {
         case Gun.WEAPON_CODE_GUN:
-            getSoundManager().play(GameActivity.SAMPLE_GUN_CLIP);
+            getSoundManager().play(SAMPLE_GUN_CLIP);
             mWeapon = new Gun(this);
             active = false;
             break;
@@ -375,7 +458,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         // active = true;
         // break;
         case Blade.WEAPON_CODE_BLADE:
-            getSoundManager().play(GameActivity.SAMPLE_SWORD_DRAW);
+            getSoundManager().play(SAMPLE_SWORD_DRAW);
             mWeapon = new Blade(this);
             active = true;
             break;
@@ -395,16 +478,16 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
      */
     private void onFail() {
         if (!wave.onFail()) {
-            getSoundManager().play(GameActivity.SAMPLE_FAIL);
-            if (mGameActivity.vibrateCfgLevel >= PermData.CFG_LEVEL_SOME) {
-                VibratorManager.getInstance().play(GameActivity.VIBRATION_FAIL);
+            getSoundManager().play(SAMPLE_FAIL);
+            if (mVibrateCfgLevel >= PermData.CFG_LEVEL_SOME) {
+                VibratorManager.getInstance().play(VIBRATION_FAIL);
             }
     
             Player player = getPlayer();
             player.subLifes(1);
             player.makeInvulnerable(INVULNERABLE_TIME);
     
-            if (mGameActivity.shakeCfgLevel >= PermData.CFG_LEVEL_SOME) {
+            if (mShakeCfgLevel >= PermData.CFG_LEVEL_SOME) {
                 createShake(425f, 0.75f);
             }
     

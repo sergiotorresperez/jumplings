@@ -1,7 +1,6 @@
 package net.garrapeta.jumplings;
 
 import net.garrapeta.gameengine.GameView;
-import net.garrapeta.gameengine.sound.SoundManager;
 import net.garrapeta.gameengine.vibrator.VibratorManager;
 import net.garrapeta.jumplings.ui.AdDialogFactory;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
@@ -40,28 +39,7 @@ public class GameActivity extends Activity {
     /** Lapso de parpadeo de la barra de vida, en ms */
     private static final int LIFEBAR_BLINKING_LAPSE = 100;
 
-    public static final int SAMPLE_ENEMY_BOING = 0;
-    public static final int SAMPLE_ENEMY_THROW = 1;
-    public static final int SAMPLE_ENEMY_KILLED = 2;
-    public static final int SAMPLE_FAIL = 3;
 
-    public static final int SAMPLE_SLAP = 4;
-    public static final int SAMPLE_BLADE_WHIP = 5;
-
-    public static final int SAMPLE_FUSE = 6;
-    public static final int SAMPLE_BOMB_BOOM = 7;
-    public static final int SAMPLE_BOMB_LAUNCH = 8;
-
-    public static final int SAMPLE_SWORD_DRAW = 9;
-    public static final int SAMPLE_GUN_CLIP = 10;
-
-    public static final int SAMPLE_LIFE_UP = 11;
-
-    public static final int VIBRATION_ENEMY_KILLED = 0;
-    public static final int VIBRATION_FAIL = 1;
-
-    private static final long[] VIBRATION_PATTERN_ENEMY_KILLED = { 0, 90 };
-    private static final long[] VIBRATION_PATTERN_FAIL = { 0, 100, 50, 400 };
 
     // ----------------------------------------------------- Variables de
     // instancia
@@ -96,12 +74,6 @@ public class GameActivity extends Activity {
     public RadioGroup weaponsRadioGroup;
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     // DEBUG
-
-    // ------------------------------------------- Variables de configuraci�n
-
-    public short vibrateCfgLevel;
-    public short flashCfgLevel;
-    public short shakeCfgLevel;
 
     // -------------------------------------------------- M�todos de Activity
 
@@ -152,16 +124,11 @@ public class GameActivity extends Activity {
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
 
-        // Preparaci�n variables de configuraci�n
-        PermData pd = PermData.getInstance();
-        vibrateCfgLevel = pd.getVibratorConfig();
-        flashCfgLevel = pd.getFlashConfig();
-        shakeCfgLevel = pd.getShakeConfig();
-        boolean soundOn = pd.getSoundConfig();
+
 
         mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface));
         mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
-        mWorld.getSoundManager().setSoundEnabled(soundOn);
+        
         
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
@@ -195,49 +162,6 @@ public class GameActivity extends Activity {
 
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
-
-        // Preparaci�n samples sonido
-        if (soundOn) {
-
-            SoundManager sm = mWorld.getSoundManager();
-
-            sm.add(R.raw.boing1, SAMPLE_ENEMY_BOING, this);
-            sm.add(R.raw.boing2, SAMPLE_ENEMY_BOING, this);
-            sm.add(R.raw.boing3, SAMPLE_ENEMY_BOING, this);
-
-            sm.add(R.raw.boing1, SAMPLE_ENEMY_BOING, this);
-            sm.add(R.raw.boing2, SAMPLE_ENEMY_BOING, this);
-            sm.add(R.raw.boing3, SAMPLE_ENEMY_BOING, this);
-
-            sm.add(R.raw.whip, SAMPLE_ENEMY_THROW, this);
-
-            sm.add(R.raw.crush, SAMPLE_ENEMY_KILLED, this);
-            sm.add(R.raw.wrong, SAMPLE_FAIL, this);
-
-            sm.add(R.raw.slap, SAMPLE_SLAP, this);
-
-            sm.add(R.raw.blade, SAMPLE_BLADE_WHIP, this);
-
-            sm.add(R.raw.fuse, SAMPLE_FUSE, this);
-
-            sm.add(R.raw.bomb_boom, SAMPLE_BOMB_BOOM, this);
-            sm.add(R.raw.bomb_launch, SAMPLE_BOMB_LAUNCH, this);
-
-            sm.add(R.raw.sword_draw, SAMPLE_SWORD_DRAW, this);
-            sm.add(R.raw.clip_in, SAMPLE_GUN_CLIP, this);
-
-            sm.add(R.raw.life_up, SAMPLE_LIFE_UP, this);
-
-        }
-
-        // Preparaci�n vibraciones
-        if (vibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
-            VibratorManager vm = VibratorManager.getInstance();
-            vm.init(this);
-
-            vm.add(VIBRATION_PATTERN_ENEMY_KILLED, VIBRATION_ENEMY_KILLED);
-            vm.add(VIBRATION_PATTERN_FAIL, VIBRATION_FAIL);
-        }
 
         // Preparaci�n del di�logo de anuncions
         AdDialogFactory.getInstance().init(this);

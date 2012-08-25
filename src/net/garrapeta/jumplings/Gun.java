@@ -42,7 +42,7 @@ public class Gun extends Weapon {
 		if (info[0] == MotionEvent.ACTION_DOWN && 
 				(System.currentTimeMillis() - lastShootTimeStamp) >= shootTimeGap) {
 			
-			if (mJGWorld.mGameActivity.flashCfgLevel == PermData.CFG_LEVEL_ALL) {
+			if (mJGWorld.mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
 				FlashActor flash = new FlashActor(mJGWorld,
 						                          FlashActor.FLASH_SHOT_COLOR, 
 						                          FlashActor.FLASH_SHOT_ALPHA, 
@@ -51,7 +51,7 @@ public class Gun extends Weapon {
 				mJGWorld.addActor(flash);
 			}
 
-			mJGWorld.getSoundManager().play(GameActivity.SAMPLE_SLAP);
+			mJGWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SLAP);
 			
 			lastShootTimeStamp = System.currentTimeMillis();
 			

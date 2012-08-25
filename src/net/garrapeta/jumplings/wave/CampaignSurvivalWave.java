@@ -1,7 +1,7 @@
 package net.garrapeta.jumplings.wave;
 
-import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.GameActivity;
+import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.Player;
 import net.garrapeta.jumplings.actor.EnemyActor;
