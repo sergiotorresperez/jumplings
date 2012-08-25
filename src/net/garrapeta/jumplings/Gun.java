@@ -51,7 +51,7 @@ public class Gun extends Weapon {
 				mJGWorld.addActor(flash);
 			}
 
-			mJGWorld.getSoundManager().play(JumplingsGameActivity.SAMPLE_SLAP);
+			mJGWorld.getSoundManager().play(GameActivity.SAMPLE_SLAP);
 			
 			lastShootTimeStamp = System.currentTimeMillis();
 			

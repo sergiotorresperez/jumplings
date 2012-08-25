@@ -1,7 +1,7 @@
 package net.garrapeta.jumplings.ui;
 
 import net.garrapeta.jumplings.JumplingsApplication;
-import net.garrapeta.jumplings.JumplingsGameActivity;
+import net.garrapeta.jumplings.GameActivity;
 import net.garrapeta.jumplings.R;
 import android.app.Dialog;
 import android.content.Context;
@@ -29,7 +29,7 @@ public class AdDialogFactory implements MobclixAdViewListener, Runnable {
 	
 	// --------------------------------------------------- Variables privadas
 
-	private JumplingsGameActivity cActivity; 
+	private GameActivity cActivity; 
 	
 	private View adDialogView;
 	
@@ -63,7 +63,7 @@ public class AdDialogFactory implements MobclixAdViewListener, Runnable {
 	
 	// ------------------------------------------------- M�todos de instancia
 	
-	public void init(final JumplingsGameActivity cActivity) {
+	public void init(final GameActivity cActivity) {
 		this.cActivity = cActivity;
 		
 		LayoutInflater inflater = (LayoutInflater) cActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -92,7 +92,7 @@ public class AdDialogFactory implements MobclixAdViewListener, Runnable {
 					buyBtn.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View v) {
-							cActivity.dismissDialog(JumplingsGameActivity.DIALOG_AD_ID);
+							cActivity.dismissDialog(GameActivity.DIALOG_AD_ID);
 							Toast toast = Toast.makeText(cActivity, "TODO: buy app", Toast.LENGTH_SHORT);
 							toast.show();
 							cActivity.getWorld().resume();
@@ -104,7 +104,7 @@ public class AdDialogFactory implements MobclixAdViewListener, Runnable {
 					@Override
 					public void onClick(View v) {
 					    cActivity.getWorld().resume();
-						cActivity.dismissDialog(JumplingsGameActivity.DIALOG_AD_ID);
+						cActivity.dismissDialog(GameActivity.DIALOG_AD_ID);
 						adView.getAd();
 					}
 				});

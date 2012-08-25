@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import net.garrapeta.gameengine.Viewport;
 import net.garrapeta.jumplings.JumplingsApplication;
-import net.garrapeta.jumplings.JumplingsGameActivity;
+import net.garrapeta.jumplings.GameActivity;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.R;
 import android.content.res.Resources;
@@ -200,8 +200,8 @@ public class BombActor extends MainActor {
 	public void onAddedToWorld() {
 		super.onAddedToWorld();
 		jgWorld.bombCount++;
-		jgWorld.getSoundManager().play(JumplingsGameActivity.SAMPLE_BOMB_LAUNCH);
-		fusePlayer = jgWorld.getSoundManager().play(JumplingsGameActivity.SAMPLE_FUSE, true, false);
+		jgWorld.getSoundManager().play(GameActivity.SAMPLE_BOMB_LAUNCH);
+		fusePlayer = jgWorld.getSoundManager().play(GameActivity.SAMPLE_FUSE, true, false);
 	}
 	
 	@Override
@@ -220,7 +220,7 @@ public class BombActor extends MainActor {
 		jgWorld.onBombExploded(this);
 		
 		// sonido
-	    jgWorld.getSoundManager().play(JumplingsGameActivity.SAMPLE_BOMB_BOOM);
+	    jgWorld.getSoundManager().play(GameActivity.SAMPLE_BOMB_BOOM);
 
 		// Se genera una onda expansiva sobre los enemigos
 		Object[] as = jgWorld.jumplingActors.toArray();

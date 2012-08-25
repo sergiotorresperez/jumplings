@@ -105,7 +105,7 @@ public class GameOverActivity extends Activity {
 		
 		Bundle b = getIntent().getExtras();
 		if (b != null) {
-			waveKey = b.getString(JumplingsGameActivity.WAVE_BUNDLE_KEY);
+			waveKey = b.getString(GameActivity.WAVE_BUNDLE_KEY);
 			playerScore = (HighScore) b.getParcelable(NEW_HIGHSCORE_KEY);
 		}
 		
@@ -176,8 +176,8 @@ public class GameOverActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					finish();
-					Intent i = new Intent(GameOverActivity.this, JumplingsGameActivity.class);
-					i.putExtra(JumplingsGameActivity.WAVE_BUNDLE_KEY, waveKey);
+					Intent i = new Intent(GameOverActivity.this, GameActivity.class);
+					i.putExtra(GameActivity.WAVE_BUNDLE_KEY, waveKey);
 					
 					startActivity(i);
 				}

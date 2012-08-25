@@ -6,6 +6,7 @@ import net.garrapeta.gameengine.vibrator.VibratorManager;
 import net.garrapeta.jumplings.ui.AdDialogFactory;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import net.garrapeta.jumplings.wave.TestWave;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -21,7 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class JumplingsGameActivity extends JumplingsActivity {
+public class GameActivity extends Activity {
 
     // -----------------------------------------------------------------
     // Constantes
@@ -31,10 +34,8 @@ public class JumplingsGameActivity extends JumplingsActivity {
     public static final int DIALOG_GAMEOVER_ID = 1;
     public static final int DIALOG_AD_ID = 2;
 
-    
     // Constantes de keys del bundle
     public static final String WAVE_BUNDLE_KEY = "waveKey";
-
 
     /** Lapso de parpadeo de la barra de vida, en ms */
     private static final int LIFEBAR_BLINKING_LAPSE = 100;
@@ -79,7 +80,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
     private boolean gameOver = false;
 
     private ImageButton pauseBtn;
-    
+
     ViewGroup lifeCounterView;
     ProgressBar specialWeaponBar;
 
@@ -89,15 +90,12 @@ public class JumplingsGameActivity extends JumplingsActivity {
 
     TextView localHighScoreTextView;
 
-    
-
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     // DEBUG
     public Button testBtn;
     public RadioGroup weaponsRadioGroup;
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     // DEBUG
-
 
     // ------------------------------------------- Variables de configuraci�n
 
@@ -111,9 +109,11 @@ public class JumplingsGameActivity extends JumplingsActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Log.e(JumplingsApplication.LOG_SRC, "CREATE GAME");
-        
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         Bundle b = getIntent().getExtras();
         if (b != null) {
             waveKey = b.getString(WAVE_BUNDLE_KEY);
@@ -131,9 +131,8 @@ public class JumplingsGameActivity extends JumplingsActivity {
 
         // Preparaci�n de la UI
 
-
         setContentView(R.layout.game);
-        
+
         pauseBtn = (ImageButton) findViewById(R.id.game_pauseBtn);
         pauseBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -185,8 +184,8 @@ public class JumplingsGameActivity extends JumplingsActivity {
         // Preparaci�n variables de configuraci�n
         PermData pd = PermData.getInstance();
         boolean soundOn = pd.getSoundConfig();
-        
-        super.mWorld = mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface));
+
+        mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface));
         mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
         mWorld.getSoundManager().setSoundEnabled(soundOn);
 
@@ -268,7 +267,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
     protected void onStop() {
         super.onStop();
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
-        
+
     }
 
     @Override
@@ -288,7 +287,8 @@ public class JumplingsGameActivity extends JumplingsActivity {
     protected void onResume() {
         super.onResume();
         Log.i(JumplingsApplication.LOG_SRC, "onResume " + this);
-        // Do not resume game here: user will resume by pressing button in pause dialog
+        // Do not resume game here: user will resume by pressing button in pause
+        // dialog
     }
 
     @Override
@@ -296,16 +296,17 @@ public class JumplingsGameActivity extends JumplingsActivity {
         super.onDestroy();
         Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
         mWorld.stopRunning();
-        // If the user presses the on / off button of the phone and the activity is destroyed, we
+        // If the user presses the on / off button of the phone and the activity
+        // is destroyed, we
         // want to show the menu activity when going to the task again.
         finish();
 
-//        destroyGame();
+        // destroyGame();
 
-//        mWorld.getSoundManager().clearAll();
-//        if (vibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
-//            VibratorManager.getInstance().clearAll();
-//        }
+        // mWorld.getSoundManager().clearAll();
+        // if (vibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
+        // VibratorManager.getInstance().clearAll();
+        // }
     }
 
     @Override
@@ -315,7 +316,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
         switch (id) {
         case DIALOG_PAUSE_ID:
 
-            dialog = new Dialog(JumplingsGameActivity.this, R.style.CustomDialog);
+            dialog = new Dialog(GameActivity.this, R.style.CustomDialog);
             dialog.setCancelable(false);
             dialog.setContentView(R.layout.dialog_pause);
 
@@ -340,7 +341,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
 
         case DIALOG_GAMEOVER_ID:
 
-            dialog = new Dialog(JumplingsGameActivity.this, R.style.CustomDialog);
+            dialog = new Dialog(GameActivity.this, R.style.CustomDialog);
             dialog.setCancelable(false);
             dialog.setContentView(R.layout.dialog_gameover);
 
@@ -368,7 +369,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
     public JumplingsGameWorld getWorld() {
         return mWorld;
     }
-    
+
     /**
      * va a la actividad de introducci�n de nuevo highscores
      */
@@ -381,7 +382,7 @@ public class JumplingsGameActivity extends JumplingsActivity {
         highScore.level = mWorld.wave.getLevel();
 
         i.putExtra(GameOverActivity.NEW_HIGHSCORE_KEY, highScore);
-        i.putExtra(JumplingsGameActivity.WAVE_BUNDLE_KEY, waveKey);
+        i.putExtra(GameActivity.WAVE_BUNDLE_KEY, waveKey);
 
         startActivity(i);
     }
@@ -405,14 +406,13 @@ public class JumplingsGameActivity extends JumplingsActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-
     /**
      * Pausa el juego
      */
     void pauseGame() {
         if (!mWorld.isPaused()) {
             if (!gameOver) {
-                //If the game is over the game over dialog will be active
+                // If the game is over the game over dialog will be active
                 showDialog(DIALOG_PAUSE_ID);
                 pauseBtn.setVisibility(View.GONE);
             }
@@ -561,7 +561,6 @@ public class JumplingsGameActivity extends JumplingsActivity {
             }
         });
     }
-
 
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 

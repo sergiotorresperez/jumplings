@@ -3,6 +3,7 @@ import net.garrapeta.gameengine.Box2DWorld;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.jumplings.actor.WallActor;
 import net.garrapeta.jumplings.wave.Wave;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -31,13 +32,11 @@ public class JumplingsWorld extends Box2DWorld {
     
     // ------------------------------------------------------------ Variables
 
-    public JumplingsActivity jActivity;
 
     /** Wave actual */
     Wave wave;
     
-    /** Jugador */
-    Player player;
+
 
     // centro de la pantalla
     float centerX;
@@ -45,9 +44,8 @@ public class JumplingsWorld extends Box2DWorld {
 
     // ----------------------------------------------------------- Constructor
 
-    public JumplingsWorld(JumplingsActivity jActivity, GameView gameView) {
-        super(jActivity, gameView);
-        this.jActivity = jActivity;
+    public JumplingsWorld(Activity activity, GameView gameView) {
+        super(activity, gameView);
     }
 
     // ----------------------------------------------------- M�todos de World
@@ -150,10 +148,6 @@ public class JumplingsWorld extends Box2DWorld {
     }
 
     // -------------------------------------------------------- M�todos propios
-
-    public Player getPlayer() {
-        return player;
-    }
 
     public void onWaveStarted() {
         Log.i(LOG_SRC, "Wave started");

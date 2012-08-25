@@ -1,7 +1,7 @@
 package net.garrapeta.jumplings.wave;
 
 import net.garrapeta.jumplings.JumplingsApplication;
-import net.garrapeta.jumplings.JumplingsGameActivity;
+import net.garrapeta.jumplings.GameActivity;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.Player;
 import net.garrapeta.jumplings.actor.EnemyActor;
@@ -162,7 +162,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 			jgWorld.getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					jgWorld.jgActivity.showDialog(JumplingsGameActivity.DIALOG_AD_ID);
+					jgWorld.jgActivity.showDialog(GameActivity.DIALOG_AD_ID);
 				}});
 			
 			lastAdTimeStamp = jgWorld.currentGameMillis();

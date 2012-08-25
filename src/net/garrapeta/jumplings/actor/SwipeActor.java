@@ -2,7 +2,7 @@ package net.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import net.garrapeta.jumplings.JumplingsGameActivity;
+import net.garrapeta.jumplings.GameActivity;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.PermData;
 import android.graphics.Canvas;
@@ -118,7 +118,7 @@ public class SwipeActor extends HarmerActor {
 							swipping = true;
 							timestamp = System.currentTimeMillis();
 							
-						    jgWorld.getSoundManager().play(JumplingsGameActivity.SAMPLE_BLADE_WHIP);
+						    jgWorld.getSoundManager().play(GameActivity.SAMPLE_BLADE_WHIP);
 							if (jgWorld.jgActivity.flashCfgLevel == PermData.CFG_LEVEL_ALL) {
 								FlashActor flash = new FlashActor(jgWorld ,Color.WHITE, 50, 250);
 								jgWorld.addActor(flash);
