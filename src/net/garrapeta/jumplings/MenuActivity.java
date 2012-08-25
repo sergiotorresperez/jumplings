@@ -175,18 +175,19 @@ public class MenuActivity extends Activity {
     protected void onPause() {
         super.onPause();
         Log.i(JumplingsApplication.LOG_SRC, "onPause " + this);
+        mWorld.pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Log.i(JumplingsApplication.LOG_SRC, "onResume " + this);
+        mWorld.resume();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
 
     }
@@ -201,21 +202,13 @@ public class MenuActivity extends Activity {
 
     // ---------------------------- M�todos de componentes de interacci�n
 
-    void startTutorial() {
-        // Intent i = new Intent(this, ShapelingsGameActivity.class);
-        // i.putExtra(ShapelingsGameActivity.WAVE_BUNDLE_KEY,
-        // CampaignTutorialWave.WAVE_KEY);
-        // i.putExtra(ShapelingsGameActivity.BUTTONS_COUNT_BUNDLE_KEY, 2);
-        // startActivity(i);
-    }
-
-    void startNewGame() {
+    private void startNewGame() {
         Intent i = new Intent(this, GameActivity.class);
         i.putExtra(GameActivity.WAVE_BUNDLE_KEY, CampaignSurvivalWave.WAVE_KEY);
         startActivity(i);
     }
 
-    void startTest() {
+    private void startTest() {
         Intent i = new Intent(this, GameActivity.class);
         i.putExtra(GameActivity.WAVE_BUNDLE_KEY, TestWave.WAVE_KEY);
         startActivity(i);
@@ -223,25 +216,25 @@ public class MenuActivity extends Activity {
         // startActivity(i);
     }
 
-    void showHighScores() {
+    private void showHighScores() {
         Intent i = new Intent(this, HighScoreListingActivity.class);
         startActivity(i);
     }
 
-    void showPreferences() {
+    private void showPreferences() {
         Intent i = new Intent(this, PreferencesActivity.class);
         startActivity(i);
     }
 
-    void enableFeintLeaderboardButton() {
+    private void enableFeintLeaderboardButton() {
         feintLeaderBoardBtn.setVisibility(View.VISIBLE);
     }
 
-    void disableFeintLeaderboardButton() {
+    private void disableFeintLeaderboardButton() {
         feintLeaderBoardBtn.setVisibility(View.GONE);
     }
 
-    void showFeintLeaderboard() {
+    private void showFeintLeaderboard() {
         Dashboard.openLeaderboard(GameOverActivity.feintLeaderboardId);
     }
 
