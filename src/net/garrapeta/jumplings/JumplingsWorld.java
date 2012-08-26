@@ -1,6 +1,7 @@
 package net.garrapeta.jumplings;
 import net.garrapeta.gameengine.Box2DWorld;
 import net.garrapeta.gameengine.GameView;
+import net.garrapeta.gameengine.module.BitmapManager;
 import net.garrapeta.jumplings.actor.WallActor;
 import net.garrapeta.jumplings.wave.Wave;
 import android.app.Activity;
@@ -53,7 +54,6 @@ public class JumplingsWorld extends Box2DWorld {
     @Override
     protected void onCreated() {
         Log.i(LOG_SRC, "onCreated " + this);
-
         // Paredes
         // -----------------------------------------------------------------
 
@@ -109,6 +109,19 @@ public class JumplingsWorld extends Box2DWorld {
         setGravityY(-SensorManager.GRAVITY_EARTH);
     }
 
+    @Override
+    protected void loadResources() {
+        // Preparaci�n samples bitmaps
+        BitmapManager bm = getBitmapManager();
+        bm.loadBitmap(R.drawable.intro_body);
+        bm.loadBitmap(R.drawable.intro_foot_right);
+        bm.loadBitmap(R.drawable.intro_foot_left);
+        bm.loadBitmap(R.drawable.intro_hand_right);
+        bm.loadBitmap(R.drawable.intro_hand_left);
+        bm.loadBitmap(R.drawable.intro_eye_right);
+        bm.loadBitmap(R.drawable.intro_eye_left);
+
+    }
 
     @Override
     public boolean processFrame(float gameTimeStep) {

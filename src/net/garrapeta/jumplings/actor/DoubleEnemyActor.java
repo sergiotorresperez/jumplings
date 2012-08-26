@@ -1,12 +1,9 @@
 package net.garrapeta.jumplings.actor;
 
 import net.garrapeta.gameengine.Viewport;
-import net.garrapeta.jumplings.JumplingsApplication;
+import net.garrapeta.gameengine.module.BitmapManager;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.R;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 
 import com.badlogic.gdx.math.Vector2;
@@ -15,159 +12,124 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class DoubleEnemyActor extends EnemyActor {
 
-	// --------------------------------------------------------------- Constantes
-	
-	public final static float  DEFAULT_RADIUS = BASE_RADIUS * 1.1f;
-	
-	public final static float  HEIGHT_RESTORATION_FACTOR = 1f / 3f;
-		
-	public final static short JUMPER_CODE_DOUBLE   	   = 1;
-	
-	// ------------------------------------------------------ Variables est�ticas
-	
-	// vivo
-	protected final static Bitmap BMP_ORANGE_BODY;
-	
-	protected final static Bitmap BMP_ORANGE_FOOT_RIGHT;
-	protected final static Bitmap BMP_ORANGE_FOOT_LEFT;
-	
-	protected final static Bitmap BMP_ORANGE_HAND_RIGHT;
-	protected final static Bitmap BMP_ORANGE_HAND_LEFT;
-	
-	// debris
-	protected final static Bitmap BMP_DEBRIS_ORANGE_BODY;
-	
-	protected final static Bitmap BMP_DEBRIS_ORANGE_FOOT_RIGHT;
-	protected final static Bitmap BMP_DEBRIS_ORANGE_FOOT_LEFT;
-	
-	protected final static Bitmap BMP_DEBRIS_ORANGE_HAND_RIGHT;
-	protected final static Bitmap BMP_DEBRIS_ORANGE_HAND_LEFT;
-	
-	// ---------------------------------------------------------------- Variables
-	
+    // ---------------------------------------------------------------
+    // Constantes
 
-	// ------------------------------------------------------ M�todos est�ticos
-	
-	static {
-		Resources r = JumplingsApplication.getInstance().getResources();
-		
-		// Alive
-		BMP_ORANGE_BODY					= BitmapFactory.decodeResource(r, R.drawable.orange_double_body);
-		
-		BMP_ORANGE_FOOT_RIGHT			= BitmapFactory.decodeResource(r, R.drawable.orange_foot_right);
-		BMP_ORANGE_FOOT_LEFT			= BitmapFactory.decodeResource(r, R.drawable.orange_foot_left);
-		
-		BMP_ORANGE_HAND_RIGHT			= BitmapFactory.decodeResource(r, R.drawable.orange_hand_right);
-		BMP_ORANGE_HAND_LEFT			= BitmapFactory.decodeResource(r, R.drawable.orange_hand_left);
-		
-		// Debris
-		BMP_DEBRIS_ORANGE_BODY			= BitmapFactory.decodeResource(r, R.drawable.orange_debris_double_body);
-		
-		BMP_DEBRIS_ORANGE_FOOT_RIGHT	= BitmapFactory.decodeResource(r, R.drawable.orange_debris_foot_right);
-		BMP_DEBRIS_ORANGE_FOOT_LEFT		= BitmapFactory.decodeResource(r, R.drawable.orange_debris_foot_left);
-		
-		BMP_DEBRIS_ORANGE_HAND_RIGHT	= BitmapFactory.decodeResource(r, R.drawable.orange_debris_hand_right);
-		BMP_DEBRIS_ORANGE_HAND_LEFT		= BitmapFactory.decodeResource(r, R.drawable.orange_debris_hand_left);
-		
-	}		
-		
-	static double getDoubleEnemyActorHitCount() {
-		return 2;
-	}
-	
-	// --------------------------------------------------------------- Constructor
+    public final static float DEFAULT_RADIUS = BASE_RADIUS * 1.1f;
 
-	/**
-	 * @param gameWorld
-	 */
-	public DoubleEnemyActor(JumplingsGameWorld jgWorld, PointF worldPos) {
-		super(jgWorld, worldPos);
-		
-		this.code = DoubleEnemyActor.JUMPER_CODE_DOUBLE;
-		
-		this.radius = DoubleEnemyActor.DEFAULT_RADIUS;
-		
-		initPhysics(worldPos);
-		
-		// vivo
-		ah.initBitmaps(BMP_ORANGE_BODY, 
-			       	   BMP_ORANGE_FOOT_RIGHT,
-			           BMP_ORANGE_FOOT_LEFT,
-			           BMP_ORANGE_HAND_RIGHT,
-			           BMP_ORANGE_HAND_LEFT,
-			           BMP_EYE_0_RIGHT,
-			           BMP_EYE_0_LEFT);
+    public final static float HEIGHT_RESTORATION_FACTOR = 1f / 3f;
 
-		// debris
-		bmpDebrisBody			= BMP_DEBRIS_ORANGE_BODY;
-		
-		bmpDebrisFootRight		= BMP_DEBRIS_ORANGE_FOOT_RIGHT;
-		bmpDebrisFootLeft		= BMP_DEBRIS_ORANGE_FOOT_LEFT;
-		
-		bmpDebrisHandRight		= BMP_DEBRIS_ORANGE_HAND_RIGHT;
-		bmpDebrisHandLeft		= BMP_DEBRIS_ORANGE_HAND_LEFT;
-		
-		bmpDebrisEyeRight		= BMP_DEBRIS_EYE_0_RIGHT;
-		bmpDebrisEyeLeft		= BMP_DEBRIS_EYE_0_LEFT;
-	}
-	
-	@Override
-	protected void initBodies(PointF worldPos) {
-		// Cuerpo
-		{
-			// Create Shape with Properties
-			PolygonShape polygonShape = new PolygonShape();
-			Vector2[] vertices = new Vector2[] {
-									new Vector2(0, radius),
-									new Vector2(- radius , 0),
-									new Vector2(0, -radius),
-									new Vector2(radius, 0)
-								};
-			polygonShape.set(vertices);
-			
-			mainBody = jgWorld.createBody(this, worldPos, true);
-			mainBody.setBullet(true);
-			
-			// Assign shape to Body
-			Fixture f = mainBody.createFixture(polygonShape, 1.0f);
-			f.setFilterData(CONTACT_FILTER);
-			polygonShape.dispose();
-			
-		}
-		
-		ah.createLimbs(worldPos, radius);
-	}
-	
-	// -------------------------------------------------------- M�todos propios
-	
-	private final float getRestorationInitVy(float posY) {
-		float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (jgWorld.viewport.getWorldBoundaries().top -  posY);
-		return (float) getInitialYVelocity(maxHeight);
-	}
-	
+    public final static short JUMPER_CODE_DOUBLE = 1;
 
-	@Override
-	public void onHitted() {
-		
-		EnemyActor son = null;
-		float xVel = 0;
-		Vector2 pos = null;
-	
-		
-		pos = mainBody.getWorldCenter();
-		son = new DoubleSonEnemyActor(jgWorld, Viewport.vector2ToPointF(pos)); 
-		
-		xVel = mainBody.getLinearVelocity().x;
-				
-		jgWorld.addActor(son);
+    // ------------------------------------------------------ Variables
+    // est�ticas
 
-		float yVel = getRestorationInitVy(pos.y);
-		son.setLinearVelocity(xVel / 2, yVel);
-			
-		
-		super.onHitted();
-	}
+    // vivo
+    protected final static int BMP_ORANGE_BODY_ID = R.drawable.orange_double_body;
 
+    protected final static int BMP_ORANGE_FOOT_RIGHT_ID = R.drawable.orange_foot_right;
+    protected final static int BMP_ORANGE_FOOT_LEFT_ID = R.drawable.orange_foot_left;
 
+    protected final static int BMP_ORANGE_HAND_RIGHT_ID = R.drawable.orange_hand_right;
+    protected final static int BMP_ORANGE_HAND_LEFT_ID = R.drawable.orange_hand_left;
+
+    // debris
+    protected final static int BMP_DEBRIS_ORANGE_BODY_ID = R.drawable.orange_debris_double_body;
+
+    protected final static int BMP_DEBRIS_ORANGE_FOOT_RIGHT_ID = R.drawable.orange_debris_foot_right;
+    protected final static int BMP_DEBRIS_ORANGE_FOOT_LEFT_ID = R.drawable.orange_debris_foot_left;
+
+    protected final static int BMP_DEBRIS_ORANGE_HAND_RIGHT_ID = R.drawable.orange_debris_hand_right;
+    protected final static int BMP_DEBRIS_ORANGE_HAND_LEFT_ID = R.drawable.orange_debris_hand_left;
+
+    // ----------------------------------------------------------------
+    // Variables
+
+    // ------------------------------------------------------ M�todos est�ticos
+
+    static double getDoubleEnemyActorHitCount() {
+        return 2;
+    }
+
+    // ---------------------------------------------------------------
+    // Constructor
+
+    /**
+     * @param gameWorld
+     */
+    public DoubleEnemyActor(JumplingsGameWorld jgWorld, PointF worldPos) {
+        super(jgWorld, worldPos);
+
+        this.code = DoubleEnemyActor.JUMPER_CODE_DOUBLE;
+
+        this.radius = DoubleEnemyActor.DEFAULT_RADIUS;
+
+        initPhysics(worldPos);
+
+        // vivo
+        ah.initBitmaps(BMP_ORANGE_BODY_ID, BMP_ORANGE_FOOT_RIGHT_ID, BMP_ORANGE_FOOT_LEFT_ID, BMP_ORANGE_HAND_RIGHT_ID, BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
+
+        // debris
+        BitmapManager mb = jWorld.getBitmapManager();
+        bmpDebrisBody = mb.getBitmap(BMP_DEBRIS_ORANGE_BODY_ID);
+
+        bmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_ORANGE_FOOT_RIGHT_ID);
+        bmpDebrisFootLeft = mb.getBitmap(BMP_DEBRIS_ORANGE_FOOT_LEFT_ID);
+
+        bmpDebrisHandRight = mb.getBitmap(BMP_DEBRIS_ORANGE_HAND_RIGHT_ID);
+        bmpDebrisHandLeft = mb.getBitmap(BMP_DEBRIS_ORANGE_HAND_LEFT_ID);
+
+        bmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
+        bmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
+    }
+
+    @Override
+    protected void initBodies(PointF worldPos) {
+        // Cuerpo
+        {
+            // Create Shape with Properties
+            PolygonShape polygonShape = new PolygonShape();
+            Vector2[] vertices = new Vector2[] { new Vector2(0, radius), new Vector2(-radius, 0), new Vector2(0, -radius), new Vector2(radius, 0) };
+            polygonShape.set(vertices);
+
+            mainBody = jgWorld.createBody(this, worldPos, true);
+            mainBody.setBullet(true);
+
+            // Assign shape to Body
+            Fixture f = mainBody.createFixture(polygonShape, 1.0f);
+            f.setFilterData(CONTACT_FILTER);
+            polygonShape.dispose();
+
+        }
+
+        ah.createLimbs(worldPos, radius);
+    }
+
+    // -------------------------------------------------------- M�todos propios
+
+    private final float getRestorationInitVy(float posY) {
+        float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (jgWorld.viewport.getWorldBoundaries().top - posY);
+        return (float) getInitialYVelocity(maxHeight);
+    }
+
+    @Override
+    public void onHitted() {
+
+        EnemyActor son = null;
+        float xVel = 0;
+        Vector2 pos = null;
+
+        pos = mainBody.getWorldCenter();
+        son = new DoubleSonEnemyActor(jgWorld, Viewport.vector2ToPointF(pos));
+
+        xVel = mainBody.getLinearVelocity().x;
+
+        jgWorld.addActor(son);
+
+        float yVel = getRestorationInitVy(pos.y);
+        son.setLinearVelocity(xVel / 2, yVel);
+
+        super.onHitted();
+    }
 
 }

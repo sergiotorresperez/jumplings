@@ -189,6 +189,7 @@ public class MenuActivity extends Activity {
     protected void onStop() {
         super.onStop();
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
+        mWorld.finish();
 
     }
 
@@ -196,6 +197,7 @@ public class MenuActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
+        
     }
 
     // ---------------------------------------------------- M�todos propios

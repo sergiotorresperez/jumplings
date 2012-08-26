@@ -6,6 +6,7 @@ import net.garrapeta.gameengine.Actor;
 import net.garrapeta.gameengine.GameMessage;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.GameWorld;
+import net.garrapeta.gameengine.module.BitmapManager;
 import net.garrapeta.gameengine.module.VibratorManager;
 import net.garrapeta.gameengine.module.SoundManager;
 import net.garrapeta.jumplings.actor.BladePowerUpActor;
@@ -38,9 +39,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public static final int WEAPON_GUN = 0;
     public static final int WEAPON_SHOTGUN = 1;
     public static final int WEAPON_BLADE = 2;
-    
+
     // ------------------------------------ Consantes de sonidos y vibraciones
-    
+
     public static final int SAMPLE_ENEMY_BOING = 0;
     public static final int SAMPLE_ENEMY_THROW = 1;
     public static final int SAMPLE_ENEMY_KILLED = 2;
@@ -68,7 +69,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public GameActivity mGameActivity;
 
-
     /** Si el mundo ha sido creado */
     boolean isCreated;
 
@@ -87,7 +87,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     private float shakeRemaining = 0;
     /** Intensidad, en unidades del mundo, del shake actual */
     private float shakeIntensity = 0;
-
 
     /** Jugador */
     Player mPlayer;
@@ -133,8 +132,96 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mShakeCfgLevel = pd.getShakeConfig();
         getSoundManager().setSoundEnabled(pd.getSoundConfig());
 
-        // Preparaci�n samples sonido
-        
+        // TODO: do this as with the sound manager
+        // Preparaci�n vibraciones
+        if (mVibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
+            VibratorManager vm = VibratorManager.getInstance();
+            vm.init(mActivity);
+
+            vm.add(VIBRATION_PATTERN_ENEMY_KILLED, VIBRATION_ENEMY_KILLED);
+            vm.add(VIBRATION_PATTERN_FAIL, VIBRATION_FAIL);
+        }
+        // Inicializaci�n del arma
+        setWeapon(Gun.WEAPON_CODE_GUN);
+
+        nextScenario();
+
+    }
+
+    @Override
+    protected void loadResources() {
+        // Preparaci�n samples bitmaps
+        BitmapManager bm = getBitmapManager();
+        bm.loadBitmap(R.drawable.eye_0_right);
+        bm.loadBitmap(R.drawable.eye_0_left);
+        bm.loadBitmap(R.drawable.eye_2_right);
+        bm.loadBitmap(R.drawable.eye_2_left);
+
+        bm.loadBitmap(R.drawable.red_body);
+        bm.loadBitmap(R.drawable.red_foot_right);
+        bm.loadBitmap(R.drawable.red_foot_left);
+        bm.loadBitmap(R.drawable.red_hand_right);
+        bm.loadBitmap(R.drawable.red_hand_left);
+        bm.loadBitmap(R.drawable.red_debris_body);
+        bm.loadBitmap(R.drawable.red_debris_foot_right);
+        bm.loadBitmap(R.drawable.red_debris_foot_left);
+        bm.loadBitmap(R.drawable.red_debris_hand_right);
+        bm.loadBitmap(R.drawable.red_debris_hand_left);
+
+        bm.loadBitmap(R.drawable.orange_double_body);
+        bm.loadBitmap(R.drawable.orange_foot_right);
+        bm.loadBitmap(R.drawable.orange_foot_left);
+        bm.loadBitmap(R.drawable.orange_hand_right);
+        bm.loadBitmap(R.drawable.orange_hand_left);
+        bm.loadBitmap(R.drawable.orange_debris_double_body);
+        bm.loadBitmap(R.drawable.orange_debris_foot_right);
+        bm.loadBitmap(R.drawable.orange_debris_foot_left);
+        bm.loadBitmap(R.drawable.orange_debris_hand_right);
+        bm.loadBitmap(R.drawable.orange_debris_hand_left);
+        bm.loadBitmap(R.drawable.orange_simple_body);
+        bm.loadBitmap(R.drawable.orange_debris_simple_body);
+
+        bm.loadBitmap(R.drawable.yellow_2_body);
+        bm.loadBitmap(R.drawable.yellow_1_body);
+        bm.loadBitmap(R.drawable.yellow_0_body);
+        bm.loadBitmap(R.drawable.yellow_2_foot_right);
+        bm.loadBitmap(R.drawable.yellow_2_foot_left);
+        bm.loadBitmap(R.drawable.yellow_0_foot_right);
+        bm.loadBitmap(R.drawable.yellow_0_foot_left);
+        bm.loadBitmap(R.drawable.yellow_2_hand_right);
+        bm.loadBitmap(R.drawable.yellow_2_hand_left);
+        bm.loadBitmap(R.drawable.yellow_0_hand_right);
+        bm.loadBitmap(R.drawable.yellow_0_hand_left);
+        bm.loadBitmap(R.drawable.yellow_debris_2_body);
+        bm.loadBitmap(R.drawable.yellow_debris_1_body);
+        bm.loadBitmap(R.drawable.yellow_debris_0_body);
+        bm.loadBitmap(R.drawable.yellow_debris_2_foot_right);
+        bm.loadBitmap(R.drawable.yellow_debris_2_foot_left);
+        bm.loadBitmap(R.drawable.yellow_debris_0_foot_right);
+        bm.loadBitmap(R.drawable.yellow_debris_0_foot_left);
+        bm.loadBitmap(R.drawable.yellow_debris_2_hand_right);
+        bm.loadBitmap(R.drawable.yellow_debris_2_hand_left);
+        bm.loadBitmap(R.drawable.yellow_debris_0_hand_right);
+        bm.loadBitmap(R.drawable.yellow_debris_0_hand_left);
+
+        bm.loadBitmap(R.drawable.bomb_body);
+        bm.loadBitmap(R.drawable.bomb_fuse);
+        bm.loadBitmap(R.drawable.bomb_debris_body);
+        bm.loadBitmap(R.drawable.bomb_debris_fuse);
+
+        bm.loadBitmap(R.drawable.sparks_big_0);
+        bm.loadBitmap(R.drawable.sparks_big_1);
+        bm.loadBitmap(R.drawable.sparks_big_2);
+        bm.loadBitmap(R.drawable.sparks_big_3);
+
+        bm.loadBitmap(R.drawable.powerup_bg);
+        bm.loadBitmap(R.drawable.powerup_debris_bg);
+        bm.loadBitmap(R.drawable.powerup_sword);
+        bm.loadBitmap(R.drawable.powerup_debris_sword);
+        bm.loadBitmap(R.drawable.powerup_heart);
+        bm.loadBitmap(R.drawable.powerup_debris_heart);
+
+        // Preparación samples sonido
         SoundManager sm = getSoundManager();
         if (sm.isSoundEnabled()) {
             sm.add(R.raw.boing1, SAMPLE_ENEMY_BOING, mActivity);
@@ -165,23 +252,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             sm.add(R.raw.life_up, SAMPLE_LIFE_UP, mActivity);
 
         }
-        
-        
-        
-        // TODO: do this as with the sound manager
-        // Preparaci�n vibraciones
-       if (mVibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
-           VibratorManager vm = VibratorManager.getInstance();
-           vm.init(mActivity);
-
-           vm.add(VIBRATION_PATTERN_ENEMY_KILLED, VIBRATION_ENEMY_KILLED);
-           vm.add(VIBRATION_PATTERN_FAIL, VIBRATION_FAIL);
-       }
-        // Inicializaci�n del arma
-        setWeapon(Gun.WEAPON_CODE_GUN);
-
-        nextScenario();
-
     }
 
     @Override
@@ -430,7 +500,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (!mGameActivity.isGameOver() && !isPaused()) {
-            final double[] info = new double[] { event.getAction(), event.getX(), event.getY(), System.currentTimeMillis()};
+            final double[] info = new double[] { event.getAction(), event.getX(), event.getY(), System.currentTimeMillis() };
             post(new GameMessage() {
                 @Override
                 public void process(GameWorld world) {
@@ -440,7 +510,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         }
         return true;
     }
-
 
     public void setWeapon(short weaponId) {
         if (mWeapon != null) {
@@ -482,15 +551,15 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             if (mVibrateCfgLevel >= PermData.CFG_LEVEL_SOME) {
                 VibratorManager.getInstance().play(VIBRATION_FAIL);
             }
-    
+
             Player player = getPlayer();
             player.subLifes(1);
             player.makeInvulnerable(INVULNERABLE_TIME);
-    
+
             if (mShakeCfgLevel >= PermData.CFG_LEVEL_SOME) {
                 createShake(425f, 0.75f);
             }
-    
+
             if (player.getLifes() <= 0) {
                 if (!wave.onGameOver()) {
                     mGameActivity.onGameOver();
