@@ -46,6 +46,7 @@ public class TestWave extends Wave {
 			this.jgWorld.mGameActivity.weaponsRadioGroup.setVisibility(View.VISIBLE);
 			this.jgWorld.setGravityY(-1);
 		}
+//		this.jgWorld.nextScenario();
 	}
 
 	// ------------------------------------------------------ M�todos de BaseWave 

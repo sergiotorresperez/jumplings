@@ -54,23 +54,25 @@ public class Scenario {
 
         BitmapManager bm = dWorld.getBitmapManager();
 
+        int viewWidth = dWorld.mView.getWidth();
+        int viewHeight = dWorld.mView.getHeight();
         // Inicializaci�n de las layers
         {
             Bitmap bmp = bm.getBitmap(BMP_SKY_ID);
-            int maxHeight = (int) (dWorld.mView.getHeight() * 1.5);
-            mLayerBg0 = new Layer(this, bmp, maxHeight, 0, 0, 2, 0, true, true);
+            int maxHeight = (int) (viewHeight * 1.5);
+            mLayerBg0 = new Layer(this, bmp, maxHeight, 0, 0, 2, 0, true, true, viewWidth, viewHeight);
         }
         {
-            int maxHeight = (int) (dWorld.mView.getHeight() * 2);
+            int maxHeight = (int) (viewHeight * 2);
             Bitmap bmp = bm.getBitmap(BMP_HILLS_ID);
-            float initYPos = dWorld.mView.getHeight() - bmp.getHeight();
-            mLayerBg1 = new Layer(this, bmp, maxHeight, 0, initYPos, 0, 0, false, false);
+            float initYPos = viewHeight - bmp.getHeight();
+            mLayerBg1 = new Layer(this, bmp, maxHeight, 0, initYPos, 0, 0, true, false, viewWidth, viewHeight);
         }
         {
             Bitmap bmp = bm.getBitmap(BMP_CLOUDS_ID);
-            int maxHeight = (int) (dWorld.mView.getHeight() * 2.7);
+            int maxHeight = (int) (viewHeight * 2.7);
             float initYPos = -maxHeight + bmp.getHeight();
-            mLayerBg2 = new Layer(this, bmp, maxHeight, 0, initYPos, 3, 0, true, false);
+            mLayerBg2 = new Layer(this, bmp, maxHeight, 0, initYPos, 3, 0, true, false, viewWidth, viewHeight);
         }
     }
 
@@ -125,6 +127,7 @@ public class Scenario {
             mLayerBg0.draw(canvas, mPaint);
             mLayerBg1.draw(canvas, mPaint);
             mLayerBg2.draw(canvas, mPaint);
+
         }
     }
 
