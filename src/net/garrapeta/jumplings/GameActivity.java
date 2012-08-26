@@ -360,7 +360,7 @@ public class GameActivity extends Activity {
      */
     public void onGameOver() {
         gameOver = true;
-        mWorld.scenario.onGameOver();
+        mWorld.mScenario.onGameOver();
 
         mWorld.wave.pause();
 

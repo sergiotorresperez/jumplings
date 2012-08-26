@@ -95,10 +95,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public Weapon mWeapon;
 
     /** Escenario actual */
-    Scenario scenario;
-
-    /** Escenario que est� desapareciendo */
-    Scenario fadingScenario;
+    Scenario mScenario;
 
     // ------------------------------------------- Variables de configuraci�n
 
@@ -271,13 +268,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         }
 
         // scenario
-        scenario.processFrame(gameTimeStep);
-        if (fadingScenario != null) {
-            fadingScenario.processFrame(gameTimeStep);
-            if (fadingScenario.fadingOutRemainigTime <= 0) {
-                fadingScenario = null;
-            }
-        }
+        mScenario.processFrame(gameTimeStep);
 
         return false;
     }
@@ -315,11 +306,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
         // TODO: evitar esta comporbaci�n de nulidad
         // TODO: pasar las medidas de la pantalla al escenario en reset()
-        if (scenario != null) {
-            scenario.draw(canvas);
-            if (fadingScenario != null) {
-                fadingScenario.draw(canvas);
-            }
+        if (mScenario != null) {
+            mScenario.draw(canvas);
         }
 
     }
@@ -328,12 +316,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public void nextScenario() {
         Log.i(LOG_SRC, " Next Scenario");
-        if (scenario != null) {
-            fadingScenario = scenario;
-            fadingScenario.fadingOut = true;
-        }
-        scenario = new Scenario(this);
-        scenario.reset();
+        mScenario = new Scenario(this);
+        mScenario.reset();
     }
 
     // M�todos de gesti�n de actores
@@ -426,7 +410,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             }
 
             mPlayer.onEnemyKilled(enemy);
-            scenario.setProgress(wave.getProgress());
+            mScenario.setProgress(wave.getProgress());
 
             if (mShakeCfgLevel == PermData.CFG_LEVEL_ALL) {
                 createShake(100f, 0.20f);

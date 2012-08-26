@@ -3,7 +3,6 @@ package net.garrapeta.jumplings.scenario;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.R;
-import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -18,8 +17,8 @@ public class Scenario {
 
     // ------------------------------------------------ Constantes
 
-    /** Tiempo que tarda la animaci'on de fade out al desaparecer, en ms */
-    private final static int FADE_OUT_TIME = CampaignSurvivalWave.AFTER_WAVE_SWITCH_REALTIME;
+    /** Tiempo que tarda el escenario en aparecer, en ms */
+    private final static int FADE_IN_TIME = 1000;
 
     // ------------------------------------ Variables de instancia
 
@@ -32,11 +31,9 @@ public class Scenario {
     // nubes
     Layer layerBg2;
 
-    /** si el escenario est� desapareciendo */
-    public boolean fadingOut = false;
 
     /** Tiempo que le queda al escenario para terminar de desaparecer */
-    public float fadingOutRemainigTime = FADE_OUT_TIME;
+    public float fadingInRemainigTime = FADE_IN_TIME;
 
     private Paint paint = new Paint();
 
@@ -104,9 +101,9 @@ public class Scenario {
     // --------------------------------------------- M�todos propios
 
     public void processFrame(float gameTimeStep) {
-        if (fadingOut) {
-            fadingOutRemainigTime = Math.max(0, fadingOutRemainigTime - gameTimeStep);
-            int alpha = (int) (255 * fadingOutRemainigTime / FADE_OUT_TIME);
+        if (fadingInRemainigTime > 0) {
+            fadingInRemainigTime = Math.max(0, fadingInRemainigTime - gameTimeStep);
+            int alpha = (int) (255 * (1 - (fadingInRemainigTime / FADE_IN_TIME)));
             paint.setAlpha(alpha);
         }
         layerBg0.processFrame(gameTimeStep);
