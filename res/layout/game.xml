@@ -11,6 +11,8 @@
         android:layout_height="fill_parent" />
 
     <!-- GUI -->
+    
+    <include android:id="@+id/loading" layout="@layout/loading"/>
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

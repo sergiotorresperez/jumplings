@@ -69,9 +69,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public GameActivity mGameActivity;
 
-    /** Si el mundo ha sido creado */
-    boolean isCreated;
-
     public ArrayList<JumplingActor> jumplingActors = new ArrayList<JumplingActor>();
 
     public ArrayList<MainActor> mainActors = new ArrayList<MainActor>();
@@ -119,8 +116,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     @Override
-    public void onCreated() {
-        super.onCreated();
+    public void onBeforeRunning() {
+        super.onBeforeRunning();
 
         // Preparaci�n variables de configuraci�n
         PermData pd = PermData.getInstance();
@@ -140,6 +137,13 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         }
         // Inicializaci�n del arma
         setWeapon(Gun.WEAPON_CODE_GUN);
+
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.findViewById(R.id.loading).setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

@@ -52,8 +52,8 @@ public class JumplingsWorld extends Box2DWorld {
     // ----------------------------------------------------- M�todos de World
 
     @Override
-    protected void onCreated() {
-        Log.i(LOG_SRC, "onCreated " + this);
+    protected void onBeforeRunning() {
+        Log.i(LOG_SRC, "onBeforeRunning " + this);
         // Paredes
         // -----------------------------------------------------------------
 
@@ -148,7 +148,8 @@ public class JumplingsWorld extends Box2DWorld {
     public void onGameWorldSizeChanged() {
         if (!isStarted()) {
             Log.i(JumplingsApplication.LOG_SRC,"startNewGame " + this);
-            
+
+
             // Se arranca el game loop
             start();
             // Se activa la wave
