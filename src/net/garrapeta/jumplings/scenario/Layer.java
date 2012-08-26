@@ -135,7 +135,7 @@ class Layer {
 	
 	synchronized void setProgress(float progress) {
 		if (progress <= 100) {
-			float aux = maxHeight - scenario.dWorld.mView.getHeight();
+			float aux = maxHeight - scenario.mWorld.mView.getHeight();
 			desiredYPos = initYPos + (progress * aux) / 100;
 			float diff = desiredYPos - yPos;
 			updateYVel = diff / PROGRESS_UPDATE_CICLES;
@@ -153,8 +153,8 @@ class Layer {
 	 * @param paint
 	 */
 	public void draw(Canvas canvas, Paint paint) {
-		int neededWitdh  = scenario.dWorld.mView.getWidth();
-		int neededHeight = scenario.dWorld.mView.getHeight();
+		int neededWitdh  = scenario.mWorld.mView.getWidth();
+		int neededHeight = scenario.mWorld.mView.getHeight();
 		
 		int filledWidth  = 0;
 		
@@ -162,10 +162,10 @@ class Layer {
 		int yPosAux = (int) yPos;
 		
 		if (tileHorizontally) {
-			xPosAux = xPosAux % scenario.dWorld.mView.getWidth();
+			xPosAux = xPosAux % scenario.mWorld.mView.getWidth();
 		}
 		if (tileVertically) {
-			yPosAux = yPosAux % scenario.dWorld.mView.getHeight();
+			yPosAux = yPosAux % scenario.mWorld.mView.getHeight();
 		}		
 
 		

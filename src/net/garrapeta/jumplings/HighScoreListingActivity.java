@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import net.garrapeta.utils.IOUtils;
-import net.garrapeta.utils.AsynchronousHttpSender.AsynchronousHttpSender;
-import net.garrapeta.utils.AsynchronousHttpSender.ResponseListener;
+import net.garrapeta.gameengine.utils.IOUtils;
+import net.garrapeta.gameengine.utils.AsynchronousHttpSender.AsynchronousHttpSender;
+import net.garrapeta.gameengine.utils.AsynchronousHttpSender.ResponseListener;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;

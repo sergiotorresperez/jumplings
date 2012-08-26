@@ -10,7 +10,7 @@ import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.actor.RoundEnemyActor;
 import net.garrapeta.jumplings.actor.SplitterEnemyActor;
-import net.garrapeta.utils.PhysicsUtils;
+import net.garrapeta.gameengine.utils.PhysicsUtils;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Log;

@@ -33,7 +33,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 	private int ADS_MIN_TIME_LAPSE = 60 * 2 * 1000 ;
 	// ----------------------------------------- Variables de instancia
 
-	JumplingsGameWorld jgWorld;
+	JumplingsGameWorld mWorld;
 	
 	/**
 	 * Wave Actual
@@ -59,7 +59,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 	 */
 	public CampaignSurvivalWave(JumplingsGameWorld jgWorld, IWaveEndListener listener) {
 		super(jgWorld, listener, INIT_LEVEL);
-		this.jgWorld = jgWorld;
+		mWorld = jgWorld;
 	
 		waveSwitchAction = new GameWaveAction(this) {
 			@Override
@@ -71,8 +71,9 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 		showLevelAction = new GameWaveAction(this) {
 			@Override
 			public void run() {
-				//s�lo se muestra toast al cambiar de nivel
-				CampaignSurvivalWave.this.jgWorld.getActivity().runOnUiThread(new Runnable() {
+			    mWorld.nextScenario();
+
+				CampaignSurvivalWave.this.mWorld.getActivity().runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 						showLevel();
@@ -138,7 +139,7 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 	@Override
 	public void onWaveStarted() {
 		Log.i(LOG_SRC, "Wave started");
-		jgWorld.onWaveStarted();
+		mWorld.onWaveStarted();
 	}
 	
 	@Override
@@ -146,26 +147,26 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 		Log.i(LOG_SRC, "Wave ended");
 		level++;
 		waveSwitchAction.schedule(AFTER_WAVE_END_REALTIME);
-		jgWorld.onWaveCompleted();
+		mWorld.onWaveCompleted();
 	}
 
 	// ------------------------------------------------ M�todos propios
 
 	private void switchWave() {
-		Player player = jgWorld.getPlayer();
+		Player player = mWorld.getPlayer();
 		player.addLifes(NEW_LEVEL_EXTRA_LIFES);
 
-		currentWave = new AllowanceShooterWave(jgWorld, this, level);
+		currentWave = new AllowanceShooterWave(mWorld, this, level);
 		
-		if (JumplingsApplication.MOBCLIX_ENABLED && jgWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
+		if (JumplingsApplication.MOBCLIX_ENABLED && mWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
 			// Se muestra anuncio
-			jgWorld.getActivity().runOnUiThread(new Runnable() {
+			mWorld.getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					jgWorld.mGameActivity.showDialog(GameActivity.DIALOG_AD_ID);
+					mWorld.mGameActivity.showDialog(GameActivity.DIALOG_AD_ID);
 				}});
 			
-			lastAdTimeStamp = jgWorld.currentGameMillis();
+			lastAdTimeStamp = mWorld.currentGameMillis();
 		}
 
 		
@@ -176,12 +177,8 @@ public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndLis
 		final String message = "Level " + level;
 		Log.i(LOG_SRC, message);
 		
-		Toast toast = Toast.makeText(CampaignSurvivalWave.this.jgWorld.getActivity(), message, Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(CampaignSurvivalWave.this.mWorld.getActivity(), message, Toast.LENGTH_SHORT);
 		toast.show();
-		
-		if (level != INIT_LEVEL) {
-			jgWorld.nextScenario();
-		}
 	}
 	
 	private void startCurrentWave() {

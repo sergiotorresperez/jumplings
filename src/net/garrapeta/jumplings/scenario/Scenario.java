@@ -1,5 +1,6 @@
 package net.garrapeta.jumplings.scenario;
 
+import net.garrapeta.gameengine.module.BitmapManager;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.R;
@@ -18,104 +19,112 @@ public class Scenario {
     // ------------------------------------------------ Constantes
 
     /** Tiempo que tarda el escenario en aparecer, en ms */
-    private final static int FADE_IN_TIME = 1000;
+    private final static int FADE_IN_TIME = 750;
 
     // ------------------------------------ Variables de instancia
 
-    JumplingsGameWorld dWorld;
+    JumplingsGameWorld mWorld;
 
     // cielo
-    Layer layerBg0;
+    Layer mLayerBg0;
     // monta�as
-    Layer layerBg1;
+    Layer mLayerBg1;
     // nubes
-    Layer layerBg2;
-
+    Layer mLayerBg2;
 
     /** Tiempo que le queda al escenario para terminar de desaparecer */
-    public float fadingInRemainigTime = FADE_IN_TIME;
+    public float mFadingInRemainigTime = FADE_IN_TIME;
 
-    private Paint paint = new Paint();
+    private Scenario mPreviousScenario;
 
-    private Bitmap mSkyBitmap;
-    private Bitmap mHillsBitmap;
-    private Bitmap mCloudsBitmap;
+    private Paint mPaint = new Paint();
+
+    private static final int BMP_SKY_ID = R.drawable.bg_blue_sky;
+    private static final int BMP_HILLS_ID = R.drawable.bg_green_hills;
+    private static final int BMP_CLOUDS_ID = R.drawable.bg_clouds;
 
     // ----------------------------------------------- Constructor
 
     /**
      * @param dWorld
      */
-    public Scenario(JumplingsGameWorld dWorld) {
-        this.dWorld = dWorld;
-        
-        loadBitmaps();
+    public Scenario(JumplingsGameWorld dWorld, Scenario previousScenario) {
+        mWorld = dWorld;
+        mPreviousScenario = previousScenario;
+
+        BitmapManager bm = dWorld.getBitmapManager();
 
         // Inicializaci�n de las layers
         {
+            Bitmap bmp = bm.getBitmap(BMP_SKY_ID);
             int maxHeight = (int) (dWorld.mView.getHeight() * 1.5);
-            layerBg0 = new Layer(this, mSkyBitmap, maxHeight, 0, 0, 2, 0, true, true);
+            mLayerBg0 = new Layer(this, bmp, maxHeight, 0, 0, 2, 0, true, true);
         }
         {
             int maxHeight = (int) (dWorld.mView.getHeight() * 2);
-            float initYPos = dWorld.mView.getHeight() - mHillsBitmap.getHeight();
-            layerBg1 = new Layer(this, mHillsBitmap, maxHeight, 0, initYPos, 0, 0, false, false);
+            Bitmap bmp = bm.getBitmap(BMP_HILLS_ID);
+            float initYPos = dWorld.mView.getHeight() - bmp.getHeight();
+            mLayerBg1 = new Layer(this, bmp, maxHeight, 0, initYPos, 0, 0, false, false);
         }
         {
+            Bitmap bmp = bm.getBitmap(BMP_CLOUDS_ID);
             int maxHeight = (int) (dWorld.mView.getHeight() * 2.7);
-            float initYPos = -maxHeight + mCloudsBitmap.getHeight();
-            layerBg2 = new Layer(this, mCloudsBitmap, maxHeight, 0, initYPos, 3, 0, true, false);
+            float initYPos = -maxHeight + bmp.getHeight();
+            mLayerBg2 = new Layer(this, bmp, maxHeight, 0, initYPos, 3, 0, true, false);
         }
-    }
-
-    /**
-     * Loads the bitmaps
-     */
-    private void loadBitmaps() {
-        mSkyBitmap    = dWorld.getBitmapManager().loadBitmap(R.drawable.bg_blue_sky);
-        mHillsBitmap  = dWorld.getBitmapManager().loadBitmap(R.drawable.bg_green_hills);
-        mCloudsBitmap = dWorld.getBitmapManager().loadBitmap(R.drawable.bg_clouds);
     }
 
     /**
      * Reseteo
      */
     public void reset() {
-        layerBg0.reset();
-        layerBg1.reset();
-        layerBg2.reset();
+        mLayerBg0.reset();
+        mLayerBg1.reset();
+        mLayerBg2.reset();
     }
 
     public void setProgress(float progress) {
-        layerBg0.setProgress(progress);
-        layerBg1.setProgress(progress);
-        layerBg2.setProgress(progress);
+        mLayerBg0.setProgress(progress);
+        mLayerBg1.setProgress(progress);
+        mLayerBg2.setProgress(progress);
     }
 
     public void onGameOver() {
-        layerBg0.onGameOver();
-        layerBg1.onGameOver();
-        layerBg2.onGameOver();
+        mLayerBg0.onGameOver();
+        mLayerBg1.onGameOver();
+        mLayerBg2.onGameOver();
     }
 
     // --------------------------------------------- M�todos propios
 
     public void processFrame(float gameTimeStep) {
-        if (fadingInRemainigTime > 0) {
-            fadingInRemainigTime = Math.max(0, fadingInRemainigTime - gameTimeStep);
-            int alpha = (int) (255 * (1 - (fadingInRemainigTime / FADE_IN_TIME)));
-            paint.setAlpha(alpha);
+        if (mFadingInRemainigTime > 0) {
+            mFadingInRemainigTime = Math.max(0, mFadingInRemainigTime - gameTimeStep);
+            float factor = 1 - (mFadingInRemainigTime / FADE_IN_TIME);
+            int alpha = (int) (255 * factor);
+            mPaint.setAlpha(alpha);
+
+            if (mPreviousScenario != null) {
+                mPreviousScenario.processFrame(gameTimeStep);
+                if (mFadingInRemainigTime == 0) {
+                    mPreviousScenario = null;
+                }
+            }
         }
-        layerBg0.processFrame(gameTimeStep);
-        layerBg1.processFrame(gameTimeStep);
-        layerBg2.processFrame(gameTimeStep);
+
+        mLayerBg0.processFrame(gameTimeStep);
+        mLayerBg1.processFrame(gameTimeStep);
+        mLayerBg2.processFrame(gameTimeStep);
     }
 
     public void draw(Canvas canvas) {
         if (JumplingsApplication.DRAW_SCENARIO) {
-            layerBg0.draw(canvas, paint);
-            layerBg1.draw(canvas, paint);
-            layerBg2.draw(canvas, paint);
+            if (mPreviousScenario != null) {
+                mPreviousScenario.draw(canvas);
+            }
+            mLayerBg0.draw(canvas, mPaint);
+            mLayerBg1.draw(canvas, mPaint);
+            mLayerBg2.draw(canvas, mPaint);
         }
     }
 

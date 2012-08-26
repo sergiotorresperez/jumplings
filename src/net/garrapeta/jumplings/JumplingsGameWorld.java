@@ -140,9 +140,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         }
         // Inicializaci�n del arma
         setWeapon(Gun.WEAPON_CODE_GUN);
-
-        nextScenario();
-
     }
 
     @Override
@@ -218,6 +215,10 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         bm.loadBitmap(R.drawable.powerup_heart);
         bm.loadBitmap(R.drawable.powerup_debris_heart);
 
+        bm.loadBitmap(R.drawable.bg_blue_sky);
+        bm.loadBitmap(R.drawable.bg_clouds);
+        bm.loadBitmap(R.drawable.bg_green_hills);
+
         // Preparación samples sonido
         SoundManager sm = getSoundManager();
         if (sm.isSoundEnabled()) {
@@ -268,8 +269,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         }
 
         // scenario
-        mScenario.processFrame(gameTimeStep);
-
+        if (mScenario != null) {
+            mScenario.processFrame(gameTimeStep);
+        }
         return false;
     }
 
@@ -316,7 +318,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public void nextScenario() {
         Log.i(LOG_SRC, " Next Scenario");
-        mScenario = new Scenario(this);
+        mScenario = new Scenario(this, mScenario);
         mScenario.reset();
     }
 

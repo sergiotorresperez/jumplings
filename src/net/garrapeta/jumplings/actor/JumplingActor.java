@@ -4,7 +4,7 @@ import net.garrapeta.MathUtils;
 import net.garrapeta.gameengine.Box2DActor;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsWorld;
-import net.garrapeta.utils.PhysicsUtils;
+import net.garrapeta.gameengine.utils.PhysicsUtils;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.graphics.RectF;

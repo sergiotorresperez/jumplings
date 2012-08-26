@@ -7,7 +7,7 @@ import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
 import net.garrapeta.jumplings.actor.JumplingActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
-import net.garrapeta.utils.PhysicsUtils;
+import net.garrapeta.gameengine.utils.PhysicsUtils;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.widget.Button;
