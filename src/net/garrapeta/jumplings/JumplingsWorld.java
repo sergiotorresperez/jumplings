@@ -12,7 +12,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.hardware.SensorManager;
 import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
@@ -106,7 +105,8 @@ public class JumplingsWorld extends Box2DWorld {
         addActor(new WallActor(this, new PointF(0, 0), new PointF(securityRight, securityBottom), new PointF(
                 securityRight, securityTop), false, true));
         
-        setGravityY(-SensorManager.GRAVITY_EARTH);
+//        setGravityY(-SensorManager.GRAVITY_EARTH);
+        setGravityY(-7);
     }
 
     @Override

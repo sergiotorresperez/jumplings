@@ -17,7 +17,7 @@ public class BulletActor extends HarmerActor {
 
 	private final static float KILL_RADIUS    = 0.7f;
 	private final static float BLAST_RADIUS   = 3;
-	private final static float BLAST_FORCE    = 35;
+	private final static float BLAST_FORCE    = 20; // 35;
 
 	// ----------------------------------------- Variables de instancia
 	
