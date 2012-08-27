@@ -4,10 +4,10 @@ import net.garrapeta.gameengine.GameMessage;
 import net.garrapeta.gameengine.GameWorld;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
+import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
-import net.garrapeta.jumplings.actor.RoundEnemyActor;
 import android.graphics.PointF;
 import android.view.View;
 import android.widget.Button;
@@ -119,7 +119,7 @@ public class TestWave extends Wave {
 		PointF initPos = new PointF(worldXPos, worldYPos);
 		Vector2 initVel = getInitialVelocity(initPos);
 		
-		RoundEnemyActor mainActor = new RoundEnemyActor(jgWorld, initPos);
+//		RoundEnemyActor mainActor = new RoundEnemyActor(jgWorld, initPos);
 
 //		ShapeActor sa = world.cActivity.CreateShapeEnemy(ShapelingsGameActivity.SHAPE_CIRCLE, initPos, bodyWorldRadius);
 //		JumperActor mainActor =  new SplitterEnemyActor(world, initPos, color2, 2);
@@ -129,7 +129,7 @@ public class TestWave extends Wave {
 		
 //				DoubleEnemyActor ba = new DoubleEnemyActor(world, bodyWorldRadius, worldPos, color1, color2);
 //		SquareEnemyActor ba = new SquareEnemyActor(world, bodyWorldRadius, worldPos, color1);
-//		JumperActor mainActor =  new BombActor(world, initPos);
+		MainActor mainActor =  new BombActor(jgWorld, initPos);
 		
 		if (!debug) {
 			mainActor.setLinearVelocity(initVel.x, initVel.y);
