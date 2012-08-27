@@ -80,7 +80,8 @@ public abstract class EnemyActor extends MainActor {
     public void onAddedToWorld() {
         super.onAddedToWorld();
         if (getWorldPos().y > jgWorld.viewport.getWorldBoundaries().top) {
-            jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_THROW);
+            // TODO: sample when enemy falls
+//            jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_THROW);
         } else {
             jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_BOING);
         }

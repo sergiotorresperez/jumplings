@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.openfeint.api.OpenFeint;
 import com.openfeint.api.OpenFeintDelegate;
@@ -140,6 +141,15 @@ public class MenuActivity extends Activity {
             }
         });
 
+        ImageButton aboutBtn = (ImageButton) findViewById(R.id.menu_aboutBtn);
+        aboutBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAbout();
+            }
+        });
+        
+
         // Ads
         if (JumplingsApplication.MOBCLIX_ENABLED) {
             findViewById(R.id.menu_advertising_banner_view).setVisibility(View.VISIBLE);
@@ -226,6 +236,10 @@ public class MenuActivity extends Activity {
     private void showPreferences() {
         Intent i = new Intent(this, PreferencesActivity.class);
         startActivity(i);
+    }
+
+    private void showAbout() {
+        Toast.makeText(this, "TODO: about/info Activity", Toast.LENGTH_LONG).show();
     }
 
     private void enableFeintLeaderboardButton() {
