@@ -1,11 +1,11 @@
 package net.garrapeta.jumplings;
 
-import net.garrapeta.jumplings.actor.BulletActor;
+import net.garrapeta.jumplings.actor.HarmerSlapActor;
 import net.garrapeta.jumplings.actor.FlashActor;
 import android.graphics.PointF;
 import android.view.MotionEvent;
 
-public class Gun extends Weapon {
+public class WeaponSlap extends Weapon {
 
 	// -------------------------------------------------------------------- Constantes
 	
@@ -25,7 +25,7 @@ public class Gun extends Weapon {
 	
 	protected int shootTimeGap;
 	
-	public Gun(JumplingsGameWorld jgWorld) {
+	public WeaponSlap(JumplingsGameWorld jgWorld) {
 		super(jgWorld);
 		
 		shootTimeGap = 100;
@@ -42,8 +42,8 @@ public class Gun extends Weapon {
 		if (info[0] == MotionEvent.ACTION_DOWN && 
 				(System.currentTimeMillis() - lastShootTimeStamp) >= shootTimeGap) {
 			
-			if (mJGWorld.mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
-			    mJGWorld.mFlashActor.init(
+			if (mWorld.mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
+			    mWorld.mFlashActor.init(
 						                          FlashActor.FLASH_SHOT_COLOR, 
 						                          FlashActor.FLASH_SHOT_ALPHA, 
 						                          FlashActor.FLASH_SHOT_DURATION,
@@ -51,16 +51,16 @@ public class Gun extends Weapon {
 
 			}
 
-			mJGWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SLAP);
+			mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SLAP);
 			
 			lastShootTimeStamp = System.currentTimeMillis();
 			
-			PointF worldPos = mJGWorld.viewport.screenToWorld((float)info[1], (float)info[2]);
-			BulletActor bullet = new BulletActor(mJGWorld, worldPos, bulletRadius);
+			PointF worldPos = mWorld.viewport.screenToWorld((float)info[1], (float)info[2]);
+			HarmerSlapActor bullet = new HarmerSlapActor(mWorld, worldPos, bulletRadius);
 			bullet.longevity = bulletLongevity;
 			bullet.lifeTime = bulletLongevity;
 			
-			mJGWorld.addActor(bullet);
+			mWorld.addActor(bullet);
 		}
 	}
 	
@@ -73,7 +73,12 @@ public class Gun extends Weapon {
 	}
 
     @Override
-    public void onEnded() {
+    public void onStart() {
     }
+
+    @Override
+    public void onEnd() {
+    }
+
 
 }

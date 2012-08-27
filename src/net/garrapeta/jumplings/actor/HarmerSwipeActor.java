@@ -12,10 +12,10 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
-public class SwipeActor extends HarmerActor {
+public class HarmerSwipeActor extends HarmerActor {
 
 	private ArrayList<double[]> swipePoints;
-	private Paint paint;
+	private Paint mPaint;
 	private final int  TIME = 100;
 	private Path path = new Path();
 	private RectF killingArea = new RectF();
@@ -30,13 +30,13 @@ public class SwipeActor extends HarmerActor {
 	
 	// ---------------------------------------------------- Constructor
 	
-	public SwipeActor(JumplingsGameWorld jgWorld) {
+	public HarmerSwipeActor(JumplingsGameWorld jgWorld) {
 		super(jgWorld);
 		swipePoints = new ArrayList<double[]>();
 		
-		paint = new Paint();
-		paint.setColor(Color.WHITE);
-		paint.setFlags(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+		mPaint = new Paint();
+		mPaint.setFlags(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+		mPaint.setARGB(75, 0, 0, 255);
 	}
 
 	// ----------------------------------------------- M�todos heredados
@@ -98,7 +98,7 @@ public class SwipeActor extends HarmerActor {
 
 	@Override
 	public void draw(Canvas canvas) {
-		canvas.drawPath(path, paint);
+	    canvas.drawPath(path, mPaint);
 	}
 
 	
@@ -117,7 +117,7 @@ public class SwipeActor extends HarmerActor {
 							swipping = true;
 							timestamp = System.currentTimeMillis();
 							
-						    jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_BLADE_WHIP);
+						    jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SWING);
 							if (jgWorld.mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
 							    jgWorld.mFlashActor.init(Color.WHITE, 50, 250, -1);
 							}

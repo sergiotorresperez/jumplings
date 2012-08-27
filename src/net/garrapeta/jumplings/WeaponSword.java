@@ -1,8 +1,8 @@
 package net.garrapeta.jumplings;
 
-import net.garrapeta.jumplings.actor.SwipeActor;
+import net.garrapeta.jumplings.actor.HarmerSwipeActor;
 
-public class Blade extends Weapon {
+public class WeaponSword extends Weapon {
 	
 	
 	// -------------------------------------------------------------------- Constantes
@@ -12,12 +12,12 @@ public class Blade extends Weapon {
 	private static int WEAPON_TIME_BLADE = 10000;
 	
 	// -------------------------------------------------------- Variables de instancia
-	SwipeActor mSwipe;
+	HarmerSwipeActor mSwipe;
 	
 		
-	public Blade(JumplingsGameWorld demoWorld) {
+	public WeaponSword(JumplingsGameWorld demoWorld) {
 		super(demoWorld);
-		mSwipe = new SwipeActor(demoWorld);
+		mSwipe = new HarmerSwipeActor(demoWorld);
 		demoWorld.addActor(mSwipe);
 	}
 
@@ -35,8 +35,14 @@ public class Blade extends Weapon {
 	}
 	
     @Override
-    public void onEnded() {
-        mJGWorld.removeActor(mSwipe);
+    public void onStart() {
+        mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SHEATH);
+    }
+
+    @Override
+    public void onEnd() {
+        mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_UNSHEATH);
+        mWorld.removeActor(mSwipe);
     }
 
 }

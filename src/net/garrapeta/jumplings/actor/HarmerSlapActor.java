@@ -10,7 +10,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 
 
-public class BulletActor extends HarmerActor {
+public class HarmerSlapActor extends HarmerActor {
 
 	// ----------------------------------------------------- Constantes
 	
@@ -40,7 +40,7 @@ public class BulletActor extends HarmerActor {
 
 	// -------------------------------------------------- Constructores
 	
-	public BulletActor(JumplingsGameWorld cWorld, PointF worldPos, float maxRadius) {
+	public HarmerSlapActor(JumplingsGameWorld cWorld, PointF worldPos, float maxRadius) {
 		super(cWorld);
 		this.cWorld = cWorld;
 		this.worldPos = worldPos;

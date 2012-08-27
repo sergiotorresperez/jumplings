@@ -48,14 +48,15 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public static final int SAMPLE_FAIL = 3;
 
     public static final int SAMPLE_SLAP = 4;
-    public static final int SAMPLE_BLADE_WHIP = 5;
+    public static final int SAMPLE_SWORD_SWING = 5;
 
     public static final int SAMPLE_FUSE = 6;
     public static final int SAMPLE_BOMB_BOOM = 7;
     public static final int SAMPLE_BOMB_LAUNCH = 8;
 
-    public static final int SAMPLE_SWORD_DRAW = 9;
-    public static final int SAMPLE_GUN_CLIP = 10;
+    public static final int SAMPLE_SWORD_SHEATH = 9;
+    public static final int SAMPLE_SWORD_UNSHEATH = 10;
+    
 
     public static final int SAMPLE_LIFE_UP = 11;
 
@@ -139,7 +140,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             vm.add(VIBRATION_PATTERN_FAIL, VIBRATION_FAIL);
         }
         // Inicializaci�n del arma
-        setWeapon(Gun.WEAPON_CODE_GUN);
+        setWeapon(WeaponSlap.WEAPON_CODE_GUN);
         
         mFlashActor = new FlashActor(this);
         addActor(mFlashActor);
@@ -245,17 +246,17 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             sm.add(R.raw.crush, SAMPLE_ENEMY_KILLED, mActivity);
             sm.add(R.raw.wrong, SAMPLE_FAIL, mActivity);
 
-            sm.add(R.raw.slap, SAMPLE_SLAP, mActivity);
+            sm.add(R.raw.whip, SAMPLE_SLAP, mActivity);
 
-            sm.add(R.raw.blade, SAMPLE_BLADE_WHIP, mActivity);
+            sm.add(R.raw.sword_swing, SAMPLE_SWORD_SWING, mActivity);
 
             sm.add(R.raw.fuse, SAMPLE_FUSE, mActivity);
 
             sm.add(R.raw.bomb_boom, SAMPLE_BOMB_BOOM, mActivity);
             sm.add(R.raw.bomb_launch, SAMPLE_BOMB_LAUNCH, mActivity);
 
-            sm.add(R.raw.sword_draw, SAMPLE_SWORD_DRAW, mActivity);
-            sm.add(R.raw.clip_in, SAMPLE_GUN_CLIP, mActivity);
+            sm.add(R.raw.sword_sheath, SAMPLE_SWORD_SHEATH, mActivity);
+            sm.add(R.raw.sword_unsheath, SAMPLE_SWORD_UNSHEATH, mActivity);
 
             sm.add(R.raw.life_up, SAMPLE_LIFE_UP, mActivity);
 
@@ -264,9 +265,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     @Override
     public boolean processFrame(float gameTimeStep) {
-        if (mWeapon.getWeaponCode() != Gun.WEAPON_CODE_GUN) {
+        if (mWeapon.getWeaponCode() != WeaponSlap.WEAPON_CODE_GUN) {
             if (mWeapon.getRemainingTime() <= 0) {
-                setWeapon(Gun.WEAPON_CODE_GUN);
+                setWeapon(WeaponSlap.WEAPON_CODE_GUN);
             } else {
                 mGameActivity.updateSpecialWeaponBar();
             }
@@ -481,7 +482,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     private void onPostBladePowerUp(BladePowerUpActor bladePowerUpActor) {
-        setWeapon(Blade.WEAPON_CODE_BLADE);
+        setWeapon(WeaponSword.WEAPON_CODE_BLADE);
 
         if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
             mFlashActor.init(FlashActor.FLASH_BLADE_DRAWN_COLOR, FlashActor.FLASH_BLADE_DRAWN_ALPHA,
@@ -505,26 +506,25 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public void setWeapon(short weaponId) {
         if (mWeapon != null) {
-            mWeapon.onEnded();
+            mWeapon.onEnd();
         }
         boolean active = false;
         switch (weaponId) {
-        case Gun.WEAPON_CODE_GUN:
-            getSoundManager().play(SAMPLE_GUN_CLIP);
-            mWeapon = new Gun(this);
+        case WeaponSlap.WEAPON_CODE_GUN:
+            mWeapon = new WeaponSlap(this);
             active = false;
             break;
         // case Shotgun.WEAPON_CODE_SHOTGUN:
         // weapon = new Shotgun(this);
         // active = true;
         // break;
-        case Blade.WEAPON_CODE_BLADE:
-            getSoundManager().play(SAMPLE_SWORD_DRAW);
-            mWeapon = new Blade(this);
+        case WeaponSword.WEAPON_CODE_BLADE:
+            mWeapon = new WeaponSword(this);
             active = true;
             break;
         }
 
+        mWeapon.onStart();
         mGameActivity.activateSpecialWeaponBar(active);
 
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG

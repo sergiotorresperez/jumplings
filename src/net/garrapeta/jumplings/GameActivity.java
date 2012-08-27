@@ -148,11 +148,11 @@ public class GameActivity extends Activity {
                 @Override
                 public void onCheckedChanged(RadioGroup rg, int id) {
                     if (id == R.id.game_weaponsRadioBtnGun) {
-                        mWorld.setWeapon(Gun.WEAPON_CODE_GUN);
+                        mWorld.setWeapon(WeaponSlap.WEAPON_CODE_GUN);
                         // } else if (id == R.id.game_weaponsRadioBtnShotgun) {
                         // world.setWeapon(Shotgun.WEAPON_CODE_SHOTGUN);
                     } else if (id == R.id.game_weaponsRadioBtnBlade) {
-                        mWorld.setWeapon(Blade.WEAPON_CODE_BLADE);
+                        mWorld.setWeapon(WeaponSword.WEAPON_CODE_BLADE);
                     }
 
                 }
@@ -493,13 +493,13 @@ public class GameActivity extends Activity {
                     int checked = 0;
 
                     switch (weaponId) {
-                    case Gun.WEAPON_CODE_GUN:
+                    case WeaponSlap.WEAPON_CODE_GUN:
                         checked = R.id.game_weaponsRadioBtnGun;
                         break;
                     // case Shotgun.WEAPON_CODE_SHOTGUN:
                     // checked = R.id.game_weaponsRadioBtnShotgun;
                     // break;
-                    case Blade.WEAPON_CODE_BLADE:
+                    case WeaponSword.WEAPON_CODE_BLADE:
                         checked = R.id.game_weaponsRadioBtnBlade;
                         break;
                     }

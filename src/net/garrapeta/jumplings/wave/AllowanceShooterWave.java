@@ -1,6 +1,6 @@
 package net.garrapeta.jumplings.wave;
 
-import net.garrapeta.jumplings.Gun;
+import net.garrapeta.jumplings.WeaponSlap;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.actor.BladePowerUpActor;
 import net.garrapeta.jumplings.actor.BombActor;
@@ -123,7 +123,7 @@ public class AllowanceShooterWave extends AllowanceWave {
 		
 		do {
 			while (true) { 
-				if (Math.random() < bombProbability && jgWorld.bombCount + 1 <= maxBombs && jgWorld.mWeapon.getWeaponCode() == Gun.WEAPON_CODE_GUN) {
+				if (Math.random() < bombProbability && jgWorld.bombCount + 1 <= maxBombs && jgWorld.mWeapon.getWeaponCode() == WeaponSlap.WEAPON_CODE_GUN) {
 					code = BombActor.JUMPER_CODE_BOMB;
 					break;
 				} 
