@@ -64,6 +64,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     private static final long[] VIBRATION_PATTERN_ENEMY_KILLED = { 0, 90 };
     private static final long[] VIBRATION_PATTERN_FAIL = { 0, 100, 50, 400 };
+    
+    /** Flash actor used in flash effects  */
+    public FlashActor mFlashActor;
 
     // ------------------------------------------------------------ Variables
 
@@ -137,6 +140,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         }
         // Inicializaci�n del arma
         setWeapon(Gun.WEAPON_CODE_GUN);
+        
+        mFlashActor = new FlashActor(this);
+        addActor(mFlashActor);
 
         mActivity.runOnUiThread(new Runnable() {
             @Override
@@ -400,9 +406,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public void onPostEnemyScaped(EnemyActor e) {
         if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
-            FlashActor flash = new FlashActor(this, FlashActor.FLASH_ENEMY_SCAPED_COLOR, FlashActor.FLASH_ENEMY_SCAPED_ALPHA,
-                    FlashActor.FLASH_ENEMY_SCAPED_DURATION);
-            addActor(flash);
+            mFlashActor.init(FlashActor.FLASH_FAIL_COLOR, FlashActor.FLASH_FAIL_ALPHA,
+                    FlashActor.FLASH_FAIL_DURATION, FlashActor.FLASH_FAIL_PRIORITY);
         }
 
         onFail();
@@ -416,8 +421,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             }
 
             mPlayer.onEnemyKilled(enemy);
-            mScenario.setProgress(wave.getProgress());
-
+            if (mScenario != null) {
+                mScenario.setProgress(wave.getProgress());
+            }
             if (mShakeCfgLevel == PermData.CFG_LEVEL_ALL) {
                 createShake(100f, 0.20f);
             }
@@ -437,11 +443,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     private void onPostBombExploded(BombActor bomb) {
         if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
-            FlashActor flash = new FlashActor(this, FlashActor.FLASH_BOMB_COLOR, FlashActor.FLASH_BOMB_ALPHA, FlashActor.FLASH_BOMB_DURATION);
-            addActor(flash);
+//            mFlashActor.init(FlashActor.FLASH_BOMB_COLOR, FlashActor.FLASH_BOMB_ALPHA, FlashActor.FLASH_BOMB_DURATION);
 
-            FlashActor flash2 = new FlashActor(this, FlashActor.FLASH_BOMB2_COLOR, FlashActor.FLASH_BOMB2_ALPHA, FlashActor.FLASH_BOMB2_DURATION);
-            addActor(flash2);
+            mFlashActor.init(FlashActor.FLASH_FAIL_COLOR, FlashActor.FLASH_FAIL_ALPHA, FlashActor.FLASH_FAIL_DURATION, FlashActor.FLASH_FAIL_PRIORITY);
 
         }
 
@@ -461,8 +465,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         getSoundManager().play(SAMPLE_LIFE_UP);
 
         if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
-            FlashActor flash = new FlashActor(this, FlashActor.FLASH_LIFEUP_COLOR, FlashActor.FLASH_LIFEUP_ALPHA, FlashActor.FLASH_LIFEUP_DURATION);
-            addActor(flash);
+            mFlashActor.init(FlashActor.FLASH_LIFEUP_COLOR, FlashActor.FLASH_LIFEUP_ALPHA, FlashActor.FLASH_LIFEUP_DURATION, FlashActor.FLASH_LIFEUP_PRIORITY);
         }
 
         mPlayer.addLifes(1);
@@ -481,9 +484,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         setWeapon(Blade.WEAPON_CODE_BLADE);
 
         if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
-            FlashActor flash = new FlashActor(this, FlashActor.FLASH_BLADE_DRAWN_COLOR, FlashActor.FLASH_BLADE_DRAWN_ALPHA,
-                    FlashActor.FLASH_BLADE_DRAWN_DURATION);
-            addActor(flash);
+            mFlashActor.init(FlashActor.FLASH_BLADE_DRAWN_COLOR, FlashActor.FLASH_BLADE_DRAWN_ALPHA,
+                    FlashActor.FLASH_BLADE_DRAWN_DURATION, FlashActor.FLASH_BLADE_DRAWN_PRIORITY);
         }
     }
 

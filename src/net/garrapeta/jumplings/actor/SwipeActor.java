@@ -119,8 +119,7 @@ public class SwipeActor extends HarmerActor {
 							
 						    jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_BLADE_WHIP);
 							if (jgWorld.mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
-								FlashActor flash = new FlashActor(jgWorld ,Color.WHITE, 50, 250);
-								jgWorld.addActor(flash);
+							    jgWorld.mFlashActor.init(Color.WHITE, 50, 250, -1);
 							}
 						}
 					} else {
