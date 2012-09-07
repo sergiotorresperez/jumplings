@@ -1,5 +1,6 @@
 package net.garrapeta.jumplings.wave;
 
+import net.garrapeta.gameengine.utils.PhysicsUtils;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsWorld;
 import net.garrapeta.jumplings.actor.BladePowerUpActor;
@@ -7,7 +8,6 @@ import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
 import net.garrapeta.jumplings.actor.JumplingActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
-import net.garrapeta.gameengine.utils.PhysicsUtils;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.widget.Button;

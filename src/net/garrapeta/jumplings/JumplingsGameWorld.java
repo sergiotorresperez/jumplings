@@ -3,12 +3,12 @@ package net.garrapeta.jumplings;
 import java.util.ArrayList;
 
 import net.garrapeta.gameengine.Actor;
-import net.garrapeta.gameengine.GameMessage;
+import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.GameWorld;
 import net.garrapeta.gameengine.module.BitmapManager;
-import net.garrapeta.gameengine.module.VibratorManager;
 import net.garrapeta.gameengine.module.SoundManager;
+import net.garrapeta.gameengine.module.VibratorManager;
 import net.garrapeta.jumplings.actor.BladePowerUpActor;
 import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
@@ -16,8 +16,10 @@ import net.garrapeta.jumplings.actor.FlashActor;
 import net.garrapeta.jumplings.actor.JumplingActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
-import net.garrapeta.jumplings.scenario.Scenario;
+import net.garrapeta.jumplings.scenario.IScenario;
+import net.garrapeta.jumplings.scenario.ScenarioFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -92,11 +94,14 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     /** Jugador */
     Player mPlayer;
 
+    // TODO: use this paint for painting the Jumplings
+    protected Paint mPaint = new Paint();
+
     /** Arma actual */
     public Weapon mWeapon;
 
-    /** Escenario actual */
-    Scenario mScenario;
+    /** Escenario actual */ // TODO: do not hardcore this, init later
+    IScenario mScenario = ScenarioFactory.getScenario(this, ScenarioFactory.ScenariosIds.ROLLING);
 
     // ------------------------------------------- Variables de configuraci�n
 
@@ -111,6 +116,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         this.mGameActivity = gameActivity;
         mPlayer = new Player(this);
         mView.setOnTouchListener(this);
+
     }
 
     // ----------------------------------------------------- M�todos de World
@@ -226,10 +232,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         bm.loadBitmap(R.drawable.powerup_heart);
         bm.loadBitmap(R.drawable.powerup_debris_heart);
 
-        bm.loadBitmap(R.drawable.bg_blue_sky);
-        bm.loadBitmap(R.drawable.bg_clouds);
-        bm.loadBitmap(R.drawable.bg_green_hills);
-
         // Preparación samples sonido
         SoundManager sm = getSoundManager();
         if (sm.isSoundEnabled()) {
@@ -319,18 +321,16 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
         // TODO: evitar esta comporbaci�n de nulidad
         // TODO: pasar las medidas de la pantalla al escenario en reset()
-        if (mScenario != null) {
-            mScenario.draw(canvas);
+        if (mScenario != null && JumplingsApplication.DRAW_SCENARIO) {
+            mScenario.draw(canvas, mPaint);
         }
-
     }
 
     // -------------------------------------------------------- M�todos propios
 
     public void nextScenario() {
         Log.i(LOG_SRC, " Next Scenario");
-        mScenario = new Scenario(this, mScenario);
-        mScenario.reset();
+        mScenario.end();
     }
 
     // M�todos de gesti�n de actores
@@ -494,9 +494,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public boolean onTouch(View v, MotionEvent event) {
         if (!mGameActivity.isGameOver() && !isPaused()) {
             final double[] info = new double[] { event.getAction(), event.getX(), event.getY(), System.currentTimeMillis() };
-            post(new GameMessage() {
+            post(new SyncGameMessage() {
                 @Override
-                public void process(GameWorld world) {
+                public void doInGameLoop(GameWorld world) {
                     mWeapon.onTouchEvent(info);
                 }
             });

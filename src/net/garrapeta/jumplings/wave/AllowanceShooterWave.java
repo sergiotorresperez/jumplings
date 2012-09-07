@@ -1,7 +1,8 @@
 package net.garrapeta.jumplings.wave;
 
-import net.garrapeta.jumplings.WeaponSlap;
+import net.garrapeta.gameengine.utils.PhysicsUtils;
 import net.garrapeta.jumplings.JumplingsGameWorld;
+import net.garrapeta.jumplings.WeaponSlap;
 import net.garrapeta.jumplings.actor.BladePowerUpActor;
 import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.DoubleEnemyActor;
@@ -10,7 +11,6 @@ import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.actor.RoundEnemyActor;
 import net.garrapeta.jumplings.actor.SplitterEnemyActor;
-import net.garrapeta.gameengine.utils.PhysicsUtils;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Log;

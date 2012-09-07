@@ -1,6 +1,6 @@
 package net.garrapeta.jumplings.wave;
 
-import net.garrapeta.gameengine.GameMessage;
+import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.gameengine.GameWorld;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
@@ -67,10 +67,10 @@ public class TestWave extends Wave {
 //			}
 //		});
 //		
-	    jgWorld.post(new GameMessage() {
+	    jgWorld.post(new SyncGameMessage() {
 
             @Override
-            public void process(GameWorld world) {
+            public void doInGameLoop(GameWorld world) {
                 createEnemy();
 //              createPowerUp();
             }});

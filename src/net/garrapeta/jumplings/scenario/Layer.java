@@ -2,8 +2,8 @@ package net.garrapeta.jumplings.scenario;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 
 /**
  * Capa del escerario
@@ -47,7 +47,7 @@ class Layer {
     private float mUpdateYVel = 0;
 
     // TODO: get rid of this
-    private Scenario mScenario;
+    private LayerScenario mScenario;
 
 
     private boolean mTilesX;
@@ -68,7 +68,7 @@ class Layer {
      * @param bmp
      * @param maxHeight
      */
-    Layer(Scenario scenario, Bitmap bmp, int maxHeight, float initXPos, float initYPos, float initXVel, float initYVel, boolean tilesX,
+    Layer(LayerScenario scenario, Bitmap bmp, int maxHeight, float initXPos, float initYPos, float initXVel, float initYVel, boolean tilesX,
             boolean tilesY, int desiredWidth, int desiredHeight) {
 
         this.mScenario = scenario;
@@ -170,7 +170,6 @@ class Layer {
         float diff = mDesiredYPos - mYPos;
         mUpdateYVel = diff / GAMEOVER_FALL_CICLES;
     }
-    
 
     public void draw(Canvas canvas, Paint paint) {
 

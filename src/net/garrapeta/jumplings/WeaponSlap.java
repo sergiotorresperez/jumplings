@@ -1,7 +1,7 @@
 package net.garrapeta.jumplings;
 
-import net.garrapeta.jumplings.actor.HarmerSlapActor;
 import net.garrapeta.jumplings.actor.FlashActor;
+import net.garrapeta.jumplings.actor.HarmerSlapActor;
 import android.graphics.PointF;
 import android.view.MotionEvent;
 
