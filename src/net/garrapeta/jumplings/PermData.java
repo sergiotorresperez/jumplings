@@ -19,9 +19,6 @@ public class PermData {
     public static final String LOCAL_HIGHSCORE_KEY_PREFIX = "localHighscore_";
     public static final String GLOBAL_HIGHSCORE_KEY_PREFIX = "globalHighscore_";
 
-    public static final String FACEBOOK_ACCESS_TOKEN_KEY = "facebookAccessToken";
-    public static final String FACEBOOK_ACCESS_TOKEN_EXPIRES_KEY = "facebookAccessExpires";
-
     public static final String TWITTER_ACCESS_TOKEN_KEY = "twitterToken";
     public static final String TWITTER_ACCESS_TOKEN_SECRET_KEY = "twitterTokenSecret";
 
@@ -233,18 +230,6 @@ public class PermData {
         }
     }
 
-    public String getFacebookAccessToken() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
-        return sharedPref.getString(FACEBOOK_ACCESS_TOKEN_KEY, null);
-    }
-
-    public void saveFacebookAccessToken(String accesToken) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
-        Editor editor = sharedPref.edit();
-        editor.putString(FACEBOOK_ACCESS_TOKEN_KEY, accesToken);
-        editor.commit();
-    }
-
     public String getTwitterToken() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
         return sharedPref.getString(TWITTER_ACCESS_TOKEN_KEY, null);
@@ -269,19 +254,6 @@ public class PermData {
         Editor editor = sharedPref.edit();
         editor.putString(TWITTER_ACCESS_TOKEN_SECRET_KEY, secret);
         editor.commit();
-    }
-
-    public void saveFacebookAccessExpires(long expires) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
-
-        Editor editor = sharedPref.edit();
-        editor.putLong(FACEBOOK_ACCESS_TOKEN_EXPIRES_KEY, expires);
-        editor.commit();
-    }
-
-    public long getFacebookAccessExpires() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
-        return sharedPref.getLong(FACEBOOK_ACCESS_TOKEN_EXPIRES_KEY, 0);
     }
 
 }
