@@ -83,62 +83,15 @@ public class SplitterEnemyActor extends EnemyActor {
         }
         mLevel = level;
         
-        BitmapManager mb = mJWorld.getBitmapManager();
-
         switch (mLevel) {
         case 2:
-            this.code = SplitterEnemyActor.JUMPER_CODE_SPLITTER_TRIPLE;
-            // vivo
-            ah.initBitmaps(BMP_YELLOW_2_BODY_ID, BMP_YELLOW_2_FOOT_RIGHT_ID, BMP_YELLOW_2_FOOT_LEFT_ID, BMP_YELLOW_2_HAND_RIGHT_ID,
-                    BMP_YELLOW_2_HAND_LEFT_ID, BMP_EYE_2_RIGHT_ID, BMP_EYE_2_LEFT_ID);
-
-            // debris
-            bmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_2_BODY_ID);
-
-            bmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_YELLOW_2_FOOT_RIGHT_ID);
-            bmpDebrisFootLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_2_FOOT_LEFT_ID);
-
-            bmpDebrisHandRight = mb.getBitmap(BMP_DEBRIS_YELLOW_2_HAND_RIGHT_ID);
-            bmpDebrisHandLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_2_HAND_LEFT_ID);
-
-            bmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_2_RIGHT_ID);
-            bmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_2_LEFT_ID);
+            mCode = SplitterEnemyActor.JUMPER_CODE_SPLITTER_TRIPLE;
             break;
         case 1:
-            this.code = SplitterEnemyActor.JUMPER_CODE_SPLITTER_DOUBLE;
-            // vivo
-            ah.initBitmaps(BMP_YELLOW_1_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID, BMP_YELLOW_0_HAND_RIGHT_ID,
-                    BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
-
-            // debris
-            bmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_1_BODY_ID);
-
-            bmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_YELLOW_0_FOOT_RIGHT_ID);
-            bmpDebrisFootLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_0_FOOT_LEFT_ID);
-
-            bmpDebrisHandRight = mb.getBitmap(BMP_DEBRIS_YELLOW_0_HAND_RIGHT_ID);
-            bmpDebrisHandLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_0_HAND_LEFT_ID);
-
-            bmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
-            bmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
+            mCode = SplitterEnemyActor.JUMPER_CODE_SPLITTER_DOUBLE;
             break;
         case 0:
-            this.code = SplitterEnemyActor.JUMPER_CODE_SPLITTER_SIMPLE;
-            // vivo
-            ah.initBitmaps(BMP_YELLOW_0_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID, BMP_YELLOW_0_HAND_RIGHT_ID,
-                    BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
-
-            // debris
-            bmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_0_BODY_ID);
-
-            bmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_YELLOW_0_FOOT_RIGHT_ID);
-            bmpDebrisFootLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_0_FOOT_LEFT_ID);
-
-            bmpDebrisHandRight = mb.getBitmap(BMP_DEBRIS_YELLOW_0_HAND_RIGHT_ID);
-            bmpDebrisHandLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_0_HAND_LEFT_ID);
-
-            bmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
-            bmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
+            mCode = SplitterEnemyActor.JUMPER_CODE_SPLITTER_SIMPLE;
             break;
         }
     }
@@ -197,6 +150,64 @@ public class SplitterEnemyActor extends EnemyActor {
         }
 
         ah.createLimbs(worldPos, mRadius);
+    }
+    
+    @Override
+    protected void initBitmaps() {
+        BitmapManager mb = mJWorld.getBitmapManager();
+        switch (mLevel) {
+        case 2:
+            // vivo
+            ah.initBitmaps(BMP_YELLOW_2_BODY_ID, BMP_YELLOW_2_FOOT_RIGHT_ID, BMP_YELLOW_2_FOOT_LEFT_ID, BMP_YELLOW_2_HAND_RIGHT_ID,
+                    BMP_YELLOW_2_HAND_LEFT_ID, BMP_EYE_2_RIGHT_ID, BMP_EYE_2_LEFT_ID);
+
+            // debris
+            mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_2_BODY_ID);
+
+            mBmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_YELLOW_2_FOOT_RIGHT_ID);
+            mBmpDebrisFootLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_2_FOOT_LEFT_ID);
+
+            mBmpDebrisHandRight = mb.getBitmap(BMP_DEBRIS_YELLOW_2_HAND_RIGHT_ID);
+            mBmpDebrisHandLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_2_HAND_LEFT_ID);
+
+            mBmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_2_RIGHT_ID);
+            mBmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_2_LEFT_ID);
+            break;
+        case 1:
+            // vivo
+            ah.initBitmaps(BMP_YELLOW_1_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID, BMP_YELLOW_0_HAND_RIGHT_ID,
+                    BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
+
+            // debris
+            mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_1_BODY_ID);
+
+            mBmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_YELLOW_0_FOOT_RIGHT_ID);
+            mBmpDebrisFootLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_0_FOOT_LEFT_ID);
+
+            mBmpDebrisHandRight = mb.getBitmap(BMP_DEBRIS_YELLOW_0_HAND_RIGHT_ID);
+            mBmpDebrisHandLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_0_HAND_LEFT_ID);
+
+            mBmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
+            mBmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
+            break;
+        case 0:
+            // vivo
+            ah.initBitmaps(BMP_YELLOW_0_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID, BMP_YELLOW_0_HAND_RIGHT_ID,
+                    BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
+
+            // debris
+            mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_0_BODY_ID);
+
+            mBmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_YELLOW_0_FOOT_RIGHT_ID);
+            mBmpDebrisFootLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_0_FOOT_LEFT_ID);
+
+            mBmpDebrisHandRight = mb.getBitmap(BMP_DEBRIS_YELLOW_0_HAND_RIGHT_ID);
+            mBmpDebrisHandLeft = mb.getBitmap(BMP_DEBRIS_YELLOW_0_HAND_LEFT_ID);
+
+            mBmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
+            mBmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
+            break;
+        } 
     }
 
     @Override

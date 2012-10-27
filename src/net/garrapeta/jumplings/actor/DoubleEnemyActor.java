@@ -60,23 +60,7 @@ public class DoubleEnemyActor extends EnemyActor {
     public DoubleEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos) {
         super(mJWorld, DoubleEnemyActor.DEFAULT_RADIUS, worldPos);
 
-        this.code = DoubleEnemyActor.JUMPER_CODE_DOUBLE;
-
-        // vivo
-        ah.initBitmaps(BMP_ORANGE_BODY_ID, BMP_ORANGE_FOOT_RIGHT_ID, BMP_ORANGE_FOOT_LEFT_ID, BMP_ORANGE_HAND_RIGHT_ID, BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
-
-        // debris
-        BitmapManager mb = mJWorld.getBitmapManager();
-        bmpDebrisBody = mb.getBitmap(BMP_DEBRIS_ORANGE_BODY_ID);
-
-        bmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_ORANGE_FOOT_RIGHT_ID);
-        bmpDebrisFootLeft = mb.getBitmap(BMP_DEBRIS_ORANGE_FOOT_LEFT_ID);
-
-        bmpDebrisHandRight = mb.getBitmap(BMP_DEBRIS_ORANGE_HAND_RIGHT_ID);
-        bmpDebrisHandLeft = mb.getBitmap(BMP_DEBRIS_ORANGE_HAND_LEFT_ID);
-
-        bmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
-        bmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
+        this.mCode = DoubleEnemyActor.JUMPER_CODE_DOUBLE;
     }
 
     @Override
@@ -99,6 +83,25 @@ public class DoubleEnemyActor extends EnemyActor {
         }
 
         ah.createLimbs(worldPos, mRadius);
+    }
+    
+    @Override
+    protected void initBitmaps() {
+        // vivo
+        ah.initBitmaps(BMP_ORANGE_BODY_ID, BMP_ORANGE_FOOT_RIGHT_ID, BMP_ORANGE_FOOT_LEFT_ID, BMP_ORANGE_HAND_RIGHT_ID, BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
+
+        // debris
+        BitmapManager mb = mJWorld.getBitmapManager();
+        mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_ORANGE_BODY_ID);
+
+        mBmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_ORANGE_FOOT_RIGHT_ID);
+        mBmpDebrisFootLeft = mb.getBitmap(BMP_DEBRIS_ORANGE_FOOT_LEFT_ID);
+
+        mBmpDebrisHandRight = mb.getBitmap(BMP_DEBRIS_ORANGE_HAND_RIGHT_ID);
+        mBmpDebrisHandLeft = mb.getBitmap(BMP_DEBRIS_ORANGE_HAND_LEFT_ID);
+
+        mBmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
+        mBmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
     }
 
     // -------------------------------------------------------- M�todos propios

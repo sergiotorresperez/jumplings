@@ -62,10 +62,6 @@ public class IntroActor extends JumplingActor {
     @Override
     protected void initFields() {
         ah = new AnthropomorphicHelper(this);
-
-        // vivo
-        ah.initBitmaps(BMP_INTRO_BODY_ID, BMP_INTRO_FOOT_RIGHT_ID, BMP_INTRO_FOOT_LEFT_ID, BMP_INTRO_HAND_RIGHT_ID, BMP_INTRO_HAND_LEFT_ID,
-                BMP_INTRO_EYE_RIGHT_ID, BMP_INTRO_EYE_LEFT_ID);
      }
 
     @Override
@@ -89,6 +85,13 @@ public class IntroActor extends JumplingActor {
         ah.createLimbs(worldPos, mRadius);
     }
 
+    @Override
+    protected void initBitmaps() {
+        // vivo
+        ah.initBitmaps(BMP_INTRO_BODY_ID, BMP_INTRO_FOOT_RIGHT_ID, BMP_INTRO_FOOT_LEFT_ID, BMP_INTRO_HAND_RIGHT_ID, BMP_INTRO_HAND_LEFT_ID,
+                BMP_INTRO_EYE_RIGHT_ID, BMP_INTRO_EYE_LEFT_ID);
+    }
+ 
     @Override
     public void processFrame(float gameTimeStep) {
     }

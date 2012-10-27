@@ -39,7 +39,7 @@ public class SparksActor extends JumplingActor {
 
     protected int alpha;
 
-    protected Bitmap bmpSparkle;
+    protected Bitmap mBmpSparkle;
 
     protected Paint paint;
 
@@ -66,10 +66,6 @@ public class SparksActor extends JumplingActor {
     @Override
     protected void initFields() {
         this.longevity = this.lifeTime = longevity;
-
-        BitmapManager mb = mJWorld.getBitmapManager();
-        bmpSparkle = mb.getBitmap(bmpsSparkles[(int) (Math.random() * bmpsSparkles.length)]);
-
         this.paint = new Paint();
     }
 
@@ -91,6 +87,12 @@ public class SparksActor extends JumplingActor {
         }
 
     }
+    
+    @Override
+    protected void initBitmaps() {
+        BitmapManager mb = mJWorld.getBitmapManager();
+        mBmpSparkle = mb.getBitmap(bmpsSparkles[(int) (Math.random() * bmpsSparkles.length)]);
+    }
 
     @Override
     public void processFrame(float gameTimeStep) {
@@ -104,7 +106,7 @@ public class SparksActor extends JumplingActor {
     @Override
     protected void drawBitmaps(Canvas canvas) {
         paint.setAlpha(alpha);
-        mJWorld.drawBitmap(canvas, this.mainBody, bmpSparkle, paint);
+        mJWorld.drawBitmap(canvas, this.mainBody, mBmpSparkle, paint);
     }
 
 }

@@ -26,15 +26,7 @@ public class LifePowerUpActor extends PowerUpActor {
     public LifePowerUpActor(JumplingsGameWorld mJWorld, PointF worldPos) {
         super(mJWorld, worldPos);
 
-        this.code = LifePowerUpActor.JUMPER_CODE_POWER_UP_LIFE;
-
-        // vivo
-        BitmapManager mb = mJWorld.getBitmapManager();
-        bmpIcon = mb.getBitmap(BMP_HEART_ID);
-
-        // debris
-        bmpDebrisIcon = mb.getBitmap(BMP_DEBRIS_HEART_ID);
-
+        this.mCode = LifePowerUpActor.JUMPER_CODE_POWER_UP_LIFE;
     }
 
     // ------------------------------------------------- M�todos est�ticos
@@ -47,9 +39,20 @@ public class LifePowerUpActor extends PowerUpActor {
     // --------------------------------------------- M�todos heredados
 
     @Override
+    protected void initBitmaps() {
+        // vivo
+        BitmapManager mb = mJWorld.getBitmapManager();
+        mBmpIcon = mb.getBitmap(BMP_HEART_ID);
+
+        // debris
+        mBmpDebrisIcon = mb.getBitmap(BMP_DEBRIS_HEART_ID);
+    }
+ 
+    @Override
     public void onHitted() {
         jgWorld.onLifePowerUp(this);
         super.onHitted();
     }
+
 
 }

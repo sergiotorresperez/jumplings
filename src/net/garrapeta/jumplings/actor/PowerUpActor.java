@@ -35,11 +35,11 @@ public abstract class PowerUpActor extends MainActor {
 
     // Bitmaps del actor vivo
     protected Bitmap bmpBg;
-    protected Bitmap bmpIcon;
+    protected Bitmap mBmpIcon;
 
     // Bitmaps del actor muerto (debris)
     protected Bitmap bmpDebrisBg;
-    protected Bitmap bmpDebrisIcon;
+    protected Bitmap mBmpDebrisIcon;
 
     // --------------------------------------------------- Constructor
 
@@ -113,7 +113,7 @@ public abstract class PowerUpActor extends MainActor {
         // Icon
         {
             Body body = iconBody;
-            DebrisActor debrisActor = new DebrisActor(mJWorld, body, bmpDebrisIcon);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, mBmpDebrisIcon);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -125,7 +125,7 @@ public abstract class PowerUpActor extends MainActor {
     @Override
     protected void drawBitmaps(Canvas canvas) {
         mJWorld.drawBitmap(canvas, this.mainBody, bmpBg);
-        mJWorld.drawBitmap(canvas, this.iconBody, bmpIcon);
+        mJWorld.drawBitmap(canvas, this.iconBody, mBmpIcon);
     }
 
     // ------------------------------------------------ M�todos propios

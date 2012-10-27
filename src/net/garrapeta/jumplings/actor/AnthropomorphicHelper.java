@@ -53,16 +53,16 @@ public class AnthropomorphicHelper {
     Body mouthBody;
 
     // Bitmaps del actor vivo
-    protected Bitmap bmpBody;
+    protected Bitmap mBmpBody;
 
-    protected Bitmap bmpFootRight;
-    protected Bitmap bmpFootLeft;
+    protected Bitmap mBmpFootRight;
+    protected Bitmap mBmpFootLeft;
 
-    protected Bitmap bmpHandRight;
-    protected Bitmap bmpHandLeft;
+    protected Bitmap mBmpHandRight;
+    protected Bitmap mBmpHandLeft;
 
-    protected Bitmap bmpEyeRight;
-    protected Bitmap bmpEyeLeft;
+    protected Bitmap mBmpEyeRight;
+    protected Bitmap mBmpEyeLeft;
 
     // ----------------------------------------------- Constructor
 
@@ -75,13 +75,13 @@ public class AnthropomorphicHelper {
     public void initBitmaps(int bmpBodyId, int bmpFootRightId, int bmpFootLeftId, int bmpHandRightId, int bmpHandLeftId, int bmpEyeRightId, int bmpEyeLeftId) {
 
         BitmapManager mb = mActor.mJWorld.getBitmapManager();
-        bmpBody         = mb.getBitmap(bmpBodyId);
-        bmpFootRight    = mb.getBitmap(bmpFootRightId);
-        bmpFootLeft     = mb.getBitmap(bmpFootLeftId);
-        bmpHandRight    = mb.getBitmap(bmpHandRightId);
-        bmpHandLeft     = mb.getBitmap(bmpHandLeftId);
-        bmpEyeRight     = mb.getBitmap(bmpEyeRightId);
-        bmpEyeLeft      = mb.getBitmap(bmpEyeLeftId);
+        mBmpBody         = mb.getBitmap(bmpBodyId);
+        mBmpFootRight    = mb.getBitmap(bmpFootRightId);
+        mBmpFootLeft     = mb.getBitmap(bmpFootLeftId);
+        mBmpHandRight    = mb.getBitmap(bmpHandRightId);
+        mBmpHandLeft     = mb.getBitmap(bmpHandLeftId);
+        mBmpEyeRight     = mb.getBitmap(bmpEyeRightId);
+        mBmpEyeLeft      = mb.getBitmap(bmpEyeLeftId);
     }
 
     protected void createLimbs(PointF worldPos, float radius) {
@@ -257,15 +257,15 @@ public class AnthropomorphicHelper {
     }
 
     void drawBitmaps(Canvas canvas) {
-        mActor.mJWorld.drawBitmap(canvas, this.leftHandBody, bmpHandLeft);
-        mActor.mJWorld.drawBitmap(canvas, this.leftFootBody, bmpFootLeft);
+        mActor.mJWorld.drawBitmap(canvas, this.leftHandBody, mBmpHandLeft);
+        mActor.mJWorld.drawBitmap(canvas, this.leftFootBody, mBmpFootLeft);
 
-        mActor.mJWorld.drawBitmap(canvas, this.rightHandBody, bmpHandRight);
-        mActor.mJWorld.drawBitmap(canvas, this.rightFootBody, bmpFootRight);
+        mActor.mJWorld.drawBitmap(canvas, this.rightHandBody, mBmpHandRight);
+        mActor.mJWorld.drawBitmap(canvas, this.rightFootBody, mBmpFootRight);
 
-        mActor.mJWorld.drawBitmap(canvas, mActor.mainBody, bmpBody);
+        mActor.mJWorld.drawBitmap(canvas, mActor.mainBody, mBmpBody);
 
-        mActor.mJWorld.drawBitmap(canvas, this.leftEyeBody, bmpEyeLeft);
-        mActor.mJWorld.drawBitmap(canvas, this.rightEyeBody, bmpEyeRight);
+        mActor.mJWorld.drawBitmap(canvas, this.leftEyeBody, mBmpEyeLeft);
+        mActor.mJWorld.drawBitmap(canvas, this.rightEyeBody, mBmpEyeRight);
     }
 }

@@ -15,7 +15,7 @@ public abstract class MainActor extends JumplingActor {
 	// ---------------------------------------------------- Constantes
 	
 	/** C�digo del actor */
-	protected short code = -1;
+	protected short mCode = -1;
 	
 	/**
 	 *  Z-Index del actor
@@ -82,7 +82,7 @@ public abstract class MainActor extends JumplingActor {
 	 * @return c�digo del actor
 	 */
 	public final short getCode() {
-		return code;
+		return mCode;
 	}
 	
 	/**

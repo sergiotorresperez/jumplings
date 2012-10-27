@@ -76,16 +76,7 @@ public class BombActor extends MainActor {
 
     public BombActor(JumplingsGameWorld mJWorld, PointF worldPos) {
         super(mJWorld, worldPos,  BombActor.DEFAULT_RADIUS, Z_INDEX);
-        this.code = BombActor.JUMPER_CODE_BOMB;
-
-        BitmapManager mb = mJWorld.getBitmapManager();
-        // vivo
-        mBmpBody = mb.getBitmap(R.drawable.bomb_body);
-        mBmpBodyFuse = mb.getBitmap(R.drawable.bomb_fuse);
-
-        // debris
-        mBmpDebrisBody = mb.getBitmap(R.drawable.bomb_debris_body);
-        mBmpDebrisFuse = mb.getBitmap(R.drawable.bomb_debris_fuse);
+        this.mCode = BombActor.JUMPER_CODE_BOMB;
     }
  
     // --------------------------------------------- M�todos heredados
@@ -132,6 +123,18 @@ public class BombActor extends MainActor {
 
             mJWorld.createJoint(this, jointDef);
         }
+    }
+
+    @Override
+    protected void initBitmaps() {
+        BitmapManager mb = mJWorld.getBitmapManager();
+        // vivo
+        mBmpBody = mb.getBitmap(R.drawable.bomb_body);
+        mBmpBodyFuse = mb.getBitmap(R.drawable.bomb_fuse);
+
+        // debris
+        mBmpDebrisBody = mb.getBitmap(R.drawable.bomb_debris_body);
+        mBmpDebrisFuse = mb.getBitmap(R.drawable.bomb_debris_fuse);
     }
 
     @Override

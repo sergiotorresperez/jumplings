@@ -16,7 +16,8 @@ public class DoubleSonEnemyActor extends EnemyActor {
 
     public final static short JUMPER_CODE_DOUBLE_SON = 2;
 
-    // ------------------------------------------------------ Variables estáticas
+    // ------------------------------------------------------ Variables
+    // estáticas
 
     // vivo
     protected final static int BMP_ORANGE_SIMPLE_BODY_ID = R.drawable.orange_simple_body;
@@ -34,24 +35,7 @@ public class DoubleSonEnemyActor extends EnemyActor {
 
     public DoubleSonEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos) {
         super(mJWorld, DoubleSonEnemyActor.DEFAULT_RADIUS, worldPos);
-        this.code = DoubleSonEnemyActor.JUMPER_CODE_DOUBLE_SON;
-
-        // vivo
-        ah.initBitmaps(BMP_ORANGE_SIMPLE_BODY_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_LEFT_ID,
-                DoubleEnemyActor.BMP_ORANGE_HAND_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
-
-        // debris
-        BitmapManager mb = mJWorld.getBitmapManager();
-        bmpDebrisBody = mb.getBitmap(BMP_DEBRIS_ORANGE_SIMPLE_BODY_ID);
-
-        bmpDebrisFootRight = mb.getBitmap(DoubleEnemyActor.BMP_DEBRIS_ORANGE_FOOT_RIGHT_ID);
-        bmpDebrisFootLeft = mb.getBitmap(DoubleEnemyActor.BMP_DEBRIS_ORANGE_FOOT_LEFT_ID);
-
-        bmpDebrisHandRight = mb.getBitmap(DoubleEnemyActor.BMP_DEBRIS_ORANGE_HAND_RIGHT_ID);
-        bmpDebrisHandLeft = mb.getBitmap(DoubleEnemyActor.BMP_DEBRIS_ORANGE_HAND_LEFT_ID);
-
-        bmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
-        bmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
+        this.mCode = DoubleSonEnemyActor.JUMPER_CODE_DOUBLE_SON;
     }
 
     // -------------------------------------------------------- M�todos Propios
@@ -75,6 +59,26 @@ public class DoubleSonEnemyActor extends EnemyActor {
         }
 
         ah.createLimbs(worldPos, mRadius);
+    }
+
+    @Override
+    protected void initBitmaps() {
+        // vivo
+        ah.initBitmaps(BMP_ORANGE_SIMPLE_BODY_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_LEFT_ID,
+                DoubleEnemyActor.BMP_ORANGE_HAND_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
+
+        // debris
+        BitmapManager mb = mJWorld.getBitmapManager();
+        mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_ORANGE_SIMPLE_BODY_ID);
+
+        mBmpDebrisFootRight = mb.getBitmap(DoubleEnemyActor.BMP_DEBRIS_ORANGE_FOOT_RIGHT_ID);
+        mBmpDebrisFootLeft = mb.getBitmap(DoubleEnemyActor.BMP_DEBRIS_ORANGE_FOOT_LEFT_ID);
+
+        mBmpDebrisHandRight = mb.getBitmap(DoubleEnemyActor.BMP_DEBRIS_ORANGE_HAND_RIGHT_ID);
+        mBmpDebrisHandLeft = mb.getBitmap(DoubleEnemyActor.BMP_DEBRIS_ORANGE_HAND_LEFT_ID);
+
+        mBmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
+        mBmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
     }
 
 }

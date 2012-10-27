@@ -109,8 +109,6 @@ public abstract class JumplingActor extends Box2DActor {
         mRadius = radius;
         mJWorld = jWorld;
     }
-    
-
 
     // ----------------------------------------- M�todos de Box2DActor
 
@@ -188,6 +186,7 @@ public abstract class JumplingActor extends Box2DActor {
         initFields();
         initBodies(worldPos);
         initPhysicProperties();
+        initBitmaps();
     }
 
     /**
@@ -195,6 +194,13 @@ public abstract class JumplingActor extends Box2DActor {
      */
     protected void initFields() {
     }
+
+    /**
+     * Crea los cuerpos y los elementos f�sicos
+     * 
+     * @param worldPos
+     */
+    protected abstract void initBodies(PointF worldPos);
 
     /**
      * Inicializa todo lo relativo a la f�sica
@@ -210,11 +216,9 @@ public abstract class JumplingActor extends Box2DActor {
     }
 
     /**
-     * Crea los cuerpos y los elementos f�sicos
-     * 
-     * @param worldPos
+     * Initialises the bitmaps
      */
-    protected abstract void initBodies(PointF worldPos);
+    protected abstract void initBitmaps();
 
     /**
      * @return
@@ -313,7 +317,6 @@ public abstract class JumplingActor extends Box2DActor {
         double distance = maxHeight - getWorldPos().y;
         return PhysicsUtils.getInitialVelocity(distance, 0, mJWorld.getGravityY());
     }
-    
-    
+
     protected abstract void drawBitmaps(Canvas canvas);
 }

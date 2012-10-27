@@ -27,12 +27,7 @@ public class BladePowerUpActor extends PowerUpActor {
 
     public BladePowerUpActor(JumplingsGameWorld mJWorld, PointF worldPos) {
         super(mJWorld, worldPos);
-        code = BladePowerUpActor.JUMPER_CODE_POWER_UP_BLADE;
-        BitmapManager mb = mJWorld.getBitmapManager();
-        // vivo
-        bmpIcon = mb.getBitmap(BMP_SWORD_ID);
-        // debris
-        bmpDebrisIcon = mb.getBitmap(BMP_DEBRIS_SWORD_ID);
+        mCode = BladePowerUpActor.JUMPER_CODE_POWER_UP_BLADE;
     }
 
     // ------------------------------------------------- M�todos est�ticos
@@ -44,6 +39,15 @@ public class BladePowerUpActor extends PowerUpActor {
     }
 
     // --------------------------------------------- M�todos heredados
+    
+    @Override
+    protected void initBitmaps() {
+        BitmapManager mb = mJWorld.getBitmapManager();
+        // vivo
+        mBmpIcon = mb.getBitmap(BMP_SWORD_ID);
+        // debris
+        mBmpDebrisIcon = mb.getBitmap(BMP_DEBRIS_SWORD_ID);
+    }
     @Override
     public void onHitted() {
         jgWorld.onBladePowerUp(this);
