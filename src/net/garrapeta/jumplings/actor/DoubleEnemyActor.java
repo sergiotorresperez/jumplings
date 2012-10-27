@@ -82,13 +82,13 @@ public class DoubleEnemyActor extends EnemyActor {
 
         }
 
-        ah.createLimbs(worldPos, mRadius);
+        mAnthtopoDelegate.createAnthropomorphicLimbs(worldPos, mRadius);
     }
     
     @Override
     protected void initBitmaps() {
         // vivo
-        ah.initBitmaps(BMP_ORANGE_BODY_ID, BMP_ORANGE_FOOT_RIGHT_ID, BMP_ORANGE_FOOT_LEFT_ID, BMP_ORANGE_HAND_RIGHT_ID, BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
+        mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_ORANGE_BODY_ID, BMP_ORANGE_FOOT_RIGHT_ID, BMP_ORANGE_FOOT_LEFT_ID, BMP_ORANGE_HAND_RIGHT_ID, BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
 
         // debris
         BitmapManager mb = mJWorld.getBitmapManager();

@@ -149,7 +149,7 @@ public class SplitterEnemyActor extends EnemyActor {
 
         }
 
-        ah.createLimbs(worldPos, mRadius);
+        mAnthtopoDelegate.createAnthropomorphicLimbs(worldPos, mRadius);
     }
     
     @Override
@@ -158,7 +158,7 @@ public class SplitterEnemyActor extends EnemyActor {
         switch (mLevel) {
         case 2:
             // vivo
-            ah.initBitmaps(BMP_YELLOW_2_BODY_ID, BMP_YELLOW_2_FOOT_RIGHT_ID, BMP_YELLOW_2_FOOT_LEFT_ID, BMP_YELLOW_2_HAND_RIGHT_ID,
+            mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_2_BODY_ID, BMP_YELLOW_2_FOOT_RIGHT_ID, BMP_YELLOW_2_FOOT_LEFT_ID, BMP_YELLOW_2_HAND_RIGHT_ID,
                     BMP_YELLOW_2_HAND_LEFT_ID, BMP_EYE_2_RIGHT_ID, BMP_EYE_2_LEFT_ID);
 
             // debris
@@ -175,7 +175,7 @@ public class SplitterEnemyActor extends EnemyActor {
             break;
         case 1:
             // vivo
-            ah.initBitmaps(BMP_YELLOW_1_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID, BMP_YELLOW_0_HAND_RIGHT_ID,
+            mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_1_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID, BMP_YELLOW_0_HAND_RIGHT_ID,
                     BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
 
             // debris
@@ -192,7 +192,7 @@ public class SplitterEnemyActor extends EnemyActor {
             break;
         case 0:
             // vivo
-            ah.initBitmaps(BMP_YELLOW_0_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID, BMP_YELLOW_0_HAND_RIGHT_ID,
+            mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_0_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID, BMP_YELLOW_0_HAND_RIGHT_ID,
                     BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
 
             // debris

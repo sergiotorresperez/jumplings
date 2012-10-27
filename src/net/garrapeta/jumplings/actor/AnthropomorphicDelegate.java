@@ -12,7 +12,14 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 
-public class AnthropomorphicHelper {
+/**
+ * Common implementation for all {@link AnthropomorphicActor}, to let objects
+ * implementing that interface delegate in this.
+ * 
+ * @author garrapeta
+ * 
+ */
+public class AnthropomorphicDelegate {
     // ---------------------------------------------------- Constantes
 
     protected static float feetRatio = 2.2f;
@@ -66,25 +73,13 @@ public class AnthropomorphicHelper {
 
     // ----------------------------------------------- Constructor
 
-    public AnthropomorphicHelper(JumplingActor actor) {
+    public AnthropomorphicDelegate(JumplingActor actor) {
         mActor = actor;
     }
 
     // ---------------------------------------------- M�todos
 
-    public void initBitmaps(int bmpBodyId, int bmpFootRightId, int bmpFootLeftId, int bmpHandRightId, int bmpHandLeftId, int bmpEyeRightId, int bmpEyeLeftId) {
-
-        BitmapManager mb = mActor.mJWorld.getBitmapManager();
-        mBmpBody         = mb.getBitmap(bmpBodyId);
-        mBmpFootRight    = mb.getBitmap(bmpFootRightId);
-        mBmpFootLeft     = mb.getBitmap(bmpFootLeftId);
-        mBmpHandRight    = mb.getBitmap(bmpHandRightId);
-        mBmpHandLeft     = mb.getBitmap(bmpHandLeftId);
-        mBmpEyeRight     = mb.getBitmap(bmpEyeRightId);
-        mBmpEyeLeft      = mb.getBitmap(bmpEyeLeftId);
-    }
-
-    protected void createLimbs(PointF worldPos, float radius) {
+    protected void createAnthropomorphicLimbs(PointF worldPos, float radius) {
         float feetWorldRadius = radius / feetRatio;
 
         // Pie izquierdo
@@ -252,11 +247,20 @@ public class AnthropomorphicHelper {
 
     }
 
-    void drawShapes(Canvas canvas) {
-        mActor.drawBodiesShapes(canvas);
+    
+    public void initAnthropomorphicBitmaps(int bmpBodyId, int bmpFootRightId, int bmpFootLeftId, int bmpHandRightId, int bmpHandLeftId, int bmpEyeRightId, int bmpEyeLeftId) {
+
+        BitmapManager mb = mActor.mJWorld.getBitmapManager();
+        mBmpBody         = mb.getBitmap(bmpBodyId);
+        mBmpFootRight    = mb.getBitmap(bmpFootRightId);
+        mBmpFootLeft     = mb.getBitmap(bmpFootLeftId);
+        mBmpHandRight    = mb.getBitmap(bmpHandRightId);
+        mBmpHandLeft     = mb.getBitmap(bmpHandLeftId);
+        mBmpEyeRight     = mb.getBitmap(bmpEyeRightId);
+        mBmpEyeLeft      = mb.getBitmap(bmpEyeLeftId);
     }
 
-    void drawBitmaps(Canvas canvas) {
+    public void drawAnthropomorphicBitmaps(Canvas canvas) {
         mActor.mJWorld.drawBitmap(canvas, this.leftHandBody, mBmpHandLeft);
         mActor.mJWorld.drawBitmap(canvas, this.leftFootBody, mBmpFootLeft);
 

@@ -35,7 +35,7 @@ public class IntroActor extends JumplingActor {
 
     // ----------------------------------------------- Variables de instancia
 
-    AnthropomorphicHelper ah;
+    AnthropomorphicDelegate mAnthtopoDelegate;
 
     // Bitmaps del actor vivo
     protected Bitmap bmpBody;
@@ -61,7 +61,7 @@ public class IntroActor extends JumplingActor {
 
     @Override
     protected void initFields() {
-        ah = new AnthropomorphicHelper(this);
+        mAnthtopoDelegate = new AnthropomorphicDelegate(this);
      }
 
     @Override
@@ -82,13 +82,13 @@ public class IntroActor extends JumplingActor {
 
         }
 
-        ah.createLimbs(worldPos, mRadius);
+        mAnthtopoDelegate.createAnthropomorphicLimbs(worldPos, mRadius);
     }
 
     @Override
     protected void initBitmaps() {
         // vivo
-        ah.initBitmaps(BMP_INTRO_BODY_ID, BMP_INTRO_FOOT_RIGHT_ID, BMP_INTRO_FOOT_LEFT_ID, BMP_INTRO_HAND_RIGHT_ID, BMP_INTRO_HAND_LEFT_ID,
+        mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_INTRO_BODY_ID, BMP_INTRO_FOOT_RIGHT_ID, BMP_INTRO_FOOT_LEFT_ID, BMP_INTRO_HAND_RIGHT_ID, BMP_INTRO_HAND_LEFT_ID,
                 BMP_INTRO_EYE_RIGHT_ID, BMP_INTRO_EYE_LEFT_ID);
     }
  
@@ -97,13 +97,8 @@ public class IntroActor extends JumplingActor {
     }
 
     @Override
-    public final void drawBodiesShapes(Canvas canvas) {
-        ah.drawShapes(canvas);
-    }
-
-    @Override
     protected final void drawBitmaps(Canvas canvas) {
-        ah.drawBitmaps(canvas);
+        mAnthtopoDelegate.drawAnthropomorphicBitmaps(canvas);
     }
 
 }

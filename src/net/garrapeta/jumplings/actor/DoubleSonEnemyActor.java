@@ -58,13 +58,13 @@ public class DoubleSonEnemyActor extends EnemyActor {
 
         }
 
-        ah.createLimbs(worldPos, mRadius);
+        mAnthtopoDelegate.createAnthropomorphicLimbs(worldPos, mRadius);
     }
 
     @Override
     protected void initBitmaps() {
         // vivo
-        ah.initBitmaps(BMP_ORANGE_SIMPLE_BODY_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_LEFT_ID,
+        mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_ORANGE_SIMPLE_BODY_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_LEFT_ID,
                 DoubleEnemyActor.BMP_ORANGE_HAND_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
 
         // debris
