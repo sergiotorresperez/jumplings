@@ -5,7 +5,7 @@ import net.garrapeta.jumplings.JumplingsGameWorld;
 
 public abstract class HarmerActor extends Actor {
 
-    protected JumplingsGameWorld jgWorld;
+    protected JumplingsGameWorld mJWorld;
     public long timestamp;
 
     /**
@@ -13,9 +13,9 @@ public abstract class HarmerActor extends Actor {
      */
     public final static int Z_INDEX = 20;
 
-    public HarmerActor(JumplingsGameWorld jgWorld) {
-        super(jgWorld, 100);
-        this.jgWorld = jgWorld;
+    public HarmerActor(JumplingsGameWorld mJWorld) {
+        super(mJWorld, 100);
+        this.mJWorld = mJWorld;
     }
 
     // ----------------------------------------------- M�todos de Actor
@@ -23,7 +23,7 @@ public abstract class HarmerActor extends Actor {
     @Override
     protected void processFrame(float gameTimeStep) {
         // efectos sobre los mainActors
-        Object[] as = jgWorld.mainActors.toArray();
+        Object[] as = mJWorld.mainActors.toArray();
 
         int l = as.length;
 

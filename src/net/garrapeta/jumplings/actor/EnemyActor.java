@@ -57,10 +57,16 @@ public abstract class EnemyActor extends MainActor {
     // Constructor
 
     /**
-     * @param mGameWorld
+     * @param mJWorld
+     * @param radius
+     * @param worldPos
      */
-    public EnemyActor(JumplingsGameWorld jgWorld, PointF worldPos) {
-        super(jgWorld, worldPos, Z_INDEX);
+    public EnemyActor(JumplingsGameWorld mJWorld, float radius, PointF worldPos) {
+        super(mJWorld, worldPos, radius, Z_INDEX);
+    }
+    
+    @Override
+    protected void initFields() {
         ah = new AnthropomorphicHelper(this);
     }
 
@@ -79,11 +85,11 @@ public abstract class EnemyActor extends MainActor {
     @Override
     public void onAddedToWorld() {
         super.onAddedToWorld();
-        if (getWorldPos().y > jgWorld.viewport.getWorldBoundaries().top) {
+        if (getWorldPos().y > mJWorld.viewport.getWorldBoundaries().top) {
             // TODO: sample when enemy falls
-//            jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_THROW);
+//            mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_THROW);
         } else {
-            jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_BOING);
+            mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_BOING);
         }
     }
 
@@ -113,7 +119,7 @@ public abstract class EnemyActor extends MainActor {
         // Main Body
         {
             Body body = mainBody;
-            DebrisActor debrisActor = new DebrisActor(jgWorld, body, bmpDebrisBody);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, bmpDebrisBody);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -122,7 +128,7 @@ public abstract class EnemyActor extends MainActor {
         // Left hand
         {
             Body body = ah.leftHandBody;
-            DebrisActor debrisActor = new DebrisActor(jgWorld, body, bmpDebrisHandLeft);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, bmpDebrisHandLeft);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -131,7 +137,7 @@ public abstract class EnemyActor extends MainActor {
         // Right Hand
         {
             Body body = ah.rightHandBody;
-            DebrisActor debrisActor = new DebrisActor(jgWorld, body, bmpDebrisHandRight);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, bmpDebrisHandRight);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -140,7 +146,7 @@ public abstract class EnemyActor extends MainActor {
         // Left foot
         {
             Body body = ah.leftFootBody;
-            DebrisActor debrisActor = new DebrisActor(jgWorld, body, bmpDebrisFootLeft);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, bmpDebrisFootLeft);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -149,7 +155,7 @@ public abstract class EnemyActor extends MainActor {
         // Right foot
         {
             Body body = ah.rightFootBody;
-            DebrisActor debrisActor = new DebrisActor(jgWorld, body, bmpDebrisFootRight);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, bmpDebrisFootRight);
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
@@ -157,7 +163,7 @@ public abstract class EnemyActor extends MainActor {
         // Left Eye
         {
             Body body = ah.leftEyeBody;
-            DebrisActor debrisActor = new DebrisActor(jgWorld, body, bmpDebrisEyeLeft);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, bmpDebrisEyeLeft);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -166,7 +172,7 @@ public abstract class EnemyActor extends MainActor {
         // Right Eye
         {
             Body body = ah.rightEyeBody;
-            DebrisActor debrisActor = new DebrisActor(jgWorld, body, bmpDebrisEyeRight);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, bmpDebrisEyeRight);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);

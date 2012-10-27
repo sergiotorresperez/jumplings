@@ -60,24 +60,20 @@ public class DebrisActor extends JumplingActor {
 	// ---------------------------------------------------------- Constructor
 	
 	public DebrisActor(JumplingsWorld jWorld, Body body, Bitmap bitmap) {
-		this(jWorld, body);
+	      //FIXME: avoid this void values
+        super(jWorld, 0, Z_INDEX, body);
 		this.bitmap = bitmap;
-		this.paint = new Paint();
-	}
-	
-	public DebrisActor(JumplingsWorld jWorld, Body body) {
-		super(jWorld, Z_INDEX);
-		// el cuerpo viene del actor enemigo
-		this.mainBody = body;
-		initPhysics(null);
 	}
 
 	// ------------------------------------------------------------- M�todos
 
+    @Override
+    protected void initFields() {
+        this.paint = new Paint();
+    }
+    
 	@Override
 	protected void initBodies(PointF worldPos) {
-		addBody(mainBody);
-		
 		// se cambia el filtro
 		ArrayList<Fixture> fs = mainBody.getFixtureList();
 		int l2 = fs.size();
@@ -88,7 +84,7 @@ public class DebrisActor extends JumplingActor {
 	
 	protected void drawBitmaps(Canvas canvas) {
 		paint.setAlpha(alpha);
-		jWorld.drawBitmap(canvas, mainBody, bitmap, paint);
+		mJWorld.drawBitmap(canvas, mainBody, bitmap, paint);
 	}
 	
 	@Override

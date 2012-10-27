@@ -29,24 +29,22 @@ public abstract class MainActor extends JumplingActor {
 	
 	// ------------------------------------------ Variables de instancia
 	
-	JumplingsGameWorld jgWorld;
+	final JumplingsGameWorld jgWorld;
 	
 
 	
 	// ---------------------------------------------------------------- Constructor
 	
 	/**
-	 * @param radius 
-	 * @param worldPos 
-	 * @param gameWorld
+	 * @param mJWorld
+	 * @param worldPos
+	 * @param radius
+	 * @param zIndex
 	 */
-	public MainActor(JumplingsGameWorld jgWorld, PointF worldPos, int zIndex) {
-		super(jgWorld, zIndex);
-		this.jgWorld = jgWorld;
+	public MainActor(JumplingsGameWorld mJWorld, PointF worldPos, float radius, int zIndex) {
+		super(mJWorld, radius, zIndex, worldPos);
+		this.jgWorld = mJWorld;
 		this.timestamp = System.currentTimeMillis();
-		
-		// redio por defecto
-		this.radius = BASE_RADIUS;
 	}
 	
 	// ------------------------------------------- M�todos est�ticos
@@ -95,7 +93,7 @@ public abstract class MainActor extends JumplingActor {
 		if (joints != null) {
 			Object[] aux = joints.toArray();
 			for (int i = 0; i < aux.length; i++) {
-				jgWorld.destroyJoint(this, (Joint) aux[i]);
+				mJWorld.destroyJoint(this, (Joint) aux[i]);
 			}
 		}
 		
@@ -146,7 +144,7 @@ public abstract class MainActor extends JumplingActor {
 
 	public void onHitted() {
 		desintegrateInDebris();
-		jgWorld.removeActor(this);
+		mJWorld.removeActor(this);
 	}
 	
 }

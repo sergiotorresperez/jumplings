@@ -54,19 +54,19 @@ public class IntroActor extends JumplingActor {
     // --------------------------------------------------- Constructor
 
     public IntroActor(JumplingsWorld jWorld, PointF worldPos) {
-        super(jWorld, Z_INDEX);
-        radius = IntroActor.DEFAULT_RADIUS;
+        super(jWorld, IntroActor.DEFAULT_RADIUS, Z_INDEX, worldPos);
+    }
 
+    // --------------------------------------------- M�todos heredados
+
+    @Override
+    protected void initFields() {
         ah = new AnthropomorphicHelper(this);
-
-        initPhysics(worldPos);
 
         // vivo
         ah.initBitmaps(BMP_INTRO_BODY_ID, BMP_INTRO_FOOT_RIGHT_ID, BMP_INTRO_FOOT_LEFT_ID, BMP_INTRO_HAND_RIGHT_ID, BMP_INTRO_HAND_LEFT_ID,
                 BMP_INTRO_EYE_RIGHT_ID, BMP_INTRO_EYE_LEFT_ID);
-    }
-
-    // --------------------------------------------- M�todos heredados
+     }
 
     @Override
     protected void initBodies(PointF worldPos) {
@@ -75,8 +75,8 @@ public class IntroActor extends JumplingActor {
         {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
-            circleShape.setRadius(radius);
-            mainBody = jWorld.createBody(this, worldPos, true);
+            circleShape.setRadius(mRadius);
+            mainBody = mJWorld.createBody(this, worldPos, true);
             mainBody.setBullet(true);
 
             // Assign shape to Body
@@ -86,7 +86,7 @@ public class IntroActor extends JumplingActor {
 
         }
 
-        ah.createLimbs(worldPos, radius);
+        ah.createLimbs(worldPos, mRadius);
     }
 
     @Override

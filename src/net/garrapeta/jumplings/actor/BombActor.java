@@ -74,13 +74,11 @@ public class BombActor extends MainActor {
 
     // --------------------------------------------------- Constructor
 
-    public BombActor(JumplingsGameWorld jgWorld, PointF worldPos) {
-        super(jgWorld, worldPos, Z_INDEX);
+    public BombActor(JumplingsGameWorld mJWorld, PointF worldPos) {
+        super(mJWorld, worldPos,  BombActor.DEFAULT_RADIUS, Z_INDEX);
         this.code = BombActor.JUMPER_CODE_BOMB;
-        radius = BombActor.DEFAULT_RADIUS;
-        initPhysics(worldPos);
 
-        BitmapManager mb = jWorld.getBitmapManager();
+        BitmapManager mb = mJWorld.getBitmapManager();
         // vivo
         mBmpBody = mb.getBitmap(R.drawable.bomb_body);
         mBmpBodyFuse = mb.getBitmap(R.drawable.bomb_fuse);
@@ -89,7 +87,7 @@ public class BombActor extends MainActor {
         mBmpDebrisBody = mb.getBitmap(R.drawable.bomb_debris_body);
         mBmpDebrisFuse = mb.getBitmap(R.drawable.bomb_debris_fuse);
     }
-
+ 
     // --------------------------------------------- M�todos heredados
 
     @Override
@@ -99,8 +97,8 @@ public class BombActor extends MainActor {
         {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
-            circleShape.setRadius(radius);
-            mainBody = jgWorld.createBody(this, worldPos, true);
+            circleShape.setRadius(mRadius);
+            mainBody = mJWorld.createBody(this, worldPos, true);
             mainBody.setBullet(true);
 
             // Assign shape to Body
@@ -112,13 +110,13 @@ public class BombActor extends MainActor {
 
         // Mecha
         {
-            float w = radius / 3;
-            float h = radius / 2;
+            float w = mRadius / 3;
+            float h = mRadius / 2;
             // Create Shape with Properties
             PolygonShape polygonShape = new PolygonShape();
             polygonShape.setAsBox(w, h);
-            PointF pos = new PointF(worldPos.x, worldPos.y + radius + h);
-            fuseBody = jgWorld.createBody(this, pos, true);
+            PointF pos = new PointF(worldPos.x, worldPos.y + mRadius + h);
+            fuseBody = mJWorld.createBody(this, pos, true);
             fuseBody.setBullet(false);
 
             // Assign shape to Body
@@ -132,7 +130,7 @@ public class BombActor extends MainActor {
 
             jointDef.initialize(mainBody, fuseBody, Viewport.pointFToVector2(pos));
 
-            jgWorld.createJoint(this, jointDef);
+            mJWorld.createJoint(this, jointDef);
         }
     }
 
@@ -143,7 +141,7 @@ public class BombActor extends MainActor {
         // Main Body
         {
             Body body = mainBody;
-            DebrisActor debrisActor = new DebrisActor(jgWorld, body, mBmpDebrisBody);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, mBmpDebrisBody);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -152,7 +150,7 @@ public class BombActor extends MainActor {
         // Fuse
         {
             Body body = fuseBody;
-            DebrisActor debrisActor = new DebrisActor(jgWorld, body, mBmpDebrisFuse);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, mBmpDebrisFuse);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -170,8 +168,8 @@ public class BombActor extends MainActor {
             for (int i = 0; i < sparkles; i++) {
                 PointF aux = Viewport.vector2ToPointF(fuseBody.getWorldCenter());
                 PointF pos = new PointF(aux.x, aux.y);
-                SparksActor sparkle = new SparksActor(jgWorld, pos, SPARKLE_LONGEVITY_FUSE);
-                jgWorld.addActor(sparkle);
+                SparksActor sparkle = new SparksActor(mJWorld, pos, SPARKLE_LONGEVITY_FUSE);
+                mJWorld.addActor(sparkle);
                 lastSparkle = now;
             }
         }
@@ -179,16 +177,16 @@ public class BombActor extends MainActor {
 
     @Override
     protected void drawBitmaps(Canvas canvas) {
-        jgWorld.drawBitmap(canvas, this.mainBody, mBmpBody);
-        jgWorld.drawBitmap(canvas, this.fuseBody, mBmpBodyFuse);
+        mJWorld.drawBitmap(canvas, this.mainBody, mBmpBody);
+        mJWorld.drawBitmap(canvas, this.fuseBody, mBmpBodyFuse);
     }
 
     @Override
     public void onAddedToWorld() {
         super.onAddedToWorld();
         jgWorld.bombCount++;
-        jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_LAUNCH);
-        fusePlayer = jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_FUSE, true, false);
+        mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_LAUNCH);
+        fusePlayer = mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_FUSE, true, false);
     }
 
     @Override
@@ -196,7 +194,7 @@ public class BombActor extends MainActor {
         super.onRemovedFromWorld();
         jgWorld.bombCount--;
         if (jgWorld.bombCount == 0 && fusePlayer != null) {
-            jgWorld.getSoundManager().stop(fusePlayer);
+            mJWorld.getSoundManager().stop(fusePlayer);
         }
     }
 
@@ -207,7 +205,7 @@ public class BombActor extends MainActor {
         jgWorld.onBombExploded(this);
 
         // sonido
-        jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_BOOM);
+        mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_BOOM);
 
         // Se genera una onda expansiva sobre los enemigos
         Object[] as = jgWorld.jumplingActors.toArray();
@@ -216,15 +214,15 @@ public class BombActor extends MainActor {
 
         for (int i = 0; i < l; i++) {
             JumplingActor a = (JumplingActor) as[i];
-            jgWorld.applyBlast(mainBody.getWorldCenter(), a.mainBody, BLAST_RADIUS, BLAST_FORCE);
+            mJWorld.applyBlast(mainBody.getWorldCenter(), a.mainBody, BLAST_RADIUS, BLAST_FORCE);
         }
 
         // Se crean chispas de la explosi�n
         Vector2 aux = mainBody.getWorldCenter();
         ArrayList<JumplingActor> sparkles = new ArrayList<JumplingActor>();
         for (int i = 0; i < SPARKS_AT_EXPLOSION; i++) {
-            SparksActor sparkle = new SparksActor(jgWorld, new PointF(aux.x, aux.y), SPARKLE_LONGEVITY_EXPLOSION);
-            jgWorld.addActor(sparkle);
+            SparksActor sparkle = new SparksActor(mJWorld, new PointF(aux.x, aux.y), SPARKLE_LONGEVITY_EXPLOSION);
+            mJWorld.addActor(sparkle);
             sparkles.add(sparkle);
         }
 

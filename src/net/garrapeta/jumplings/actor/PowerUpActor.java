@@ -43,15 +43,11 @@ public abstract class PowerUpActor extends MainActor {
 
     // --------------------------------------------------- Constructor
 
-    public PowerUpActor(JumplingsGameWorld jgWorld, PointF worldPos) {
-        super(jgWorld, worldPos, Z_INDEX);
-
-        initPhysics(worldPos);
-
-        this.radius = BladePowerUpActor.DEFAULT_RADIUS;
+    public PowerUpActor(JumplingsGameWorld mJWorld, PointF worldPos) {
+        super(mJWorld, worldPos, BladePowerUpActor.DEFAULT_RADIUS, Z_INDEX);
 
         // vivo
-        BitmapManager mb = jWorld.getBitmapManager();
+        BitmapManager mb = mJWorld.getBitmapManager();
         bmpBg = mb.getBitmap(BMP_POWERUP_BG);
         // debris
         bmpDebrisBg = mb.getBitmap(BMP_DEBRIS_POWERUP_BG);
@@ -66,8 +62,8 @@ public abstract class PowerUpActor extends MainActor {
         {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
-            circleShape.setRadius(radius);
-            mainBody = jgWorld.createBody(this, worldPos, true);
+            circleShape.setRadius(mRadius);
+            mainBody = mJWorld.createBody(this, worldPos, true);
             mainBody.setBullet(true);
 
             // Assign shape to Body
@@ -81,9 +77,9 @@ public abstract class PowerUpActor extends MainActor {
         {
             // Create Shape with Properties
             PolygonShape polygonShape = new PolygonShape();
-            polygonShape.setAsBox(radius, radius);
+            polygonShape.setAsBox(mRadius, mRadius);
             PointF pos = new PointF(worldPos.x, worldPos.y);
-            iconBody = jgWorld.createBody(this, pos, true);
+            iconBody = mJWorld.createBody(this, pos, true);
             iconBody.setBullet(false);
 
             // Assign shape to Body
@@ -97,7 +93,7 @@ public abstract class PowerUpActor extends MainActor {
 
             jointDef.initialize(mainBody, iconBody, Viewport.pointFToVector2(pos));
 
-            jgWorld.createJoint(this, jointDef);
+            mJWorld.createJoint(this, jointDef);
         }
     }
 
@@ -108,7 +104,7 @@ public abstract class PowerUpActor extends MainActor {
         // Main Body
         {
             Body body = mainBody;
-            DebrisActor debrisActor = new DebrisActor(jgWorld, body, bmpDebrisBg);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, bmpDebrisBg);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -117,7 +113,7 @@ public abstract class PowerUpActor extends MainActor {
         // Icon
         {
             Body body = iconBody;
-            DebrisActor debrisActor = new DebrisActor(jgWorld, body, bmpDebrisIcon);
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, bmpDebrisIcon);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -128,8 +124,8 @@ public abstract class PowerUpActor extends MainActor {
 
     @Override
     protected void drawBitmaps(Canvas canvas) {
-        jgWorld.drawBitmap(canvas, this.mainBody, bmpBg);
-        jgWorld.drawBitmap(canvas, this.iconBody, bmpIcon);
+        mJWorld.drawBitmap(canvas, this.mainBody, bmpBg);
+        mJWorld.drawBitmap(canvas, this.iconBody, bmpIcon);
     }
 
     // ------------------------------------------------ M�todos propios

@@ -1,10 +1,10 @@
 package net.garrapeta.jumplings.wave;
 
-import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.gameengine.GameWorld;
+import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
-import net.garrapeta.jumplings.actor.BombActor;
+import net.garrapeta.jumplings.actor.DoubleEnemyActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.badlogic.gdx.math.Vector2;
 
+@SuppressWarnings("unused")
 public class TestWave extends Wave {
 	
 	// ----------------------------------------------------- Constantes 
@@ -129,7 +130,7 @@ public class TestWave extends Wave {
 		
 //				DoubleEnemyActor ba = new DoubleEnemyActor(world, bodyWorldRadius, worldPos, color1, color2);
 //		SquareEnemyActor ba = new SquareEnemyActor(world, bodyWorldRadius, worldPos, color1);
-		MainActor mainActor =  new BombActor(jgWorld, initPos);
+		MainActor mainActor =  new DoubleEnemyActor(jgWorld, initPos);
 		
 		if (!debug) {
 			mainActor.setLinearVelocity(initVel.x, initVel.y);

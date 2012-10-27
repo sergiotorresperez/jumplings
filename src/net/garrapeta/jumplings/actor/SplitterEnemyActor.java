@@ -34,7 +34,7 @@ public class SplitterEnemyActor extends EnemyActor {
     /**
      * Nivel de anidamiendo. Si 1 se divide en dos at�micos.
      */
-    private int level;
+    private final int mLevel;
 
     // ------------------------------------------------------ Variables de
     // instancia
@@ -76,15 +76,16 @@ public class SplitterEnemyActor extends EnemyActor {
     // ----------------------------------------------------------------
     // Constructor
 
-    public SplitterEnemyActor(JumplingsGameWorld jgWorld, PointF worldPos, int level) {
-        super(jgWorld, worldPos);
+    public SplitterEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos, int level) {
+        super(mJWorld, DEFAULT_BASE_RADIUS + level * DEFAULT_BASE_RADIUS * RADIUS_FACTOR, worldPos);
+        if (level > 2) {
+            throw new IllegalArgumentException("Maximun level for " + SplitterEnemyActor.class.getCanonicalName() + " is 2");
+        }
+        mLevel = level;
+        
+        BitmapManager mb = mJWorld.getBitmapManager();
 
-        this.level = level;
-        this.radius = DEFAULT_BASE_RADIUS + (this.level * DEFAULT_BASE_RADIUS * RADIUS_FACTOR);
-
-        BitmapManager mb = jWorld.getBitmapManager();
-
-        switch (level) {
+        switch (mLevel) {
         case 2:
             this.code = SplitterEnemyActor.JUMPER_CODE_SPLITTER_TRIPLE;
             // vivo
@@ -140,15 +141,13 @@ public class SplitterEnemyActor extends EnemyActor {
             bmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
             break;
         }
-
-        initPhysics(worldPos);
     }
 
     // ----------------------------------------- M�todos de EnemyActor
 
     private final float getRestorationInitVy(float posY) {
         float maxHeight = posY + HEIGHT_RESTORATION_FACTOR
-                * (jgWorld.viewport.getWorldBoundaries().top - jgWorld.viewport.getWorldBoundaries().bottom - posY);
+                * (mJWorld.viewport.getWorldBoundaries().top - mJWorld.viewport.getWorldBoundaries().bottom - posY);
         return (float) getInitialYVelocity(maxHeight);
     }
 
@@ -167,18 +166,18 @@ public class SplitterEnemyActor extends EnemyActor {
         // Cuerpo
         {
 
-            mainBody = jgWorld.createBody(this, worldPos, true);
+            mainBody = mJWorld.createBody(this, worldPos, true);
             mainBody.setBullet(true);
 
             // n�mero de segmentos que conforman la circunferencia
             // se hace el m�nimo con 8, por una limitaci�n que tiene box2d
-            int sides = Math.min(8, 3 + (2 * level));
+            int sides = Math.min(8, 3 + (2 * mLevel));
 
             // Create Shape with Properties
             PolygonShape polygonShape = new PolygonShape();
 
             // v�rtices que conforman la "circunferencia" (pol�gono)
-            float[][] aux = MathUtils.getPolyconVertexes(0, 0, radius, sides);
+            float[][] aux = MathUtils.getPolyconVertexes(0, 0, mRadius, sides);
             Vector2[] vertices = new Vector2[aux.length];
 
             int l = vertices.length;
@@ -197,13 +196,13 @@ public class SplitterEnemyActor extends EnemyActor {
 
         }
 
-        ah.createLimbs(worldPos, radius);
+        ah.createLimbs(worldPos, mRadius);
     }
 
     @Override
     public void onHitted() {
-        if (level > 0) {
-            RectF b = jgWorld.viewport.getWorldBoundaries();
+        if (mLevel > 0) {
+            RectF b = mJWorld.viewport.getWorldBoundaries();
             EnemyActor actor1 = null;
             EnemyActor actor2 = null;
 
@@ -211,27 +210,27 @@ public class SplitterEnemyActor extends EnemyActor {
 
             // Coordenadas de los nuevos enemigos.
             // Se aplica correcci�n para que salgan dentro de la pantalla.
-            float posX1 = Math.max(b.left + radius, wc.x - radius);
-            posX1 = Math.min(posX1, b.right - radius);
-            float posY1 = Math.max(b.bottom + radius, wc.y - radius);
-            posY1 = Math.min(posY1, b.top - radius);
+            float posX1 = Math.max(b.left + mRadius, wc.x - mRadius);
+            posX1 = Math.min(posX1, b.right - mRadius);
+            float posY1 = Math.max(b.bottom + mRadius, wc.y - mRadius);
+            posY1 = Math.min(posY1, b.top - mRadius);
 
-            float posX2 = Math.max(b.left + radius, wc.x + radius);
-            posX2 = Math.min(posX2, b.right - radius);
-            float posY2 = Math.max(b.bottom + radius, wc.y - radius);
-            posY2 = Math.min(posY2, b.top - radius);
+            float posX2 = Math.max(b.left + mRadius, wc.x + mRadius);
+            posX2 = Math.min(posX2, b.right - mRadius);
+            float posY2 = Math.max(b.bottom + mRadius, wc.y - mRadius);
+            posY2 = Math.min(posY2, b.top - mRadius);
 
-            actor1 = new SplitterEnemyActor(jgWorld, new PointF(posX1, posY1), level - 1);
+            actor1 = new SplitterEnemyActor(jgWorld, new PointF(posX1, posY1), mLevel - 1);
 
-            actor2 = new SplitterEnemyActor(jgWorld, new PointF(posX2, posY2), level - 1);
+            actor2 = new SplitterEnemyActor(jgWorld, new PointF(posX2, posY2), mLevel - 1);
 
-            float xVel = radius * level * 2;
+            float xVel = mRadius * mLevel * 2;
             float yVel = getRestorationInitVy(getWorldPos().y);
 
-            jgWorld.addActor(actor1);
+            mJWorld.addActor(actor1);
             actor1.setLinearVelocity(-xVel, yVel);
 
-            jgWorld.addActor(actor2);
+            mJWorld.addActor(actor2);
             actor2.setLinearVelocity(xVel, yVel);
 
         }

@@ -58,21 +58,20 @@ public class SparksActor extends JumplingActor {
     // --------------------------------------------------- Constructor
 
     public SparksActor(JumplingsWorld jWorld, PointF worldPos, int longevity) {
-        super(jWorld, Z_INDEX);
-
-        this.longevity = this.lifeTime = longevity;
-
-        radius = SparksActor.DEFAULT_RADIUS;
-
-        BitmapManager mb = jWorld.getBitmapManager();
-        bmpSparkle = mb.getBitmap(bmpsSparkles[(int) (Math.random() * bmpsSparkles.length)]);
-
-        this.paint = new Paint();
-
-        initPhysics(worldPos);
+        super(jWorld, SparksActor.DEFAULT_RADIUS, Z_INDEX, worldPos);
     }
 
     // --------------------------------------------- M�todos heredados
+
+    @Override
+    protected void initFields() {
+        this.longevity = this.lifeTime = longevity;
+
+        BitmapManager mb = mJWorld.getBitmapManager();
+        bmpSparkle = mb.getBitmap(bmpsSparkles[(int) (Math.random() * bmpsSparkles.length)]);
+
+        this.paint = new Paint();
+    }
 
     @Override
     protected void initBodies(PointF worldPos) {
@@ -81,8 +80,8 @@ public class SparksActor extends JumplingActor {
         {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
-            circleShape.setRadius(radius);
-            mainBody = jWorld.createBody(this, worldPos, true);
+            circleShape.setRadius(mRadius);
+            mainBody = mJWorld.createBody(this, worldPos, true);
             mainBody.setBullet(true);
 
             // Assign shape to Body
@@ -105,7 +104,7 @@ public class SparksActor extends JumplingActor {
     @Override
     protected void drawBitmaps(Canvas canvas) {
         paint.setAlpha(alpha);
-        jWorld.drawBitmap(canvas, this.mainBody, bmpSparkle, paint);
+        mJWorld.drawBitmap(canvas, this.mainBody, bmpSparkle, paint);
     }
 
 }

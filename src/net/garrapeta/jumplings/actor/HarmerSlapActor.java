@@ -99,7 +99,7 @@ public class HarmerSlapActor extends HarmerActor {
 	private boolean hits(MainActor mainActor) {
 		PointF pos = mainActor.getWorldPos();
 
-		RectF otherRect = new RectF(pos.x - mainActor.radius, pos.y - mainActor.radius, pos.x + mainActor.radius, pos.y + mainActor.radius);
+		RectF otherRect = new RectF(pos.x - mainActor.mRadius, pos.y - mainActor.mRadius, pos.x + mainActor.mRadius, pos.y + mainActor.mRadius);
 		RectF thisRect  = new RectF(worldPos.x - KILL_RADIUS, worldPos.y - KILL_RADIUS, worldPos.x + KILL_RADIUS, worldPos.y + KILL_RADIUS);
 		return RectF.intersects(otherRect, thisRect);
 	}

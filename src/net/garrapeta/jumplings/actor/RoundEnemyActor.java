@@ -42,19 +42,16 @@ public class RoundEnemyActor extends EnemyActor {
     // ----------------------------------------------------------------
     // Constructor
 
-    public RoundEnemyActor(JumplingsGameWorld jgWorld, PointF worldPos) {
-        super(jgWorld, worldPos);
+    public RoundEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos) {
+        super(mJWorld, RoundEnemyActor.DEFAULT_RADIUS, worldPos);
 
         this.code = RoundEnemyActor.JUMPER_CODE_SIMPLE;
-
-        this.radius = RoundEnemyActor.DEFAULT_RADIUS;
-        initPhysics(worldPos);
 
         // vivo
         ah.initBitmaps(BMP_RED_BODY_ID, BMP_RED_FOOT_RIGHT_ID, BMP_RED_FOOT_LEFT_ID, BMP_RED_HAND_RIGHT_ID, BMP_RED_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
 
         // debris
-        BitmapManager mb = jWorld.getBitmapManager();
+        BitmapManager mb = mJWorld.getBitmapManager();
         bmpDebrisBody = mb.getBitmap(BMP_DEBRIS_RED_BODY_ID);
 
         bmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_RED_FOOT_RIGHT_ID);
@@ -78,8 +75,8 @@ public class RoundEnemyActor extends EnemyActor {
         {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
-            circleShape.setRadius(radius);
-            mainBody = jgWorld.createBody(this, worldPos, true);
+            circleShape.setRadius(mRadius);
+            mainBody = mJWorld.createBody(this, worldPos, true);
             mainBody.setBullet(true);
 
             // Assign shape to Body
@@ -89,7 +86,7 @@ public class RoundEnemyActor extends EnemyActor {
 
         }
 
-        ah.createLimbs(worldPos, radius);
+        ah.createLimbs(worldPos, mRadius);
     }
 
 }

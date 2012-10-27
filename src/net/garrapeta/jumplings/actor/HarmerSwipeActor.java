@@ -30,8 +30,8 @@ public class HarmerSwipeActor extends HarmerActor {
 	
 	// ---------------------------------------------------- Constructor
 	
-	public HarmerSwipeActor(JumplingsGameWorld jgWorld) {
-		super(jgWorld);
+	public HarmerSwipeActor(JumplingsGameWorld mJWorld) {
+		super(mJWorld);
 		swipePoints = new ArrayList<double[]>();
 		
 		mPaint = new Paint();
@@ -117,9 +117,9 @@ public class HarmerSwipeActor extends HarmerActor {
 							swipping = true;
 							timestamp = System.currentTimeMillis();
 							
-						    jgWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SWING);
-							if (jgWorld.mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
-							    jgWorld.mFlashActor.init(Color.WHITE, 50, 250, -1);
+						    mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SWING);
+							if (mJWorld.mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
+							    mJWorld.mFlashActor.init(Color.WHITE, 50, 250, -1);
 							}
 						}
 					} else {
@@ -153,8 +153,8 @@ public class HarmerSwipeActor extends HarmerActor {
 			killingAreaUpdated = true;
 		}
 		
-		float  sr  = jgWorld.viewport.worldUnitsToPixels(mainActor.radius);
-		PointF sc  = jgWorld.viewport.worldToScreen(pos.x, pos.y);
+		float  sr  = mJWorld.viewport.worldUnitsToPixels(mainActor.mRadius);
+		PointF sc  = mJWorld.viewport.worldToScreen(pos.x, pos.y);
 		RectF aux = new RectF(sc.x - sr, sc.y - sr, sc.x + sr, sc.y + sr);
 		
 		return RectF.intersects(aux, killingArea);

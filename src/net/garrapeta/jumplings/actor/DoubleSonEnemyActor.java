@@ -32,20 +32,16 @@ public class DoubleSonEnemyActor extends EnemyActor {
     // ----------------------------------------------------------------
     // Constructor
 
-    public DoubleSonEnemyActor(JumplingsGameWorld jgWorld, PointF worldPos) {
-        super(jgWorld, worldPos);
+    public DoubleSonEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos) {
+        super(mJWorld, DoubleSonEnemyActor.DEFAULT_RADIUS, worldPos);
         this.code = DoubleSonEnemyActor.JUMPER_CODE_DOUBLE_SON;
-
-        this.radius = DoubleSonEnemyActor.DEFAULT_RADIUS;
-
-        initPhysics(worldPos);
 
         // vivo
         ah.initBitmaps(BMP_ORANGE_SIMPLE_BODY_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_LEFT_ID,
                 DoubleEnemyActor.BMP_ORANGE_HAND_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
 
         // debris
-        BitmapManager mb = jWorld.getBitmapManager();
+        BitmapManager mb = mJWorld.getBitmapManager();
         bmpDebrisBody = mb.getBitmap(BMP_DEBRIS_ORANGE_SIMPLE_BODY_ID);
 
         bmpDebrisFootRight = mb.getBitmap(DoubleEnemyActor.BMP_DEBRIS_ORANGE_FOOT_RIGHT_ID);
@@ -67,8 +63,8 @@ public class DoubleSonEnemyActor extends EnemyActor {
         {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
-            circleShape.setRadius(radius);
-            mainBody = jgWorld.createBody(this, worldPos, true);
+            circleShape.setRadius(mRadius);
+            mainBody = mJWorld.createBody(this, worldPos, true);
             mainBody.setBullet(true);
 
             // Assign shape to Body
@@ -78,7 +74,7 @@ public class DoubleSonEnemyActor extends EnemyActor {
 
         }
 
-        ah.createLimbs(worldPos, radius);
+        ah.createLimbs(worldPos, mRadius);
     }
 
 }

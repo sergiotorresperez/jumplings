@@ -3,9 +3,9 @@ package net.garrapeta.jumplings;
 import java.util.ArrayList;
 
 import net.garrapeta.gameengine.Actor;
-import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.GameWorld;
+import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.gameengine.module.BitmapManager;
 import net.garrapeta.gameengine.module.SoundManager;
 import net.garrapeta.gameengine.module.VibratorManager;

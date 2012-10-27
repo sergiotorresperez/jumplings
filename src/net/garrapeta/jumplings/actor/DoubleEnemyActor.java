@@ -57,20 +57,16 @@ public class DoubleEnemyActor extends EnemyActor {
     /**
      * @param gameWorld
      */
-    public DoubleEnemyActor(JumplingsGameWorld jgWorld, PointF worldPos) {
-        super(jgWorld, worldPos);
+    public DoubleEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos) {
+        super(mJWorld, DoubleEnemyActor.DEFAULT_RADIUS, worldPos);
 
         this.code = DoubleEnemyActor.JUMPER_CODE_DOUBLE;
-
-        this.radius = DoubleEnemyActor.DEFAULT_RADIUS;
-
-        initPhysics(worldPos);
 
         // vivo
         ah.initBitmaps(BMP_ORANGE_BODY_ID, BMP_ORANGE_FOOT_RIGHT_ID, BMP_ORANGE_FOOT_LEFT_ID, BMP_ORANGE_HAND_RIGHT_ID, BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
 
         // debris
-        BitmapManager mb = jWorld.getBitmapManager();
+        BitmapManager mb = mJWorld.getBitmapManager();
         bmpDebrisBody = mb.getBitmap(BMP_DEBRIS_ORANGE_BODY_ID);
 
         bmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_ORANGE_FOOT_RIGHT_ID);
@@ -89,10 +85,10 @@ public class DoubleEnemyActor extends EnemyActor {
         {
             // Create Shape with Properties
             PolygonShape polygonShape = new PolygonShape();
-            Vector2[] vertices = new Vector2[] { new Vector2(0, radius), new Vector2(-radius, 0), new Vector2(0, -radius), new Vector2(radius, 0) };
+            Vector2[] vertices = new Vector2[] { new Vector2(0, mRadius), new Vector2(-mRadius, 0), new Vector2(0, -mRadius), new Vector2(mRadius, 0) };
             polygonShape.set(vertices);
 
-            mainBody = jgWorld.createBody(this, worldPos, true);
+            mainBody = mJWorld.createBody(this, worldPos, true);
             mainBody.setBullet(true);
 
             // Assign shape to Body
@@ -102,13 +98,13 @@ public class DoubleEnemyActor extends EnemyActor {
 
         }
 
-        ah.createLimbs(worldPos, radius);
+        ah.createLimbs(worldPos, mRadius);
     }
 
     // -------------------------------------------------------- M�todos propios
 
     private final float getRestorationInitVy(float posY) {
-        float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (jgWorld.viewport.getWorldBoundaries().top - posY);
+        float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (mJWorld.viewport.getWorldBoundaries().top - posY);
         return (float) getInitialYVelocity(maxHeight);
     }
 
@@ -124,7 +120,7 @@ public class DoubleEnemyActor extends EnemyActor {
 
         xVel = mainBody.getLinearVelocity().x;
 
-        jgWorld.addActor(son);
+        mJWorld.addActor(son);
 
         float yVel = getRestorationInitVy(pos.y);
         son.setLinearVelocity(xVel / 2, yVel);

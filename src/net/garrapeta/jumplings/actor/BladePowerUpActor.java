@@ -25,10 +25,10 @@ public class BladePowerUpActor extends PowerUpActor {
 
     // --------------------------------------------------- Constructor
 
-    public BladePowerUpActor(JumplingsGameWorld jgWorld, PointF worldPos) {
-        super(jgWorld, worldPos);
+    public BladePowerUpActor(JumplingsGameWorld mJWorld, PointF worldPos) {
+        super(mJWorld, worldPos);
         code = BladePowerUpActor.JUMPER_CODE_POWER_UP_BLADE;
-        BitmapManager mb = jWorld.getBitmapManager();
+        BitmapManager mb = mJWorld.getBitmapManager();
         // vivo
         bmpIcon = mb.getBitmap(BMP_SWORD_ID);
         // debris

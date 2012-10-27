@@ -23,13 +23,13 @@ public class LifePowerUpActor extends PowerUpActor {
 
     // --------------------------------------------------- Constructor
 
-    public LifePowerUpActor(JumplingsGameWorld jgWorld, PointF worldPos) {
-        super(jgWorld, worldPos);
+    public LifePowerUpActor(JumplingsGameWorld mJWorld, PointF worldPos) {
+        super(mJWorld, worldPos);
 
         this.code = LifePowerUpActor.JUMPER_CODE_POWER_UP_LIFE;
 
         // vivo
-        BitmapManager mb = jWorld.getBitmapManager();
+        BitmapManager mb = mJWorld.getBitmapManager();
         bmpIcon = mb.getBitmap(BMP_HEART_ID);
 
         // debris

@@ -74,7 +74,7 @@ public class AnthropomorphicHelper {
 
     public void initBitmaps(int bmpBodyId, int bmpFootRightId, int bmpFootLeftId, int bmpHandRightId, int bmpHandLeftId, int bmpEyeRightId, int bmpEyeLeftId) {
 
-        BitmapManager mb = mActor.jWorld.getBitmapManager();
+        BitmapManager mb = mActor.mJWorld.getBitmapManager();
         bmpBody         = mb.getBitmap(bmpBodyId);
         bmpFootRight    = mb.getBitmap(bmpFootRightId);
         bmpFootLeft     = mb.getBitmap(bmpFootLeftId);
@@ -96,7 +96,7 @@ public class AnthropomorphicHelper {
             PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x - feetWorldRadius - 0, mActor.mainBody.getWorldCenter().y - radius
                     - feetWorldRadius);
 
-            leftFootBody = mActor.jWorld.createBody(mActor, anchor, true);
+            leftFootBody = mActor.mJWorld.createBody(mActor, anchor, true);
             leftFootBody.setBullet(false);
             // Assign shape to Body
             Fixture f = leftFootBody.createFixture(circleShape, LIMBS_DENSITY);
@@ -112,7 +112,7 @@ public class AnthropomorphicHelper {
 
             jointDef.initialize(mActor.mainBody, leftFootBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
-            mActor.jWorld.createJoint(mActor, jointDef);
+            mActor.mJWorld.createJoint(mActor, jointDef);
         }
 
         // Pie derecho
@@ -124,7 +124,7 @@ public class AnthropomorphicHelper {
             PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x + feetWorldRadius - 0, mActor.mainBody.getWorldCenter().y - radius
                     - feetWorldRadius);
 
-            rightFootBody = mActor.jWorld.createBody(mActor, anchor, true);
+            rightFootBody = mActor.mJWorld.createBody(mActor, anchor, true);
             // Assign shape to Body
             Fixture f = rightFootBody.createFixture(circleShape, LIMBS_DENSITY);
             f.setFilterData(JumplingActor.NO_CONTACT_FILTER);
@@ -139,7 +139,7 @@ public class AnthropomorphicHelper {
 
             jointDef.initialize(mActor.mainBody, rightFootBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
-            mActor.jWorld.createJoint(mActor, jointDef);
+            mActor.mJWorld.createJoint(mActor, jointDef);
         }
 
         float handWorldRadius = radius / handRatio;
@@ -153,7 +153,7 @@ public class AnthropomorphicHelper {
             PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x - radius - handWorldRadius - 0, mActor.mainBody.getWorldCenter().y
                     - handWorldRadius);
 
-            leftHandBody = mActor.jWorld.createBody(mActor, anchor, true);
+            leftHandBody = mActor.mJWorld.createBody(mActor, anchor, true);
             leftHandBody.setBullet(false);
             // Assign shape to Body
             Fixture f = leftHandBody.createFixture(circleShape, LIMBS_DENSITY);
@@ -167,7 +167,7 @@ public class AnthropomorphicHelper {
 
             jointDef.initialize(mActor.mainBody, leftHandBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
-            mActor.jWorld.createJoint(mActor, jointDef);
+            mActor.mJWorld.createJoint(mActor, jointDef);
         }
 
         // Mano derecha
@@ -179,7 +179,7 @@ public class AnthropomorphicHelper {
             PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x + radius + handWorldRadius, mActor.mainBody.getWorldCenter().y
                     - handWorldRadius);
 
-            rightHandBody = mActor.jWorld.createBody(mActor, anchor, true);
+            rightHandBody = mActor.mJWorld.createBody(mActor, anchor, true);
             rightHandBody.setBullet(false);
             // Assign shape to Body
             Fixture f = rightHandBody.createFixture(circleShape, LIMBS_DENSITY);
@@ -193,7 +193,7 @@ public class AnthropomorphicHelper {
 
             jointDef.initialize(mActor.mainBody, rightHandBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
-            mActor.jWorld.createJoint(mActor, jointDef);
+            mActor.mJWorld.createJoint(mActor, jointDef);
         }
 
         float eyeWorldRadius = radius / eyeRatio;
@@ -207,7 +207,7 @@ public class AnthropomorphicHelper {
             PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x - eyeWorldRadius * 1.5f, mActor.mainBody.getWorldCenter().y
                     + eyeWorldRadius);
 
-            leftEyeBody = mActor.jWorld.createBody(mActor, anchor, true);
+            leftEyeBody = mActor.mJWorld.createBody(mActor, anchor, true);
             leftEyeBody.setBullet(false);
             // Assign shape to Body
             Fixture f = leftEyeBody.createFixture(circleShape, LIMBS_DENSITY);
@@ -221,7 +221,7 @@ public class AnthropomorphicHelper {
 
             jointDef.initialize(mActor.mainBody, leftEyeBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
-            mActor.jWorld.createJoint(mActor, jointDef);
+            mActor.mJWorld.createJoint(mActor, jointDef);
         }
 
         // Ojo derecho
@@ -233,7 +233,7 @@ public class AnthropomorphicHelper {
             PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x + eyeWorldRadius * 1.5f, mActor.mainBody.getWorldCenter().y
                     + eyeWorldRadius);
 
-            rightEyeBody = mActor.jWorld.createBody(mActor, anchor, true);
+            rightEyeBody = mActor.mJWorld.createBody(mActor, anchor, true);
             rightEyeBody.setBullet(false);
             // Assign shape to Body
             Fixture f = rightEyeBody.createFixture(circleShape, LIMBS_DENSITY);
@@ -247,7 +247,7 @@ public class AnthropomorphicHelper {
 
             jointDef.initialize(mActor.mainBody, rightEyeBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
-            mActor.jWorld.createJoint(mActor, jointDef);
+            mActor.mJWorld.createJoint(mActor, jointDef);
         }
 
     }
@@ -257,15 +257,15 @@ public class AnthropomorphicHelper {
     }
 
     void drawBitmaps(Canvas canvas) {
-        mActor.jWorld.drawBitmap(canvas, this.leftHandBody, bmpHandLeft);
-        mActor.jWorld.drawBitmap(canvas, this.leftFootBody, bmpFootLeft);
+        mActor.mJWorld.drawBitmap(canvas, this.leftHandBody, bmpHandLeft);
+        mActor.mJWorld.drawBitmap(canvas, this.leftFootBody, bmpFootLeft);
 
-        mActor.jWorld.drawBitmap(canvas, this.rightHandBody, bmpHandRight);
-        mActor.jWorld.drawBitmap(canvas, this.rightFootBody, bmpFootRight);
+        mActor.mJWorld.drawBitmap(canvas, this.rightHandBody, bmpHandRight);
+        mActor.mJWorld.drawBitmap(canvas, this.rightFootBody, bmpFootRight);
 
-        mActor.jWorld.drawBitmap(canvas, mActor.mainBody, bmpBody);
+        mActor.mJWorld.drawBitmap(canvas, mActor.mainBody, bmpBody);
 
-        mActor.jWorld.drawBitmap(canvas, this.leftEyeBody, bmpEyeLeft);
-        mActor.jWorld.drawBitmap(canvas, this.rightEyeBody, bmpEyeRight);
+        mActor.mJWorld.drawBitmap(canvas, this.leftEyeBody, bmpEyeLeft);
+        mActor.mJWorld.drawBitmap(canvas, this.rightEyeBody, bmpEyeRight);
     }
 }
