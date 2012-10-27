@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:id="@+id/controls_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/banner_overlay"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="2dp" >
+
+        <!-- lifes -->
+
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            layout="@layout/lifes" />
+
+        <!-- scores -->
+
+        <net.garrapeta.jumplings.ui.CustomFontTextView
+            android:id="@+id/game_scoreTextView"
+            style="@style/MainFont.CustomFontTextView.GameScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <net.garrapeta.jumplings.ui.CustomFontTextView
+            android:id="@+id/game_localHightscoreTextView"
+            style="@style/MainFont.CustomFontTextView.GameScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <!-- pause button -->
+
+        <ImageButton
+            android:id="@+id/game_pauseBtn"
+            style="@style/TransparentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:src="@drawable/icon_pause" />
+    </LinearLayout>
+
+    <!-- drop shadow -->
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:layout_below="@+id/controls_bar"
+        android:background="@drawable/banner_overlay_drop_shadow" >
+    </View>
+
+</RelativeLayout>

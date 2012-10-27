@@ -32,7 +32,7 @@ public class JumplingsApplication extends Application {
     public static boolean DRAW_ACTOR_BITMAPS = true;
     public static final boolean DRAW_SCENARIO = true;
 
-    public static boolean DEBUG_ENABLED = true;
+    public static boolean DEBUG_ENABLED = false;
     public static boolean DEBUG_THREAD_BARS_ENABLED = false;
 
     public static boolean MOBCLIX_ENABLED = true;

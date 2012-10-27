@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/game_debug_controls"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <!-- thread bars -->
+
+    <LinearLayout
+        android:id="@+id/game_threadBars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/game_threadRatio"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="300dp"
+            android:minWidth="300dp" >
+        </ProgressBar>
+
+        <ProgressBar
+            android:id="@+id/game_allowedThreadGeneration"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="300dp"
+            android:minWidth="300dp" >
+        </ProgressBar>
+
+        <ProgressBar
+            android:id="@+id/game_acumulatedThreat"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="300dp"
+            android:minWidth="300dp" >
+        </ProgressBar>
+    </LinearLayout>
+    <!-- /thread bars -->
+
+
+    <!-- test button -->
+
+    <net.garrapeta.jumplings.ui.CustomFontButton
+        android:id="@+id/game_testBtn"
+        style="@style/ColorfulButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Test"
+        android:visibility="gone" />
+
+    <!-- weapons group -->
+
+    <RadioGroup
+        android:id="@+id/game_weaponsBtnGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <RadioButton
+            android:id="@+id/game_weaponsRadioBtnGun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gun" >
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/game_weaponsRadioBtnShotgun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shotgun" >
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/game_weaponsRadioBtnBlade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blade" >
+        </RadioButton>
+    </RadioGroup>
+    <!-- /weapons group -->
+
+</RelativeLayout>

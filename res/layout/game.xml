@@ -5,183 +5,45 @@
     android:layout_height="fill_parent"
     android:background="@android:color/white" >
 
+    <!-- game surface -->
+
     <net.garrapeta.gameengine.GameView
         android:id="@+id/game_surface"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 
-    <!-- GUI -->
-    
-    <include android:id="@+id/loading" layout="@layout/loading"/>
+    <!-- Loading gui -->
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:padding="9dp" >
+    <include
+        android:id="@+id/loading"
+        layout="@layout/game_loading" />
 
-        <!-- lifes -->
+    <!-- game gui -->
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" >
+    <include
+        android:id="@+id/loading"
+        layout="@layout/game_gui" />
 
-            <include layout="@layout/lifes" />
-        </FrameLayout>
-        <!-- /lifes -->
+    <!-- special weapon bar -->
 
-
-        <!-- special weapon bar -->
-
-        <ProgressBar
-            android:id="@+id/game_specialWeaponBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:maxWidth="300dp"
-            android:minWidth="300dp"
-            android:visibility="invisible" >
-        </ProgressBar>
-        <!-- /special weapon bar -->
+    <ProgressBar
+        android:id="@+id/game_specialWeaponBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:maxWidth="300dp"
+        android:minWidth="300dp"
+        android:visibility="invisible" >
+    </ProgressBar>
+    <!-- /special weapon bar -->
 
 
-        <!-- scores -->
+    <!-- debugControls -->
 
-        <net.garrapeta.jumplings.ui.CustomFontTextView
-            android:id="@+id/game_scoreTextView"
-            style="@style/MainFont.CustomFontTextView.GameScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="150dp" />
-
-        <net.garrapeta.jumplings.ui.CustomFontTextView
-            android:id="@+id/game_localHightscoreTextView"
-            style="@style/MainFont.CustomFontTextView.GameScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="250dp" />
-
-        <!-- / scores -->
-
-
-        <!-- pause button -->
-
-        <ImageButton
-            android:id="@+id/game_pauseBtn"
-            style="@style/TransparentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/icon_pause" />
-        <!-- /pause button -->
-
-
-        <!-- DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG -->
-
-
-        <!-- thread bars -->
-
-        <LinearLayout
-            android:id="@+id/game_threadBars"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical"
-            android:visibility="gone" >
-
-            <ProgressBar
-                android:id="@+id/game_threadRatio"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:maxWidth="300dp"
-                android:minWidth="300dp" >
-            </ProgressBar>
-
-            <ProgressBar
-                android:id="@+id/game_allowedThreadGeneration"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:maxWidth="300dp"
-                android:minWidth="300dp" >
-            </ProgressBar>
-
-            <ProgressBar
-                android:id="@+id/game_acumulatedThreat"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:maxWidth="300dp"
-                android:minWidth="300dp" >
-            </ProgressBar>
-        </LinearLayout>
-        <!-- /thread bars -->
-
-
-        <!-- test button -->
-
-        <net.garrapeta.jumplings.ui.CustomFontButton
-            android:id="@+id/game_testBtn"
-            style="@style/ColorfulButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:text="Test"
-            android:visibility="gone" />
-        <!-- /test button -->
-
-
-        <!-- weapons group -->
-
-        <RadioGroup
-            android:id="@+id/game_weaponsBtnGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal"
-            android:visibility="gone" >
-
-            <RadioButton
-                android:id="@+id/game_weaponsRadioBtnGun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gun" >
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/game_weaponsRadioBtnShotgun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Shotgun" >
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/game_weaponsRadioBtnBlade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blade" >
-            </RadioButton>
-        </RadioGroup>
-        <!-- /weapons group -->
-
-
-        <!-- DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG -->
-
-    </RelativeLayout>
-    <!-- GUI -->
+    <include
+        android:id="@+id/game_debug_controls"
+        layout="@layout/game_debug" />
 
 </RelativeLayout>
