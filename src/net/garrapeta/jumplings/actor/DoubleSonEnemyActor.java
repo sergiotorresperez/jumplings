@@ -36,6 +36,7 @@ public class DoubleSonEnemyActor extends EnemyActor {
     public DoubleSonEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos) {
         super(mJWorld, DoubleSonEnemyActor.DEFAULT_RADIUS, worldPos);
         this.mCode = DoubleSonEnemyActor.JUMPER_CODE_DOUBLE_SON;
+        init(worldPos);
     }
 
     // -------------------------------------------------------- M�todos Propios
@@ -64,8 +65,9 @@ public class DoubleSonEnemyActor extends EnemyActor {
     @Override
     protected void initBitmaps() {
         // vivo
-        mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_ORANGE_SIMPLE_BODY_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_LEFT_ID,
-                DoubleEnemyActor.BMP_ORANGE_HAND_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
+        mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_ORANGE_SIMPLE_BODY_ID, DoubleEnemyActor.BMP_ORANGE_FOOT_RIGHT_ID,
+                DoubleEnemyActor.BMP_ORANGE_FOOT_LEFT_ID, DoubleEnemyActor.BMP_ORANGE_HAND_RIGHT_ID, DoubleEnemyActor.BMP_ORANGE_HAND_LEFT_ID,
+                BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID, BMP_EYE_0_RIGHT_CLOSED_ID, BMP_EYE_0_LEFT_CLOSED_ID);
 
         // debris
         BitmapManager mb = mJWorld.getBitmapManager();
@@ -80,5 +82,4 @@ public class DoubleSonEnemyActor extends EnemyActor {
         mBmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
         mBmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
     }
-
 }

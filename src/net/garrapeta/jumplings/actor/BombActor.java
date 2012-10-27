@@ -77,6 +77,7 @@ public class BombActor extends MainActor {
     public BombActor(JumplingsGameWorld mJWorld, PointF worldPos) {
         super(mJWorld, worldPos,  BombActor.DEFAULT_RADIUS, Z_INDEX);
         this.mCode = BombActor.JUMPER_CODE_BOMB;
+        init(worldPos);
     }
  
     // --------------------------------------------- M�todos heredados

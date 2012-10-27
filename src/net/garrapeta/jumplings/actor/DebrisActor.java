@@ -32,7 +32,7 @@ public class DebrisActor extends JumplingActor {
 
     protected Bitmap mBitmap;
 
-    protected Paint paint;
+    protected Paint mPaint;
 
     protected int alpha;
 
@@ -61,14 +61,11 @@ public class DebrisActor extends JumplingActor {
         // FIXME: avoid this void values
         super(jWorld, 0, Z_INDEX, body);
         mBitmap = bitmap;
+        mPaint = new Paint();
+        init(null);
     }
 
     // ------------------------------------------------------------- M�todos
-
-    @Override
-    protected void initFields() {
-        this.paint = new Paint();
-    }
 
     @Override
     protected void initBitmaps() {
@@ -86,8 +83,8 @@ public class DebrisActor extends JumplingActor {
     }
 
     protected void drawBitmaps(Canvas canvas) {
-        paint.setAlpha(alpha);
-        mJWorld.drawBitmap(canvas, mainBody, mBitmap, paint);
+        mPaint.setAlpha(alpha);
+        mJWorld.drawBitmap(canvas, mainBody, mBitmap, mPaint);
     }
 
     @Override

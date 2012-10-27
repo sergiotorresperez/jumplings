@@ -87,7 +87,6 @@ public abstract class JumplingActor extends Box2DActor {
      */
     public JumplingActor(JumplingsWorld jWorld, float radius, int zIndex, PointF worldPos) {
         this(jWorld, radius, zIndex);
-        init(worldPos);
     }
 
     /**
@@ -101,7 +100,6 @@ public abstract class JumplingActor extends Box2DActor {
         this.mainBody = mainbody;
         // FIXME: avoid this. This is here because of DebrisBory
         addBody(mainBody);
-        init(null);
     }
 
     private JumplingActor(JumplingsWorld jWorld, float radius, int zIndex) {
@@ -141,17 +139,18 @@ public abstract class JumplingActor extends Box2DActor {
     }
 
     @Override
-    public final void onBeginContact(Body thisBody, Box2DActor other, Body otherBody, Contact contact) {
+    public void onBeginContact(Body thisBody, Box2DActor other, Body otherBody, Contact contact) {
         if (other instanceof WallActor) {
             WallActor wall = (WallActor) other;
             if (wall.security) {
                 mJWorld.removeActor(this);
+                mEntered = false;
             }
         }
     }
 
     @Override
-    public final void onEndContact(Body bodyA, Box2DActor actorB, Body bodyB, Contact contact) {
+    public void onEndContact(Body bodyA, Box2DActor actorB, Body bodyB, Contact contact) {
 
         if (actorB instanceof WallActor) {
 
@@ -182,18 +181,12 @@ public abstract class JumplingActor extends Box2DActor {
 
     // ------------------------------------------------ M�todos propios
 
-    private void init(PointF worldPos) {
-        initFields();
+    protected void init(PointF worldPos) {
         initBodies(worldPos);
         initPhysicProperties();
         initBitmaps();
     }
 
-    /**
-     * Template method for initialising custom fields
-     */
-    protected void initFields() {
-    }
 
     /**
      * Crea los cuerpos y los elementos f�sicos

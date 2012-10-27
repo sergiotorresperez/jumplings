@@ -51,6 +51,7 @@ public abstract class PowerUpActor extends MainActor {
         bmpBg = mb.getBitmap(BMP_POWERUP_BG);
         // debris
         bmpDebrisBg = mb.getBitmap(BMP_DEBRIS_POWERUP_BG);
+        init(worldPos);
     }
 
     // --------------------------------------------- M�todos heredados

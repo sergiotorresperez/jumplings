@@ -46,6 +46,7 @@ public class RoundEnemyActor extends EnemyActor {
         super(mJWorld, RoundEnemyActor.DEFAULT_RADIUS, worldPos);
 
         this.mCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
+        init(worldPos);
     }
 
     // ------------------------------------------------------ M�todos heredados
@@ -72,11 +73,12 @@ public class RoundEnemyActor extends EnemyActor {
 
         mAnthtopoDelegate.createAnthropomorphicLimbs(worldPos, mRadius);
     }
-    
+
     @Override
     protected void initBitmaps() {
         // vivo
-        mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_RED_BODY_ID, BMP_RED_FOOT_RIGHT_ID, BMP_RED_FOOT_LEFT_ID, BMP_RED_HAND_RIGHT_ID, BMP_RED_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
+        mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_RED_BODY_ID, BMP_RED_FOOT_RIGHT_ID, BMP_RED_FOOT_LEFT_ID, BMP_RED_HAND_RIGHT_ID,
+                BMP_RED_HAND_LEFT_ID, BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID, BMP_EYE_0_RIGHT_CLOSED_ID, BMP_EYE_0_LEFT_CLOSED_ID);
 
         // debris
         BitmapManager mb = mJWorld.getBitmapManager();

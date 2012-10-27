@@ -33,11 +33,11 @@ public class SparksActor extends JumplingActor {
 
     // ----------------------------------------------- Variables de instancia
 
-    float longevity;
+    float mLongevity;
 
-    float lifeTime;
+    float mLifeTime;
 
-    protected int alpha;
+    protected int mAlpha;
 
     protected Bitmap mBmpSparkle;
 
@@ -59,15 +59,13 @@ public class SparksActor extends JumplingActor {
 
     public SparksActor(JumplingsWorld jWorld, PointF worldPos, int longevity) {
         super(jWorld, SparksActor.DEFAULT_RADIUS, Z_INDEX, worldPos);
+        mLongevity = mLifeTime = longevity;
+        paint = new Paint();
+        init(worldPos);
     }
 
     // --------------------------------------------- M�todos heredados
 
-    @Override
-    protected void initFields() {
-        this.longevity = this.lifeTime = longevity;
-        this.paint = new Paint();
-    }
 
     @Override
     protected void initBodies(PointF worldPos) {
@@ -96,16 +94,16 @@ public class SparksActor extends JumplingActor {
 
     @Override
     public void processFrame(float gameTimeStep) {
-        lifeTime = Math.max(0, lifeTime - gameTimeStep);
-        if (lifeTime <= 0) {
+        mLifeTime = Math.max(0, mLifeTime - gameTimeStep);
+        if (mLifeTime <= 0) {
             mGameWorld.removeActor(this);
         }
-        alpha = (int) (255 * lifeTime / longevity);
+        mAlpha = (int) (255 * mLifeTime / mLongevity);
     }
 
     @Override
     protected void drawBitmaps(Canvas canvas) {
-        paint.setAlpha(alpha);
+        paint.setAlpha(mAlpha);
         mJWorld.drawBitmap(canvas, this.mainBody, mBmpSparkle, paint);
     }
 

@@ -2,6 +2,7 @@ package net.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
+import net.garrapeta.gameengine.Box2DActor;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.R;
 import android.graphics.Bitmap;
@@ -9,30 +10,38 @@ import android.graphics.Canvas;
 import android.graphics.PointF;
 
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Contact;
 
-public abstract class EnemyActor extends MainActor {
+public abstract class EnemyActor extends MainActor implements IBumpable {
 
     // ---------------------------------------------------- Constantes
 
     // ------------------------------------------ Variables est�ticas
 
     // vivo
-    protected final static int BMP_EYE_2_RIGHT_ID = R.drawable.eye_2_right;
-    protected final static int BMP_EYE_2_LEFT_ID = R.drawable.eye_2_left;
+    protected final static int BMP_EYE_2_RIGHT_OPENED_ID = R.drawable.eye_2_right_opened;
+    protected final static int BMP_EYE_2_LEFT_OPENED_ID = R.drawable.eye_2_left_opened;
 
-    protected final static int BMP_EYE_0_RIGHT_ID = R.drawable.eye_0_right;
-    protected final static int BMP_EYE_0_LEFT_ID = R.drawable.eye_0_left;
+    protected final static int BMP_EYE_0_RIGHT_OPENED_ID = R.drawable.eye_0_right_opened;
+    protected final static int BMP_EYE_0_LEFT_OPENED_ID = R.drawable.eye_0_left_opened;
+
+    protected final static int BMP_EYE_2_RIGHT_CLOSED_ID = R.drawable.eye_2_right_closed;
+    protected final static int BMP_EYE_2_LEFT_CLOSED_ID = R.drawable.eye_2_left_closed;
+
+    protected final static int BMP_EYE_0_RIGHT_CLOSED_ID = R.drawable.eye_0_right_closed;
+    protected final static int BMP_EYE_0_LEFT_CLOSED_ID = R.drawable.eye_0_left_closed;
 
     // debris
-    protected final static int BMP_DEBRIS_EYE_2_RIGHT_ID = BMP_EYE_2_RIGHT_ID;
-    protected final static int BMP_DEBRIS_EYE_2_LEFT_ID = BMP_EYE_2_LEFT_ID;
+    protected final static int BMP_DEBRIS_EYE_2_RIGHT_ID = BMP_EYE_2_RIGHT_OPENED_ID;
+    protected final static int BMP_DEBRIS_EYE_2_LEFT_ID = BMP_EYE_2_LEFT_OPENED_ID;
 
-    protected final static int BMP_DEBRIS_EYE_0_RIGHT_ID = BMP_EYE_0_RIGHT_ID;
-    protected final static int BMP_DEBRIS_EYE_0_LEFT_ID = BMP_EYE_0_LEFT_ID;
+    protected final static int BMP_DEBRIS_EYE_0_RIGHT_ID = BMP_EYE_0_RIGHT_OPENED_ID;
+    protected final static int BMP_DEBRIS_EYE_0_LEFT_ID = BMP_EYE_0_LEFT_OPENED_ID;
 
     // ------------------------------------------ Variables de instancia
 
-    AnthropomorphicDelegate mAnthtopoDelegate;
+    protected AnthropomorphicDelegate mAnthtopoDelegate;
+    protected BumpDelegate mBumpDelegate;
 
     // Bitmaps del actor muerto (debris)
     protected Bitmap mBmpDebrisBody;
@@ -63,14 +72,11 @@ public abstract class EnemyActor extends MainActor {
      */
     public EnemyActor(JumplingsGameWorld mJWorld, float radius, PointF worldPos) {
         super(mJWorld, worldPos, radius, Z_INDEX);
-    }
-    
-    // ------------------------------------------- M�todos Heredados
-
-    @Override
-    protected void initFields() {
         mAnthtopoDelegate = new AnthropomorphicDelegate(this);
+        mBumpDelegate = new BumpDelegate(this);
     }
+
+    // ------------------------------------------- M�todos Heredados
 
     @Override
     protected final void drawBitmaps(Canvas canvas) {
@@ -82,11 +88,18 @@ public abstract class EnemyActor extends MainActor {
         super.onAddedToWorld();
         if (getWorldPos().y > mJWorld.viewport.getWorldBoundaries().top) {
             // TODO: sample when enemy falls
-//            mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_THROW);
+            // mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_THROW);
         } else {
             mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_BOING);
         }
     }
+
+    @Override
+    public void onBeginContact(Body thisBody, Box2DActor other, Body otherBody, Contact contact) {
+        super.onBeginContact(thisBody, other, otherBody, contact);
+        mBumpDelegate.onBeginContact(mEntered, thisBody, other, otherBody, contact);
+   }
+
 
     // ------------------------------------------------ M�todos propios
 
@@ -174,6 +187,17 @@ public abstract class EnemyActor extends MainActor {
         }
 
         return debrisActors;
+    }
+
+    @Override
+    public void processFrame(float gameTimeStep) {
+        super.processFrame(gameTimeStep);
+        mBumpDelegate.processFrame(gameTimeStep);
+    }
+
+    @Override
+    public void onBumpedChanged(boolean bumped) {
+        mBumpDelegate.onBumped(bumped, this, mAnthtopoDelegate);
     }
 
 }

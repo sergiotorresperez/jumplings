@@ -15,7 +15,7 @@ public class MenuWave extends ActionBasedWave {
     // ----------------------------------------------------- Constantes
 
     /** Ms que hay entre las creaciones de jumplings */
-    public static final int JUMPLING_CREATION_REALTIME = 2000;
+    public static final int JUMPLING_CREATION_REALTIME = 1700;
 
     // --------------------------------------------------- Variables
 
@@ -33,7 +33,7 @@ public class MenuWave extends ActionBasedWave {
         jumplingCreationAction = new GameWaveAction(this) {
             @Override
             public void run() {
-                createJumplingWave();
+                createIntroActor();
                 jumplingCreationAction.schedule(JUMPLING_CREATION_REALTIME);
             }
 
@@ -64,7 +64,7 @@ public class MenuWave extends ActionBasedWave {
 
     // ---------------------------------------------------- M�todos propios
 
-    private void createJumplingWave() {
+    private void createIntroActor() {
         Log.i(LOG_SRC, "Creating intro jumpling");
 
         float worldXPos;

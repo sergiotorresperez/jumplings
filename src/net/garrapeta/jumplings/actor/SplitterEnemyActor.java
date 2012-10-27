@@ -82,7 +82,7 @@ public class SplitterEnemyActor extends EnemyActor {
             throw new IllegalArgumentException("Maximun level for " + SplitterEnemyActor.class.getCanonicalName() + " is 2");
         }
         mLevel = level;
-        
+
         switch (mLevel) {
         case 2:
             mCode = SplitterEnemyActor.JUMPER_CODE_SPLITTER_TRIPLE;
@@ -94,6 +94,8 @@ public class SplitterEnemyActor extends EnemyActor {
             mCode = SplitterEnemyActor.JUMPER_CODE_SPLITTER_SIMPLE;
             break;
         }
+        
+        init(worldPos);
     }
 
     // ----------------------------------------- M�todos de EnemyActor
@@ -151,15 +153,16 @@ public class SplitterEnemyActor extends EnemyActor {
 
         mAnthtopoDelegate.createAnthropomorphicLimbs(worldPos, mRadius);
     }
-    
+
     @Override
     protected void initBitmaps() {
         BitmapManager mb = mJWorld.getBitmapManager();
         switch (mLevel) {
         case 2:
             // vivo
-            mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_2_BODY_ID, BMP_YELLOW_2_FOOT_RIGHT_ID, BMP_YELLOW_2_FOOT_LEFT_ID, BMP_YELLOW_2_HAND_RIGHT_ID,
-                    BMP_YELLOW_2_HAND_LEFT_ID, BMP_EYE_2_RIGHT_ID, BMP_EYE_2_LEFT_ID);
+            mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_2_BODY_ID, BMP_YELLOW_2_FOOT_RIGHT_ID, BMP_YELLOW_2_FOOT_LEFT_ID,
+                    BMP_YELLOW_2_HAND_RIGHT_ID, BMP_YELLOW_2_HAND_LEFT_ID, BMP_EYE_2_RIGHT_OPENED_ID, BMP_EYE_2_LEFT_OPENED_ID,
+                    BMP_EYE_2_RIGHT_CLOSED_ID, BMP_EYE_2_LEFT_CLOSED_ID);
 
             // debris
             mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_2_BODY_ID);
@@ -175,8 +178,9 @@ public class SplitterEnemyActor extends EnemyActor {
             break;
         case 1:
             // vivo
-            mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_1_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID, BMP_YELLOW_0_HAND_RIGHT_ID,
-                    BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
+            mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_1_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID,
+                    BMP_YELLOW_0_HAND_RIGHT_ID, BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID,
+                    BMP_EYE_0_RIGHT_CLOSED_ID, BMP_EYE_0_LEFT_CLOSED_ID);
 
             // debris
             mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_1_BODY_ID);
@@ -192,8 +196,9 @@ public class SplitterEnemyActor extends EnemyActor {
             break;
         case 0:
             // vivo
-            mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_0_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID, BMP_YELLOW_0_HAND_RIGHT_ID,
-                    BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_ID, BMP_EYE_0_LEFT_ID);
+            mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_0_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID,
+                    BMP_YELLOW_0_HAND_RIGHT_ID, BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID,
+                    BMP_EYE_0_RIGHT_CLOSED_ID, BMP_EYE_0_LEFT_CLOSED_ID);
 
             // debris
             mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_0_BODY_ID);
@@ -207,7 +212,7 @@ public class SplitterEnemyActor extends EnemyActor {
             mBmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
             mBmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
             break;
-        } 
+        }
     }
 
     @Override

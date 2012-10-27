@@ -2,6 +2,7 @@ package net.garrapeta.jumplings;
 import net.garrapeta.gameengine.Box2DWorld;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.module.BitmapManager;
+import net.garrapeta.gameengine.module.SoundManager;
 import net.garrapeta.jumplings.actor.WallActor;
 import net.garrapeta.jumplings.wave.Wave;
 import android.app.Activity;
@@ -29,6 +30,10 @@ public class JumplingsWorld extends Box2DWorld {
     public static final String LOG_SRC = JumplingsApplication.LOG_SRC_JUMPLINGS + ".world";
     
     public static final int WORLD_HEIGHT = 14;
+    
+    // ------------------------------------ Consantes de sonidos y vibraciones
+
+    public static final int SAMPLE_ENEMY_PAIN = 0;
     
     // ------------------------------------------------------------ Variables
 
@@ -111,6 +116,8 @@ public class JumplingsWorld extends Box2DWorld {
 
     @Override
     protected void loadResources() {
+        loadCommonResources();
+
         // Preparaci�n samples bitmaps
         BitmapManager bm = getBitmapManager();
         bm.loadBitmap(R.drawable.intro_body);
@@ -118,9 +125,28 @@ public class JumplingsWorld extends Box2DWorld {
         bm.loadBitmap(R.drawable.intro_foot_left);
         bm.loadBitmap(R.drawable.intro_hand_right);
         bm.loadBitmap(R.drawable.intro_hand_left);
-        bm.loadBitmap(R.drawable.intro_eye_right);
-        bm.loadBitmap(R.drawable.intro_eye_left);
-
+        bm.loadBitmap(R.drawable.intro_eye_right_opened);
+        bm.loadBitmap(R.drawable.intro_eye_left_opened);
+        bm.loadBitmap(R.drawable.intro_eye_right_closed);
+        bm.loadBitmap(R.drawable.intro_eye_left_closed);
+    }
+    
+    protected void loadCommonResources() {
+        // Preparación samples sonido
+        SoundManager sm = getSoundManager();
+        if (sm.isSoundEnabled()) {
+            sm.add(R.raw.pain01, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
+            sm.add(R.raw.pain02, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
+            sm.add(R.raw.pain03, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
+            sm.add(R.raw.pain04, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
+            sm.add(R.raw.pain05, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
+            sm.add(R.raw.pain06, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
+            sm.add(R.raw.pain07, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
+            sm.add(R.raw.pain08, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
+            sm.add(R.raw.pain09, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
+            sm.add(R.raw.pain11, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
+            sm.add(R.raw.pain12, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
+        }
     }
 
     @Override
