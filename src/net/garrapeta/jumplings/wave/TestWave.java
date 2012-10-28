@@ -4,7 +4,7 @@ import net.garrapeta.gameengine.GameWorld;
 import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
-import net.garrapeta.jumplings.actor.EnemyActor;
+import net.garrapeta.jumplings.Wave;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.actor.SplitterEnemyActor;
@@ -22,9 +22,6 @@ public class TestWave extends Wave {
     public final static String WAVE_KEY = TestWave.class.getCanonicalName();
 
     // --------------------------------------------------- Variables
-
-    private int kills = 0;
-    private int totalKills = 20;
 
     JumplingsGameWorld jgWorld;
 
@@ -50,7 +47,7 @@ public class TestWave extends Wave {
     // BaseWave
 
     @Override
-    public void processFrame(float gameTimeStep) {
+    public void onProcessFrame(float gameTimeStep) {
     }
 
     @Override
@@ -75,16 +72,6 @@ public class TestWave extends Wave {
 
     }
 
-    @Override
-    public float getProgress() {
-        return kills * 100 / totalKills;
-    }
-
-    @Override
-    public boolean onEnemyKilled(EnemyActor enemy) {
-        kills++;
-        return false;
-    }
 
     public boolean onFail() {
         return true;

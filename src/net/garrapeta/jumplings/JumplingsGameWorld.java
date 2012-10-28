@@ -17,10 +17,8 @@ import net.garrapeta.jumplings.actor.JumplingActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.scenario.IScenario;
-import net.garrapeta.jumplings.scenario.ScenarioFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -100,8 +98,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public Weapon mWeapon;
 
     /** Escenario actual */
-    // TODO: do not hardcore this, init later
-    IScenario mScenario = ScenarioFactory.getScenario(this, ScenarioFactory.ScenariosIds.ROLLING);
+    IScenario mScenario = null;
 
     // ------------------------------------------- Variables de configuraci�n
 
@@ -335,9 +332,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     // -------------------------------------------------------- M�todos propios
 
-    public void nextScenario() {
-        Log.i(LOG_SRC, " Next Scenario");
-        mScenario.end();
+    public void setScenario(IScenario scenario) {
+        mScenario = scenario;
     }
 
     // M�todos de gesti�n de actores
@@ -430,15 +426,10 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             }
 
             mPlayer.onEnemyKilled(enemy);
-            if (mScenario != null) {
-                mScenario.setProgress(wave.getProgress());
-            }
             if (mShakeCfgLevel == PermData.CFG_LEVEL_ALL) {
                 createShake(100f, 0.20f);
             }
-
         }
-
     }
 
     public void onBombExploded(BombActor bomb) {

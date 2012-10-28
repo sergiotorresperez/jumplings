@@ -4,7 +4,6 @@ import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.module.BitmapManager;
 import net.garrapeta.gameengine.module.SoundManager;
 import net.garrapeta.jumplings.actor.WallActor;
-import net.garrapeta.jumplings.wave.Wave;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -184,14 +183,6 @@ public class JumplingsWorld extends Box2DWorld {
     }
 
     // -------------------------------------------------------- M�todos propios
-
-    public void onWaveStarted() {
-        Log.i(LOG_SRC, "Wave started");
-    }
-
-    public void onWaveCompleted() {
-        Log.i(LOG_SRC, "Wave completed");
-    }
 
     public void drawBitmap(Canvas canvas, Body body, Bitmap bitmap) {
         drawBitmap(canvas, body, bitmap, null);

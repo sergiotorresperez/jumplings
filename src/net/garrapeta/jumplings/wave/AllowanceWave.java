@@ -3,10 +3,11 @@ package net.garrapeta.jumplings.wave;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsWorld;
 import net.garrapeta.jumplings.R.id;
+import net.garrapeta.jumplings.Wave;
 import android.view.View;
 import android.widget.ProgressBar;
 
-public abstract class AllowanceWave extends ActionBasedWave {
+public abstract class AllowanceWave extends Wave {
 
     // ----------------------------------------------------- Constantes
 
@@ -42,35 +43,32 @@ public abstract class AllowanceWave extends ActionBasedWave {
     }
 
     @Override
-    protected void processFrameSub(float stepTime) {
+    public void onProcessFrame(float stepTime) {
         if (JumplingsApplication.DEBUG_THREAD_BARS_ENABLED) {
             updateThreadRatioBar();
             updateAllowedThreadGenerationBar();
             updateAccumulatedThreatBar();
         }
 
-        if (getProgress() < 100) {
+        float existant = getCurrentThreat();
 
-            float existant = getCurrentThreat();
+        double lackRatio = (maxThreat - existant) / maxThreat;
+        allowedThreadGeneration += (stepTime / 200) * lackRatio;
+        allowedThreadGeneration = Math.min(allowedThreadGeneration, maxThreat);
 
-            double lackRatio = (maxThreat - existant) / maxThreat;
-            allowedThreadGeneration += (stepTime / 200) * lackRatio;
-            allowedThreadGeneration = Math.min(allowedThreadGeneration, maxThreat);
+        double generated = 0;
+        // Log.i(LOG_SRC, "maxThreat: " + maxThreat + ", existant: " +
+        // existant + ", allowedThreadGeneration: " +
+        // allowedThreadGeneration + ", acumulated: " + acumulated);
+        if (acumulated < (maxThreat * FACTOR)) {
+            generated = generateThreat(allowedThreadGeneration);
 
-            double generated = 0;
-            // Log.i(LOG_SRC, "maxThreat: " + maxThreat + ", existant: " +
-            // existant + ", allowedThreadGeneration: " +
-            // allowedThreadGeneration + ", acumulated: " + acumulated);
-            if (acumulated < (maxThreat * FACTOR)) {
-                generated = generateThreat(allowedThreadGeneration);
-
-                if (generated > 0) {
-                    acumulated += generated;
-                    allowedThreadGeneration = 0;
-                }
-            } else if (existant == 0) {
-                acumulated = 0;
+            if (generated > 0) {
+                acumulated += generated;
+                allowedThreadGeneration = 0;
             }
+        } else if (existant == 0) {
+            acumulated = 0;
         }
     }
 

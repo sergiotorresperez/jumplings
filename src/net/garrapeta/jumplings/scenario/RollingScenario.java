@@ -18,7 +18,7 @@ public class RollingScenario implements IScenario {
     // ------------------------------------------------ Constantes
 
     /** Tiempo que tarda el escenario en aparecer, en ms */
-    private final static int FADE_IN_TIME = 800;
+    public final static int FADE_IN_TIME = 800;
 
     // ------------------------------------ Variables de instancia
 
@@ -93,7 +93,6 @@ public class RollingScenario implements IScenario {
 
     @Override
     public void init() {
-        setNextScenario();
     }
 
     @Override

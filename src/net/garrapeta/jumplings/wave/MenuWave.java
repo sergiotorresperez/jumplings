@@ -1,6 +1,9 @@
 package net.garrapeta.jumplings.wave;
 
+import net.garrapeta.gameengine.GameWorld;
+import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.jumplings.JumplingsWorld;
+import net.garrapeta.jumplings.Wave;
 import net.garrapeta.jumplings.actor.IntroActor;
 import android.graphics.PointF;
 import android.util.Log;
@@ -10,7 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Wave used in the menu activity
  */
-public class MenuWave extends ActionBasedWave {
+public class MenuWave extends Wave {
 
     // ----------------------------------------------------- Constantes
 
@@ -18,10 +21,6 @@ public class MenuWave extends ActionBasedWave {
     public static final int JUMPLING_CREATION_REALTIME = 1700;
 
     // --------------------------------------------------- Variables
-
-    /** Acci�n que consiste en sacar al mu�eco saltar�n */
-    private GameWaveAction jumplingCreationAction;
-
     // ------------------------------------------------------------- Constructor
 
     /**
@@ -29,15 +28,6 @@ public class MenuWave extends ActionBasedWave {
      */
     public MenuWave(JumplingsWorld jWorld, IWaveEndListener listener) {
         super(jWorld, listener, 0);
-
-        jumplingCreationAction = new GameWaveAction(this) {
-            @Override
-            public void run() {
-                createIntroActor();
-                jumplingCreationAction.schedule(JUMPLING_CREATION_REALTIME);
-            }
-
-        };
     }
 
     // ------------------------------------------------------- M�todos heredados
@@ -45,24 +35,24 @@ public class MenuWave extends ActionBasedWave {
     public void start() {
         super.start();
         Log.i(LOG_SRC, "Starting Intro Wave");
-        jumplingCreationAction.schedule(JUMPLING_CREATION_REALTIME);
+        scheduleIntroActorCreation();
     }
 
     @Override
-    protected boolean isFinished() {
-        return false;
-    }
-
-    @Override
-    protected void processFrameSub(float realTimeStep) {
-    }
-
-    @Override
-    public float getProgress() {
-        return 0;
+    public void onProcessFrame(float gameTimeStep) {
     }
 
     // ---------------------------------------------------- M�todos propios
+
+    private void scheduleIntroActorCreation() {
+        jWorld.post(new SyncGameMessage() {
+            @Override
+            public void doInGameLoop(GameWorld world) {
+                createIntroActor();
+                scheduleIntroActorCreation();
+            }
+        }, JUMPLING_CREATION_REALTIME);
+    }
 
     private void createIntroActor() {
         Log.i(LOG_SRC, "Creating intro jumpling");

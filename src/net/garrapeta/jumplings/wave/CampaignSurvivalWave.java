@@ -1,189 +1,192 @@
 package net.garrapeta.jumplings.wave;
 
+import net.garrapeta.gameengine.GameWorld;
+import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.jumplings.GameActivity;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.Player;
+import net.garrapeta.jumplings.Wave;
 import net.garrapeta.jumplings.actor.EnemyActor;
+import net.garrapeta.jumplings.scenario.IScenario;
+import net.garrapeta.jumplings.scenario.RollingScenario;
+import net.garrapeta.jumplings.scenario.ScenarioFactory;
 import android.util.Log;
 import android.widget.Toast;
 
+public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
 
-public class CampaignSurvivalWave extends ActionBasedWave implements IWaveEndListener {
+    // ----------------------------------------------------- Constantes
 
-	// ----------------------------------------------------- Constantes
-	
-	// Clave para referirse a esta wave
-	public final static String WAVE_KEY = CampaignSurvivalWave.class.getCanonicalName();
-	
-	/** Nivel inicial de la wave hija */
-	private final static int INIT_LEVEL = 1;
-	
-	/** Ms que hay desde que termina la wave hasta que se realiza la
-	 *  siguiente acci�n */
-	public static final int AFTER_WAVE_END_REALTIME    = 500;
-	
-	/** Ms que hay desde que se cambia de wave hasta que empieza la siguiente */
-	public static final int AFTER_WAVE_SWITCH_REALTIME = 500;
-	
-	/** Vidas que se ganan al pasar de nivel */ 
-	public static final int  NEW_LEVEL_EXTRA_LIFES = 0;
-	
-	/** Tiempo m�nimo entre di�logos de anuncios. Se mostrar�n al acabar la wave. En ms.*/
-	private int ADS_MIN_TIME_LAPSE = 60 * 2 * 1000 ;
-	// ----------------------------------------- Variables de instancia
+    // Clave para referirse a esta wave
+    public final static String WAVE_KEY = CampaignSurvivalWave.class.getCanonicalName();
 
-	JumplingsGameWorld mWorld;
-	
-	/**
-	 * Wave Actual
-	 */
-	private Wave currentWave;
+    /** Nivel inicial de la wave hija */
+    private final static int INIT_LEVEL = 1;
 
-	/** Acci�n que consiste en cambiar de wave */ 
-	private GameWaveAction waveSwitchAction;
-	
-	/** Acci�n que consiste en empezarla wave */ 
-	private GameWaveAction waveStartAction;
-	
-	/** Acci�n que consiste en mostrar Toast con el nivel actual */ 
-	private GameWaveAction showLevelAction;
-	
-	/** Timestamp de cuando se mostr� el �ltimo anuncio */
-	private long lastAdTimeStamp = 0;
-	
-	// --------------------------------------------------- Constructor
+    /**
+     * Ms que tarda en aparecer la primerta wave
+     */
+    public static final int FIRST_WAVE_DELAY = 0;
 
-	/**
-	 * @param jgWorld
-	 */
-	public CampaignSurvivalWave(JumplingsGameWorld jgWorld, IWaveEndListener listener) {
-		super(jgWorld, listener, INIT_LEVEL);
-		mWorld = jgWorld;
-	
-		waveSwitchAction = new GameWaveAction(this) {
-			@Override
-			public void run() {
-				switchWave();
-			}
-		};
-		
-		showLevelAction = new GameWaveAction(this) {
-			@Override
-			public void run() {
-			    mWorld.nextScenario();
+    /**
+     * Ms que hay desde que termina la wave hasta que se realiza la siguiente
+     * acci�n
+     */
+    public static final int INTER_WAVE_DELAY = 500;
 
-				CampaignSurvivalWave.this.mWorld.getActivity().runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						showLevel();
-					}
-				});
-				waveStartAction.schedule(AFTER_WAVE_SWITCH_REALTIME);
-			}
-		};
-		
-		waveStartAction = new GameWaveAction(this) {
-			@Override
-			public void run() {
-				startCurrentWave();
-			}
-		};
-	}
+    private static final int NEXT_SCENARIO_DELAY = 1500;
 
-	// ------------------------------------------- M�todos Heredados
+    private static final int RESUME_DELAY = NEXT_SCENARIO_DELAY + RollingScenario.FADE_IN_TIME;
 
-	@Override
-	public void start() {
-		super.start();
-		Log.i(LOG_SRC, "Starting Wave Campaign");
-		waveSwitchAction.schedule(AFTER_WAVE_END_REALTIME);
-	}
+    /**
+     * Tiempo m�nimo entre di�logos de anuncios. Se mostrar�n al acabar la wave.
+     * En ms.
+     */
+    private int ADS_MIN_TIME_LAPSE = 60 * 2 * 1000;
 
-	@Override
-	protected void processFrameSub(float realTimeStep) {
-		if (currentWave != null) {
-			currentWave.processFrame(realTimeStep);
-		}
-	}
-	
-	@Override
-	public boolean onEnemyScaped(EnemyActor e) {
-		if (currentWave != null) {
-			return currentWave.onEnemyScaped(e);
-		}
-		return false;
-	}
-	
-	@Override
-	public boolean onEnemyKilled(EnemyActor enemy) {
-		if (currentWave != null) {
-			return currentWave.onEnemyKilled(enemy);
-		}
-		return false;
-	}
+    /** Vidas que se ganan al pasar de nivel */
+    public static final int NEW_LEVEL_EXTRA_LIFES = 0;
 
-	@Override
-	protected boolean isFinished() {
-		return false;
-	}
-	
-	@Override
-	public float getProgress() {
-		return currentWave.getProgress();
-	}
+    // ----------------------------------------- Variables de instancia
 
-	
-	// ---------------------------------- M�todos de IWaveEventListener
+    JumplingsGameWorld mWorld;
+    IScenario mScenario;
 
-	@Override
-	public void onWaveStarted() {
-		Log.i(LOG_SRC, "Wave started");
-		mWorld.onWaveStarted();
-	}
-	
-	@Override
-	public void onWaveEnded() {
-		Log.i(LOG_SRC, "Wave ended");
-		level++;
-		waveSwitchAction.schedule(AFTER_WAVE_END_REALTIME);
-		mWorld.onWaveCompleted();
-	}
+    /**
+     * Wave Actual
+     */
+    private AllowanceShooterWave mCurrentWave;
 
-	// ------------------------------------------------ M�todos propios
+    /** Timestamp de cuando se mostr� el �ltimo anuncio */
+    private long lastAdTimeStamp = 0;
 
-	private void switchWave() {
-		Player player = mWorld.getPlayer();
-		player.addLifes(NEW_LEVEL_EXTRA_LIFES);
+    // --------------------------------------------------- Constructor
 
-		currentWave = new AllowanceShooterWave(mWorld, this, level);
-		
-		if (JumplingsApplication.MOBCLIX_ENABLED && mWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
-			// Se muestra anuncio
-			mWorld.getActivity().runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					mWorld.mGameActivity.showDialog(GameActivity.DIALOG_AD_ID);
-				}});
-			
-			lastAdTimeStamp = mWorld.currentGameMillis();
-		}
+    /**
+     * @param jgWorld
+     */
+    public CampaignSurvivalWave(JumplingsGameWorld jgWorld, IWaveEndListener listener) {
+        super(jgWorld, listener, INIT_LEVEL);
+        mWorld = jgWorld;
+        mScenario = ScenarioFactory.getScenario(jgWorld, ScenarioFactory.ScenariosIds.ROLLING);
+        jgWorld.setScenario(mScenario);
+    }
 
-		
-		showLevelAction.schedule(500);
-	}
-	
-	private void showLevel() {
-		final String message = "Level " + level;
-		Log.i(LOG_SRC, message);
-		
-		Toast toast = Toast.makeText(CampaignSurvivalWave.this.mWorld.getActivity(), message, Toast.LENGTH_SHORT);
-		toast.show();
-	}
-	
-	private void startCurrentWave() {
-		currentWave.start();
-	}
+    // ------------------------------------------- M�todos Heredados
 
+    @Override
+    public void start() {
+        super.start();
+        Log.i(LOG_SRC, "Starting Wave Campaign");
+        mScenario.init();
+        scheduleNextWave(FIRST_WAVE_DELAY);
+    }
+
+    @Override
+    public void onProcessFrame(float realTimeStep) {
+        if (mCurrentWave != null) {
+            mCurrentWave.processFrame(realTimeStep);
+        }
+    }
+
+    @Override
+    public boolean onEnemyScaped(EnemyActor e) {
+        if (mCurrentWave != null) {
+            return mCurrentWave.onEnemyScaped(e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onEnemyKilled(EnemyActor enemy) {
+        mScenario.setProgress(mCurrentWave.getProgress());
+        if (mCurrentWave != null) {
+            return mCurrentWave.onEnemyKilled(enemy);
+        }
+        return false;
+    }
+
+    // ---------------------------------- M�todos de IWaveEventListener
+
+    @Override
+    public void onWaveStarted() {
+        Log.i(LOG_SRC, "Wave started");
+    }
+
+    @Override
+    public void onWaveEnded() {
+        Log.i(LOG_SRC, "Wave ended");
+        mCurrentWave.pause();
+        level++;
+        scheduleNextWave(INTER_WAVE_DELAY);
+    }
+
+    // ------------------------------------------------ M�todos propios
+
+    private void switchWave() {
+        if (JumplingsApplication.MOBCLIX_ENABLED && mWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
+            // Se muestra anuncio
+            mWorld.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mWorld.mGameActivity.showDialog(GameActivity.DIALOG_AD_ID);
+                }
+            });
+
+            lastAdTimeStamp = mWorld.currentGameMillis();
+        }
+
+        Player player = mWorld.getPlayer();
+        player.addLifes(NEW_LEVEL_EXTRA_LIFES);
+        mCurrentWave = new AllowanceShooterWave(mWorld, this, level);
+    }
+
+    private void showLevel() {
+        jWorld.getActivity().runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                final String message = "Level " + level;
+                Log.i(LOG_SRC, message);
+
+                Toast toast = Toast.makeText(CampaignSurvivalWave.this.mWorld.getActivity(), message, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+    }
+
+    private void scheduleNextWave(float delay) {
+        jWorld.post(new SyncGameMessage() {
+            @Override
+            public void doInGameLoop(GameWorld world) {
+                switchWave();
+                showLevel();
+                scheduleNextScenario(NEXT_SCENARIO_DELAY);
+                scheduleResume(RESUME_DELAY);
+            }
+        }, delay);
+
+    }
+
+    private void scheduleResume(float delay) {
+        jWorld.post(new SyncGameMessage() {
+            @Override
+            public void doInGameLoop(GameWorld world) {
+                mCurrentWave.play();
+            }
+        }, delay);
+    }
+
+    private void scheduleNextScenario(float delay) {
+        jWorld.post(new SyncGameMessage() {
+            @Override
+            public void doInGameLoop(GameWorld world) {
+                mScenario.end();
+            }
+        }, delay);
+
+    }
 
 }
