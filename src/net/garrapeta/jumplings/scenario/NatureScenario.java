@@ -41,14 +41,13 @@ public class NatureScenario extends LayerScenario {
         {
             int maxHeight = (int) (viewHeight * 2);
             Bitmap bmp = bm.loadBitmap(LAYER2_ID);
-            float initYPos = viewHeight - bmp.getHeight();
+            float initYPos = maxHeight - bmp.getHeight();
             addLayer(new Layer(this, bmp, maxHeight, 0, initYPos, 0, 0, true, false, viewWidth, viewHeight));
         }
         {
             Bitmap bmp = bm.loadBitmap(LAYER3_ID);
             int maxHeight = (int) (viewHeight * 2.7);
-            float initYPos = -maxHeight + bmp.getHeight();
-            addLayer(new Layer(this, bmp, maxHeight, 0, initYPos, 3, 0, true, false, viewWidth, viewHeight));
+            addLayer(new Layer(this, bmp, maxHeight, 0, 0, 3, 0, true, false, viewWidth, viewHeight));
         }
     }
 

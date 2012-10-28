@@ -78,7 +78,7 @@ public class TestWave extends Wave {
             public void doInGameLoop(GameWorld world) {
                 if (progess == 100) {
                     progess = 0;
-                    mScenario.init();
+                    mScenario.onGameOver();
                 } else {
                     progess = Math.min(progess + 10, 100);
                     mScenario.setProgress(progess);

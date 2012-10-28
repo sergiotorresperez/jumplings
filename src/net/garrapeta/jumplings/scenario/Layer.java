@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.util.Log;
 
 /**
  * Capa del escerario
@@ -23,20 +24,18 @@ class Layer {
 
     // ------------------------------------ Variables de instancia
 
-    private float mInitXPos;
-    private float mInitYPos;
+    final private float mScenarioXOffset;
+    final private float mScenarioYOffset;
 
-    private float mInitXVel;
-    private float mInitYVel;
+    final private float mInitXVel;
+    final private float mInitYVel;
 
-    private int mPatternWidth;
-    private int mPatternHeight;
-
-    private float mXPos = 0;
-    private float mYPos = 0;
+    final private int mBitmapWidth;
+    final private int mBitmapHeight;
 
     /** Posci�n y a la que se tiene que llegar por un update */
-    private float mDesiredYPos = 0;
+    // private float mDesiredYPos = 0;
+    private float mAnimLeft = 0;
 
     // velocidades, en p�xeles por ciclo
     // TODO: expresar las velocidades en p�xeles por segundo
@@ -49,27 +48,37 @@ class Layer {
     // TODO: get rid of this
     private LayerScenario mScenario;
 
-
     private boolean mTilesX;
     private boolean mTilesY;
     private Bitmap mBitmap;
 
     // Altura m�xima del layer
     private float mMaxHeight;
-    
+
     private int mCopiesX;
     private int mCopiesY;
 
+    // offsets produced by the init position
+    private float mInitXOffset = 0;
+    private float mInitYOffset = 0;
     
-    private Matrix mPatrix = new Matrix();
+    // offset produced by the progress
+    private float mProgressYOffset = 0;
+    
+    // offsets produced by the animation
+    private float mAnimlXOffset = 0;
+    private float mAnimlYOffset = 0;
+
+    private Matrix mMatrix = new Matrix();
+
     // ----------------------------------------------- Constructor
 
     /**
      * @param bmp
      * @param maxHeight
      */
-    Layer(LayerScenario scenario, Bitmap bmp, int maxHeight, float initXPos, float initYPos, float initXVel, float initYVel, boolean tilesX,
-            boolean tilesY, int desiredWidth, int desiredHeight) {
+    Layer(LayerScenario scenario, Bitmap bmp, int maxHeight, float scenarioXOffset, float mcenarioXOffset, float initXVel, float initYVel,
+            boolean tilesX, boolean tilesY, int desiredWidth, int desiredHeight) {
 
         this.mScenario = scenario;
 
@@ -78,8 +87,8 @@ class Layer {
 
         this.mMaxHeight = maxHeight;
 
-        this.mInitXPos = initXPos;
-        this.mInitYPos = initYPos;
+        this.mScenarioXOffset = scenarioXOffset;
+        this.mScenarioYOffset = mcenarioXOffset;
 
         this.mInitXVel = initXVel;
         this.mInitYVel = initYVel;
@@ -88,11 +97,11 @@ class Layer {
 
         mBitmap = bmp;
 
-        mPatternWidth = bitmapWidth;
-        mPatternHeight = bitmapHeight;
+        mBitmapWidth = bitmapWidth;
+        mBitmapHeight = bitmapHeight;
 
-        mCopiesX = getCopies(desiredWidth, mPatternWidth, tilesX);
-        mCopiesY = getCopies(desiredHeight, mPatternHeight, tilesY);
+        mCopiesX = getCopies(desiredWidth, mBitmapWidth, tilesX);
+        mCopiesY = getCopies(desiredHeight, mBitmapHeight, tilesY);
 
     }
 
@@ -114,20 +123,32 @@ class Layer {
 
     }
 
-
     // -------------------------------------------- M�todos propios
 
     /**
      * Reseteo
      */
     public void reset() {
-        mXPos = mInitXPos;
-        mYPos = mInitYPos;
+        if (!mTilesX) {
+            mInitXOffset = mScenarioXOffset;
+        } else {
+            mInitXOffset = 0;
+        }
+        if (!mTilesY) {
+            mInitYOffset = -mMaxHeight + mScenario.mWorld.mView.getHeight() + mScenarioYOffset;
+        } else {
+            mInitYOffset = 0;
+        }
 
-        mDesiredYPos = mYPos;
+        mProgressYOffset = 0;
+
+        mAnimLeft = 0;
 
         mXVel = mInitXVel;
         mYVel = mInitYVel;
+
+        mAnimlYOffset = 0;
+        mAnimlXOffset = 0;
 
         mUpdateYVel = 0;
     }
@@ -137,53 +158,57 @@ class Layer {
      * @param physicsTimeStep
      */
     void processFrame(float gameTimeStep) {
-        mXPos += mXVel; // xVel * (gameTimeStep / 1000);
-        mYPos += mYVel; // yVel * (gameTimeStep / 1000);
+        mAnimlXOffset += mXVel;
+        mAnimlYOffset += mYVel;
 
         // aportaci�n de velocidad por el update
-        if (mUpdateYVel != 0) {
+        if (mAnimLeft != 0) {
+            float delta;
             if (mUpdateYVel > 0) {
-                mYPos = Math.min(mDesiredYPos, mYPos + mUpdateYVel);
-            } else if (mUpdateYVel < 0) {
-                mYPos = Math.max(mInitYPos, mYPos + mUpdateYVel);
+                delta = Math.min(mAnimLeft, mUpdateYVel);
+            } else {
+                delta = Math.max(mAnimLeft, mUpdateYVel);
             }
-
-            // si ya ha llegado al punto deseado se para
-            if (mYPos == mDesiredYPos) {
-                mUpdateYVel = 0;
-            }
+            mProgressYOffset += delta;
+            mAnimLeft -= delta;
         }
 
     }
 
     synchronized void setProgress(float progress) {
         if (progress <= 100) {
-            float aux = mMaxHeight - mScenario.mWorld.mView.getHeight();
-            mDesiredYPos = mInitYPos + (progress * aux) / 100;
-            float diff = mDesiredYPos - mYPos;
-            mUpdateYVel = diff / PROGRESS_UPDATE_CICLES;
+
+            float newProgressPos = (mMaxHeight - mScenario.mWorld.mView.getHeight()) * progress / 100;
+            startProgressAnim(newProgressPos - mProgressYOffset, PROGRESS_UPDATE_CICLES);
         }
     }
 
+    private void startProgressAnim(float deltaProgress, float time) {
+        mAnimLeft = deltaProgress;
+        mUpdateYVel = mAnimLeft / time;
+    }
+
     synchronized void onGameOver() {
-        mDesiredYPos = mInitYPos;
-        float diff = mDesiredYPos - mYPos;
-        mUpdateYVel = diff / GAMEOVER_FALL_CICLES;
+        startProgressAnim(-mProgressYOffset, GAMEOVER_FALL_CICLES);
     }
 
     public void draw(Canvas canvas, Paint paint) {
 
-        float tx = getOffset(mXPos, mPatternWidth, mTilesX);
-        float ty = getOffset(mYPos, mPatternHeight, mTilesY);
+        float xPos = mInitXOffset + mAnimlXOffset;
+        float yPos = mInitYOffset + mAnimlYOffset + mProgressYOffset;
+
+        float tx = getOffset(xPos, mBitmapWidth, mTilesX);
+        float ty = getOffset(yPos, mBitmapHeight, mTilesY);
 
         for (int i = 0; i < mCopiesX; i++) {
             for (int j = 0; j < mCopiesY; j++) {
-                mPatrix.postTranslate(tx + mBitmap.getWidth() * i, ty + mBitmap.getHeight() * j);
-                canvas.drawBitmap(mBitmap, mPatrix, paint);
-                mPatrix.reset();
+                float pty = ty + mBitmap.getHeight() * j;
+                Log.i("stp", "pintando con offset: " + ty);
+                mMatrix.postTranslate(tx + mBitmap.getWidth() * i, pty);
+                canvas.drawBitmap(mBitmap, mMatrix, paint);
+                mMatrix.reset();
             }
         }
-
     }
 
 }
