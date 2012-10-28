@@ -8,6 +8,8 @@ import net.garrapeta.jumplings.Wave;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.actor.SplitterEnemyActor;
+import net.garrapeta.jumplings.scenario.IScenario;
+import net.garrapeta.jumplings.scenario.ScenarioFactory;
 import android.graphics.PointF;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +27,8 @@ public class TestWave extends Wave {
 
     JumplingsGameWorld jgWorld;
 
+    IScenario mScenario;
+
     // ------------------------------------------------------------- Constructor
 
     /**
@@ -40,7 +44,7 @@ public class TestWave extends Wave {
             this.jgWorld.mGameActivity.weaponsRadioGroup.setVisibility(View.VISIBLE);
             this.jgWorld.setGravityY(-1);
         }
-        // this.jgWorld.nextScenario();
+
     }
 
     // ------------------------------------------------------ M�todos de
@@ -48,7 +52,14 @@ public class TestWave extends Wave {
 
     @Override
     public void onProcessFrame(float gameTimeStep) {
+        if (mScenario == null) {
+            mScenario = ScenarioFactory.getScenario(jWorld, ScenarioFactory.ScenariosIds.NATURE);
+            jgWorld.setScenario(mScenario);
+            mScenario.init();
+        }
     }
+
+    int progess = 0;
 
     @Override
     public void onTestButtonClicked(Button showAdBtn) {
@@ -65,13 +76,17 @@ public class TestWave extends Wave {
 
             @Override
             public void doInGameLoop(GameWorld world) {
-                createEnemy();
-                // createPowerUp();
+                if (progess == 100) {
+                    progess = 0;
+                    mScenario.init();
+                } else {
+                    progess = Math.min(progess + 10, 100);
+                    mScenario.setProgress(progess);
+                }
             }
         });
 
     }
-
 
     public boolean onFail() {
         return true;
