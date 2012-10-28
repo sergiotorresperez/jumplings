@@ -11,18 +11,18 @@ import android.graphics.Bitmap;
  * 
  * @author GaRRaPeTa
  */
-public class NatureOilScenario extends LayerScenario {
+public class WinterScenario extends LayerScenario {
 
-    private final static int LAYER1_ID = R.drawable.scenario_c1;
-    private final static int LAYER2_ID = R.drawable.scenario_c2;
-    private final static int LAYER3_ID = R.drawable.scenario_c3;
+    private final static int LAYER1_ID = R.drawable.scenario_winter_1;
+    private final static int LAYER2_ID = R.drawable.scenario_winter_2;
+    private final static int LAYER3_ID = R.drawable.scenario_winter_3;
 
     // ----------------------------------------------- Constructor
 
     /**
      * @param dWorld
      */
-    NatureOilScenario(JumplingsWorld world) {
+    WinterScenario(JumplingsWorld world) {
         super(world);
     }
 
@@ -48,7 +48,7 @@ public class NatureOilScenario extends LayerScenario {
             Bitmap bmp = bm.loadBitmap(LAYER3_ID);
             int maxHeight = (int) (viewHeight * 2.7);
             float initYPos = -maxHeight + bmp.getHeight();
-            addLayer(new Layer(this, bmp, maxHeight, 0, initYPos, 3, 0, true, false, viewWidth, viewHeight));
+            addLayer(new Layer(this, bmp, maxHeight, 0, initYPos, -3, 0, true, false, viewWidth, viewHeight));
         }
     }
 
