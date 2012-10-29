@@ -69,6 +69,7 @@ public class RollingScenario implements IScenario {
             if (mPreviousScenario != null) {
                 mPreviousScenario.processFrame(gameTimeStep);
                 if (mFadingInRemainigTime == 0) {
+                    mPreviousScenario.end();
                     mPreviousScenario = null;
                 }
             }
