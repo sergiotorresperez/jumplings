@@ -16,6 +16,7 @@ public class DesertScenario extends LayerScenario {
     private final static int LAYER1_ID = R.drawable.scenario_desert_1;
     private final static int LAYER2_ID = R.drawable.scenario_desert_2;
     private final static int LAYER3_ID = R.drawable.scenario_desert_3;
+    private final static int LAYER4_ID = R.drawable.scenario_desert_4;
 
     // ----------------------------------------------- Constructor
 
@@ -39,7 +40,7 @@ public class DesertScenario extends LayerScenario {
             addLayer(new Layer(this, bmp, maxHeight, 0, 0, 2, 0, true, true, viewWidth, viewHeight));
         }
         {
-            int maxHeight = (int) (viewHeight * 2);
+            int maxHeight = (int) (viewHeight * 1.4);
             Bitmap bmp = bm.loadBitmap(LAYER2_ID);
             float initYPos = maxHeight - bmp.getHeight();
             addLayer(new Layer(this, bmp, maxHeight, 0, initYPos, 0, 0, true, false, viewWidth, viewHeight));
@@ -48,6 +49,12 @@ public class DesertScenario extends LayerScenario {
             Bitmap bmp = bm.loadBitmap(LAYER3_ID);
             int maxHeight = (int) (viewHeight * 2.7);
             addLayer(new Layer(this, bmp, maxHeight, 0, 0, 0, 0, false, false, viewWidth, viewHeight));
+        }
+        {
+            int maxHeight = (int) (viewHeight * 2);
+            Bitmap bmp = bm.loadBitmap(LAYER4_ID);
+            float initYPos = maxHeight - bmp.getHeight();
+            addLayer(new Layer(this, bmp, maxHeight, 0, initYPos, 0, 0, true, false, viewWidth, viewHeight));
         }
     }
 
