@@ -52,7 +52,7 @@ public class AllowanceShooterWave extends AllowanceWave {
         nextJumperCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
 
         // Inicializaci�n de probabilidades y riesgos
-        setMaxThreat(2 + (level * 2));
+        setMaxThreat(2 + (level * 1.3));
 
         bombProbability = Math.min(0.35f, 0.025f + (level * 0.075f));
 
@@ -62,9 +62,9 @@ public class AllowanceShooterWave extends AllowanceWave {
 
         tripleSplitterEnemyProbability = Math.min(0.5f, 0.0f + (level * 0.05f));
 
-        maxBombs = Math.min(5, 0.49f + (level * 0.5f));
+        maxBombs = Math.min(3, 0.49f + (level * 0.4f));
 
-        totalKills = 15; //50 + level * 10;
+        totalKills = 30 + level * 10;
 
         scheduleGeneratePowerUp(getPowerUpCreationLapse());
 

@@ -64,6 +64,7 @@ public class DesertScenario extends LayerScenario {
         bm.releaseBitmap(LAYER1_ID);
         bm.releaseBitmap(LAYER2_ID);
         bm.releaseBitmap(LAYER3_ID);
+        bm.releaseBitmap(LAYER4_ID);
     }
 
 }
