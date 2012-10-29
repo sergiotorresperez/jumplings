@@ -53,7 +53,7 @@ public class TestWave extends Wave {
     @Override
     public void onProcessFrame(float gameTimeStep) {
         if (mScenario == null) {
-            mScenario = ScenarioFactory.getScenario(jWorld, ScenarioFactory.ScenariosIds.JUNGLE);
+            mScenario = ScenarioFactory.getScenario(jWorld, ScenarioFactory.ScenariosIds.NATURE);
             jgWorld.setScenario(mScenario);
             mScenario.init();
         }

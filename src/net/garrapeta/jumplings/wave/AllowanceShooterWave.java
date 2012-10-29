@@ -64,7 +64,7 @@ public class AllowanceShooterWave extends AllowanceWave {
 
         maxBombs = Math.min(5, 0.49f + (level * 0.5f));
 
-        totalKills = 50 + level * 10;
+        totalKills = 15; //50 + level * 10;
 
         scheduleGeneratePowerUp(getPowerUpCreationLapse());
 
