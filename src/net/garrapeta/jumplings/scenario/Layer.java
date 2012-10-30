@@ -203,7 +203,6 @@ class Layer {
         for (int i = 0; i < mCopiesX; i++) {
             for (int j = 0; j < mCopiesY; j++) {
                 float pty = ty + mBitmap.getHeight() * j;
-                Log.i("stp", "pintando con offset: " + ty);
                 mMatrix.postTranslate(tx + mBitmap.getWidth() * i, pty);
                 canvas.drawBitmap(mBitmap, mMatrix, paint);
                 mMatrix.reset();

@@ -131,7 +131,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mVibrateCfgLevel = pd.getVibratorConfig();
         mFlashCfgLevel = pd.getFlashConfig();
         mShakeCfgLevel = pd.getShakeConfig();
-        getSoundManager().setSoundEnabled(pd.getSoundConfig());
 
         // TODO: do this as with the sound manager
         // Preparaci�n vibraciones

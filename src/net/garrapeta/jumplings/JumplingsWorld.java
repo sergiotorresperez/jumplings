@@ -1,4 +1,5 @@
 package net.garrapeta.jumplings;
+
 import net.garrapeta.gameengine.Box2DWorld;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.module.BitmapManager;
@@ -27,20 +28,17 @@ public class JumplingsWorld extends Box2DWorld {
     // -------------------------------------------------------- Constantes
 
     public static final String LOG_SRC = JumplingsApplication.LOG_SRC_JUMPLINGS + ".world";
-    
+
     public static final int WORLD_HEIGHT = 14;
-    
+
     // ------------------------------------ Consantes de sonidos y vibraciones
 
     public static final int SAMPLE_ENEMY_PAIN = 0;
-    
-    // ------------------------------------------------------------ Variables
 
+    // ------------------------------------------------------------ Variables
 
     /** Wave actual */
     Wave wave;
-    
-
 
     // centro de la pantalla
     float centerX;
@@ -57,6 +55,9 @@ public class JumplingsWorld extends Box2DWorld {
     @Override
     protected void onBeforeRunning() {
         Log.i(LOG_SRC, "onBeforeRunning " + this);
+        PermData pd = PermData.getInstance();
+        getSoundManager().setSoundEnabled(pd.getSoundConfig());
+
         // Paredes
         // -----------------------------------------------------------------
 
@@ -67,20 +68,16 @@ public class JumplingsWorld extends Box2DWorld {
         float top = vb.top;
 
         // pared superior
-        addActor(new WallActor(this, new PointF(0, 0), new PointF(left, top),
-                new PointF(right, top), false, false));
+        addActor(new WallActor(this, new PointF(0, 0), new PointF(left, top), new PointF(right, top), false, false));
 
         // pared inferior - FLOOR
-        addActor(new WallActor(this, new PointF(0, 0), new PointF(left, bottom),
-                new PointF(right, bottom), true, false));
+        addActor(new WallActor(this, new PointF(0, 0), new PointF(left, bottom), new PointF(right, bottom), true, false));
 
         // pared izquierda
-        addActor(new WallActor(this, new PointF(0, 0), new PointF(left, bottom),
-                new PointF(left, top), false, false));
+        addActor(new WallActor(this, new PointF(0, 0), new PointF(left, bottom), new PointF(left, top), false, false));
 
         // pared derecha
-        addActor(new WallActor(this, new PointF(0, 0), new PointF(right, bottom),
-                new PointF(right, top), false, false));
+        addActor(new WallActor(this, new PointF(0, 0), new PointF(right, bottom), new PointF(right, top), false, false));
 
         // Paredes de seguridad
         // ---------------------------------------------------------------
@@ -94,22 +91,19 @@ public class JumplingsWorld extends Box2DWorld {
         float securityTop = top - securityMargin;
 
         // pared de seguridad superior
-        addActor(new WallActor(this, new PointF(0, 0), new PointF(securityLeft, securityTop), new PointF(securityRight,
-                securityTop), false, true));
+        addActor(new WallActor(this, new PointF(0, 0), new PointF(securityLeft, securityTop), new PointF(securityRight, securityTop), false, true));
 
         // pared de seguridad inferior
-        addActor(new WallActor(this, new PointF(0, 0), new PointF(securityLeft, securityBottom), new PointF(
-                securityRight, securityBottom), false, true));
+        addActor(new WallActor(this, new PointF(0, 0), new PointF(securityLeft, securityBottom), new PointF(securityRight, securityBottom), false,
+                true));
 
         // pared de seguridad izquierda
-        addActor(new WallActor(this, new PointF(0, 0), new PointF(securityLeft, securityBottom), new PointF(
-                securityLeft, securityTop), false, true));
+        addActor(new WallActor(this, new PointF(0, 0), new PointF(securityLeft, securityBottom), new PointF(securityLeft, securityTop), false, true));
 
         // pared de seguridad derecha
-        addActor(new WallActor(this, new PointF(0, 0), new PointF(securityRight, securityBottom), new PointF(
-                securityRight, securityTop), false, true));
-        
-//        setGravityY(-SensorManager.GRAVITY_EARTH);
+        addActor(new WallActor(this, new PointF(0, 0), new PointF(securityRight, securityBottom), new PointF(securityRight, securityTop), false, true));
+
+        // setGravityY(-SensorManager.GRAVITY_EARTH);
         setGravityY(-7);
     }
 
@@ -129,7 +123,7 @@ public class JumplingsWorld extends Box2DWorld {
         bm.loadBitmap(R.drawable.intro_eye_right_closed);
         bm.loadBitmap(R.drawable.intro_eye_left_closed);
     }
-    
+
     protected void loadCommonResources() {
         // Preparación samples sonido
         SoundManager sm = getSoundManager();
@@ -172,8 +166,7 @@ public class JumplingsWorld extends Box2DWorld {
     @Override
     public void onGameWorldSizeChanged() {
         if (!isStarted()) {
-            Log.i(JumplingsApplication.LOG_SRC,"startNewGame " + this);
-
+            Log.i(JumplingsApplication.LOG_SRC, "startNewGame " + this);
 
             // Se arranca el game loop
             start();
