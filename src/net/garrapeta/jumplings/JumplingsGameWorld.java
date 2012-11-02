@@ -3,6 +3,7 @@ package net.garrapeta.jumplings;
 import java.util.ArrayList;
 
 import net.garrapeta.gameengine.Actor;
+import net.garrapeta.gameengine.GameMessage;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.GameWorld;
 import net.garrapeta.gameengine.SyncGameMessage;
@@ -584,13 +585,11 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
      * Plays automatically, for testing purposes
      */
     private void autoPlay() {
-        for (EnemyActor enemy : enemies) {
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            EnemyActor enemy = enemies.get(i);
             PointF pos = enemy.getWorldPos();
             if (pos.y < JumplingActor.BASE_RADIUS * 10) {
-                HarmerSlapActor bullet = new HarmerSlapActor(this, pos, 0.5f, 150);
-
-                addActor(bullet);
-
+                enemy.onHitted();
             }
         }
     }
