@@ -3,6 +3,7 @@ package net.garrapeta.jumplings;
 import java.util.ArrayList;
 
 import net.garrapeta.gameengine.Actor;
+import net.garrapeta.gameengine.GameMessage;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.GameWorld;
 import net.garrapeta.gameengine.SyncGameMessage;
@@ -13,12 +14,14 @@ import net.garrapeta.jumplings.actor.BladePowerUpActor;
 import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
 import net.garrapeta.jumplings.actor.FlashActor;
+import net.garrapeta.jumplings.actor.HarmerSlapActor;
 import net.garrapeta.jumplings.actor.JumplingActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.scenario.IScenario;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -288,6 +291,11 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         if (mScenario != null) {
             mScenario.processFrame(gameTimeStep);
         }
+
+        if (JumplingsApplication.DEBUG_AUTOPLAY) {
+            autoPlay();
+        }
+
         return false;
     }
 
@@ -571,6 +579,19 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         this.shakeDuration = time;
         this.shakeRemaining = time;
         this.shakeIntensity = intensity;
+    }
+
+    /**
+     * Plays automatically, for testing purposes
+     */
+    private void autoPlay() {
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            EnemyActor enemy = enemies.get(i);
+            PointF pos = enemy.getWorldPos();
+            if (pos.y < JumplingActor.BASE_RADIUS * 10) {
+                enemy.onHitted();
+            }
+        }
     }
 
 }
