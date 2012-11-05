@@ -6,7 +6,7 @@ import net.garrapeta.jumplings.JumplingsGameWorld;
 public abstract class HarmerActor extends Actor {
 
     protected JumplingsGameWorld mJWorld;
-    public long timestamp;
+    public long mTimestamp;
 
     /**
      * Z-Index del actor
@@ -29,10 +29,16 @@ public abstract class HarmerActor extends Actor {
 
         for (int i = 0; i < l; i++) {
             MainActor j = (MainActor) as[i];
-            if (j.timestamp <= timestamp) {
+            if (j.timestamp <= mTimestamp) {
                 effectOver(j);
             }
         }
+    }
+
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mJWorld = null;
     }
 
     // ----------------------------------------------- M�todos propios

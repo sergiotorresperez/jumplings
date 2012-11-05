@@ -41,7 +41,7 @@ public class SparksActor extends JumplingActor {
 
     protected Bitmap mBmpSparkle;
 
-    protected Paint paint;
+    protected Paint mPaint;
 
     // ----------------------------------------------- Inicializaci�n est�tica
 
@@ -60,12 +60,11 @@ public class SparksActor extends JumplingActor {
     public SparksActor(JumplingsWorld jWorld, PointF worldPos, int longevity) {
         super(jWorld, SparksActor.DEFAULT_RADIUS, Z_INDEX, worldPos);
         mLongevity = mLifeTime = longevity;
-        paint = new Paint();
+        mPaint = new Paint();
         init(worldPos);
     }
 
     // --------------------------------------------- M�todos heredados
-
 
     @Override
     protected void initBodies(PointF worldPos) {
@@ -75,17 +74,17 @@ public class SparksActor extends JumplingActor {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(mRadius);
-            mainBody = mJWorld.createBody(this, worldPos, true);
-            mainBody.setBullet(true);
+            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody.setBullet(true);
 
             // Assign shape to Body
-            Fixture f = mainBody.createFixture(circleShape, 1.0f);
+            Fixture f = mMainBody.createFixture(circleShape, 1.0f);
             f.setFilterData(SPARKS_FILTER);
             circleShape.dispose();
         }
 
     }
-    
+
     @Override
     protected void initBitmaps() {
         BitmapManager mb = mJWorld.getBitmapManager();
@@ -103,8 +102,15 @@ public class SparksActor extends JumplingActor {
 
     @Override
     protected void drawBitmaps(Canvas canvas) {
-        paint.setAlpha(mAlpha);
-        mJWorld.drawBitmap(canvas, this.mainBody, mBmpSparkle, paint);
+        mPaint.setAlpha(mAlpha);
+        mJWorld.drawBitmap(canvas, this.mMainBody, mBmpSparkle, mPaint);
+    }
+
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mBmpSparkle = null;
+        mPaint = null;
     }
 
 }

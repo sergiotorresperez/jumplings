@@ -93,7 +93,7 @@ public class AnthropomorphicDelegate {
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(feetWorldRadius);
 
-            PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x - feetWorldRadius - 0, mActor.mainBody.getWorldCenter().y - radius
+            PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x - feetWorldRadius - 0, mActor.mMainBody.getWorldCenter().y - radius
                     - feetWorldRadius);
 
             leftFootBody = mActor.mJWorld.createBody(mActor, anchor, true);
@@ -110,7 +110,7 @@ public class AnthropomorphicDelegate {
 
             // jointDef.collideConnected = true;
 
-            jointDef.initialize(mActor.mainBody, leftFootBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, leftFootBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.mJWorld.createJoint(mActor, jointDef);
         }
@@ -121,7 +121,7 @@ public class AnthropomorphicDelegate {
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(feetWorldRadius);
 
-            PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x + feetWorldRadius - 0, mActor.mainBody.getWorldCenter().y - radius
+            PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x + feetWorldRadius - 0, mActor.mMainBody.getWorldCenter().y - radius
                     - feetWorldRadius);
 
             rightFootBody = mActor.mJWorld.createBody(mActor, anchor, true);
@@ -137,7 +137,7 @@ public class AnthropomorphicDelegate {
 
             // jointDef.collideConnected = true;
 
-            jointDef.initialize(mActor.mainBody, rightFootBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, rightFootBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.mJWorld.createJoint(mActor, jointDef);
         }
@@ -150,7 +150,7 @@ public class AnthropomorphicDelegate {
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(handWorldRadius);
 
-            PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x - radius - handWorldRadius - 0, mActor.mainBody.getWorldCenter().y
+            PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x - radius - handWorldRadius - 0, mActor.mMainBody.getWorldCenter().y
                     - handWorldRadius);
 
             leftHandBody = mActor.mJWorld.createBody(mActor, anchor, true);
@@ -165,7 +165,7 @@ public class AnthropomorphicDelegate {
             jointDef.frequencyHz = handJointFrequencyHz;
             jointDef.dampingRatio = handJointdampingRatio;
 
-            jointDef.initialize(mActor.mainBody, leftHandBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, leftHandBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.mJWorld.createJoint(mActor, jointDef);
         }
@@ -176,7 +176,7 @@ public class AnthropomorphicDelegate {
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(handWorldRadius);
 
-            PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x + radius + handWorldRadius, mActor.mainBody.getWorldCenter().y
+            PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x + radius + handWorldRadius, mActor.mMainBody.getWorldCenter().y
                     - handWorldRadius);
 
             rightHandBody = mActor.mJWorld.createBody(mActor, anchor, true);
@@ -191,7 +191,7 @@ public class AnthropomorphicDelegate {
             jointDef.frequencyHz = handJointFrequencyHz;
             jointDef.dampingRatio = handJointdampingRatio;
 
-            jointDef.initialize(mActor.mainBody, rightHandBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, rightHandBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.mJWorld.createJoint(mActor, jointDef);
         }
@@ -204,7 +204,7 @@ public class AnthropomorphicDelegate {
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(eyeWorldRadius);
 
-            PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x - eyeWorldRadius * 1.5f, mActor.mainBody.getWorldCenter().y
+            PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x - eyeWorldRadius * 1.5f, mActor.mMainBody.getWorldCenter().y
                     + eyeWorldRadius);
 
             leftEyeBody = mActor.mJWorld.createBody(mActor, anchor, true);
@@ -219,7 +219,7 @@ public class AnthropomorphicDelegate {
             jointDef.frequencyHz = eyeJointFrequencyHz;
             jointDef.dampingRatio = eyeJointdampingRatio;
 
-            jointDef.initialize(mActor.mainBody, leftEyeBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, leftEyeBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.mJWorld.createJoint(mActor, jointDef);
         }
@@ -230,7 +230,7 @@ public class AnthropomorphicDelegate {
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(eyeWorldRadius);
 
-            PointF anchor = new PointF(mActor.mainBody.getWorldCenter().x + eyeWorldRadius * 1.5f, mActor.mainBody.getWorldCenter().y
+            PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x + eyeWorldRadius * 1.5f, mActor.mMainBody.getWorldCenter().y
                     + eyeWorldRadius);
 
             rightEyeBody = mActor.mJWorld.createBody(mActor, anchor, true);
@@ -245,7 +245,7 @@ public class AnthropomorphicDelegate {
             jointDef.frequencyHz = eyeJointFrequencyHz;
             jointDef.dampingRatio = eyeJointdampingRatio;
 
-            jointDef.initialize(mActor.mainBody, rightEyeBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, rightEyeBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.mJWorld.createJoint(mActor, jointDef);
         }
@@ -275,7 +275,7 @@ public class AnthropomorphicDelegate {
         mActor.mJWorld.drawBitmap(canvas, this.rightHandBody, mBmpHandRight);
         mActor.mJWorld.drawBitmap(canvas, this.rightFootBody, mBmpFootRight);
 
-        mActor.mJWorld.drawBitmap(canvas, mActor.mainBody, mBmpBody);
+        mActor.mJWorld.drawBitmap(canvas, mActor.mMainBody, mBmpBody);
 
         if (mAreEyesOpened) {
             mActor.mJWorld.drawBitmap(canvas, this.leftEyeBody, mBmpEyeLeftOpened);

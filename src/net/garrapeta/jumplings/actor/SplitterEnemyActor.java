@@ -121,8 +121,8 @@ public class SplitterEnemyActor extends EnemyActor {
         // Cuerpo
         {
 
-            mainBody = mJWorld.createBody(this, worldPos, true);
-            mainBody.setBullet(true);
+            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody.setBullet(true);
 
             // n�mero de segmentos que conforman la circunferencia
             // se hace el m�nimo con 8, por una limitaci�n que tiene box2d
@@ -145,7 +145,7 @@ public class SplitterEnemyActor extends EnemyActor {
             polygonShape.set(vertices);
 
             // Assign shape to Body
-            Fixture f = mainBody.createFixture(polygonShape, 1.0f);
+            Fixture f = mMainBody.createFixture(polygonShape, 1.0f);
             f.setFilterData(CONTACT_FILTER);
             polygonShape.dispose();
 
@@ -222,7 +222,7 @@ public class SplitterEnemyActor extends EnemyActor {
             EnemyActor actor1 = null;
             EnemyActor actor2 = null;
 
-            Vector2 wc = mainBody.getWorldCenter();
+            Vector2 wc = mMainBody.getWorldCenter();
 
             // Coordenadas de los nuevos enemigos.
             // Se aplica correcci�n para que salgan dentro de la pantalla.
@@ -236,9 +236,9 @@ public class SplitterEnemyActor extends EnemyActor {
             float posY2 = Math.max(b.bottom + mRadius, wc.y - mRadius);
             posY2 = Math.min(posY2, b.top - mRadius);
 
-            actor1 = new SplitterEnemyActor(jgWorld, new PointF(posX1, posY1), mLevel - 1);
+            actor1 = new SplitterEnemyActor(mJgWorld, new PointF(posX1, posY1), mLevel - 1);
 
-            actor2 = new SplitterEnemyActor(jgWorld, new PointF(posX2, posY2), mLevel - 1);
+            actor2 = new SplitterEnemyActor(mJgWorld, new PointF(posX2, posY2), mLevel - 1);
 
             float xVel = mRadius * mLevel * 2;
             float yVel = getRestorationInitVy(getWorldPos().y);

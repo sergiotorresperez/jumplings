@@ -34,7 +34,7 @@ public class DebrisActor extends JumplingActor {
 
     protected Paint mPaint;
 
-    protected int alpha;
+    protected int mAlpha;
 
     // --------------------------------------------- Variables de instancia
 
@@ -75,7 +75,7 @@ public class DebrisActor extends JumplingActor {
     @Override
     protected void initBodies(PointF worldPos) {
         // se cambia el filtro
-        ArrayList<Fixture> fs = mainBody.getFixtureList();
+        ArrayList<Fixture> fs = mMainBody.getFixtureList();
         int l2 = fs.size();
         for (int i2 = 0; i2 < l2; i2++) {
             fs.get(i2).setFilterData(DEBRIS_FILTER);
@@ -83,8 +83,8 @@ public class DebrisActor extends JumplingActor {
     }
 
     protected void drawBitmaps(Canvas canvas) {
-        mPaint.setAlpha(alpha);
-        mJWorld.drawBitmap(canvas, mainBody, mBitmap, mPaint);
+        mPaint.setAlpha(mAlpha);
+        mJWorld.drawBitmap(canvas, mMainBody, mBitmap, mPaint);
     }
 
     @Override
@@ -93,7 +93,14 @@ public class DebrisActor extends JumplingActor {
         if (lifeTime <= 0) {
             mGameWorld.removeActor(this);
         }
-        alpha = (int) (255 * lifeTime / longevity);
+        mAlpha = (int) (255 * lifeTime / longevity);
+    }
+
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mBitmap = null;
+        mPaint = null;
     }
 
 }

@@ -3,7 +3,6 @@ package net.garrapeta.jumplings;
 import java.util.ArrayList;
 
 import net.garrapeta.gameengine.Actor;
-import net.garrapeta.gameengine.GameMessage;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.GameWorld;
 import net.garrapeta.gameengine.SyncGameMessage;
@@ -14,11 +13,11 @@ import net.garrapeta.jumplings.actor.BladePowerUpActor;
 import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
 import net.garrapeta.jumplings.actor.FlashActor;
-import net.garrapeta.jumplings.actor.HarmerSlapActor;
 import net.garrapeta.jumplings.actor.JumplingActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.scenario.IScenario;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
@@ -139,7 +138,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         // Preparaci�n vibraciones
         if (mVibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
             VibratorManager vm = VibratorManager.getInstance();
-            vm.init(mActivity);
+            vm.init(mGameActivity);
 
             vm.add(VIBRATION_PATTERN_ENEMY_KILLED, VIBRATION_ENEMY_KILLED);
             vm.add(VIBRATION_PATTERN_FAIL, VIBRATION_FAIL);
@@ -150,10 +149,10 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mFlashActor = new FlashActor(this);
         addActor(mFlashActor);
 
-        mActivity.runOnUiThread(new Runnable() {
+        mGameActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mActivity.findViewById(R.id.loading).setVisibility(View.GONE);
+                mGameActivity.findViewById(R.id.loading).setVisibility(View.GONE);
             }
         });
     }
@@ -164,79 +163,80 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
         // Preparaci�n samples bitmaps
         BitmapManager bm = getBitmapManager();
-        bm.loadBitmap(R.drawable.eye_0_right_opened);
-        bm.loadBitmap(R.drawable.eye_0_left_opened);
-        bm.loadBitmap(R.drawable.eye_2_right_opened);
-        bm.loadBitmap(R.drawable.eye_2_left_opened);
+        Resources resources = mGameActivity.getResources();
+        bm.loadBitmap(resources, R.drawable.eye_0_right_opened);
+        bm.loadBitmap(resources, R.drawable.eye_0_left_opened);
+        bm.loadBitmap(resources, R.drawable.eye_2_right_opened);
+        bm.loadBitmap(resources, R.drawable.eye_2_left_opened);
 
-        bm.loadBitmap(R.drawable.eye_0_right_closed);
-        bm.loadBitmap(R.drawable.eye_0_left_closed);
-        bm.loadBitmap(R.drawable.eye_2_right_closed);
-        bm.loadBitmap(R.drawable.eye_2_left_closed);
+        bm.loadBitmap(resources, R.drawable.eye_0_right_closed);
+        bm.loadBitmap(resources, R.drawable.eye_0_left_closed);
+        bm.loadBitmap(resources, R.drawable.eye_2_right_closed);
+        bm.loadBitmap(resources, R.drawable.eye_2_left_closed);
 
-        bm.loadBitmap(R.drawable.red_body);
-        bm.loadBitmap(R.drawable.red_foot_right);
-        bm.loadBitmap(R.drawable.red_foot_left);
-        bm.loadBitmap(R.drawable.red_hand_right);
-        bm.loadBitmap(R.drawable.red_hand_left);
-        bm.loadBitmap(R.drawable.red_debris_body);
-        bm.loadBitmap(R.drawable.red_debris_foot_right);
-        bm.loadBitmap(R.drawable.red_debris_foot_left);
-        bm.loadBitmap(R.drawable.red_debris_hand_right);
-        bm.loadBitmap(R.drawable.red_debris_hand_left);
+        bm.loadBitmap(resources, R.drawable.red_body);
+        bm.loadBitmap(resources, R.drawable.red_foot_right);
+        bm.loadBitmap(resources, R.drawable.red_foot_left);
+        bm.loadBitmap(resources, R.drawable.red_hand_right);
+        bm.loadBitmap(resources, R.drawable.red_hand_left);
+        bm.loadBitmap(resources, R.drawable.red_debris_body);
+        bm.loadBitmap(resources, R.drawable.red_debris_foot_right);
+        bm.loadBitmap(resources, R.drawable.red_debris_foot_left);
+        bm.loadBitmap(resources, R.drawable.red_debris_hand_right);
+        bm.loadBitmap(resources, R.drawable.red_debris_hand_left);
 
-        bm.loadBitmap(R.drawable.orange_double_body);
-        bm.loadBitmap(R.drawable.orange_foot_right);
-        bm.loadBitmap(R.drawable.orange_foot_left);
-        bm.loadBitmap(R.drawable.orange_hand_right);
-        bm.loadBitmap(R.drawable.orange_hand_left);
-        bm.loadBitmap(R.drawable.orange_debris_double_body);
-        bm.loadBitmap(R.drawable.orange_debris_foot_right);
-        bm.loadBitmap(R.drawable.orange_debris_foot_left);
-        bm.loadBitmap(R.drawable.orange_debris_hand_right);
-        bm.loadBitmap(R.drawable.orange_debris_hand_left);
-        bm.loadBitmap(R.drawable.orange_simple_body);
-        bm.loadBitmap(R.drawable.orange_debris_simple_body);
+        bm.loadBitmap(resources, R.drawable.orange_double_body);
+        bm.loadBitmap(resources, R.drawable.orange_foot_right);
+        bm.loadBitmap(resources, R.drawable.orange_foot_left);
+        bm.loadBitmap(resources, R.drawable.orange_hand_right);
+        bm.loadBitmap(resources, R.drawable.orange_hand_left);
+        bm.loadBitmap(resources, R.drawable.orange_debris_double_body);
+        bm.loadBitmap(resources, R.drawable.orange_debris_foot_right);
+        bm.loadBitmap(resources, R.drawable.orange_debris_foot_left);
+        bm.loadBitmap(resources, R.drawable.orange_debris_hand_right);
+        bm.loadBitmap(resources, R.drawable.orange_debris_hand_left);
+        bm.loadBitmap(resources, R.drawable.orange_simple_body);
+        bm.loadBitmap(resources, R.drawable.orange_debris_simple_body);
 
-        bm.loadBitmap(R.drawable.yellow_2_body);
-        bm.loadBitmap(R.drawable.yellow_1_body);
-        bm.loadBitmap(R.drawable.yellow_0_body);
-        bm.loadBitmap(R.drawable.yellow_2_foot_right);
-        bm.loadBitmap(R.drawable.yellow_2_foot_left);
-        bm.loadBitmap(R.drawable.yellow_0_foot_right);
-        bm.loadBitmap(R.drawable.yellow_0_foot_left);
-        bm.loadBitmap(R.drawable.yellow_2_hand_right);
-        bm.loadBitmap(R.drawable.yellow_2_hand_left);
-        bm.loadBitmap(R.drawable.yellow_0_hand_right);
-        bm.loadBitmap(R.drawable.yellow_0_hand_left);
-        bm.loadBitmap(R.drawable.yellow_debris_2_body);
-        bm.loadBitmap(R.drawable.yellow_debris_1_body);
-        bm.loadBitmap(R.drawable.yellow_debris_0_body);
-        bm.loadBitmap(R.drawable.yellow_debris_2_foot_right);
-        bm.loadBitmap(R.drawable.yellow_debris_2_foot_left);
-        bm.loadBitmap(R.drawable.yellow_debris_0_foot_right);
-        bm.loadBitmap(R.drawable.yellow_debris_0_foot_left);
-        bm.loadBitmap(R.drawable.yellow_debris_2_hand_right);
-        bm.loadBitmap(R.drawable.yellow_debris_2_hand_left);
-        bm.loadBitmap(R.drawable.yellow_debris_0_hand_right);
-        bm.loadBitmap(R.drawable.yellow_debris_0_hand_left);
+        bm.loadBitmap(resources, R.drawable.yellow_2_body);
+        bm.loadBitmap(resources, R.drawable.yellow_1_body);
+        bm.loadBitmap(resources, R.drawable.yellow_0_body);
+        bm.loadBitmap(resources, R.drawable.yellow_2_foot_right);
+        bm.loadBitmap(resources, R.drawable.yellow_2_foot_left);
+        bm.loadBitmap(resources, R.drawable.yellow_0_foot_right);
+        bm.loadBitmap(resources, R.drawable.yellow_0_foot_left);
+        bm.loadBitmap(resources, R.drawable.yellow_2_hand_right);
+        bm.loadBitmap(resources, R.drawable.yellow_2_hand_left);
+        bm.loadBitmap(resources, R.drawable.yellow_0_hand_right);
+        bm.loadBitmap(resources, R.drawable.yellow_0_hand_left);
+        bm.loadBitmap(resources, R.drawable.yellow_debris_2_body);
+        bm.loadBitmap(resources, R.drawable.yellow_debris_1_body);
+        bm.loadBitmap(resources, R.drawable.yellow_debris_0_body);
+        bm.loadBitmap(resources, R.drawable.yellow_debris_2_foot_right);
+        bm.loadBitmap(resources, R.drawable.yellow_debris_2_foot_left);
+        bm.loadBitmap(resources, R.drawable.yellow_debris_0_foot_right);
+        bm.loadBitmap(resources, R.drawable.yellow_debris_0_foot_left);
+        bm.loadBitmap(resources, R.drawable.yellow_debris_2_hand_right);
+        bm.loadBitmap(resources, R.drawable.yellow_debris_2_hand_left);
+        bm.loadBitmap(resources, R.drawable.yellow_debris_0_hand_right);
+        bm.loadBitmap(resources, R.drawable.yellow_debris_0_hand_left);
 
-        bm.loadBitmap(R.drawable.bomb_body);
-        bm.loadBitmap(R.drawable.bomb_fuse);
-        bm.loadBitmap(R.drawable.bomb_debris_body);
-        bm.loadBitmap(R.drawable.bomb_debris_fuse);
+        bm.loadBitmap(resources, R.drawable.bomb_body);
+        bm.loadBitmap(resources, R.drawable.bomb_fuse);
+        bm.loadBitmap(resources, R.drawable.bomb_debris_body);
+        bm.loadBitmap(resources, R.drawable.bomb_debris_fuse);
 
-        bm.loadBitmap(R.drawable.sparks_big_0);
-        bm.loadBitmap(R.drawable.sparks_big_1);
-        bm.loadBitmap(R.drawable.sparks_big_2);
-        bm.loadBitmap(R.drawable.sparks_big_3);
+        bm.loadBitmap(resources, R.drawable.sparks_big_0);
+        bm.loadBitmap(resources, R.drawable.sparks_big_1);
+        bm.loadBitmap(resources, R.drawable.sparks_big_2);
+        bm.loadBitmap(resources, R.drawable.sparks_big_3);
 
-        bm.loadBitmap(R.drawable.powerup_bg);
-        bm.loadBitmap(R.drawable.powerup_debris_bg);
-        bm.loadBitmap(R.drawable.powerup_sword);
-        bm.loadBitmap(R.drawable.powerup_debris_sword);
-        bm.loadBitmap(R.drawable.powerup_heart);
-        bm.loadBitmap(R.drawable.powerup_debris_heart);
+        bm.loadBitmap(resources, R.drawable.powerup_bg);
+        bm.loadBitmap(resources, R.drawable.powerup_debris_bg);
+        bm.loadBitmap(resources, R.drawable.powerup_sword);
+        bm.loadBitmap(resources, R.drawable.powerup_debris_sword);
+        bm.loadBitmap(resources, R.drawable.powerup_heart);
+        bm.loadBitmap(resources, R.drawable.powerup_debris_heart);
 
         // Preparación samples sonido
         SoundManager sm = getSoundManager();

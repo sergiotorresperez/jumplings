@@ -76,11 +76,11 @@ public class IntroActor extends JumplingActor implements IBumpable {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(mRadius);
-            mainBody = mJWorld.createBody(this, worldPos, true);
-            mainBody.setBullet(true);
+            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody.setBullet(true);
 
             // Assign shape to Body
-            Fixture f = mainBody.createFixture(circleShape, 1.0f);
+            Fixture f = mMainBody.createFixture(circleShape, 1.0f);
             f.setFilterData(CONTACT_FILTER);
             circleShape.dispose();
 
@@ -117,6 +117,22 @@ public class IntroActor extends JumplingActor implements IBumpable {
     public void onBeginContact(Body thisBody, Box2DActor other, Body otherBody, Contact contact) {
         super.onBeginContact(thisBody, other, otherBody, contact);
         mBumpDelegate.onBeginContact(mEntered, thisBody, other, otherBody, contact);
+    }
+
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mAnthtopoDelegate = null;
+        mBumpDelegate = null;
+        bmpBody = null;
+        bmpFootRight = null;
+        bmpFootLeft = null;
+
+        bmpHandRight = null;
+        bmpHandLeft = null;
+
+        bmpEyeRight = null;
+        bmpEyeLeft = null;
     }
 
 }

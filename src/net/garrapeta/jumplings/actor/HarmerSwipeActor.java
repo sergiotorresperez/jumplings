@@ -14,152 +14,155 @@ import android.view.MotionEvent;
 
 public class HarmerSwipeActor extends HarmerActor {
 
-	private ArrayList<double[]> swipePoints;
-	private Paint mPaint;
-	private final int  TIME = 100;
-	private Path path = new Path();
-	private RectF killingArea = new RectF();
-	private boolean killingAreaUpdated = false;
-	
-	private final int MIN_START_DISTANCE = 30;
-	private final int MIN_STOP_DISTANCE  = 15;
-	
-	private double[] prev;
-	
-	private boolean swipping = false;
-	
-	// ---------------------------------------------------- Constructor
-	
-	public HarmerSwipeActor(JumplingsGameWorld mJWorld) {
-		super(mJWorld);
-		swipePoints = new ArrayList<double[]>();
-		
-		mPaint = new Paint();
-		mPaint.setFlags(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
-		mPaint.setARGB(75, 0, 0, 255);
-	}
+    private ArrayList<double[]> mSwipePoints;
+    private Paint mPaint;
+    private final int TIME = 100;
+    private Path mPath = new Path();
+    private RectF mKillingArea = new RectF();
+    private boolean mKillingAreaUpdated = false;
 
-	// ----------------------------------------------- M�todos heredados
-	
+    private final int MIN_START_DISTANCE = 30;
+    private final int MIN_STOP_DISTANCE = 15;
 
-	@Override
-	public void processFrame(float gameTimeStep) {
-		
-		synchronized (swipePoints) {
-		
-			path.reset();
-			
-			long now = System.currentTimeMillis();
-			while (swipePoints.size() > 0) {
-				double[] info = swipePoints.get(0);
-				if (now - info[3] > TIME) {
-					swipePoints.remove(info);
-				} else {
-					break;
-				}
-			}
-			
-			if (swipePoints.size() > 0) {
-				
-				double[] info;
-				float x;
-				float y;
-				
-				info = swipePoints.get(0);
-				x = (float) info[1];
-				y = (float) info[2];
-				path.moveTo(x, y);
-				
-				for (int i = 0; i < swipePoints.size(); i++) {
-					info = swipePoints.get(i);
-			
-					x = (float) info[1];
-					y = (float) info[2];
-					
-					path.lineTo(x, y);	
-					
-				}
-		
-				killingAreaUpdated = false;
-			}
-		}
-		
-		super.processFrame(gameTimeStep);
-	}
+    private double[] mPrev;
 
-	@Override
-	protected void effectOver(MainActor mainActor) {
-		if (hits(mainActor)) {
-			mainActor.onHitted();
-		}
-	}
+    private boolean swipping = false;
 
+    // ---------------------------------------------------- Constructor
 
+    public HarmerSwipeActor(JumplingsGameWorld mJWorld) {
+        super(mJWorld);
+        mSwipePoints = new ArrayList<double[]>();
 
-	@Override
-	public void draw(Canvas canvas) {
-	    canvas.drawPath(path, mPaint);
-	}
+        mPaint = new Paint();
+        mPaint.setFlags(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+        mPaint.setARGB(75, 0, 0, 255);
+    }
 
-	
-	// ---------------------------------------- M�todos propios
+    // ----------------------------------------------- M�todos heredados
 
-	public void onTouchEvent(double info[]) {		
-		synchronized (swipePoints) {
-			if (prev != null) {
-				int action = (int) info[0];
-				
-				if (action == MotionEvent.ACTION_MOVE) {
-					double dist = Math.sqrt(Math.pow(info[1] - prev[1], 2) + Math.pow(info[2] - prev[2], 2));
-					
-					if (!swipping) {
-						if (dist >= MIN_START_DISTANCE) {
-							swipping = true;
-							timestamp = System.currentTimeMillis();
-							
-						    mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SWING);
-							if (mJWorld.mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
-							    mJWorld.mFlashActor.init(Color.WHITE, 50, 250, -1);
-							}
-						}
-					} else {
-						if (dist < MIN_STOP_DISTANCE) {
-							swipePoints.clear();
-							swipping = false;
-						}
-					}
-				} else if (action == MotionEvent.ACTION_UP) {
-					swipePoints.clear();
-					swipping = false;
-				}
-		
-				
-				if (swipping) {
-					this.swipePoints.add(info);
-				}
-			
-			}
-			
-			prev = info;
-		}
-		
-	}
+    @Override
+    public void processFrame(float gameTimeStep) {
 
-	public boolean hits(MainActor mainActor) {
-		PointF pos = mainActor.getWorldPos();
-		
-		if (!killingAreaUpdated) {
-			path.computeBounds(killingArea, true);
-			killingAreaUpdated = true;
-		}
-		
-		float  sr  = mJWorld.viewport.worldUnitsToPixels(mainActor.mRadius);
-		PointF sc  = mJWorld.viewport.worldToScreen(pos.x, pos.y);
-		RectF aux = new RectF(sc.x - sr, sc.y - sr, sc.x + sr, sc.y + sr);
-		
-		return RectF.intersects(aux, killingArea);
-	}
+        synchronized (mSwipePoints) {
 
+            mPath.reset();
 
+            long now = System.currentTimeMillis();
+            while (mSwipePoints.size() > 0) {
+                double[] info = mSwipePoints.get(0);
+                if (now - info[3] > TIME) {
+                    mSwipePoints.remove(info);
+                } else {
+                    break;
+                }
+            }
+
+            if (mSwipePoints.size() > 0) {
+
+                double[] info;
+                float x;
+                float y;
+
+                info = mSwipePoints.get(0);
+                x = (float) info[1];
+                y = (float) info[2];
+                mPath.moveTo(x, y);
+
+                for (int i = 0; i < mSwipePoints.size(); i++) {
+                    info = mSwipePoints.get(i);
+
+                    x = (float) info[1];
+                    y = (float) info[2];
+
+                    mPath.lineTo(x, y);
+
+                }
+
+                mKillingAreaUpdated = false;
+            }
+        }
+
+        super.processFrame(gameTimeStep);
+    }
+
+    @Override
+    protected void effectOver(MainActor mainActor) {
+        if (hits(mainActor)) {
+            mainActor.onHitted();
+        }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        canvas.drawPath(mPath, mPaint);
+    }
+
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mSwipePoints = null;
+        mPaint = null;
+        mPath = null;
+        mKillingArea = null;
+        mPrev = null;
+    }
+
+    // ---------------------------------------- M�todos propios
+
+    public void onTouchEvent(double info[]) {
+        synchronized (mSwipePoints) {
+            if (mPrev != null) {
+                int action = (int) info[0];
+
+                if (action == MotionEvent.ACTION_MOVE) {
+                    double dist = Math.sqrt(Math.pow(info[1] - mPrev[1], 2) + Math.pow(info[2] - mPrev[2], 2));
+
+                    if (!swipping) {
+                        if (dist >= MIN_START_DISTANCE) {
+                            swipping = true;
+                            mTimestamp = System.currentTimeMillis();
+
+                            mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SWING);
+                            if (mJWorld.mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
+                                mJWorld.mFlashActor.init(Color.WHITE, 50, 250, -1);
+                            }
+                        }
+                    } else {
+                        if (dist < MIN_STOP_DISTANCE) {
+                            mSwipePoints.clear();
+                            swipping = false;
+                        }
+                    }
+                } else if (action == MotionEvent.ACTION_UP) {
+                    mSwipePoints.clear();
+                    swipping = false;
+                }
+
+                if (swipping) {
+                    this.mSwipePoints.add(info);
+                }
+
+            }
+
+            mPrev = info;
+        }
+
+    }
+
+    public boolean hits(MainActor mainActor) {
+        PointF pos = mainActor.getWorldPos();
+
+        if (!mKillingAreaUpdated) {
+            mPath.computeBounds(mKillingArea, true);
+            mKillingAreaUpdated = true;
+        }
+
+        float sr = mJWorld.viewport.worldUnitsToPixels(mainActor.mRadius);
+        PointF sc = mJWorld.viewport.worldToScreen(pos.x, pos.y);
+        RectF aux = new RectF(sc.x - sr, sc.y - sr, sc.x + sr, sc.y + sr);
+
+        return RectF.intersects(aux, mKillingArea);
+    }
 
 }

@@ -31,14 +31,14 @@ public abstract class PowerUpActor extends MainActor {
 
     // ---------------------------------------------- Variables de instancia
 
-    protected Body iconBody;
+    protected Body mIconBody;
 
     // Bitmaps del actor vivo
-    protected Bitmap bmpBg;
+    protected Bitmap mBmpBg;
     protected Bitmap mBmpIcon;
 
     // Bitmaps del actor muerto (debris)
-    protected Bitmap bmpDebrisBg;
+    protected Bitmap mBmpDebrisBg;
     protected Bitmap mBmpDebrisIcon;
 
     // --------------------------------------------------- Constructor
@@ -48,9 +48,9 @@ public abstract class PowerUpActor extends MainActor {
 
         // vivo
         BitmapManager mb = mJWorld.getBitmapManager();
-        bmpBg = mb.getBitmap(BMP_POWERUP_BG);
+        mBmpBg = mb.getBitmap(BMP_POWERUP_BG);
         // debris
-        bmpDebrisBg = mb.getBitmap(BMP_DEBRIS_POWERUP_BG);
+        mBmpDebrisBg = mb.getBitmap(BMP_DEBRIS_POWERUP_BG);
         init(worldPos);
     }
 
@@ -64,11 +64,11 @@ public abstract class PowerUpActor extends MainActor {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(mRadius);
-            mainBody = mJWorld.createBody(this, worldPos, true);
-            mainBody.setBullet(true);
+            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody.setBullet(true);
 
             // Assign shape to Body
-            Fixture f = mainBody.createFixture(circleShape, 1.0f);
+            Fixture f = mMainBody.createFixture(circleShape, 1.0f);
             f.setFilterData(CONTACT_FILTER);
             circleShape.dispose();
 
@@ -80,11 +80,11 @@ public abstract class PowerUpActor extends MainActor {
             PolygonShape polygonShape = new PolygonShape();
             polygonShape.setAsBox(mRadius, mRadius);
             PointF pos = new PointF(worldPos.x, worldPos.y);
-            iconBody = mJWorld.createBody(this, pos, true);
-            iconBody.setBullet(false);
+            mIconBody = mJWorld.createBody(this, pos, true);
+            mIconBody.setBullet(false);
 
             // Assign shape to Body
-            Fixture f = iconBody.createFixture(polygonShape, 1.0f);
+            Fixture f = mIconBody.createFixture(polygonShape, 1.0f);
             f.setRestitution(AUX_BODIES_RESTITUTION);
             f.setFilterData(NO_CONTACT_FILTER);
             polygonShape.dispose();
@@ -92,7 +92,7 @@ public abstract class PowerUpActor extends MainActor {
             // Uni�n
             WeldJointDef jointDef = new WeldJointDef();
 
-            jointDef.initialize(mainBody, iconBody, Viewport.pointFToVector2(pos));
+            jointDef.initialize(mMainBody, mIconBody, Viewport.pointFToVector2(pos));
 
             mJWorld.createJoint(this, jointDef);
         }
@@ -104,8 +104,8 @@ public abstract class PowerUpActor extends MainActor {
 
         // Main Body
         {
-            Body body = mainBody;
-            DebrisActor debrisActor = new DebrisActor(mJWorld, body, bmpDebrisBg);
+            Body body = mMainBody;
+            DebrisActor debrisActor = new DebrisActor(mJWorld, body, mBmpDebrisBg);
 
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -113,7 +113,7 @@ public abstract class PowerUpActor extends MainActor {
 
         // Icon
         {
-            Body body = iconBody;
+            Body body = mIconBody;
             DebrisActor debrisActor = new DebrisActor(mJWorld, body, mBmpDebrisIcon);
 
             mGameWorld.addActor(debrisActor);
@@ -125,10 +125,17 @@ public abstract class PowerUpActor extends MainActor {
 
     @Override
     protected void drawBitmaps(Canvas canvas) {
-        mJWorld.drawBitmap(canvas, this.mainBody, bmpBg);
-        mJWorld.drawBitmap(canvas, this.iconBody, mBmpIcon);
+        mJWorld.drawBitmap(canvas, this.mMainBody, mBmpBg);
+        mJWorld.drawBitmap(canvas, this.mIconBody, mBmpIcon);
     }
 
-    // ------------------------------------------------ M�todos propios
-
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mIconBody = null;
+        mBmpBg= null;
+        mBmpIcon = null;
+        mBmpDebrisBg = null;
+        mBmpDebrisIcon = null;
+    }
 }

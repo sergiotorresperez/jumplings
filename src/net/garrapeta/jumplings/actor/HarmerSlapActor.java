@@ -19,7 +19,7 @@ public class HarmerSlapActor extends HarmerActor {
 
     // ----------------------------------------- Variables de instancia
 
-    protected Paint paint;
+    protected Paint mPaint;
 
     PointF mWorldPos;
 
@@ -31,9 +31,9 @@ public class HarmerSlapActor extends HarmerActor {
 
     protected JumplingsGameWorld mWorld;
 
-    private boolean firstFrame = true;
+    private boolean mFirstFrame = true;
 
-    private boolean alreadyKilled = false;
+    private boolean mAlreadyKilled = false;
 
     // -------------------------------------------------- Constructores
 
@@ -45,11 +45,11 @@ public class HarmerSlapActor extends HarmerActor {
         mLongevity = longevity;
         mLifeTime = longevity;
 
-        paint = new Paint();
-        paint.setColor(Color.YELLOW);
-        paint.setTextAlign(Align.CENTER);
+        mPaint = new Paint();
+        mPaint.setColor(Color.YELLOW);
+        mPaint.setTextAlign(Align.CENTER);
 
-        this.timestamp = System.currentTimeMillis();
+        this.mTimestamp = System.currentTimeMillis();
 
     }
 
@@ -66,17 +66,25 @@ public class HarmerSlapActor extends HarmerActor {
 
         super.processFrame(gameTimeStep);
 
-        firstFrame = false;
+        mFirstFrame = false;
+    }
+
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mJWorld = null;
+        mPaint = null;
+        mWorldPos = null;
     }
 
     @Override
     protected void effectOver(MainActor j) {
-        if (firstFrame) {
+        if (mFirstFrame) {
             if (this.kills(j)) {
                 j.onHitted();
             } else {
                 // se aplica onda expansiva
-                mWorld.applyBlast(Viewport.pointFToVector2(mWorldPos), j.mainBody, BLAST_RADIUS, BLAST_FORCE);
+                mWorld.applyBlast(Viewport.pointFToVector2(mWorldPos), j.mMainBody, BLAST_RADIUS, BLAST_FORCE);
             }
         }
     }
@@ -84,10 +92,10 @@ public class HarmerSlapActor extends HarmerActor {
     @Override
     public void draw(Canvas canvas) {
         int a = (int) ((mLifeTime / mLongevity) * 255);
-        paint.setAlpha(a);
+        mPaint.setAlpha(a);
         PointF screenPos = mWorld.viewport.worldToScreen(mWorldPos);
         float currentRadius = ((mLongevity - mLifeTime) / mLongevity) * mMaxExplosionRadius;
-        canvas.drawCircle(screenPos.x, screenPos.y, mWorld.viewport.worldUnitsToPixels(currentRadius), paint);
+        canvas.drawCircle(screenPos.x, screenPos.y, mWorld.viewport.worldUnitsToPixels(currentRadius), mPaint);
     }
 
     // --------------------------------------- M�todos propios
@@ -101,9 +109,9 @@ public class HarmerSlapActor extends HarmerActor {
     }
 
     private boolean kills(MainActor mainActor) {
-        if (!alreadyKilled) {
+        if (!mAlreadyKilled) {
             if (hits(mainActor)) {
-                alreadyKilled = true;
+                mAlreadyKilled = true;
                 return true;
             }
         }

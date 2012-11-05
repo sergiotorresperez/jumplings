@@ -43,9 +43,9 @@ public abstract class JumplingActor extends Box2DActor {
 
     // ----------------------------------------- Variables de instancia
 
-    final JumplingsWorld mJWorld;
+    JumplingsWorld mJWorld;
 
-    public Body mainBody;
+    public Body mMainBody;
 
     /**
      * Radio de la circunferencia circunscrita en el cuerpo del enemigo, en
@@ -97,9 +97,9 @@ public abstract class JumplingActor extends Box2DActor {
      */
     public JumplingActor(JumplingsWorld jWorld, float radius, int zIndex, Body mainbody) {
         this(jWorld, radius, zIndex);
-        this.mainBody = mainbody;
+        this.mMainBody = mainbody;
         // FIXME: avoid this. This is here because of DebrisBory
-        addBody(mainBody);
+        addBody(mMainBody);
     }
 
     private JumplingActor(JumplingsWorld jWorld, float radius, int zIndex) {
@@ -179,6 +179,13 @@ public abstract class JumplingActor extends Box2DActor {
         }
     }
 
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mJWorld = null;
+        mMainBody = null;
+    }
+
     // ------------------------------------------------ M�todos propios
 
     protected void init(PointF worldPos) {
@@ -205,7 +212,7 @@ public abstract class JumplingActor extends Box2DActor {
         // TODO: ¿que era esto??
         double ratio = getMainMassRatio();
         float mainBodyRestitution = (float) (OVERALL_ACTOR_RESTITUTION * (1 / ratio));
-        mainBody.getFixtureList().get(0).setRestitution(mainBodyRestitution);
+        mMainBody.getFixtureList().get(0).setRestitution(mainBodyRestitution);
     }
 
     /**
@@ -232,7 +239,7 @@ public abstract class JumplingActor extends Box2DActor {
      * @return
      */
     protected Body[] getMainBodies() {
-        return new Body[] { mainBody };
+        return new Body[] { mMainBody };
     }
 
     /**

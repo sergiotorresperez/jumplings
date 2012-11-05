@@ -85,16 +85,16 @@ public abstract class AllowanceWave extends Wave {
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         if (JumplingsApplication.DEBUG_THREAD_BARS_ENABLED) {
 
-            this.jWorld.getActivity().runOnUiThread(new Runnable() {
+            this.jWorld.mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    jWorld.getActivity().findViewById(id.game_threadBars).setVisibility(View.VISIBLE);
+                    jWorld.mActivity.findViewById(id.game_threadBars).setVisibility(View.VISIBLE);
                 }
             });
 
-            threadRatioBar = (ProgressBar) jWorld.getActivity().findViewById(id.game_threadRatio);
-            allowedThreadGenerationBar = (ProgressBar) jWorld.getActivity().findViewById(id.game_allowedThreadGeneration);
-            accumulatedThreatBar = (ProgressBar) jWorld.getActivity().findViewById(id.game_acumulatedThreat);
+            threadRatioBar = (ProgressBar) jWorld.mActivity.findViewById(id.game_threadRatio);
+            allowedThreadGenerationBar = (ProgressBar) jWorld.mActivity.findViewById(id.game_allowedThreadGeneration);
+            accumulatedThreatBar = (ProgressBar) jWorld.mActivity.findViewById(id.game_acumulatedThreat);
 
             threadRatioBar.setMax(100);
             allowedThreadGenerationBar.setMax((int) (maxThreat * 100));
@@ -116,7 +116,7 @@ public abstract class AllowanceWave extends Wave {
     // M�todos de debug
 
     private void updateThreadRatioBar() {
-        jWorld.getActivity().runOnUiThread(new Runnable() {
+        jWorld.mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
@@ -128,7 +128,7 @@ public abstract class AllowanceWave extends Wave {
     }
 
     private void updateAllowedThreadGenerationBar() {
-        jWorld.getActivity().runOnUiThread(new Runnable() {
+        jWorld.mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
@@ -140,7 +140,7 @@ public abstract class AllowanceWave extends Wave {
     }
 
     private void updateAccumulatedThreatBar() {
-        jWorld.getActivity().runOnUiThread(new Runnable() {
+        jWorld.mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {

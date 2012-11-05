@@ -52,8 +52,8 @@ public class WallActor extends Box2DEdgeActor {
 		
 		
 		Filter filter = (floor) ? FLOOR_FILTER : WALL_FILTER; 
-		for (int i = 0; i < bodies.size(); i++) {
-			Body b = bodies.get(i);
+		for (int i = 0; i < mBodies.size(); i++) {
+			Body b = mBodies.get(i);
 //			b.setBullet(true);
 			
 			ArrayList<Fixture> fs = b.getFixtureList();

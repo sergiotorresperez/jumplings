@@ -127,10 +127,10 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
     private void switchWave() {
         if (JumplingsApplication.MOBCLIX_ENABLED && mWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
             // Se muestra anuncio
-            mWorld.getActivity().runOnUiThread(new Runnable() {
+            mWorld.mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mWorld.mGameActivity.showDialog(GameActivity.DIALOG_AD_ID);
+                    mWorld.mActivity.showDialog(GameActivity.DIALOG_AD_ID);
                 }
             });
 
@@ -143,14 +143,14 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
     }
 
     private void showLevel() {
-        jWorld.getActivity().runOnUiThread(new Runnable() {
+        jWorld.mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
                 final String message = "Level " + level;
                 Log.i(LOG_SRC, message);
 
-                Toast toast = Toast.makeText(CampaignSurvivalWave.this.mWorld.getActivity(), message, Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(CampaignSurvivalWave.this.mWorld.mActivity, message, Toast.LENGTH_SHORT);
                 toast.show();
             }
         });

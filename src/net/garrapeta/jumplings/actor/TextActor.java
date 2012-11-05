@@ -22,16 +22,16 @@ public abstract class TextActor extends Actor {
 
     private JumplingsGameWorld cWorld;
 
-    protected String text;
-    protected Paint paint;
+    protected String mText;
+    protected Paint mPaint;
 
     PointF worldPos;
 
-    float longevity;
+    float mLongevity;
 
-    float lifeTime = longevity;
+    float mLifeTime = mLongevity;
 
-    protected float yVel;
+    protected float mYVel;
 
     // -------------------------------------------------- Constructores
 
@@ -40,32 +40,37 @@ public abstract class TextActor extends Actor {
         this.cWorld = cWorld;
         this.worldPos = worldPos;
 
-        paint = new Paint();
-        paint.setColor(Color.RED);
-        paint.setTextAlign(Align.CENTER);
-        paint.setTypeface(JumplingsApplication.game_font);
+        mPaint = new Paint();
+        mPaint.setColor(Color.RED);
+        mPaint.setTextAlign(Align.CENTER);
+        mPaint.setTypeface(JumplingsApplication.game_font);
     }
 
     // -------------------------------------------------------- M�todos
 
     @Override
     public void processFrame(float gameTimeStep) {
-        worldPos.y += yVel * (gameTimeStep / 1000);
+        worldPos.y += mYVel * (gameTimeStep / 1000);
 
-        lifeTime = Math.max(0, lifeTime - gameTimeStep);
-        if (lifeTime <= 0) {
+        mLifeTime = Math.max(0, mLifeTime - gameTimeStep);
+        if (mLifeTime <= 0) {
             mGameWorld.removeActor(this);
         }
     }
 
     @Override
     public void draw(Canvas canvas) {
-        int a = (int) ((lifeTime / longevity) * 255);
-        paint.setAlpha(a);
+        int a = (int) ((mLifeTime / mLongevity) * 255);
+        mPaint.setAlpha(a);
         PointF screenPos = cWorld.viewport.worldToScreen(worldPos);
-        canvas.drawText(text, screenPos.x, screenPos.y, paint);
+        canvas.drawText(mText, screenPos.x, screenPos.y, mPaint);
     }
 
+    @Override
+    protected void dispose() {
+        mText = null;
+        mPaint = null;
+    }
     // --------------------------------------------------- IAtomicActor
 
 }

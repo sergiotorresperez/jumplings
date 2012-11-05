@@ -49,14 +49,14 @@ public class FlashActor extends Actor {
 
     // ------------------------------------------------ Variables de instancia
 
-    float longevity;
+    float mLongevity;
 
-    float lifeTime;
+    float lmLfeTime;
 
-    private float baseAlpha;
-    private float baseRed;
-    private float baseGreen;
-    private float baseBlue;
+    private float mBaseAlpha;
+    private float mBaseRed;
+    private float mBaseGreen;
+    private float mBaseBlue;
     private boolean mActive;
     private int mPriority = Integer.MIN_VALUE;
 
@@ -73,14 +73,14 @@ public class FlashActor extends Actor {
         if (mActive && priority < mPriority) {
             return;
         }
-        this.baseAlpha = Color.alpha(color) * (alpha / 255f);
-        this.baseRed = Color.red(color);
-        this.baseGreen = Color.green(color);
-        this.baseBlue = Color.blue(color);
-        this.longevity = longevity;
-        this.lifeTime = longevity;
+        this.mBaseAlpha = Color.alpha(color) * (alpha / 255f);
+        this.mBaseRed = Color.red(color);
+        this.mBaseGreen = Color.green(color);
+        this.mBaseBlue = Color.blue(color);
+        this.mLongevity = longevity;
+        this.lmLfeTime = longevity;
         this.mPriority = priority;
-        mActive = lifeTime > 0;
+        mActive = lmLfeTime > 0;
     }
 
     @Override
@@ -88,8 +88,8 @@ public class FlashActor extends Actor {
         if (!mActive) {
             return;
         }
-        lifeTime = Math.max(0, lifeTime - gameTimeStep);
-        if (lifeTime <= 0) {
+        lmLfeTime = Math.max(0, lmLfeTime - gameTimeStep);
+        if (lmLfeTime <= 0) {
             mActive = false;
         }
     }
@@ -99,9 +99,9 @@ public class FlashActor extends Actor {
         if (!mActive) {
             return;
         }
-        float alphaFactor = lifeTime / longevity;
-        float finalAlpha = alphaFactor * baseAlpha;
-        canvas.drawARGB((int) finalAlpha, (int) baseRed, (int) baseGreen, (int) baseBlue);
+        float alphaFactor = lmLfeTime / mLongevity;
+        float finalAlpha = alphaFactor * mBaseAlpha;
+        canvas.drawARGB((int) finalAlpha, (int) mBaseRed, (int) mBaseGreen, (int) mBaseBlue);
     }
 
 }

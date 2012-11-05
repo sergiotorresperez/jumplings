@@ -73,11 +73,11 @@ public class DoubleEnemyActor extends EnemyActor {
             Vector2[] vertices = new Vector2[] { new Vector2(0, mRadius), new Vector2(-mRadius, 0), new Vector2(0, -mRadius), new Vector2(mRadius, 0) };
             polygonShape.set(vertices);
 
-            mainBody = mJWorld.createBody(this, worldPos, true);
-            mainBody.setBullet(true);
+            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody.setBullet(true);
 
             // Assign shape to Body
-            Fixture f = mainBody.createFixture(polygonShape, 1.0f);
+            Fixture f = mMainBody.createFixture(polygonShape, 1.0f);
             f.setFilterData(CONTACT_FILTER);
             polygonShape.dispose();
 
@@ -120,10 +120,10 @@ public class DoubleEnemyActor extends EnemyActor {
         float xVel = 0;
         Vector2 pos = null;
 
-        pos = mainBody.getWorldCenter();
-        son = new DoubleSonEnemyActor(jgWorld, Viewport.vector2ToPointF(pos));
+        pos = mMainBody.getWorldCenter();
+        son = new DoubleSonEnemyActor(mJgWorld, Viewport.vector2ToPointF(pos));
 
-        xVel = mainBody.getLinearVelocity().x;
+        xVel = mMainBody.getLinearVelocity().x;
 
         mJWorld.addActor(son);
 

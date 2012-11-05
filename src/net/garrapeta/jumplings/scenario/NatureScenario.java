@@ -35,24 +35,24 @@ public class NatureScenario extends LayerScenario {
         // Initialisation of Layers
         {
             // TODO: avoid blocking game thread with this load
-            Bitmap bmp = bm.loadBitmap(LAYER1_ID);
+            Bitmap bmp = bm.loadBitmap(mWorld.mActivity.getResources(), LAYER1_ID);
             int maxHeight = (int) (viewHeight * 1.5);
             addLayer(new Layer(this, bmp, maxHeight, 0, 0, 2, 0, true, true, viewWidth, viewHeight));
         }
         {
             int maxHeight = (int) (viewHeight * 1.4);
-            Bitmap bmp = bm.loadBitmap(LAYER2_ID);
+            Bitmap bmp = bm.loadBitmap(mWorld.mActivity.getResources(), LAYER2_ID);
             float initYPos = maxHeight - bmp.getHeight();
             addLayer(new Layer(this, bmp, maxHeight, 0, initYPos, 0, 0, true, false, viewWidth, viewHeight));
         }
         {
-            Bitmap bmp = bm.loadBitmap(LAYER3_ID);
+            Bitmap bmp = bm.loadBitmap(mWorld.mActivity.getResources(), LAYER3_ID);
             int maxHeight = (int) (viewHeight * 2.7);
             addLayer(new Layer(this, bmp, maxHeight, 0, 0, 3, 0, true, false, viewWidth, viewHeight));
         }
         {
             int maxHeight = (int) (viewHeight * 2);
-            Bitmap bmp = bm.loadBitmap(LAYER4_ID);
+            Bitmap bmp = bm.loadBitmap(mWorld.mActivity.getResources(), LAYER4_ID);
             float initYPos = maxHeight - bmp.getHeight();
             addLayer(new Layer(this, bmp, maxHeight, 0, initYPos, 0, 0, true, false, viewWidth, viewHeight));
         }

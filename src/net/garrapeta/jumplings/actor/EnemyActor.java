@@ -98,25 +98,24 @@ public abstract class EnemyActor extends MainActor implements IBumpable {
     public void onBeginContact(Body thisBody, Box2DActor other, Body otherBody, Contact contact) {
         super.onBeginContact(thisBody, other, otherBody, contact);
         mBumpDelegate.onBeginContact(mEntered, thisBody, other, otherBody, contact);
-   }
-
+    }
 
     // ------------------------------------------------ M�todos propios
 
     @Override
     protected Body[] getMainBodies() {
-        return new Body[] { mainBody };
+        return new Body[] { mMainBody };
     }
 
     @Override
     protected void onScapedFromBounds() {
-        jgWorld.onEnemyScaped(this);
+        mJgWorld.onEnemyScaped(this);
         super.onScapedFromBounds();
     }
 
     @Override
     public void onHitted() {
-        jgWorld.onEnemyKilled(this);
+        mJgWorld.onEnemyKilled(this);
         super.onHitted();
     }
 
@@ -126,7 +125,7 @@ public abstract class EnemyActor extends MainActor implements IBumpable {
 
         // Main Body
         {
-            Body body = mainBody;
+            Body body = mMainBody;
             DebrisActor debrisActor = new DebrisActor(mJWorld, body, mBmpDebrisBody);
 
             mGameWorld.addActor(debrisActor);
@@ -200,4 +199,19 @@ public abstract class EnemyActor extends MainActor implements IBumpable {
         mBumpDelegate.onBumped(bumped, this, mAnthtopoDelegate);
     }
 
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mAnthtopoDelegate = null;
+        mBumpDelegate = null;
+        mBmpDebrisBody = null;
+        mBmpDebrisFootRight = null;
+        mBmpDebrisFootLeft = null;
+
+        mBmpDebrisHandRight = null;
+        mBmpDebrisHandLeft = null;
+
+        mBmpDebrisEyeRight = null;
+        mBmpDebrisEyeLeft = null;
+    }
 }

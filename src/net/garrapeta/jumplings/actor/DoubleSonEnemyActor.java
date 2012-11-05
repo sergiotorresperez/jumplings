@@ -35,7 +35,7 @@ public class DoubleSonEnemyActor extends EnemyActor {
 
     public DoubleSonEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos) {
         super(mJWorld, DoubleSonEnemyActor.DEFAULT_RADIUS, worldPos);
-        this.mCode = DoubleSonEnemyActor.JUMPER_CODE_DOUBLE_SON;
+        mCode = DoubleSonEnemyActor.JUMPER_CODE_DOUBLE_SON;
         init(worldPos);
     }
 
@@ -49,11 +49,11 @@ public class DoubleSonEnemyActor extends EnemyActor {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(mRadius);
-            mainBody = mJWorld.createBody(this, worldPos, true);
-            mainBody.setBullet(true);
+            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody.setBullet(true);
 
             // Assign shape to Body
-            Fixture f = mainBody.createFixture(circleShape, 1.0f);
+            Fixture f = mMainBody.createFixture(circleShape, 1.0f);
             f.setFilterData(CONTACT_FILTER);
             circleShape.dispose();
 

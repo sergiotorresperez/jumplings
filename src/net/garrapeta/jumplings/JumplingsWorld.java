@@ -6,6 +6,7 @@ import net.garrapeta.gameengine.module.BitmapManager;
 import net.garrapeta.gameengine.module.SoundManager;
 import net.garrapeta.jumplings.actor.WallActor;
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -37,6 +38,8 @@ public class JumplingsWorld extends Box2DWorld {
 
     // ------------------------------------------------------------ Variables
 
+    public Activity mActivity;
+
     /** Wave actual */
     Wave wave;
 
@@ -47,7 +50,8 @@ public class JumplingsWorld extends Box2DWorld {
     // ----------------------------------------------------------- Constructor
 
     public JumplingsWorld(Activity activity, GameView gameView) {
-        super(activity, gameView);
+        super(gameView);
+        mActivity = activity;
     }
 
     // ----------------------------------------------------- M�todos de World
@@ -110,18 +114,18 @@ public class JumplingsWorld extends Box2DWorld {
     @Override
     protected void loadResources() {
         loadCommonResources();
-
+        Resources resources = mActivity.getResources();
         // Preparaci�n samples bitmaps
         BitmapManager bm = getBitmapManager();
-        bm.loadBitmap(R.drawable.intro_body);
-        bm.loadBitmap(R.drawable.intro_foot_right);
-        bm.loadBitmap(R.drawable.intro_foot_left);
-        bm.loadBitmap(R.drawable.intro_hand_right);
-        bm.loadBitmap(R.drawable.intro_hand_left);
-        bm.loadBitmap(R.drawable.intro_eye_right_opened);
-        bm.loadBitmap(R.drawable.intro_eye_left_opened);
-        bm.loadBitmap(R.drawable.intro_eye_right_closed);
-        bm.loadBitmap(R.drawable.intro_eye_left_closed);
+        bm.loadBitmap(resources, R.drawable.intro_body);
+        bm.loadBitmap(resources, R.drawable.intro_foot_right);
+        bm.loadBitmap(resources, R.drawable.intro_foot_left);
+        bm.loadBitmap(resources, R.drawable.intro_hand_right);
+        bm.loadBitmap(resources, R.drawable.intro_hand_left);
+        bm.loadBitmap(resources, R.drawable.intro_eye_right_opened);
+        bm.loadBitmap(resources, R.drawable.intro_eye_left_opened);
+        bm.loadBitmap(resources, R.drawable.intro_eye_right_closed);
+        bm.loadBitmap(resources, R.drawable.intro_eye_left_closed);
     }
 
     protected void loadCommonResources() {

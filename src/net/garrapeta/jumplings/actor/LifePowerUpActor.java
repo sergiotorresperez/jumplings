@@ -50,7 +50,7 @@ public class LifePowerUpActor extends PowerUpActor {
  
     @Override
     public void onHitted() {
-        jgWorld.onLifePowerUp(this);
+        mJgWorld.onLifePowerUp(this);
         super.onHitted();
     }
 

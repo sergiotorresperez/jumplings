@@ -48,7 +48,7 @@ public class BombActor extends MainActor {
     /** Radio de las onda expansiva */
     private float BLAST_RADIUS = 6;
 
-    // ------------------------------------------------- Variables est�ticas
+    // ------------------------------------------------- Variables de instancia
 
     // Vivo
     protected Bitmap mBmpBody;
@@ -58,13 +58,12 @@ public class BombActor extends MainActor {
     protected Bitmap mBmpDebrisBody;
     protected Bitmap mBmpDebrisFuse;
 
-    // ----------------------------------------------- Variables de instancia
-    public Body fuseBody;
+    public Body mFuseBody;
 
-    private long lastSparkle;
+    private long mLastSparkle;
 
     // TODO: make this static???
-    private MediaPlayer fusePlayer;
+    private MediaPlayer mFusePlayer;
 
     // ---------------------------------------------------- M�todos est�ticos
 
@@ -75,11 +74,11 @@ public class BombActor extends MainActor {
     // --------------------------------------------------- Constructor
 
     public BombActor(JumplingsGameWorld mJWorld, PointF worldPos) {
-        super(mJWorld, worldPos,  BombActor.DEFAULT_RADIUS, Z_INDEX);
+        super(mJWorld, worldPos, BombActor.DEFAULT_RADIUS, Z_INDEX);
         this.mCode = BombActor.JUMPER_CODE_BOMB;
         init(worldPos);
     }
- 
+
     // --------------------------------------------- M�todos heredados
 
     @Override
@@ -90,11 +89,11 @@ public class BombActor extends MainActor {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(mRadius);
-            mainBody = mJWorld.createBody(this, worldPos, true);
-            mainBody.setBullet(true);
+            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody.setBullet(true);
 
             // Assign shape to Body
-            Fixture f = mainBody.createFixture(circleShape, 1.0f);
+            Fixture f = mMainBody.createFixture(circleShape, 1.0f);
             f.setFilterData(CONTACT_FILTER);
             circleShape.dispose();
 
@@ -108,11 +107,11 @@ public class BombActor extends MainActor {
             PolygonShape polygonShape = new PolygonShape();
             polygonShape.setAsBox(w, h);
             PointF pos = new PointF(worldPos.x, worldPos.y + mRadius + h);
-            fuseBody = mJWorld.createBody(this, pos, true);
-            fuseBody.setBullet(false);
+            mFuseBody = mJWorld.createBody(this, pos, true);
+            mFuseBody.setBullet(false);
 
             // Assign shape to Body
-            Fixture f = fuseBody.createFixture(polygonShape, 1.0f);
+            Fixture f = mFuseBody.createFixture(polygonShape, 1.0f);
             f.setRestitution(AUX_BODIES_RESTITUTION);
             f.setFilterData(NO_CONTACT_FILTER);
             polygonShape.dispose();
@@ -120,7 +119,7 @@ public class BombActor extends MainActor {
             // Uni�n
             WeldJointDef jointDef = new WeldJointDef();
 
-            jointDef.initialize(mainBody, fuseBody, Viewport.pointFToVector2(pos));
+            jointDef.initialize(mMainBody, mFuseBody, Viewport.pointFToVector2(pos));
 
             mJWorld.createJoint(this, jointDef);
         }
@@ -144,7 +143,7 @@ public class BombActor extends MainActor {
 
         // Main Body
         {
-            Body body = mainBody;
+            Body body = mMainBody;
             DebrisActor debrisActor = new DebrisActor(mJWorld, body, mBmpDebrisBody);
 
             mGameWorld.addActor(debrisActor);
@@ -153,7 +152,7 @@ public class BombActor extends MainActor {
 
         // Fuse
         {
-            Body body = fuseBody;
+            Body body = mFuseBody;
             DebrisActor debrisActor = new DebrisActor(mJWorld, body, mBmpDebrisFuse);
 
             mGameWorld.addActor(debrisActor);
@@ -166,39 +165,39 @@ public class BombActor extends MainActor {
     @Override
     public void processFrame(float gameTimeStep) {
         long now = System.currentTimeMillis();
-        if (now - lastSparkle >= SPARKS_LAPSE) {
+        if (now - mLastSparkle >= SPARKS_LAPSE) {
             int sparkles = (int) (Math.random() * SPARKS_PER_LAPSE);
 
             for (int i = 0; i < sparkles; i++) {
-                PointF aux = Viewport.vector2ToPointF(fuseBody.getWorldCenter());
+                PointF aux = Viewport.vector2ToPointF(mFuseBody.getWorldCenter());
                 PointF pos = new PointF(aux.x, aux.y);
                 SparksActor sparkle = new SparksActor(mJWorld, pos, SPARKLE_LONGEVITY_FUSE);
                 mJWorld.addActor(sparkle);
-                lastSparkle = now;
+                mLastSparkle = now;
             }
         }
     }
 
     @Override
     protected void drawBitmaps(Canvas canvas) {
-        mJWorld.drawBitmap(canvas, this.mainBody, mBmpBody);
-        mJWorld.drawBitmap(canvas, this.fuseBody, mBmpBodyFuse);
+        mJWorld.drawBitmap(canvas, this.mMainBody, mBmpBody);
+        mJWorld.drawBitmap(canvas, this.mFuseBody, mBmpBodyFuse);
     }
 
     @Override
     public void onAddedToWorld() {
         super.onAddedToWorld();
-        jgWorld.bombCount++;
+        mJgWorld.bombCount++;
         mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_LAUNCH);
-        fusePlayer = mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_FUSE, true, false);
+        mFusePlayer = mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_FUSE, true, false);
     }
 
     @Override
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
-        jgWorld.bombCount--;
-        if (jgWorld.bombCount == 0 && fusePlayer != null) {
-            mJWorld.getSoundManager().stop(fusePlayer);
+        mJgWorld.bombCount--;
+        if (mJgWorld.bombCount == 0 && mFusePlayer != null) {
+            mJWorld.getSoundManager().stop(mFusePlayer);
         }
     }
 
@@ -206,23 +205,23 @@ public class BombActor extends MainActor {
 
     @Override
     public void onHitted() {
-        jgWorld.onBombExploded(this);
+        mJgWorld.onBombExploded(this);
 
         // sonido
         mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_BOOM);
 
         // Se genera una onda expansiva sobre los enemigos
-        Object[] as = jgWorld.jumplingActors.toArray();
+        Object[] as = mJgWorld.jumplingActors.toArray();
 
         int l = as.length;
 
         for (int i = 0; i < l; i++) {
             JumplingActor a = (JumplingActor) as[i];
-            mJWorld.applyBlast(mainBody.getWorldCenter(), a.mainBody, BLAST_RADIUS, BLAST_FORCE);
+            mJWorld.applyBlast(mMainBody.getWorldCenter(), a.mMainBody, BLAST_RADIUS, BLAST_FORCE);
         }
 
         // Se crean chispas de la explosi�n
-        Vector2 aux = mainBody.getWorldCenter();
+        Vector2 aux = mMainBody.getWorldCenter();
         ArrayList<JumplingActor> sparkles = new ArrayList<JumplingActor>();
         for (int i = 0; i < SPARKS_AT_EXPLOSION; i++) {
             SparksActor sparkle = new SparksActor(mJWorld, new PointF(aux.x, aux.y), SPARKLE_LONGEVITY_EXPLOSION);
@@ -234,6 +233,17 @@ public class BombActor extends MainActor {
         applyBlast(sparkles, EXPLOSION_SPARKLE_FORCE);
 
         super.onHitted();
+    }
+
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mBmpBody = null;
+        mBmpBodyFuse = null;
+        mBmpDebrisBody = null;
+        mBmpDebrisFuse = null;
+        mFuseBody = null;
+        mFusePlayer = null;
     }
 
 }

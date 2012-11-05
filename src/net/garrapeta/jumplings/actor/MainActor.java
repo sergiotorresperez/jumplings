@@ -29,7 +29,7 @@ public abstract class MainActor extends JumplingActor {
 	
 	// ------------------------------------------ Variables de instancia
 	
-	final JumplingsGameWorld jgWorld;
+    JumplingsGameWorld mJgWorld;
 	
 
 	
@@ -43,7 +43,7 @@ public abstract class MainActor extends JumplingActor {
 	 */
 	public MainActor(JumplingsGameWorld mJWorld, PointF worldPos, float radius, int zIndex) {
 		super(mJWorld, radius, zIndex, worldPos);
-		this.jgWorld = mJWorld;
+		this.mJgWorld = mJWorld;
 		this.timestamp = System.currentTimeMillis();
 	}
 	
@@ -90,8 +90,8 @@ public abstract class MainActor extends JumplingActor {
 	 */
 	public void desintegrateInDebris() { 
 		// se rompen las joints
-		if (joints != null) {
-			Object[] aux = joints.toArray();
+		if (mJoints != null) {
+			Object[] aux = mJoints.toArray();
 			for (int i = 0; i < aux.length; i++) {
 				mJWorld.destroyJoint(this, (Joint) aux[i]);
 			}
@@ -123,7 +123,7 @@ public abstract class MainActor extends JumplingActor {
 			float fX = (float) Math.sin(angle) * mass * force;
 			float fY = (float) Math.cos(angle) * mass * force;
 			
-			Body b = a.mainBody;
+			Body b = a.mMainBody;
 			Vector2 p = b.getWorldCenter(); 
 			b.applyForce(fX, fY, p.x, p.y);
 			as.remove(a);
@@ -146,5 +146,10 @@ public abstract class MainActor extends JumplingActor {
 		desintegrateInDebris();
 		mJWorld.removeActor(this);
 	}
-	
+
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mJgWorld = null;
+    }
 }
