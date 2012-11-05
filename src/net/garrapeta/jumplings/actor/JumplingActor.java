@@ -225,7 +225,7 @@ public abstract class JumplingActor extends Box2DActor {
      */
     protected boolean isInsideWorld() {
         PointF worldPos = this.getWorldPos();
-        RectF wr = mJWorld.viewport.getWorldBoundaries();
+        RectF wr = mJWorld.mViewport.getWorldBoundaries();
 
         return MathUtils.isCircunferenceInRectangle(worldPos.x, worldPos.y, mRadius, wr.left, wr.bottom, wr.right, wr.top);
 

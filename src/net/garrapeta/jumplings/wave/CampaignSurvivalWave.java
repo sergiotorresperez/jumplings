@@ -107,6 +107,14 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
         return false;
     }
 
+   @Override
+   public void dispose() {
+        mJWorld = null;
+        mScenario.dispose();
+        mScenario = null;
+        mCurrentWave.dispose();
+        mCurrentWave = null;
+    }
     // ---------------------------------- M�todos de IWaveEventListener
 
     @Override
@@ -143,7 +151,7 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
     }
 
     private void showLevel() {
-        jWorld.mActivity.runOnUiThread(new Runnable() {
+        mJWorld.mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
@@ -158,7 +166,7 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
     }
 
     private void scheduleNextWave(float delay) {
-        jWorld.post(new SyncGameMessage() {
+        mJWorld.post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
                 switchWave();
@@ -171,7 +179,7 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
     }
 
     private void scheduleResume(float delay) {
-        jWorld.post(new SyncGameMessage() {
+        mJWorld.post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
                 mCurrentWave.play();
@@ -180,7 +188,7 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
     }
 
     private void scheduleNextScenario(float delay) {
-        jWorld.post(new SyncGameMessage() {
+        mJWorld.post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
                 mScenario.end();

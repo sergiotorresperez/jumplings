@@ -93,9 +93,9 @@ public class HarmerSlapActor extends HarmerActor {
     public void draw(Canvas canvas) {
         int a = (int) ((mLifeTime / mLongevity) * 255);
         mPaint.setAlpha(a);
-        PointF screenPos = mWorld.viewport.worldToScreen(mWorldPos);
+        PointF screenPos = mWorld.mViewport.worldToScreen(mWorldPos);
         float currentRadius = ((mLongevity - mLifeTime) / mLongevity) * mMaxExplosionRadius;
-        canvas.drawCircle(screenPos.x, screenPos.y, mWorld.viewport.worldUnitsToPixels(currentRadius), mPaint);
+        canvas.drawCircle(screenPos.x, screenPos.y, mWorld.mViewport.worldUnitsToPixels(currentRadius), mPaint);
     }
 
     // --------------------------------------- M�todos propios

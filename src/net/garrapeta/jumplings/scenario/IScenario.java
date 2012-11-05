@@ -43,5 +43,10 @@ public interface IScenario {
      */
     public void draw(Canvas canvas, Paint paint);
 
+    /**
+     * Frees resources
+     */
+    public void dispose();
+
 
 }

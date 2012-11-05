@@ -1,7 +1,6 @@
 package net.garrapeta.jumplings;
 
 import net.garrapeta.gameengine.GameView;
-import net.garrapeta.gameengine.module.VibratorManager;
 import net.garrapeta.jumplings.ui.AdDialogFactory;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import net.garrapeta.jumplings.wave.TestWave;
@@ -137,7 +136,7 @@ public class GameActivity extends Activity {
             testBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mWorld.wave.onTestButtonClicked(testBtn);
+                    mWorld.mWave.onTestButtonClicked(testBtn);
                 }
             });
 
@@ -172,11 +171,11 @@ public class GameActivity extends Activity {
         // Preparaci�n de la wave
 
         if (waveKey.equals(CampaignSurvivalWave.WAVE_KEY)) {
-            mWorld.wave = new CampaignSurvivalWave(mWorld, null);
+            mWorld.mWave = new CampaignSurvivalWave(mWorld, null);
             // } else if (waveKey.equals(CampaignTutorialWave.WAVE_KEY)) {
             // world.wave = new CampaignTutorialWave(world, null, 1);
         } else if (waveKey.equals(TestWave.WAVE_KEY)) {
-            mWorld.wave = new TestWave(mWorld, null);
+            mWorld.mWave = new TestWave(mWorld, null);
             // jgWorld.wave = new CampaignSurvivalWave(jgWorld, null);
         } else {
             throw new IllegalArgumentException("Cannot create wave: " + waveKey);
@@ -222,13 +221,10 @@ public class GameActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
-        // TODO dispose the vibratror as is done with the sound manager
-        VibratorManager vm = VibratorManager.getInstance();
-        vm.clearAll();
         mWorld.finish();
+        mWorld = null;
         // If the user presses the on / off button of the phone and the activity
-        // is destroyed, we
-        // want to show the menu activity when going to the task again.
+        // is destroyed, we want to show the menu activity when going to the task again.
         finish();
     }
 
@@ -302,7 +298,7 @@ public class GameActivity extends Activity {
 
         HighScore highScore = new HighScore(this);
         highScore.score = mWorld.getPlayer().getScore();
-        highScore.level = mWorld.wave.getLevel();
+        highScore.level = mWorld.mWave.getLevel();
 
         i.putExtra(GameOverActivity.NEW_HIGHSCORE_KEY, highScore);
         i.putExtra(GameActivity.WAVE_BUNDLE_KEY, waveKey);
@@ -362,7 +358,7 @@ public class GameActivity extends Activity {
         gameOver = true;
         mWorld.mScenario.onGameOver();
 
-        mWorld.wave.pause();
+        mWorld.mWave.pause();
 
         runOnUiThread(new Runnable() {
             @Override

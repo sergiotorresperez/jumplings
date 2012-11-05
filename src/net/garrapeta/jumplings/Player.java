@@ -1,6 +1,7 @@
 package net.garrapeta.jumplings;
 
-
+import net.garrapeta.gameengine.GameWorld;
+import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.jumplings.actor.ComboTextActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
 import net.garrapeta.jumplings.actor.ScoreTextActor;
@@ -8,140 +9,137 @@ import android.graphics.PointF;
 
 public class Player {
 
-	// --------------------------------------------------------- Constantes
-	
-	public static final int DEFAUL_MAX_LIFES   = 5;
-	
-	public static final int DEFAUL_INIT_LIFES  = 3;
-	
-	public static final int DEFAUL_INIT_SCORE = 0;
-	
-	public static final int COMBO_MAX_SPACING_TIME = 350;
-	
-	public static final int BASE_POINTS = 5;
-	
-	// --------------------------------------------- Variables de instancia
-	
-	private JumplingsGameWorld world;
-	
-	private int maxLifes = DEFAUL_MAX_LIFES;
-	
-	private int life  = DEFAUL_INIT_LIFES;
-	
-	private int score = DEFAUL_INIT_SCORE;
-	
-	private boolean isVulnerable = true;
-	
-	private long prevEnemyKillTimestamp;
-	
-	private int currentComboLevel;
+    // --------------------------------------------------------- Constantes
 
-	// ------------------------------------------------------------- M�todos
-	
-	public Player(JumplingsGameWorld world) {
-		this.world = world;
-	}
-	
-	/**
-	 * @return the life
-	 */
-	public int getLifes() {
-		return life;
-	}
-	
+    public static final int DEFAUL_MAX_LIFES = 5;
 
-	public void addLifes(int add) {
-		setLife(life + add);
-	}
-	
-	public void subLifes(int sub) {
-		setLife(life - sub);
-	}
-	
-	public void topUpLife() {
-		setLife(maxLifes);
-	}
+    public static final int DEFAUL_INIT_LIFES = 3;
 
-	/**
-	 * @param life the life to set
-	 */
-	private void setLife(int newLifes) {
-		newLifes = Math.min(newLifes, maxLifes);
-		newLifes = Math.max(0, newLifes);
-		this.life = newLifes;
-		world.mGameActivity.updateLifeCounterView();
-	}
-	
-	public int getMaxLifes() {
-		return maxLifes;
-	}
+    public static final int DEFAUL_INIT_SCORE = 0;
 
-	/**
-	 * @return the score
-	 */
-	public int getScore() {
-		return score;
-	}
-	
-	public void onEnemyKilled(EnemyActor enemy) {
-		int points = BASE_POINTS;
-		long timeStamp = world.currentGameMillis();
-		
-		if (timeStamp - prevEnemyKillTimestamp < COMBO_MAX_SPACING_TIME) {
-			currentComboLevel ++;
-		} else {
-			currentComboLevel = 0;
-		}
-		
-		prevEnemyKillTimestamp = timeStamp;
-		
-		points += (currentComboLevel * BASE_POINTS);
-		setScore(score + points);
-		
-		PointF worldPos = enemy.getWorldPos();
-		ScoreTextActor scoreActor = new ScoreTextActor(world, worldPos, points);
-		world.addActor(scoreActor);
-		if (currentComboLevel > 0) {
-			ComboTextActor comboActor = new ComboTextActor(world, new PointF(worldPos.x, worldPos.y), currentComboLevel);
-			world.addActor(comboActor);
-		}
-		
-	}
+    public static final int COMBO_MAX_SPACING_TIME = 350;
 
-	/**
-	 * @param score the score to set
-	 */
-	private void setScore(int score) {
-		this.score = score;
-		world.mGameActivity.updateScoreTextView();
-	}
-	
-	public boolean isVulnerable() {
-		return isVulnerable;
-	}
+    public static final int BASE_POINTS = 5;
 
-	public void makeVulnerable() {
-		world.mGameActivity.stopBlinkingLifeBar();
-		this.isVulnerable = true;
-	}
-	
-	public void makeInvulnerable(final float time) {
-		this.isVulnerable = false;
-		world.mGameActivity.startBlinkingLifeBar();
-		
-		if (time > 0) {
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						Thread.sleep((int)time);
-					} catch (InterruptedException e) {
-					}
-					makeVulnerable();
-				}
+    // --------------------------------------------- Variables de instancia
 
-			}).start();
-		}
-	}
-	
+    private JumplingsGameWorld mWorld;
+
+    private int mMaxLifes = DEFAUL_MAX_LIFES;
+
+    private int mLife = DEFAUL_INIT_LIFES;
+
+    private int mScore = DEFAUL_INIT_SCORE;
+
+    private boolean mIsVulnerable = true;
+
+    private long mPrevEnemyKillTimestamp;
+
+    private int mCurrentComboLevel;
+
+    // ------------------------------------------------------------- M�todos
+
+    public Player(JumplingsGameWorld world) {
+        this.mWorld = world;
+    }
+
+    /**
+     * @return the life
+     */
+    public int getLifes() {
+        return mLife;
+    }
+
+    public void addLifes(int add) {
+        setLife(mLife + add);
+    }
+
+    public void subLifes(int sub) {
+        setLife(mLife - sub);
+    }
+
+    public void topUpLife() {
+        setLife(mMaxLifes);
+    }
+
+    /**
+     * @param mLife
+     *            the life to set
+     */
+    private void setLife(int newLifes) {
+        newLifes = Math.min(newLifes, mMaxLifes);
+        newLifes = Math.max(0, newLifes);
+        this.mLife = newLifes;
+        mWorld.mGameActivity.updateLifeCounterView();
+    }
+
+    public int getMaxLifes() {
+        return mMaxLifes;
+    }
+
+    /**
+     * @return the score
+     */
+    public int getScore() {
+        return mScore;
+    }
+
+    public void onEnemyKilled(EnemyActor enemy) {
+        int points = BASE_POINTS;
+        long timeStamp = mWorld.currentGameMillis();
+
+        if (timeStamp - mPrevEnemyKillTimestamp < COMBO_MAX_SPACING_TIME) {
+            mCurrentComboLevel++;
+        } else {
+            mCurrentComboLevel = 0;
+        }
+
+        mPrevEnemyKillTimestamp = timeStamp;
+
+        points += (mCurrentComboLevel * BASE_POINTS);
+        setScore(mScore + points);
+
+        PointF worldPos = enemy.getWorldPos();
+        ScoreTextActor scoreActor = new ScoreTextActor(mWorld, worldPos, points);
+        mWorld.addActor(scoreActor);
+        if (mCurrentComboLevel > 0) {
+            ComboTextActor comboActor = new ComboTextActor(mWorld, new PointF(worldPos.x, worldPos.y), mCurrentComboLevel);
+            mWorld.addActor(comboActor);
+        }
+
+    }
+
+    /**
+     * @param score
+     *            the score to set
+     */
+    private void setScore(int score) {
+        this.mScore = score;
+        mWorld.mGameActivity.updateScoreTextView();
+    }
+
+    public boolean isVulnerable() {
+        return mIsVulnerable;
+    }
+
+    public void makeVulnerable() {
+        mWorld.mGameActivity.stopBlinkingLifeBar();
+        this.mIsVulnerable = true;
+    }
+
+    public void makeInvulnerable(final float time) {
+        this.mIsVulnerable = false;
+        mWorld.mGameActivity.startBlinkingLifeBar();
+
+        if (time > 0) {
+            mWorld.post(new SyncGameMessage() {
+
+                @Override
+                public void doInGameLoop(GameWorld world) {
+                    makeVulnerable();
+                }
+            }, time);
+        }
+    }
+
 }

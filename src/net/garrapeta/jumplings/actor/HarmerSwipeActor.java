@@ -158,8 +158,8 @@ public class HarmerSwipeActor extends HarmerActor {
             mKillingAreaUpdated = true;
         }
 
-        float sr = mJWorld.viewport.worldUnitsToPixels(mainActor.mRadius);
-        PointF sc = mJWorld.viewport.worldToScreen(pos.x, pos.y);
+        float sr = mJWorld.mViewport.worldUnitsToPixels(mainActor.mRadius);
+        PointF sc = mJWorld.mViewport.worldToScreen(pos.x, pos.y);
         RectF aux = new RectF(sc.x - sr, sc.y - sr, sc.x + sr, sc.y + sr);
 
         return RectF.intersects(aux, mKillingArea);

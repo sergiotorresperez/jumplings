@@ -134,7 +134,7 @@ class Layer {
             mInitXOffset = 0;
         }
         if (!mTilesY) {
-            mInitYOffset = -mMaxHeight + mScenario.mWorld.mView.getHeight() + mScenarioYOffset;
+            mInitYOffset = -mMaxHeight + mScenario.mWorld.mGameView.getHeight() + mScenarioYOffset;
         } else {
             mInitYOffset = 0;
         }
@@ -177,7 +177,7 @@ class Layer {
     synchronized void setProgress(float progress) {
         if (progress <= 100) {
 
-            float newProgressPos = (mMaxHeight - mScenario.mWorld.mView.getHeight()) * progress / 100;
+            float newProgressPos = (mMaxHeight - mScenario.mWorld.mGameView.getHeight()) * progress / 100;
             startProgressAnim(newProgressPos - mProgressYOffset, PROGRESS_UPDATE_CICLES);
         }
     }

@@ -41,7 +41,7 @@ public class JumplingsWorld extends Box2DWorld {
     public Activity mActivity;
 
     /** Wave actual */
-    Wave wave;
+    Wave mWave;
 
     // centro de la pantalla
     float centerX;
@@ -65,7 +65,7 @@ public class JumplingsWorld extends Box2DWorld {
         // Paredes
         // -----------------------------------------------------------------
 
-        RectF vb = viewport.getWorldBoundaries();
+        RectF vb = mViewport.getWorldBoundaries();
         float left = vb.left;
         float bottom = vb.bottom;
         float right = vb.right;
@@ -151,7 +151,7 @@ public class JumplingsWorld extends Box2DWorld {
         // La generaci�n de enemigos, regeneraci�n de vida, comprobaci�n de
         // satisfacci�n
         // de condiciones de victoria derrota, etc, se delega en el wave-
-        wave.processFrame(gameTimeStep);
+        mWave.processFrame(gameTimeStep);
 
         return false;
     }
@@ -164,7 +164,7 @@ public class JumplingsWorld extends Box2DWorld {
     @Override
     public void onGameViewSizeChanged(int width, int height) {
         Log.i(LOG_SRC, "surfaceChanged " + this);
-        this.viewport.setWorldHeight(WORLD_HEIGHT);
+        this.mViewport.setWorldHeight(WORLD_HEIGHT);
     }
 
     @Override
@@ -175,8 +175,16 @@ public class JumplingsWorld extends Box2DWorld {
             // Se arranca el game loop
             start();
             // Se activa la wave
-            wave.start();
+            mWave.start();
         }
+    }
+
+    @Override
+    protected void dispose() {
+        super.dispose();
+        mActivity = null;
+        mWave.dispose();
+        mWave = null;
     }
 
     // -------------------------------------------------------- M�todos propios
@@ -195,7 +203,7 @@ public class JumplingsWorld extends Box2DWorld {
     public final void drawBitmap(Canvas canvas, Body body, Bitmap bitmap, Paint paint) {
         Vector2 worldPos = body.getWorldCenter();
 
-        PointF screenPos = viewport.worldToScreen(worldPos.x, worldPos.y);
+        PointF screenPos = mViewport.worldToScreen(worldPos.x, worldPos.y);
         canvas.save();
 
         canvas.translate(screenPos.x, screenPos.y);

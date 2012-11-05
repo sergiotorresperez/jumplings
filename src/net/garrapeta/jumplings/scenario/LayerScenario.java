@@ -33,7 +33,7 @@ public abstract class LayerScenario implements IScenario {
 
     @Override
     public void end() {
-        disposeLayers(mWorld.getBitmapManager());
+        dispose();
     }
 
     @Override
@@ -66,8 +66,6 @@ public abstract class LayerScenario implements IScenario {
     }
 
     abstract void initLayers(BitmapManager bm);
-
-    abstract void disposeLayers(BitmapManager bm);
 
     void addLayer(Layer layer) {
         mLayers.add(layer);

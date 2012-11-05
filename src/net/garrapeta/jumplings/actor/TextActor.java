@@ -62,7 +62,7 @@ public abstract class TextActor extends Actor {
     public void draw(Canvas canvas) {
         int a = (int) ((mLifeTime / mLongevity) * 255);
         mPaint.setAlpha(a);
-        PointF screenPos = cWorld.viewport.worldToScreen(worldPos);
+        PointF screenPos = cWorld.mViewport.worldToScreen(worldPos);
         canvas.drawText(mText, screenPos.x, screenPos.y, mPaint);
     }
 

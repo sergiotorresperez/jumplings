@@ -29,8 +29,8 @@ public class NatureScenario extends LayerScenario {
 
     @Override
     public void initLayers(BitmapManager bm) {
-        int viewWidth = mWorld.mView.getWidth();
-        int viewHeight = mWorld.mView.getHeight();
+        int viewWidth = mWorld.mGameView.getWidth();
+        int viewHeight = mWorld.mGameView.getHeight();
 
         // Initialisation of Layers
         {
@@ -59,8 +59,9 @@ public class NatureScenario extends LayerScenario {
     }
 
     @Override
-    public void disposeLayers(BitmapManager bm) {
+    public void dispose() {
         // TODO: delegate this into the layer
+        BitmapManager bm = mWorld.getBitmapManager();
         bm.releaseBitmap(LAYER1_ID);
         bm.releaseBitmap(LAYER2_ID);
         bm.releaseBitmap(LAYER3_ID);

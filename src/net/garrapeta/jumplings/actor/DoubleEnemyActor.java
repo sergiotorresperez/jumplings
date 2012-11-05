@@ -109,7 +109,7 @@ public class DoubleEnemyActor extends EnemyActor {
     // -------------------------------------------------------- M�todos propios
 
     private final float getRestorationInitVy(float posY) {
-        float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (mJWorld.viewport.getWorldBoundaries().top - posY);
+        float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (mJWorld.mViewport.getWorldBoundaries().top - posY);
         return (float) getInitialYVelocity(maxHeight);
     }
 

@@ -53,7 +53,7 @@ public class TestWave extends Wave {
     @Override
     public void onProcessFrame(float gameTimeStep) {
         if (mScenario == null) {
-            mScenario = ScenarioFactory.getScenario(jWorld, ScenarioFactory.ScenariosIds.NATURE);
+            mScenario = ScenarioFactory.getScenario(mJWorld, ScenarioFactory.ScenariosIds.NATURE);
             jgWorld.setScenario(mScenario);
             mScenario.init();
         }
@@ -103,7 +103,7 @@ public class TestWave extends Wave {
 
         if (debug) {
             // world.setGravityY(0);
-            worldXPos = (jgWorld.viewport.getWorldBoundaries().right - jgWorld.viewport.getWorldBoundaries().left) / 2;
+            worldXPos = (jgWorld.mViewport.getWorldBoundaries().right - jgWorld.mViewport.getWorldBoundaries().left) / 2;
             // worldYPos = (world.worldBoundaries.top - ENEMY_OFFSET);
             worldYPos = 2;
         } else {
@@ -151,8 +151,8 @@ public class TestWave extends Wave {
 
         if (debug) {
             jgWorld.setGravityY(0);
-            worldXPos = (jgWorld.viewport.getWorldBoundaries().right - jgWorld.viewport.getWorldBoundaries().left) / 2;
-            worldYPos = (jgWorld.viewport.getWorldBoundaries().top - jgWorld.viewport.getWorldBoundaries().bottom) / 2;
+            worldXPos = (jgWorld.mViewport.getWorldBoundaries().right - jgWorld.mViewport.getWorldBoundaries().left) / 2;
+            worldYPos = (jgWorld.mViewport.getWorldBoundaries().top - jgWorld.mViewport.getWorldBoundaries().bottom) / 2;
         } else {
             worldXPos = getRandomPosX();
             worldYPos = getBottomPos();

@@ -50,7 +50,7 @@ public class WeaponSlap extends Weapon {
 
             lastShootTimeStamp = System.currentTimeMillis();
 
-            PointF worldPos = mWorld.viewport.screenToWorld((float) info[1], (float) info[2]);
+            PointF worldPos = mWorld.mViewport.screenToWorld((float) info[1], (float) info[2]);
             HarmerSlapActor bullet = new HarmerSlapActor(mWorld, worldPos, bulletRadius, bulletLongevity);
 
             mWorld.addActor(bullet);

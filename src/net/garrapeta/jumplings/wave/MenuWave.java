@@ -45,7 +45,7 @@ public class MenuWave extends Wave {
     // ---------------------------------------------------- M�todos propios
 
     private void scheduleIntroActorCreation() {
-        jWorld.post(new SyncGameMessage() {
+        mJWorld.post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
                 createIntroActor();
@@ -66,9 +66,9 @@ public class MenuWave extends Wave {
         PointF initPos = new PointF(worldXPos, worldYPos);
         Vector2 initVel = getInitialVelocity(initPos);
 
-        IntroActor actor = new IntroActor(jWorld, initPos);
+        IntroActor actor = new IntroActor(mJWorld, initPos);
         actor.setLinearVelocity(initVel.x, initVel.y);
-        jWorld.addActor(actor);
+        mJWorld.addActor(actor);
     }
 
 }

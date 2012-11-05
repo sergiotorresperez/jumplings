@@ -102,7 +102,7 @@ public class SplitterEnemyActor extends EnemyActor {
 
     private final float getRestorationInitVy(float posY) {
         float maxHeight = posY + HEIGHT_RESTORATION_FACTOR
-                * (mJWorld.viewport.getWorldBoundaries().top - mJWorld.viewport.getWorldBoundaries().bottom - posY);
+                * (mJWorld.mViewport.getWorldBoundaries().top - mJWorld.mViewport.getWorldBoundaries().bottom - posY);
         return (float) getInitialYVelocity(maxHeight);
     }
 
@@ -218,7 +218,7 @@ public class SplitterEnemyActor extends EnemyActor {
     @Override
     public void onHitted() {
         if (mLevel > 0) {
-            RectF b = mJWorld.viewport.getWorldBoundaries();
+            RectF b = mJWorld.mViewport.getWorldBoundaries();
             EnemyActor actor1 = null;
             EnemyActor actor2 = null;
 

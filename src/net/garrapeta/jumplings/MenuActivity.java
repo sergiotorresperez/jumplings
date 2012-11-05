@@ -172,7 +172,7 @@ public class MenuActivity extends Activity {
 
         // Preparaci�n de la wave
 
-        mWorld.wave = new MenuWave(mWorld, null);
+        mWorld.mWave = new MenuWave(mWorld, null);
     }
 
     @Override
@@ -200,18 +200,17 @@ public class MenuActivity extends Activity {
         super.onStop();
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
         mWorld.finish();
-
+        mWorld = null;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
-        
     }
 
     // ---------------------------------------------------- M�todos propios
-
+    
     // ---------------------------- M�todos de componentes de interacci�n
 
     private void startNewGame() {

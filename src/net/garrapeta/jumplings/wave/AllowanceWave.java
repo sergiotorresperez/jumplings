@@ -23,9 +23,9 @@ public abstract class AllowanceWave extends Wave {
     /** Thread creado desde la �ltima vez que fue 0 */
     double acumulated = 0;
 
-    ProgressBar threadRatioBar;
-    ProgressBar allowedThreadGenerationBar;
-    ProgressBar accumulatedThreatBar;
+    ProgressBar mThreadRatioBar;
+    ProgressBar mAllowedThreadGenerationBar;
+    ProgressBar mAccumulatedThreatBar;
 
     // ------------------------------------------------------------- Constructor
 
@@ -72,6 +72,13 @@ public abstract class AllowanceWave extends Wave {
         }
     }
 
+    @Override
+    public void dispose() {
+        super.dispose();
+        mAccumulatedThreatBar = null;
+        mAllowedThreadGenerationBar = null;
+        mThreadRatioBar = null;
+    }
     // ---------------------------------------------------- M�todos propios
 
     /**
@@ -85,20 +92,20 @@ public abstract class AllowanceWave extends Wave {
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         if (JumplingsApplication.DEBUG_THREAD_BARS_ENABLED) {
 
-            this.jWorld.mActivity.runOnUiThread(new Runnable() {
+            this.mJWorld.mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    jWorld.mActivity.findViewById(id.game_threadBars).setVisibility(View.VISIBLE);
+                    mJWorld.mActivity.findViewById(id.game_threadBars).setVisibility(View.VISIBLE);
                 }
             });
 
-            threadRatioBar = (ProgressBar) jWorld.mActivity.findViewById(id.game_threadRatio);
-            allowedThreadGenerationBar = (ProgressBar) jWorld.mActivity.findViewById(id.game_allowedThreadGeneration);
-            accumulatedThreatBar = (ProgressBar) jWorld.mActivity.findViewById(id.game_acumulatedThreat);
+            mThreadRatioBar = (ProgressBar) mJWorld.mActivity.findViewById(id.game_threadRatio);
+            mAllowedThreadGenerationBar = (ProgressBar) mJWorld.mActivity.findViewById(id.game_allowedThreadGeneration);
+            mAccumulatedThreatBar = (ProgressBar) mJWorld.mActivity.findViewById(id.game_acumulatedThreat);
 
-            threadRatioBar.setMax(100);
-            allowedThreadGenerationBar.setMax((int) (maxThreat * 100));
-            accumulatedThreatBar.setMax((int) (maxThreat * 100));
+            mThreadRatioBar.setMax(100);
+            mAllowedThreadGenerationBar.setMax((int) (maxThreat * 100));
+            mAccumulatedThreatBar.setMax((int) (maxThreat * 100));
             updateAllowedThreadGenerationBar();
         }
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
@@ -116,11 +123,11 @@ public abstract class AllowanceWave extends Wave {
     // M�todos de debug
 
     private void updateThreadRatioBar() {
-        jWorld.mActivity.runOnUiThread(new Runnable() {
+        mJWorld.mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
-                threadRatioBar.setProgress((int) ((getCurrentThreat() / maxThreat) * 100));
+                mThreadRatioBar.setProgress((int) ((getCurrentThreat() / maxThreat) * 100));
 
             }
         });
@@ -128,11 +135,11 @@ public abstract class AllowanceWave extends Wave {
     }
 
     private void updateAllowedThreadGenerationBar() {
-        jWorld.mActivity.runOnUiThread(new Runnable() {
+        mJWorld.mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
-                allowedThreadGenerationBar.setProgress((int) (allowedThreadGeneration * 100));
+                mAllowedThreadGenerationBar.setProgress((int) (allowedThreadGeneration * 100));
 
             }
         });
@@ -140,11 +147,11 @@ public abstract class AllowanceWave extends Wave {
     }
 
     private void updateAccumulatedThreatBar() {
-        jWorld.mActivity.runOnUiThread(new Runnable() {
+        mJWorld.mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
-                accumulatedThreatBar.setProgress((int) (acumulated * 100));
+                mAccumulatedThreatBar.setProgress((int) (acumulated * 100));
 
             }
         });

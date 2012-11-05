@@ -121,4 +121,12 @@ public class RollingScenario implements IScenario {
         });
     }
 
+    @Override
+    public void dispose() {
+        mWorld = null;
+        mCurrentScenario = null;
+        mPreviousScenario = null;
+        mScenariosIds = null;
+    }
+
 }
