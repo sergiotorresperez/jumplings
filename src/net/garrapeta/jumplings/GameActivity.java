@@ -358,15 +358,12 @@ public class GameActivity extends Activity {
         gameOver = true;
         mWorld.mScenario.onGameOver();
 
-        mWorld.mWave.pause();
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 showDialog(DIALOG_GAMEOVER_ID);
             }
         });
-
     }
 
     // ---------------------------- M�todos de componentes de interacci�n

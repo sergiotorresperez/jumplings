@@ -44,31 +44,33 @@ public abstract class AllowanceWave extends Wave {
 
     @Override
     public void onProcessFrame(float stepTime) {
-        if (JumplingsApplication.DEBUG_THREAD_BARS_ENABLED) {
-            updateThreadRatioBar();
-            updateAllowedThreadGenerationBar();
-            updateAccumulatedThreatBar();
-        }
-
-        float existant = getCurrentThreat();
-
-        double lackRatio = (maxThreat - existant) / maxThreat;
-        allowedThreadGeneration += (stepTime / 200) * lackRatio;
-        allowedThreadGeneration = Math.min(allowedThreadGeneration, maxThreat);
-
-        double generated = 0;
-        // Log.i(LOG_SRC, "maxThreat: " + maxThreat + ", existant: " +
-        // existant + ", allowedThreadGeneration: " +
-        // allowedThreadGeneration + ", acumulated: " + acumulated);
-        if (acumulated < (maxThreat * FACTOR)) {
-            generated = generateThreat(allowedThreadGeneration);
-
-            if (generated > 0) {
-                acumulated += generated;
-                allowedThreadGeneration = 0;
+        if (!mIsGameOver) {
+            if (JumplingsApplication.DEBUG_THREAD_BARS_ENABLED) {
+                updateThreadRatioBar();
+                updateAllowedThreadGenerationBar();
+                updateAccumulatedThreatBar();
             }
-        } else if (existant == 0) {
-            acumulated = 0;
+    
+            float existant = getCurrentThreat();
+    
+            double lackRatio = (maxThreat - existant) / maxThreat;
+            allowedThreadGeneration += (stepTime / 200) * lackRatio;
+            allowedThreadGeneration = Math.min(allowedThreadGeneration, maxThreat);
+    
+            double generated = 0;
+            // Log.i(LOG_SRC, "maxThreat: " + maxThreat + ", existant: " +
+            // existant + ", allowedThreadGeneration: " +
+            // allowedThreadGeneration + ", acumulated: " + acumulated);
+            if (acumulated < (maxThreat * FACTOR)) {
+                generated = generateThreat(allowedThreadGeneration);
+    
+                if (generated > 0) {
+                    acumulated += generated;
+                    allowedThreadGeneration = 0;
+                }
+            } else if (existant == 0) {
+                acumulated = 0;
+            }
         }
     }
 

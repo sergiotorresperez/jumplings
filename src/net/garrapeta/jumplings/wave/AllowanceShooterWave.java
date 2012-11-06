@@ -23,7 +23,7 @@ public class AllowanceShooterWave extends AllowanceWave {
 
     // --------------------------------------------------- Constantes
 
-    private static float POWERUP_BASE_LAPSE = 20000;
+    private static float POWERUP_BASE_LAPSE = 30000;
 
     // ---------------------------------------- Variables de instancia
 
@@ -96,7 +96,8 @@ public class AllowanceShooterWave extends AllowanceWave {
             // no se comunica el fin de la wave hasta que todos los enemigos
             // est�n muertos
             if (mJgWorld.jumplingActors.size() == 0 && mListener != null) {
-                mListener.onWaveEnded();;
+                mListener.onWaveEnded();
+                ;
             }
         } else {
             super.onProcessFrame(stepTime);
@@ -323,7 +324,7 @@ public class AllowanceShooterWave extends AllowanceWave {
     private float getPowerUpCreationLapse() {
         int wounds = mJgWorld.getPlayer().getMaxLifes() - mJgWorld.getPlayer().getLifes();
 
-        float l = POWERUP_BASE_LAPSE - ((POWERUP_BASE_LAPSE / mJgWorld.getPlayer().getMaxLifes() * wounds));
+        float l = POWERUP_BASE_LAPSE - ((POWERUP_BASE_LAPSE / mJgWorld.getPlayer().getMaxLifes() * (wounds - 1)));
         return l;
     }
 
@@ -331,8 +332,10 @@ public class AllowanceShooterWave extends AllowanceWave {
         mJWorld.post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
-                generatePowerUp();
-                scheduleGeneratePowerUp(getPowerUpCreationLapse());
+                if (!mIsGameOver) {
+                    generatePowerUp();
+                    scheduleGeneratePowerUp(getPowerUpCreationLapse());
+                }
             }
         }, delay);
     }

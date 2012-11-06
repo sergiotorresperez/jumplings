@@ -107,14 +107,20 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
         return false;
     }
 
-   @Override
-   public void dispose() {
+    @Override
+    public void dispose() {
         mJWorld = null;
         mScenario.dispose();
         mScenario = null;
         mCurrentWave.dispose();
         mCurrentWave = null;
     }
+
+    @Override
+    public boolean onGameOver() {
+        return mCurrentWave.onGameOver();
+    }
+
     // ---------------------------------- M�todos de IWaveEventListener
 
     @Override

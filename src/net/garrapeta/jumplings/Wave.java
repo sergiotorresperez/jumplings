@@ -35,6 +35,10 @@ public abstract class Wave {
 
     /** nivel */
     protected int level;
+    
+    /** If game is over */
+    protected boolean mIsGameOver = false;
+
 
     // ------------------------------------------------ Constructor
 
@@ -142,6 +146,7 @@ public abstract class Wave {
      * @return si el evento es consumido por la wave
      */
     public boolean onGameOver() {
+        mIsGameOver = true;
         return false;
     }
 
