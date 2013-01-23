@@ -40,7 +40,7 @@ public class JumplingsApplication extends Application {
     public static boolean MOBCLIX_BUY_DIALOG_BUTTON_ENABLED = false;
 
     public static boolean FACEBOOK_ENABLED = true;
-    public static boolean FEINT_ENABLED = true;
+    public static boolean FEINT_ENABLED = false;
     public static boolean TWITTER_ENABLED = true;
 
     // ---------------------------------------------------- Otras Constantes

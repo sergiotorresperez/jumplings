@@ -19,6 +19,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -64,12 +66,17 @@ public class GameOverActivity extends Activity {
 
     public static final String feintLeaderboardId = "926197";
 
+    /** Minimum length of the username */
+    private static final int MINIMUM_NAME_LENGTH = 4;
+
     // ------------------------------------------------------------------
     // Variables
 
     private HighScore playerScore;
 
-    private EditText playerNameEditText;
+    private Button mSaveScoreButton;
+
+    private EditText mPlayerNameEditText;
 
     private View scoreIntroductionView;
     private View nextActionView;
@@ -129,7 +136,7 @@ public class GameOverActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.gameover);
-        
+
         newHighScore = playerScore.score > 0 && HighScore.getLocalHighScoresPosition(playerScore.score) < HighScore.MAX_LOCAL_HIGHSCORE_COUNT;
 
         TextView scoreTextView = (TextView) findViewById(R.id.gameover_scoreTextView);
@@ -154,9 +161,34 @@ public class GameOverActivity extends Activity {
             scoreIntroductionView.setVisibility(View.VISIBLE);
             nextActionView.setVisibility(View.INVISIBLE);
 
-            playerNameEditText = (EditText) findViewById(R.id.gameover_playerNameEditText);
-            playerNameEditText.setText(PermData.getInstance().getLastPlayerName());
-            playerNameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            mSaveScoreButton = (Button) findViewById(R.id.gameover_saveScoreBtn);
+            mSaveScoreButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    saveHighScore();
+                }
+            });
+
+            mPlayerNameEditText = (EditText) findViewById(R.id.gameover_playerNameEditText);
+
+            mPlayerNameEditText.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    String text = s.toString();
+                    mSaveScoreButton.setEnabled(text != null && text.trim().length() >= MINIMUM_NAME_LENGTH);
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+            });
+
+            mPlayerNameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
                 @Override
                 public boolean onEditorAction(TextView tv, int actionId, KeyEvent event) {
@@ -176,6 +208,8 @@ public class GameOverActivity extends Activity {
             scoreIntroductionView.setVisibility(View.INVISIBLE);
             nextActionView.setVisibility(View.VISIBLE);
         }
+
+        mPlayerNameEditText.setText(PermData.getInstance().getLastPlayerName());
 
         if (waveKey != null) {
             Button replayButton = (Button) findViewById(R.id.gameover_replayBtn);
@@ -207,14 +241,6 @@ public class GameOverActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(GameOverActivity.this, HighScoreListingActivity.class);
                 startActivity(i);
-            }
-        });
-
-        Button saveScoreButton = (Button) findViewById(R.id.gameover_saveScoreBtn);
-        saveScoreButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveHighScore();
             }
         });
 
@@ -346,7 +372,7 @@ public class GameOverActivity extends Activity {
      * Salva el score
      */
     private void saveHighScore() {
-        playerScore.playerName = playerNameEditText.getText().toString();
+        playerScore.playerName = mPlayerNameEditText.getText().toString();
         PermData.getInstance().saveLastPlayerName(playerScore.playerName);
         PermData.getInstance().addNewLocalScore(playerScore);
 
