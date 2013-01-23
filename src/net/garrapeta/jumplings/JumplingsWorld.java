@@ -165,7 +165,7 @@ public class JumplingsWorld extends Box2DWorld {
     @Override
     public void onGameViewSizeChanged(int width, int height) {
         Log.i(LOG_SRC, "surfaceChanged " + this);
-        mViewport.setWorldSizeXXX(7);
+        mViewport.setWorldSizeGivenWorldUnitsPerInchX(7);
        
     }
 

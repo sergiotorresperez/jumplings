@@ -1,11 +1,13 @@
 package net.garrapeta.jumplings.wave;
 
+import net.garrapeta.gameengine.Actor;
 import net.garrapeta.gameengine.GameWorld;
 import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.jumplings.JumplingsWorld;
 import net.garrapeta.jumplings.Wave;
 import net.garrapeta.jumplings.actor.IntroActor;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
@@ -18,7 +20,10 @@ public class MenuWave extends Wave {
     // ----------------------------------------------------- Constantes
 
     /** Ms que hay entre las creaciones de jumplings */
-    public static final int JUMPLING_CREATION_REALTIME = 1700;
+    private static final int JUMPLING_CREATION_REALTIME = 1700;
+    
+    /** Maximun number of jumplings that can be in a square world unit  */
+    private static final float WORLD_WIDTH_JUMPLINGS_RATIO = 0.005f;
 
     // --------------------------------------------------- Variables
     // ------------------------------------------------------------- Constructor
@@ -48,10 +53,30 @@ public class MenuWave extends Wave {
         mJWorld.post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
-                createIntroActor();
+                if  (countIntroActors() < getMaxIntroActors()) {
+                    createIntroActor();    
+                }
                 scheduleIntroActorCreation();
             }
+
         }, JUMPLING_CREATION_REALTIME);
+    }
+
+    private int countIntroActors() {
+        int introActorsCount = 0;
+        for (Actor actor : mJWorld.mActors) {
+            if (actor instanceof IntroActor) {
+                introActorsCount ++;
+            }
+        }
+        return introActorsCount;
+    }
+
+    private int getMaxIntroActors() {
+        RectF worldBoundaries = mJWorld.mViewport.getWorldBoundaries();
+        //FIXME: the - should not be needed. Maybe RectF is not a good class for holding the worldBoundaries
+        float worldSquareUnits = worldBoundaries.width() * -worldBoundaries.height();
+        return (int) (worldSquareUnits * WORLD_WIDTH_JUMPLINGS_RATIO);
     }
 
     private void createIntroActor() {
