@@ -101,13 +101,6 @@
 		          android:visibility="gone"
 		          style="@style/ColorfulButton"/>
 		    
-		    <net.garrapeta.jumplings.ui.CustomFontButton  
-		          android:text="Update" 
-			      android:id="@+id/highscoresListing_updateBtn" 
-		          android:layout_width="wrap_content" 
-		          android:layout_height="wrap_content"
-				  style="@style/ColorfulButton"/>
-			
 			<net.garrapeta.jumplings.ui.CustomFontButton 
 			      android:text="Submit" 
 			      android:id="@+id/highscoresListing_submitBtn" 

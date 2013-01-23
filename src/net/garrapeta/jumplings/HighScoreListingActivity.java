@@ -53,8 +53,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 	
 	public static final String TAB_LOCALSCORES_ID  = "tab_local_id"; 
 	public static final String TAB_GLOBALSCORES_ID = "tab_global_id";
-	
-	public boolean globalScoresUpdated = false;
+
 	// ----------------------------------------------------------------- Variables
 	
 	private ArrayList<HighScore> localScoreList;
@@ -66,8 +65,6 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 	private Button feintLeaderBoardBtn;
 	private Button submitScoresBtn;	
 	private Button clearScoresBtn;
-	private Button updateBtn;	
-	
 	
 	
 	// -------------------------------------------------------- Variables est�ticas
@@ -187,20 +184,13 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 			}
 		}
 		
- 		updateBtn = (Button) findViewById(R.id.highscoresListing_updateBtn);
- 		updateBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				updateScores();
-			}
-		});
- 		updateBtn.setVisibility(View.GONE);
- 		
- 		
 		// Ads
 		if (JumplingsApplication.MOBCLIX_ENABLED) {
 			 findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(View.VISIBLE);
 		}
+		
+		
+		updateScores();
     }
     
 	@Override
@@ -289,8 +279,10 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 		toast.show();
 		submitScoresBtn.setVisibility(View.GONE);
 		
-		// para obligar a que se refresque
-		globalScoresUpdated = false;
+		// we update the global table, to see our new scores in it
+		// TODO: receive the global scores in the response of the upload, so we can skip this call
+		updateScores();
+
 	}
 	
 	
@@ -332,8 +324,6 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 	 * @throws JSONException 
 	 */
 	private void onScoresUpdated(JSONArray scores) throws JSONException {
-		// marcamos que ya hemos actualizado
-		globalScoresUpdated = true;
 		// componemos la lista de scores goblales
 		globalScoreList = HighScore.parseJSON(scores);
 		// la salvamos
@@ -380,18 +370,13 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 	public void onTabChanged(String tabId) {
 		if (TAB_LOCALSCORES_ID.equals(tabId)) {
 			submitScoresBtn.setVisibility(View.VISIBLE);
-			updateBtn.setVisibility(View.GONE);
 						
-			if (!globalScoresUpdated) {
-				updateScores();
-			}
 			if (JumplingsApplication.DEBUG_ENABLED) {
 				clearScoresBtn.setVisibility(View.VISIBLE);
 			}
 			
 		} else if (TAB_GLOBALSCORES_ID.equals(tabId)) {
 			submitScoresBtn.setVisibility(View.GONE);
-			updateBtn.setVisibility(View.VISIBLE);
 			
 			if (JumplingsApplication.DEBUG_ENABLED) {
 				clearScoresBtn.setVisibility(View.GONE);
