@@ -18,11 +18,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +33,7 @@ import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
@@ -47,9 +47,6 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 
     // ----------------------------------------------------------------
     // Constantes
-
-    public static final int DIALOG_SERVER_ERROR_ID = 0;
-    public static final int SERVER_COMUNICATION_PROGRESS_DIALOG = 2;
 
     public static final String TAB_LOCALSCORES_ID = "tab_local_id";
     public static final String TAB_GLOBALSCORES_ID = "tab_global_id";
@@ -67,6 +64,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
     private Button mSubmitScoresBtn;
     private Button clearScoresBtn;
     private TabHost mTabHost;
+    private ProgressBar mProgressBar;
 
     // -------------------------------------------------------- Variables
     // est�ticas
@@ -91,6 +89,9 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 
         setContentView(R.layout.highscores_listing);
 
+        mProgressBar = (ProgressBar) findViewById(R.id.highscoresListing_progress_bar);
+        setHttpRequestProgressBarVisible(false);
+        
         // Preparaci�n de Tabs
         mTabHost = getTabHost();
 
@@ -168,7 +169,11 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         mSubmitScoresBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitScores();
+                if (isNetworkAvailable()) {
+                    submitScores();
+                } else {
+                    Toast.makeText(HighScoreListingActivity.this, "You need to be connected to the Internet to upload your scores", Toast.LENGTH_LONG).show();
+                }
             }
         });
         updateSubmitScoresBtnVisibility();
@@ -192,22 +197,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
             findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(View.VISIBLE);
         }
 
-        updateScores();
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-        case DIALOG_SERVER_ERROR_ID:
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Error when communicating with server").setCancelable(true).setPositiveButton("OK", null);
-
-            return builder.create();
-        case SERVER_COMUNICATION_PROGRESS_DIALOG:
-            Dialog pd = ProgressDialog.show(this, "", "Contacting server...", true);
-            return pd;
-        }
-        return null;
+        updateScoresIfNetworkIsAvailable();
     }
 
     // ---------------------------------------------- M�todos propios
@@ -238,8 +228,9 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
      * Sube los scores locales al servidor
      */
     private void submitScores() {
+        boolean sent = false;
         try {
-            showDialog(SERVER_COMUNICATION_PROGRESS_DIALOG);
+            setHttpRequestProgressBarVisible(true);
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(HighScore.JSON_REQUEST_OBJ_STR, HighScore.JSON_REQUEST_OBJ_SUBMIT_VALUE);
@@ -255,15 +246,15 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
             request.setEntity(se);
 
             AsynchronousHttpSender.sendRequest(request, this);
-
+            sent = true;
         } catch (IOException ioe) {
-            Log.e(JumplingsApplication.LOG_SRC, "Error setting entity when submiting scores: " + ioe.toString());
             ioe.printStackTrace();
-            showDialog(DIALOG_SERVER_ERROR_ID);
         } catch (JSONException jee) {
             Log.e(JumplingsApplication.LOG_SRC, "Error creating JSONs when submiting scores: " + jee.toString());
             jee.printStackTrace();
-            showDialog(DIALOG_SERVER_ERROR_ID);
+        }
+        if (!sent) {
+            Toast.makeText(this, "Error when communicating to server to submit scores", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -284,16 +275,21 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         // we update the global table, to see our new scores in it
         // TODO: receive the global scores in the response of the upload, so we
         // can skip this call
-        updateScores();
+        updateScoresIfNetworkIsAvailable();
 
     }
 
     /**
      * Actualiza los scores del servidor
      */
-    private void updateScores() {
+    private void updateScoresIfNetworkIsAvailable() {
+        if (!isNetworkAvailable()) {
+            return;
+        }
+
+        boolean sent = false;
         try {
-            showDialog(SERVER_COMUNICATION_PROGRESS_DIALOG);
+            setHttpRequestProgressBarVisible(true);
 
             JSONObject jsonObject = new JSONObject();
             // se pone la acci�n
@@ -309,15 +305,16 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
             request.setEntity(se);
 
             AsynchronousHttpSender.sendRequest(request, this);
-
+            sent = true;
         } catch (IOException ioe) {
             Log.e(JumplingsApplication.LOG_SRC, "Error setting entity when retrieving scores: " + ioe.toString());
             ioe.printStackTrace();
-            showDialog(DIALOG_SERVER_ERROR_ID);
         } catch (JSONException jee) {
             Log.e(JumplingsApplication.LOG_SRC, "Error creating JSONs when retrieving scores: " + jee.toString());
             jee.printStackTrace();
-            showDialog(DIALOG_SERVER_ERROR_ID);
+        }
+        if (!sent) {
+            Toast.makeText(this, "Error when communicating to server to update global score", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -376,6 +373,19 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         }
 	}
 
+    private void setHttpRequestProgressBarVisible(boolean visible) {
+        if (visible) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager  = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
     // ------------------------------------------------------ M�todos de
     // OnTabChangeListener
 
@@ -400,9 +410,10 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 
     @Override
     public void onResponseReceived(HttpResponse response) {
+        boolean success = false;
         try {
             // Dismiss progress dialog
-            dismissDialog(SERVER_COMUNICATION_PROGRESS_DIALOG);
+            setHttpRequestProgressBarVisible(false);
 
             int code = response.getStatusLine().getStatusCode();
 
@@ -430,45 +441,46 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
             } else {
                 throw new HttpException("Server reports error: HTTP code = " + code + ". Response: " + responseString);
             }
+            success = true;
         } catch (IOException ioe) {
             Log.e(JumplingsApplication.LOG_SRC, "IOException when reading server response: " + ioe.toString());
             ioe.printStackTrace();
-            showDialog(DIALOG_SERVER_ERROR_ID);
         } catch (JSONException je) {
             Log.e(JumplingsApplication.LOG_SRC, "JSONException when reading server response: " + je.toString());
             je.printStackTrace();
-            showDialog(DIALOG_SERVER_ERROR_ID);
         } catch (HttpException httpe) {
             Log.e(JumplingsApplication.LOG_SRC, "HttpException when reading server response: " + httpe.toString());
             httpe.printStackTrace();
-            showDialog(DIALOG_SERVER_ERROR_ID);
+        }
+        if (!success) {
+            Toast.makeText(this, "Error when communicating to server", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onClientProtocolExceptionWhenSending(ClientProtocolException cpe) {
-        dismissDialog(SERVER_COMUNICATION_PROGRESS_DIALOG);
+        setHttpRequestProgressBarVisible(false);
         Log.e(JumplingsApplication.LOG_SRC, "ClientProtocolException when submiting scores: " + cpe.toString());
         cpe.printStackTrace();
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                showDialog(DIALOG_SERVER_ERROR_ID);
+                Toast.makeText(HighScoreListingActivity.this, "Error when communicating to server", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     @Override
     public void onIOExceptionWhenSending(IOException ioe) {
-        dismissDialog(SERVER_COMUNICATION_PROGRESS_DIALOG);
+        setHttpRequestProgressBarVisible(false);
         Log.e(JumplingsApplication.LOG_SRC, "IOException when submiting scores: " + ioe.toString());
         ioe.printStackTrace();
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                showDialog(DIALOG_SERVER_ERROR_ID);
+                Toast.makeText(HighScoreListingActivity.this, "Error when communicating to server", Toast.LENGTH_LONG).show();
             }
         });
 

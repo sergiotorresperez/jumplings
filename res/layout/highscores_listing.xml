@@ -2,145 +2,169 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/white">
-    
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:orientation="vertical"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent">
-	    
-	    <!-- Tabs -->
-		<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-		    android:id="@android:id/tabhost"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:layout_alignParentTop="true"
-		    android:layout_weight="1">
-		    
-		    <LinearLayout
-		        android:orientation="vertical"
-		        android:layout_width="fill_parent"
-		        android:layout_height="fill_parent">
-		        
-		        <TabWidget
-		            android:id="@android:id/tabs"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:tabStripLeft="@drawable/custom_tab_strip_selector"
-				    android:tabStripRight="@drawable/custom_tab_strip_selector" />
-		            
-		        <FrameLayout
-		            android:id="@android:id/tabcontent"
-		            android:layout_width="fill_parent"
-		            android:layout_height="fill_parent">
-		            
-		            <!-- TAB 1 CONTENT -->
-		            
-		            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-						android:id = "@+id/highscoresListing_localScoresTabContent"
-					    android:layout_width="fill_parent"
-					    android:layout_height="fill_parent"
-					    android:orientation="vertical">
-					    
-						<!-- header -->
-		            	<include android:id="@+id/highscoresListing_localScoresHeader" 
-		                     layout="@layout/score_header" />
-		                     					
-						<!--  lista de scores  -->
-						<ListView xmlns:android="http://schemas.android.com/apk/res/android" 
-						          android:orientation="vertical" 
-						          android:layout_height="fill_parent" 
-						          android:layout_width="fill_parent"  
-						          android:id="@+id/highscoresListing_localHighScoresListView"
-							      android:layout_weight="1">
-						</ListView>
-						<!--  /lista de scores  -->
-					</LinearLayout>
-					<!-- /TAB 1 CONTENT -->
-					
-		            <!-- TAB 2 CONTENT -->
-		            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-						android:id = "@+id/highscoresListing_globalScoresTabContent"
-					    android:layout_width="fill_parent"
-					    android:layout_height="fill_parent"
-					    android:orientation="vertical">					    
-					
-						<!-- header -->
-		            	<include android:id="@+id/highscoresListing_localScoresHeader" 
-		                     layout="@layout/score_header" />
-		                     
-						<!--  lista de scores  -->
-						<ListView xmlns:android="http://schemas.android.com/apk/res/android" 
-						          android:orientation="vertical" 
-						          android:layout_height="fill_parent" 
-						          android:layout_width="fill_parent"  
-						          android:id="@+id/highscoresListing_globalHighScoresListView"
-						          android:layout_weight="1">
-						</ListView>													
-					</LinearLayout>
-					<!-- /TAB 2 CONTENT -->
-					
-		        </FrameLayout>
-		    </LinearLayout>
-		</TabHost>
- 
- 		<!-- Botones -->
-	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			android:id = "@+id/highscoresListing_buttons"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:orientation="horizontal"
-		    android:layout_weight="0"
-		    android:layout_gravity="right">
+    android:background="@android:color/white" >
 
-			<net.garrapeta.jumplings.ui.CustomFontButton  
-				  android:text="Clear" 
-			      android:id="@+id/highscoresListing_clearLocalScoresBtn" 
-		          android:layout_width="wrap_content" 
-		          android:layout_height="wrap_content"
-		          android:visibility="gone"
-		          style="@style/ColorfulButton"/>
-		    
-			<net.garrapeta.jumplings.ui.CustomFontButton 
-			      android:text="Submit" 
-			      android:id="@+id/highscoresListing_submitBtn" 
-		          android:layout_width="wrap_content" 
-		          android:layout_height="wrap_content"
-		          style="@style/ColorfulButton"/>
-		     
-			<net.garrapeta.jumplings.ui.CustomFontButton 
-			    android:text="Feint leaderboard" 
-				android:id="@+id/highscoresListing_feintLeaderBoardBtn" 
-		        android:drawableLeft="@drawable/icon_feint"
-		        android:layout_width="wrap_content" 
-		        android:layout_height="wrap_content"
-		        android:visibility="gone"
-		        style="@style/ColorfulButton"/>
-		    
-			<net.garrapeta.jumplings.ui.CustomFontButton
-			      android:text="Back" 
-			      android:id="@+id/highscoresListing_backBtn" 
-		          android:layout_width="wrap_content" 
-		          android:layout_height="wrap_content"
-		          style="@style/ColorfulButton"/>
-		</LinearLayout>
-		<!-- /Botones -->
-		
-		<!-- MOBCLIX -->
-		<com.mobclix.android.sdk.MobclixMMABannerXLAdView 
-		    android:id="@+id/highscoresListing_advertising_banner_view"
-		    android:layout_height="50dp"
-		    android:layout_width="320dp"
-		    android:layout_gravity="center"
-		    android:tag="adspace"
-			android:layout_centerHorizontal="true"
-			android:layout_weight="0"
-			android:visibility="gone"
-		/>
-		<!-- /MOBCLIX -->
-	</LinearLayout>
-			
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <!-- Tabs -->
+
+        <TabHost
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@android:id/tabhost"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:tabStripLeft="@drawable/custom_tab_strip_selector"
+                    android:tabStripRight="@drawable/custom_tab_strip_selector" />
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <!-- TAB 1 CONTENT -->
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/highscoresListing_localScoresTabContent"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical" >
+
+                        <!-- header -->
+
+                        <include
+                            android:id="@+id/highscoresListing_localScoresHeader"
+                            layout="@layout/score_header" />
+
+                        <!-- lista de scores -->
+
+                        <ListView
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/highscoresListing_localHighScoresListView"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical" >
+                        </ListView>
+                        <!-- /lista de scores -->
+                    </LinearLayout>
+                    <!-- /TAB 1 CONTENT -->
+
+
+                    <!-- TAB 2 CONTENT -->
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/highscoresListing_globalScoresTabContent"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical" >
+
+                        <!-- header -->
+
+                        <include
+                            android:id="@+id/highscoresListing_localScoresHeader"
+                            layout="@layout/score_header" />
+
+                        <!-- lista de scores -->
+
+                        <ListView
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/highscoresListing_globalHighScoresListView"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical" >
+                        </ListView>
+                    </LinearLayout>
+                    <!-- /TAB 2 CONTENT -->
+
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+
+        <!-- Botones -->
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/highscoresListing_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="0"
+            android:orientation="horizontal" >
+
+            <net.garrapeta.jumplings.ui.CustomFontButton
+                android:id="@+id/highscoresListing_clearLocalScoresBtn"
+                style="@style/ColorfulButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear"
+                android:visibility="gone" />
+
+            <net.garrapeta.jumplings.ui.CustomFontButton
+                android:id="@+id/highscoresListing_submitBtn"
+                style="@style/ColorfulButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit" />
+
+            <net.garrapeta.jumplings.ui.CustomFontButton
+                android:id="@+id/highscoresListing_feintLeaderBoardBtn"
+                style="@style/ColorfulButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_feint"
+                android:text="Feint leaderboard"
+                android:visibility="gone" />
+
+            <net.garrapeta.jumplings.ui.CustomFontButton
+                android:id="@+id/highscoresListing_backBtn"
+                style="@style/ColorfulButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back" />
+        </LinearLayout>
+        <!-- /Botones -->
+
+
+        <!-- MOBCLIX -->
+
+        <com.mobclix.android.sdk.MobclixMMABannerXLAdView
+            android:id="@+id/highscoresListing_advertising_banner_view"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:tag="adspace"
+            android:visibility="gone" />
+        <!-- /MOBCLIX -->
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/highscoresListing_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="6dip"
+        android:indeterminate="true" />
+
 </RelativeLayout>
-
-
-

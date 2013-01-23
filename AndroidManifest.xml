@@ -1,111 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="net.garrapeta.jumplings"
-      android:versionCode="1"
-      android:versionName="1.0"
-      android:installLocation="preferExternal">
-      
-    <uses-sdk android:minSdkVersion="8" 
-       android:targetSdkVersion="8"/>
-    
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true" android:name="net.garrapeta.jumplings.JumplingsApplication">
-        
-        <activity android:name="net.garrapeta.jumplings.MenuActivity"
-                  android:label="@string/app_name" android:screenOrientation="landscape" android:launchMode="singleTop">
+    package="net.garrapeta.jumplings"
+    android:installLocation="preferExternal"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name="net.garrapeta.jumplings.JumplingsApplication"
+        android:debuggable="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+        <activity
+            android:name="net.garrapeta.jumplings.MenuActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-         <activity android:name=".GameActivity"
-                  android:label="@string/app_name" android:screenOrientation="landscape">
+        <activity
+            android:name=".GameActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        
-        <activity android:name=".HighScoreListingActivity"
-                  android:label="@string/app_name" android:screenOrientation="landscape">
+        <activity
+            android:name=".HighScoreListingActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        
-        <activity android:name=".GameOverActivity"
-                  android:label="@string/app_name" 
-                  android:screenOrientation="landscape"
-                  android:launchMode="singleTask">
-                  
+        <activity
+            android:name=".GameOverActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-            
-            <!-- TWITTER -->
-            <intent-filter>  
-			    <action   android:name="android.intent.action.VIEW"></action>  
-			    <category android:name="android.intent.category.DEFAULT"></category>  
-			    <category android:name="android.intent.category.BROWSABLE"></category>  
-			    <data     android:scheme="twitter4j" android:host="authenticated"></data>  
-    		</intent-filter>
-    		<!-- /TWITTER -->
-        </activity>
-        
-        
-        <activity android:name=".PreferencesActivity"
-                  android:label="@string/app_name" android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        
-        <activity android:name=".IntroActivity"
-                  android:label="@string/app_name" android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        
-        <!-- OPEN FEINT -->
-        <activity android:name="com.openfeint.internal.ui.IntroFlow"
-              android:label="IntroFlow"
-              android:configChanges="orientation|keyboardHidden"
-              android:theme="@style/OFNestedWindow"/>
-		<activity android:name="com.openfeint.api.ui.Dashboard"
-              android:label="Dashboard"
-              android:configChanges="orientation|keyboardHidden"
-              android:theme="@style/OFNestedWindow"/>
-		<activity android:name="com.openfeint.internal.ui.Settings"
-              android:label="Settings"
-              android:configChanges="orientation|keyboardHidden"
-              android:theme="@style/OFNestedWindow"/>
-		<activity android:name="com.openfeint.internal.ui.NativeBrowser"
-              android:label="NativeBrowser"
-              android:configChanges="orientation|keyboardHidden"
-              android:theme="@style/OFNestedWindow"/>
-        <!-- /OPEN FEINT -->    
 
-		<!-- MOBCLIX -->
-		<meta-data android:name="com.mobclix.APPLICATION_ID"
-		android:value="insert-your-application-key"/>
-		<activity
-			android:name="com.mobclix.android.sdk.MobclixBrowserActivity"
-			android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-		<!-- /MOBCLIX -->
+            <!-- TWITTER -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+                <category android:name="android.intent.category.BROWSABLE" >
+                </category>
+
+                <data
+                    android:host="authenticated"
+                    android:scheme="twitter4j" >
+                </data>
+            </intent-filter>
+            <!-- /TWITTER -->
+        </activity>
+        <activity
+            android:name=".PreferencesActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".IntroActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <!-- OPEN FEINT -->
+        <activity
+            android:name="com.openfeint.internal.ui.IntroFlow"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="IntroFlow"
+            android:theme="@style/OFNestedWindow" />
+        <activity
+            android:name="com.openfeint.api.ui.Dashboard"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="Dashboard"
+            android:theme="@style/OFNestedWindow" />
+        <activity
+            android:name="com.openfeint.internal.ui.Settings"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="Settings"
+            android:theme="@style/OFNestedWindow" />
+        <activity
+            android:name="com.openfeint.internal.ui.NativeBrowser"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="NativeBrowser"
+            android:theme="@style/OFNestedWindow" />
+        <!-- /OPEN FEINT -->
+
+
+        <!-- MOBCLIX -->
+        <meta-data
+            android:name="com.mobclix.APPLICATION_ID"
+            android:value="insert-your-application-key" />
+
+        <activity
+            android:name="com.mobclix.android.sdk.MobclixBrowserActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- /MOBCLIX -->
     </application>
-    
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    
+
     <!-- OPEN FEINT -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- /OPEN FEINT -->
-    
+
+
     <!-- MOBCLIX -->
-    <uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<!-- /MOBCLIX -->
-	
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- /MOBCLIX -->
+
 </manifest>
