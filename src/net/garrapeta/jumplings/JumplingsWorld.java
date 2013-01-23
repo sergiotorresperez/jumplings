@@ -6,6 +6,7 @@ import net.garrapeta.gameengine.module.BitmapManager;
 import net.garrapeta.gameengine.module.SoundManager;
 import net.garrapeta.jumplings.actor.WallActor;
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -49,8 +50,8 @@ public class JumplingsWorld extends Box2DWorld {
 
     // ----------------------------------------------------------- Constructor
 
-    public JumplingsWorld(Activity activity, GameView gameView) {
-        super(gameView);
+    public JumplingsWorld(Activity activity, GameView gameView, Context context) {
+        super(gameView, context);
         mActivity = activity;
     }
 
@@ -164,7 +165,8 @@ public class JumplingsWorld extends Box2DWorld {
     @Override
     public void onGameViewSizeChanged(int width, int height) {
         Log.i(LOG_SRC, "surfaceChanged " + this);
-        this.mViewport.setWorldHeight(WORLD_HEIGHT);
+        mViewport.setWorldSizeXXX(7);
+       
     }
 
     @Override

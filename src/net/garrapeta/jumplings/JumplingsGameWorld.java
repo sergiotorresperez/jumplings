@@ -112,8 +112,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     // ----------------------------------------------------------- Constructor
 
-    public JumplingsGameWorld(GameActivity gameActivity, GameView gameView) {
-        super(gameActivity, gameView);
+    public JumplingsGameWorld(GameActivity gameActivity, GameView gameView, Context context) {
+        super(gameActivity, gameView, context);
         this.mGameActivity = gameActivity;
         mPlayer = new Player(this);
         mGameView.setOnTouchListener(this);

@@ -124,7 +124,7 @@ public class GameActivity extends Activity {
 
 
 
-        mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface));
+        mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface), this);
         mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
         
         

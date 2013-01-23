@@ -167,7 +167,7 @@ public class MenuActivity extends Activity {
             enableFeintLeaderboardButton();
         }
 
-        mWorld = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface));
+        mWorld = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface), this);
         mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
 
         // Preparaci�n de la wave
