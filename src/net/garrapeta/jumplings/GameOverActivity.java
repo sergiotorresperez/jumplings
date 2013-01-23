@@ -375,6 +375,7 @@ public class GameOverActivity extends Activity {
         playerScore.playerName = mPlayerNameEditText.getText().toString();
         PermData.getInstance().saveLastPlayerName(playerScore.playerName);
         PermData.getInstance().addNewLocalScore(playerScore);
+        PermData.getInstance().setLocalScoresSubmissionPending(true);
 
         scoreIntroductionView.setVisibility(View.INVISIBLE);
         nextActionView.setVisibility(View.VISIBLE);

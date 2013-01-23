@@ -22,6 +22,8 @@ public class PermData {
     public static final String TWITTER_ACCESS_TOKEN_KEY = "twitterToken";
     public static final String TWITTER_ACCESS_TOKEN_SECRET_KEY = "twitterTokenSecret";
 
+    public static final String LOCAL_SCORES_SUBMISSION_PENDING_KEY = "localScoresSubmissionPending";
+    
     // niveles de configuracion
     public final static short CFG_LEVEL_NONE = 1;
     public final static short CFG_LEVEL_SOME = 2;
@@ -183,6 +185,25 @@ public class PermData {
         editor.commit();
     }
 
+    /**
+     * @return if there are local scores pending to submit
+     */
+    public boolean isLocalScoresSubmissionPending() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+        return sharedPref.getBoolean(LOCAL_SCORES_SUBMISSION_PENDING_KEY, false);
+    }
+
+    /**
+     * Sets if there are local scores pending to be submitted
+     * @param pending
+     */
+    public void setLocalScoresSubmissionPending(boolean pending) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+        Editor editor = sharedPref.edit();
+        editor.putBoolean(LOCAL_SCORES_SUBMISSION_PENDING_KEY, pending);
+        editor.commit();
+    }
+    
     public boolean getSoundConfig() {
         return getLevelPreference(R.string.config_sound_key);
     }
