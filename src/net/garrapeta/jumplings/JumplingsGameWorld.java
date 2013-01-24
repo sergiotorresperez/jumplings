@@ -82,9 +82,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public ArrayList<EnemyActor> enemies = new ArrayList<EnemyActor>();
 
-    // N�mero de bombar actuales
-    public int bombCount = 0;
-
     /** Duranci�n en ms del shake actual */
     private float shakeDuration = 0;
     /** Tiempo que le queda al shake actual */
@@ -399,11 +396,11 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         enemies.remove(enemy);
     }
 
-    public int getHitsCount() {
+    public int getThread() {
         int hits = 0;
         int s = mainActors.size();
         for (int i = 0; i < s; i++) {
-            hits += MainActor.getHitCount(mainActors.get(i).getCode());
+            hits += MainActor.getBaseThread(mainActors.get(i).getCode());
         }
         return hits;
     }
@@ -545,6 +542,17 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     }
 
+    
+    public int getBombCount() {
+        int count = 0;
+        for (Actor actor : mActors) {
+            if (actor instanceof BombActor) {
+                count ++;
+            }
+        }
+        return count;
+    }
+ 
     /**
      * M�todo ejecutado cuando el jugador falla
      */

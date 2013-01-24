@@ -32,10 +32,8 @@ public class BladePowerUpActor extends PowerUpActor {
 
     // ------------------------------------------------- M�todos est�ticos
 
-    static double getBladePowerUpHitCount() {
-        // Se le pone un valor negativo, para incentivar la aparici�n de
-        // enemigos
-        return -1f;
+    static double getBladePowerUpBaseThread() {
+        return 0;
     }
 
     // --------------------------------------------- M�todos heredados

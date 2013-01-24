@@ -106,7 +106,7 @@ public class SplitterEnemyActor extends EnemyActor {
         return (float) getInitialYVelocity(maxHeight);
     }
 
-    static double getSplitterHitCount(int splitLevel) {
+    static double getSplitterBaseThread(int splitLevel) {
         double count = 0;
         for (int i = splitLevel; i >= 0; i--) {
             count += Math.pow(2, i);

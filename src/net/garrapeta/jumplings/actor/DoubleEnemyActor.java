@@ -47,8 +47,8 @@ public class DoubleEnemyActor extends EnemyActor {
 
     // ------------------------------------------------------ M�todos est�ticos
 
-    static double getDoubleEnemyActorHitCount() {
-        return 2;
+    static double getDoubleEnemyBaseThread() {
+        return 1.5;
     }
 
     // ---------------------------------------------------------------

@@ -58,7 +58,7 @@ public abstract class EnemyActor extends MainActor implements IBumpable {
     // ---------------------------------------------------------- M�todos
     // est�ticos
 
-    static double getSimpleEnemyActorHitCount() {
+    static double getSimpleEnemyBaseThread() {
         return 1;
     }
 

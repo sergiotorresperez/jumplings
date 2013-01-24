@@ -56,7 +56,7 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
     /**
      * Wave Actual
      */
-    private AllowanceShooterWave mCurrentWave;
+    private AllowanceGameWave mCurrentWave;
 
     /** Timestamp de cuando se mostr� el �ltimo anuncio */
     private long lastAdTimeStamp = 0;
@@ -153,7 +153,7 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
 
         Player player = mWorld.getPlayer();
         player.addLifes(NEW_LEVEL_EXTRA_LIFES);
-        mCurrentWave = new AllowanceShooterWave(mWorld, this, level);
+        mCurrentWave = new AllowanceGameWave(mWorld, this, level);
     }
 
     private void showLevel() {

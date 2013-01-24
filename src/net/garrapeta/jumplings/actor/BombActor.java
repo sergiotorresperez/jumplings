@@ -67,8 +67,8 @@ public class BombActor extends MainActor {
 
     // ---------------------------------------------------- M�todos est�ticos
 
-    static double getBombHitCount() {
-        return 0f;
+    static double getBombBaseThread() {
+        return 1.5f;
     }
 
     // --------------------------------------------------- Constructor
@@ -187,19 +187,22 @@ public class BombActor extends MainActor {
     @Override
     public void onAddedToWorld() {
         super.onAddedToWorld();
-        mJgWorld.bombCount++;
         mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_LAUNCH);
         mFusePlayer = mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_FUSE, true, false);
+        caca++;
     }
 
     @Override
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
-        mJgWorld.bombCount--;
-        if (mJgWorld.bombCount == 0 && mFusePlayer != null) {
+        if (mJgWorld.getBombCount() <= 1 && mFusePlayer != null) {
             mJWorld.getSoundManager().stop(mFusePlayer);
         }
+        caca--;
     }
+    public static int caca = 0;
+    
+
 
     // ------------------------------------------------ M�todos propios
 

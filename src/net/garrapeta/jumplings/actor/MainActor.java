@@ -49,26 +49,26 @@ public abstract class MainActor extends JumplingActor {
 	
 	// ------------------------------------------- M�todos est�ticos
 	
-	public static double getHitCount(short code) {
+	public static double getBaseThread(short code) {
 		switch (code) {
 		case RoundEnemyActor.JUMPER_CODE_SIMPLE:
-			return RoundEnemyActor.getSimpleEnemyActorHitCount();
+			return RoundEnemyActor.getSimpleEnemyBaseThread();
 		case DoubleEnemyActor.JUMPER_CODE_DOUBLE:
-			return DoubleEnemyActor.getDoubleEnemyActorHitCount();
+			return DoubleEnemyActor.getDoubleEnemyBaseThread();
 		case DoubleSonEnemyActor.JUMPER_CODE_DOUBLE_SON:
-			return DoubleSonEnemyActor.getSimpleEnemyActorHitCount();
+			return DoubleSonEnemyActor.getSimpleEnemyBaseThread();
 		case SplitterEnemyActor.JUMPER_CODE_SPLITTER_SIMPLE:
-			return SplitterEnemyActor.getSplitterHitCount(0);
+			return SplitterEnemyActor.getSplitterBaseThread(0);
 		case SplitterEnemyActor.JUMPER_CODE_SPLITTER_DOUBLE:
-			return SplitterEnemyActor.getSplitterHitCount(1);
+			return SplitterEnemyActor.getSplitterBaseThread(1);
 		case SplitterEnemyActor.JUMPER_CODE_SPLITTER_TRIPLE:
-			return SplitterEnemyActor.getSplitterHitCount(2);
+			return SplitterEnemyActor.getSplitterBaseThread(2);
 		case BombActor.JUMPER_CODE_BOMB:
-			return BombActor.getBombHitCount();
+			return BombActor.getBombBaseThread();
 		case LifePowerUpActor.JUMPER_CODE_POWER_UP_LIFE:
-			return LifePowerUpActor.getLifePowerUpHitCount();
+			return LifePowerUpActor.getLifePowerUpBaseThread();
 		case BladePowerUpActor.JUMPER_CODE_POWER_UP_BLADE:
-			return BladePowerUpActor.getBladePowerUpHitCount();
+			return BladePowerUpActor.getBladePowerUpBaseThread();
 		}
 		
 		throw new IllegalArgumentException("Unknown mainActor code: " + code);

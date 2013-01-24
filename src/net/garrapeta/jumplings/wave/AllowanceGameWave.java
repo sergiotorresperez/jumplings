@@ -4,13 +4,14 @@ import net.garrapeta.gameengine.GameWorld;
 import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.gameengine.utils.PhysicsUtils;
 import net.garrapeta.jumplings.JumplingsGameWorld;
-import net.garrapeta.jumplings.WeaponSlap;
+import net.garrapeta.jumplings.Player;
 import net.garrapeta.jumplings.actor.BladePowerUpActor;
 import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.DoubleEnemyActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
+import net.garrapeta.jumplings.actor.PowerUpActor;
 import net.garrapeta.jumplings.actor.RoundEnemyActor;
 import net.garrapeta.jumplings.actor.SplitterEnemyActor;
 import android.graphics.PointF;
@@ -19,11 +20,11 @@ import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class AllowanceShooterWave extends AllowanceWave {
+public class AllowanceGameWave extends AllowanceWave {
 
     // --------------------------------------------------- Constantes
 
-    private static float POWERUP_BASE_LAPSE = 30000;
+    private static float POWERUP_BASE_LAPSE = 40000;
 
     // ---------------------------------------- Variables de instancia
 
@@ -36,7 +37,7 @@ public class AllowanceShooterWave extends AllowanceWave {
     private float doubleEnemyProbability;
     private float tripleSplitterEnemyProbability;
 
-    private float maxBombs;
+    private int maxBombs;
 
     /** N�mero de enemigos que hay que matar */
     private int totalKills;
@@ -45,7 +46,7 @@ public class AllowanceShooterWave extends AllowanceWave {
 
     // -------------------------------------------------------- Constructor
 
-    public AllowanceShooterWave(JumplingsGameWorld jgWorld, IWaveEndListener listener, int level) {
+    public AllowanceGameWave(JumplingsGameWorld jgWorld, IWaveEndListener listener, int level) {
         super(jgWorld, listener, level);
         this.mJgWorld = jgWorld;
 
@@ -54,27 +55,26 @@ public class AllowanceShooterWave extends AllowanceWave {
         // Inicializaci�n de probabilidades y riesgos
         setMaxThreat(2 + (level * 1.3));
 
-        bombProbability = Math.min(0.35f, 0.025f + (level * 0.075f));
+        bombProbability = Math.min(0.30f, level * 0.1f);
 
-        specialEnemyProbability = Math.min(0.65f, 0.2f + (level * 0.05f));
+        specialEnemyProbability = Math.min(0.65f, level * 0.07f);
 
-        doubleEnemyProbability = 0.35f;
+        doubleEnemyProbability = 0.4f;
 
         tripleSplitterEnemyProbability = Math.min(0.5f, 0.0f + (level * 0.05f));
 
-        maxBombs = Math.min(3, 0.49f + (level * 0.4f));
+        maxBombs = (int) (level * 0.334);
 
         totalKills = 30 + level * 10;
 
         scheduleGeneratePowerUp(getPowerUpCreationLapse());
-
     }
 
     // ------------------------------------------------- M�todos heredados
 
     @Override
     protected float getCurrentThreat() {
-        return mJgWorld.getHitsCount();
+        return mJgWorld.getThread();
     }
 
     @Override
@@ -130,8 +130,7 @@ public class AllowanceShooterWave extends AllowanceWave {
 
         do {
             while (true) {
-                if (Math.random() < bombProbability && mJgWorld.bombCount + 1 <= maxBombs
-                        && mJgWorld.mWeapon.getWeaponCode() == WeaponSlap.WEAPON_CODE_GUN) {
+                if (Math.random() < bombProbability && mJgWorld.getBombCount()  < maxBombs) {
                     code = BombActor.JUMPER_CODE_BOMB;
                     break;
                 }
@@ -154,14 +153,14 @@ public class AllowanceShooterWave extends AllowanceWave {
                 code = SplitterEnemyActor.JUMPER_CODE_SPLITTER_DOUBLE;
                 break;
             }
-        } while (MainActor.getHitCount(code) > getMaxThreat());
+        } while (MainActor.getBaseThread(code) > getMaxThreat());
 
         Log.i(LOG_SRC, "Next enemy code: " + code);
         return code;
     }
 
     private double tryToCreateJumper(double threatNeeded, PointF initPos, Vector2 initVel) {
-        double threat = MainActor.getHitCount(nextJumperCode);
+        double threat = MainActor.getBaseThread(nextJumperCode);
         MainActor mainActor = null;
 
         if (threat <= threatNeeded) {
@@ -322,9 +321,9 @@ public class AllowanceShooterWave extends AllowanceWave {
     }
 
     private float getPowerUpCreationLapse() {
-        int wounds = mJgWorld.getPlayer().getMaxLifes() - mJgWorld.getPlayer().getLifes();
+        int wounds = Player.DEFAUL_INIT_LIFES - mJgWorld.getPlayer().getLifes();
 
-        float l = POWERUP_BASE_LAPSE - ((POWERUP_BASE_LAPSE / mJgWorld.getPlayer().getMaxLifes() * (wounds - 1)));
+        float l = POWERUP_BASE_LAPSE - ((POWERUP_BASE_LAPSE / 3) * wounds);
         return l;
     }
 
@@ -346,11 +345,11 @@ public class AllowanceShooterWave extends AllowanceWave {
 
         createInitPosAndVelTop(initPos, initVel);
 
-        MainActor powerUp;
+        PowerUpActor powerUp;
 
         // la probabilidad de que salga una vida crece conforme se ha perdido
         // vida
-        float lifeUpBaseProbability = 0.7f;
+        float lifeUpBaseProbability = 0.4f;
         float woundedFactor = 1 - (mJgWorld.getPlayer().getLifes() / mJgWorld.getPlayer().getMaxLifes());
         float lifeUpProbability = lifeUpBaseProbability * woundedFactor;
 

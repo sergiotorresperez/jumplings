@@ -31,9 +31,8 @@ public class LifePowerUpActor extends PowerUpActor {
 
     // ------------------------------------------------- M�todos est�ticos
 
-    static double getLifePowerUpHitCount() {
-        // Se le pone un valor positivo, para incentivar que el jugador la coja
-        return 1.5f;
+    static double getLifePowerUpBaseThread() {
+        return 0;
     }
 
     // --------------------------------------------- M�todos heredados
