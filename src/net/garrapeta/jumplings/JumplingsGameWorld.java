@@ -101,6 +101,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     /** Escenario actual */
     IScenario mScenario = null;
 
+
     // ------------------------------------------- Variables de configuraci�n
 
     public short mVibrateCfgLevel;
@@ -114,8 +115,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         this.mGameActivity = gameActivity;
         mPlayer = new Player(this);
         mGameView.setOnTouchListener(this);
-
-    }
+     }
 
     // ----------------------------------------------------- M�todos de World
 
@@ -146,6 +146,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         setWeapon(WeaponSlap.WEAPON_CODE_GUN);
 
         mFlashActor = new FlashActor(this);
+        mFlashActor.setInitted();
         addActor(mFlashActor);
 
         mGameActivity.runOnUiThread(new Runnable() {

@@ -52,7 +52,8 @@ public class WeaponSlap extends Weapon {
 
             PointF worldPos = mWorld.mViewport.screenToWorld((float) info[1], (float) info[2]);
             HarmerSlapActor bullet = new HarmerSlapActor(mWorld, worldPos, bulletRadius, bulletLongevity);
-
+            bullet.setInitted();
+ 
             mWorld.addActor(bullet);
         }
     }

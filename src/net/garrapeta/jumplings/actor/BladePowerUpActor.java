@@ -3,7 +3,6 @@ package net.garrapeta.jumplings.actor;
 import net.garrapeta.gameengine.module.BitmapManager;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.R;
-import android.graphics.PointF;
 
 public class BladePowerUpActor extends PowerUpActor {
 
@@ -25,8 +24,8 @@ public class BladePowerUpActor extends PowerUpActor {
 
     // --------------------------------------------------- Constructor
 
-    public BladePowerUpActor(JumplingsGameWorld mJWorld, PointF worldPos) {
-        super(mJWorld, worldPos);
+    public BladePowerUpActor(JumplingsGameWorld mJWorld) {
+        super(mJWorld);
         mCode = BladePowerUpActor.JUMPER_CODE_POWER_UP_BLADE;
     }
 

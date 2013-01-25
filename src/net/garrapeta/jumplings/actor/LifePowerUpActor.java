@@ -3,7 +3,6 @@ package net.garrapeta.jumplings.actor;
 import net.garrapeta.gameengine.module.BitmapManager;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.R;
-import android.graphics.PointF;
 
 public class LifePowerUpActor extends PowerUpActor {
 
@@ -23,10 +22,9 @@ public class LifePowerUpActor extends PowerUpActor {
 
     // --------------------------------------------------- Constructor
 
-    public LifePowerUpActor(JumplingsGameWorld mJWorld, PointF worldPos) {
-        super(mJWorld, worldPos);
-
-        this.mCode = LifePowerUpActor.JUMPER_CODE_POWER_UP_LIFE;
+    public LifePowerUpActor(JumplingsGameWorld mJWorld) {
+        super(mJWorld);
+        mCode = LifePowerUpActor.JUMPER_CODE_POWER_UP_LIFE;
     }
 
     // ------------------------------------------------- M�todos est�ticos

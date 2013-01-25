@@ -7,7 +7,7 @@ import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.Wave;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.MainActor;
-import net.garrapeta.jumplings.actor.SplitterEnemyActor;
+import net.garrapeta.jumplings.actor.RoundEnemyActor;
 import net.garrapeta.jumplings.scenario.IScenario;
 import net.garrapeta.jumplings.scenario.ScenarioFactory;
 import android.graphics.PointF;
@@ -76,13 +76,14 @@ public class TestWave extends Wave {
 
             @Override
             public void doInGameLoop(GameWorld world) {
-                if (progess == 100) {
-                    progess = 0;
-                    mScenario.onGameOver();
-                } else {
-                    progess = Math.min(progess + 10, 100);
-                    mScenario.setProgress(progess);
-                }
+                createEnemy();
+//                if (progess == 100) {
+//                    progess = 0;
+//                    mScenario.onGameOver();
+//                } else {
+//                    progess = Math.min(progess + 10, 100);
+//                    mScenario.setProgress(progess);
+//                }
             }
         });
 
@@ -114,8 +115,7 @@ public class TestWave extends Wave {
         PointF initPos = new PointF(worldXPos, worldYPos);
         Vector2 initVel = getInitialVelocity(initPos);
 
-        // RoundEnemyActor mainActor = new RoundEnemyActor(jgWorld, initPos);
-
+         RoundEnemyActor mainActor = jgWorld.getJumplingsFactory().getRoundEnemyActor();
         // ShapeActor sa =
         // world.cActivity.CreateShapeEnemy(ShapelingsGameActivity.SHAPE_CIRCLE,
         // initPos, bodyWorldRadius);
@@ -130,8 +130,10 @@ public class TestWave extends Wave {
         // worldPos, color1, color2);
         // SquareEnemyActor ba = new SquareEnemyActor(world, bodyWorldRadius,
         // worldPos, color1);
-        MainActor mainActor = new SplitterEnemyActor(jgWorld, initPos, 1);
+//        MainActor mainActor = new SplitterEnemyActor(jgWorld, 1);
+//        mainActor.init(initPos);
 
+         mainActor.init(initPos);
         if (!debug) {
             mainActor.setLinearVelocity(initVel.x, initVel.y);
         } else {
@@ -167,7 +169,8 @@ public class TestWave extends Wave {
         // ShapeActor sa =
         // world.cActivity.CreateShapeEnemy(ShapelingsGameActivity.SHAPE_CIRCLE,
         // initPos, bodyWorldRadius);
-        MainActor mainActor = new LifePowerUpActor(jgWorld, initPos);
+        MainActor mainActor = new LifePowerUpActor(jgWorld);
+        mainActor.init(initPos);
 
         // EnemyActor enemy = new SplitterEnemyActor(world,
         // SplitterEnemyActor.DEFAULT_BASE_RADIUS,

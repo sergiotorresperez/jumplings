@@ -58,10 +58,8 @@ public class DoubleEnemyActor extends EnemyActor {
      * @param gameWorld
      */
     public DoubleEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos) {
-        super(mJWorld, DoubleEnemyActor.DEFAULT_RADIUS, worldPos);
-
+        super(mJWorld, DoubleEnemyActor.DEFAULT_RADIUS);
         this.mCode = DoubleEnemyActor.JUMPER_CODE_DOUBLE;
-        init(worldPos);
     }
 
     @Override
@@ -121,7 +119,8 @@ public class DoubleEnemyActor extends EnemyActor {
         Vector2 pos = null;
 
         pos = mMainBody.getWorldCenter();
-        son = new DoubleSonEnemyActor(mJgWorld, Viewport.vector2ToPointF(pos));
+        son = new DoubleSonEnemyActor(mJgWorld);
+        son.init(Viewport.vector2ToPointF(pos));
 
         xVel = mMainBody.getLinearVelocity().x;
 

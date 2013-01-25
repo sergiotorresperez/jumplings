@@ -12,6 +12,9 @@ public class RoundEnemyActor extends EnemyActor {
 
     // ---------------------------------------------------- Constantes
 
+    // FIXME: remove this
+    public static int sCount = 0 ;
+    
     public final static float DEFAULT_RADIUS = BASE_RADIUS * 1f;
 
     public final static short JUMPER_CODE_SIMPLE = 0;
@@ -42,11 +45,10 @@ public class RoundEnemyActor extends EnemyActor {
     // ----------------------------------------------------------------
     // Constructor
 
-    public RoundEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos) {
-        super(mJWorld, RoundEnemyActor.DEFAULT_RADIUS, worldPos);
-
+    public RoundEnemyActor(JumplingsGameWorld mJWorld) {
+        super(mJWorld, RoundEnemyActor.DEFAULT_RADIUS);
         mCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
-        init(worldPos);
+        sCount ++;
     }
 
     // ------------------------------------------------------ M�todos heredados

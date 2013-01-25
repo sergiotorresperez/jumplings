@@ -51,7 +51,7 @@ public abstract class JumplingActor extends Box2DActor {
      * Radio de la circunferencia circunscrita en el cuerpo del enemigo, en
      * unidades del mundo.
      */
-    final protected float mRadius;
+    protected float mRadius;
 
     /**
      * Si el enemigo ha llegado a entrar dentro de los bounds del juego. Si el
@@ -79,40 +79,24 @@ public abstract class JumplingActor extends Box2DActor {
 
     // --------------------------------------------------- Constructor
 
-    /**
-     * @param jWorld
-     * @param radius
-     * @param zIndex
-     * @param worldPos
-     */
-    public JumplingActor(JumplingsWorld jWorld, float radius, int zIndex, PointF worldPos) {
-        this(jWorld, radius, zIndex);
-    }
-
-    /**
-     * @param jWorld
-     * @param radius
-     * @param zIndex
-     * @param mainbody
-     */
-    public JumplingActor(JumplingsWorld jWorld, float radius, int zIndex, Body mainbody) {
-        this(jWorld, radius, zIndex);
-        this.mMainBody = mainbody;
-        // FIXME: avoid this. This is here because of DebrisBory
-        addBody(mMainBody);
-    }
-
-    private JumplingActor(JumplingsWorld jWorld, float radius, int zIndex) {
+    protected  JumplingActor(JumplingsWorld jWorld, float radius, int zIndex) {
         super(jWorld, zIndex);
-        mRadius = radius;
         mJWorld = jWorld;
+        mRadius = radius;
     }
 
-    // ----------------------------------------- M�todos de Box2DActor
+    
+   // ----------------------------------------- M�todos de Box2DActor
 
     @Override
     public void onAddedToWorld() {
         this.mEntered = isInsideWorld();
+    }
+
+    @Override
+    public void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        mJWorld.getJumplingsFactory().free(this);
     }
 
     @Override
@@ -188,10 +172,12 @@ public abstract class JumplingActor extends Box2DActor {
 
     // ------------------------------------------------ M�todos propios
 
-    protected void init(PointF worldPos) {
+    public void init(PointF worldPos) {
         initBodies(worldPos);
         initPhysicProperties();
         initBitmaps();
+
+        setInitted();
     }
 
 

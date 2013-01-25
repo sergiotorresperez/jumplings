@@ -2,6 +2,7 @@ package net.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
+import net.garrapeta.jumplings.ActorPool.PoolableActor;
 import net.garrapeta.jumplings.JumplingsWorld;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,9 +13,12 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-public class DebrisActor extends JumplingActor {
+public class DebrisActor extends JumplingActor implements PoolableActor {
 
     // ----------------------------------------------------------- Constantes
+
+    // FIXME: remove this
+    public static int sCount = 0 ;
 
     /**
      * Z-Index del actor
@@ -38,12 +42,11 @@ public class DebrisActor extends JumplingActor {
 
     // --------------------------------------------- Variables de instancia
 
-    float longevity = DEFAULT_LONGEVITY;
+    float mLongevity = DEFAULT_LONGEVITY;
 
-    float lifeTime = longevity;
+    float mLifeTime;
 
-    // --------------------------------------------------- Inicializaci�n
-    // est�tica
+    // --------------------------------------------------- Inicialización  estática
 
     static {
 
@@ -57,19 +60,32 @@ public class DebrisActor extends JumplingActor {
 
     // ---------------------------------------------------------- Constructor
 
-    public DebrisActor(JumplingsWorld jWorld, Body body, Bitmap bitmap) {
+    public DebrisActor(JumplingsWorld jWorld) {
         // FIXME: avoid this void values
-        super(jWorld, 0, Z_INDEX, body);
-        mBitmap = bitmap;
+        super(jWorld, 0, Z_INDEX);
+        mJWorld = jWorld;
         mPaint = new Paint();
+        sCount ++;
+    }
+
+    public void init(Body body, Bitmap bitmap) {
+        mBitmap = bitmap;
+        mMainBody = body;
+        addBody(mMainBody);
+        // FIXME: avoid this void values
         init(null);
+    }
+
+    public void init(PointF worldPos) {
+        super.init(worldPos);
+        mLifeTime = mLongevity;
     }
 
     // ------------------------------------------------------------- M�todos
 
     @Override
     protected void initBitmaps() {
-        // FIXME: this is done in the constructor...
+        // FIXME: this is done in the initialiser...
     }
 
     @Override
@@ -89,11 +105,11 @@ public class DebrisActor extends JumplingActor {
 
     @Override
     public void processFrame(float gameTimeStep) {
-        lifeTime = Math.max(0, lifeTime - gameTimeStep);
-        if (lifeTime <= 0) {
+        mLifeTime = Math.max(0, mLifeTime - gameTimeStep);
+        if (mLifeTime <= 0) {
             mGameWorld.removeActor(this);
         }
-        mAlpha = (int) (255 * lifeTime / longevity);
+        mAlpha = (int) (255 * mLifeTime / mLongevity);
     }
 
     @Override

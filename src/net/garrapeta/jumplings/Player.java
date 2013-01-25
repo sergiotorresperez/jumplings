@@ -101,9 +101,12 @@ public class Player {
 
         PointF worldPos = enemy.getWorldPos();
         ScoreTextActor scoreActor = new ScoreTextActor(mWorld, worldPos, points);
+        scoreActor.setInitted();
+
         mWorld.addActor(scoreActor);
         if (mCurrentComboLevel > 0) {
             ComboTextActor comboActor = new ComboTextActor(mWorld, new PointF(worldPos.x, worldPos.y), mCurrentComboLevel);
+            comboActor.setInitted();
             mWorld.addActor(comboActor);
         }
 

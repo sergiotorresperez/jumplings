@@ -33,10 +33,9 @@ public class DoubleSonEnemyActor extends EnemyActor {
     // ----------------------------------------------------------------
     // Constructor
 
-    public DoubleSonEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos) {
-        super(mJWorld, DoubleSonEnemyActor.DEFAULT_RADIUS, worldPos);
+    public DoubleSonEnemyActor(JumplingsGameWorld mJWorld) {
+        super(mJWorld, DoubleSonEnemyActor.DEFAULT_RADIUS);
         mCode = DoubleSonEnemyActor.JUMPER_CODE_DOUBLE_SON;
-        init(worldPos);
     }
 
     // -------------------------------------------------------- M�todos Propios

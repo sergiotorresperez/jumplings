@@ -73,10 +73,9 @@ public class BombActor extends MainActor {
 
     // --------------------------------------------------- Constructor
 
-    public BombActor(JumplingsGameWorld mJWorld, PointF worldPos) {
-        super(mJWorld, worldPos, BombActor.DEFAULT_RADIUS, Z_INDEX);
-        this.mCode = BombActor.JUMPER_CODE_BOMB;
-        init(worldPos);
+    public BombActor(JumplingsGameWorld mJWorld) {
+        super(mJWorld, BombActor.DEFAULT_RADIUS, Z_INDEX);
+        mCode = BombActor.JUMPER_CODE_BOMB;
     }
 
     // --------------------------------------------- M�todos heredados
@@ -144,8 +143,8 @@ public class BombActor extends MainActor {
         // Main Body
         {
             Body body = mMainBody;
-            DebrisActor debrisActor = new DebrisActor(mJWorld, body, mBmpDebrisBody);
-
+            DebrisActor debrisActor = mJgWorld.getJumplingsFactory().getDebrisActor();
+            debrisActor.init(body, mBmpDebrisBody);
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
@@ -153,8 +152,8 @@ public class BombActor extends MainActor {
         // Fuse
         {
             Body body = mFuseBody;
-            DebrisActor debrisActor = new DebrisActor(mJWorld, body, mBmpDebrisFuse);
-
+            DebrisActor debrisActor = mJgWorld.getJumplingsFactory().getDebrisActor();
+            debrisActor.init(body, mBmpDebrisFuse);
             mGameWorld.addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
@@ -171,7 +170,8 @@ public class BombActor extends MainActor {
             for (int i = 0; i < sparkles; i++) {
                 PointF aux = Viewport.vector2ToPointF(mFuseBody.getWorldCenter());
                 PointF pos = new PointF(aux.x, aux.y);
-                SparksActor sparkle = new SparksActor(mJWorld, pos, SPARKLE_LONGEVITY_FUSE);
+                SparksActor sparkle = new SparksActor(mJWorld);
+                sparkle.init(pos, SPARKLE_LONGEVITY_FUSE);
                 mJWorld.addActor(sparkle);
                 mLastSparkle = now;
             }
@@ -189,7 +189,6 @@ public class BombActor extends MainActor {
         super.onAddedToWorld();
         mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_LAUNCH);
         mFusePlayer = mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_FUSE, true, false);
-        caca++;
     }
 
     @Override
@@ -198,9 +197,7 @@ public class BombActor extends MainActor {
         if (mJgWorld.getBombCount() <= 1 && mFusePlayer != null) {
             mJWorld.getSoundManager().stop(mFusePlayer);
         }
-        caca--;
     }
-    public static int caca = 0;
     
 
 
@@ -227,7 +224,8 @@ public class BombActor extends MainActor {
         Vector2 aux = mMainBody.getWorldCenter();
         ArrayList<JumplingActor> sparkles = new ArrayList<JumplingActor>();
         for (int i = 0; i < SPARKS_AT_EXPLOSION; i++) {
-            SparksActor sparkle = new SparksActor(mJWorld, new PointF(aux.x, aux.y), SPARKLE_LONGEVITY_EXPLOSION);
+            SparksActor sparkle = new SparksActor(mJWorld);
+            sparkle.init(new PointF(aux.x, aux.y), SPARKLE_LONGEVITY_EXPLOSION);
             mJWorld.addActor(sparkle);
             sparkles.add(sparkle);
         }

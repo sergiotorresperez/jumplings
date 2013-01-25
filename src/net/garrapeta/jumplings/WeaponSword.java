@@ -18,6 +18,7 @@ public class WeaponSword extends Weapon {
 	public WeaponSword(JumplingsGameWorld demoWorld) {
 		super(demoWorld);
 		mSwipe = new HarmerSwipeActor(demoWorld);
+		mSwipe.setInitted();
 		demoWorld.addActor(mSwipe);
 	}
 

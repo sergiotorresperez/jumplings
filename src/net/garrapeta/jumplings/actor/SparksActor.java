@@ -57,10 +57,13 @@ public class SparksActor extends JumplingActor {
 
     // --------------------------------------------------- Constructor
 
-    public SparksActor(JumplingsWorld jWorld, PointF worldPos, int longevity) {
-        super(jWorld, SparksActor.DEFAULT_RADIUS, Z_INDEX, worldPos);
-        mLongevity = mLifeTime = longevity;
+    public SparksActor(JumplingsWorld jWorld) {
+        super(jWorld, SparksActor.DEFAULT_RADIUS, Z_INDEX);
         mPaint = new Paint();
+    }
+
+    public void init(PointF worldPos, int longevity) {
+        mLongevity = mLifeTime = longevity;
         init(worldPos);
     }
 

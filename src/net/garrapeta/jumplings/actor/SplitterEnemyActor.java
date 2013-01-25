@@ -76,8 +76,8 @@ public class SplitterEnemyActor extends EnemyActor {
     // ----------------------------------------------------------------
     // Constructor
 
-    public SplitterEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos, int level) {
-        super(mJWorld, DEFAULT_BASE_RADIUS + level * DEFAULT_BASE_RADIUS * RADIUS_FACTOR, worldPos);
+    public SplitterEnemyActor(JumplingsGameWorld mJWorld, int level) {
+        super(mJWorld, DEFAULT_BASE_RADIUS + level * DEFAULT_BASE_RADIUS * RADIUS_FACTOR);
         if (level > 2) {
             throw new IllegalArgumentException("Maximun level for " + SplitterEnemyActor.class.getCanonicalName() + " is 2");
         }
@@ -94,8 +94,6 @@ public class SplitterEnemyActor extends EnemyActor {
             mCode = SplitterEnemyActor.JUMPER_CODE_SPLITTER_SIMPLE;
             break;
         }
-        
-        init(worldPos);
     }
 
     // ----------------------------------------- M�todos de EnemyActor
@@ -236,9 +234,11 @@ public class SplitterEnemyActor extends EnemyActor {
             float posY2 = Math.max(b.bottom + mRadius, wc.y - mRadius);
             posY2 = Math.min(posY2, b.top - mRadius);
 
-            actor1 = new SplitterEnemyActor(mJgWorld, new PointF(posX1, posY1), mLevel - 1);
+            actor1 = new SplitterEnemyActor(mJgWorld, mLevel - 1);
+            actor1.init(new PointF(posX1, posY1));
 
-            actor2 = new SplitterEnemyActor(mJgWorld, new PointF(posX2, posY2), mLevel - 1);
+            actor2 = new SplitterEnemyActor(mJgWorld, mLevel - 1);
+            actor2.init(new PointF(posX2, posY2));
 
             float xVel = mRadius * mLevel * 2;
             float yVel = getRestorationInitVy(getWorldPos().y);

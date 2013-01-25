@@ -168,26 +168,26 @@ public class AllowanceGameWave extends AllowanceWave {
             switch (nextJumperCode) {
             case RoundEnemyActor.JUMPER_CODE_SIMPLE:
                 // simple
-                mainActor = new RoundEnemyActor(mJgWorld, initPos);
+                mainActor = mJgWorld.getJumplingsFactory().getRoundEnemyActor();
                 break;
             case DoubleEnemyActor.JUMPER_CODE_DOUBLE:
                 // double
                 mainActor = new DoubleEnemyActor(mJgWorld, initPos);
                 break;
             case SplitterEnemyActor.JUMPER_CODE_SPLITTER_DOUBLE:
-                mainActor = new SplitterEnemyActor(mJgWorld, initPos, 1);
+                mainActor = new SplitterEnemyActor(mJgWorld, 1);
                 break;
             case SplitterEnemyActor.JUMPER_CODE_SPLITTER_TRIPLE:
-                mainActor = new SplitterEnemyActor(mJgWorld, initPos, 2);
+                mainActor = new SplitterEnemyActor(mJgWorld, 2);
                 break;
             case BombActor.JUMPER_CODE_BOMB:
-                mainActor = new BombActor(mJgWorld, initPos);
+                mainActor = new BombActor(mJgWorld);
                 break;
             }
         }
 
         if (mainActor != null) {
-
+            mainActor.init(initPos);
             mainActor.setLinearVelocity(initVel.x, initVel.y);
             mJgWorld.addActor(mainActor);
             Log.i(LOG_SRC, "Added mainActor: " + nextJumperCode);
@@ -354,11 +354,11 @@ public class AllowanceGameWave extends AllowanceWave {
         float lifeUpProbability = lifeUpBaseProbability * woundedFactor;
 
         if (Math.random() < lifeUpProbability) {
-            powerUp = new LifePowerUpActor(mJgWorld, initPos);
+            powerUp = new LifePowerUpActor(mJgWorld);
         } else {
-            powerUp = new BladePowerUpActor(mJgWorld, initPos);
+            powerUp = new BladePowerUpActor(mJgWorld);
         }
-
+        powerUp.init(initPos);
         powerUp.setLinearVelocity(initVel.x, initVel.y);
         mJgWorld.addActor(powerUp);
     }

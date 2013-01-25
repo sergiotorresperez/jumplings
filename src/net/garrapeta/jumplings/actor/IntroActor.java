@@ -59,11 +59,11 @@ public class IntroActor extends JumplingActor implements IBumpable {
 
     // --------------------------------------------------- Constructor
 
-    public IntroActor(JumplingsWorld jWorld, PointF worldPos) {
-        super(jWorld, IntroActor.DEFAULT_RADIUS, Z_INDEX, worldPos);
+    public IntroActor(JumplingsWorld jWorld) {
+        super(jWorld, IntroActor.DEFAULT_RADIUS, Z_INDEX);
+        mJWorld = jWorld;
         mAnthtopoDelegate = new AnthropomorphicDelegate(this);
         mBumpDelegate = new BumpDelegate(this);
-        init(worldPos);
     }
 
     // --------------------------------------------- M�todos heredados

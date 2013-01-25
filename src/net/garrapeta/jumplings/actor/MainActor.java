@@ -3,7 +3,6 @@ package net.garrapeta.jumplings.actor;
 import java.util.ArrayList;
 
 import net.garrapeta.jumplings.JumplingsGameWorld;
-import android.graphics.PointF;
 import android.view.MotionEvent;
 
 import com.badlogic.gdx.math.Vector2;
@@ -35,18 +34,12 @@ public abstract class MainActor extends JumplingActor {
 	
 	// ---------------------------------------------------------------- Constructor
 	
-	/**
-	 * @param mJWorld
-	 * @param worldPos
-	 * @param radius
-	 * @param zIndex
-	 */
-	public MainActor(JumplingsGameWorld mJWorld, PointF worldPos, float radius, int zIndex) {
-		super(mJWorld, radius, zIndex, worldPos);
-		this.mJgWorld = mJWorld;
-		this.timestamp = System.currentTimeMillis();
-	}
-	
+	public MainActor(JumplingsGameWorld mJWorld,  float radius, int zIndex) {
+        super(mJWorld, radius, zIndex);
+        this.mJgWorld = mJWorld;
+        this.timestamp = System.currentTimeMillis();
+    }
+
 	// ------------------------------------------- M�todos est�ticos
 	
 	public static double getBaseThread(short code) {

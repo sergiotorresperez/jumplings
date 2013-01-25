@@ -91,7 +91,8 @@ public class MenuWave extends Wave {
         PointF initPos = new PointF(worldXPos, worldYPos);
         Vector2 initVel = getInitialVelocity(initPos);
 
-        IntroActor actor = new IntroActor(mJWorld, initPos);
+        IntroActor actor = new IntroActor(mJWorld);
+        actor.init(initPos);
         actor.setLinearVelocity(initVel.x, initVel.y);
         mJWorld.addActor(actor);
     }
