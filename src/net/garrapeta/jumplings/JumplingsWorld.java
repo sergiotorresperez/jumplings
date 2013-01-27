@@ -226,7 +226,7 @@ public class JumplingsWorld extends Box2DWorld {
     /**
      * @return the factory to create Jumplings
      */
-    public JumplingsFactory getJumplingsFactory() {
+    public JumplingsFactory getFactory() {
         return mJumplingsFactory;
     }
 }

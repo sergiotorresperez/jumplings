@@ -46,7 +46,8 @@ public class RoundEnemyActor extends EnemyActor {
     // Constructor
 
     public RoundEnemyActor(JumplingsGameWorld world) {
-        super(world, RoundEnemyActor.DEFAULT_RADIUS);
+        super(world);
+        mRadius = RoundEnemyActor.DEFAULT_RADIUS;
         mCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
         sCount ++;
     }
@@ -96,4 +97,9 @@ public class RoundEnemyActor extends EnemyActor {
         mBmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
     }
 
+    @Override
+    public void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        getWorld().getFactory().free(this);
+    }
 }

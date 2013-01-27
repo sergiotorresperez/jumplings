@@ -10,7 +10,6 @@ public class BladePowerUpActor extends PowerUpActor {
 
     public final static short JUMPER_CODE_POWER_UP_BLADE = 8;
 
-    public final static float DEFAULT_RADIUS = BASE_RADIUS * 1.05f;
 
     // ------------------------------------------------- Variables est�ticas
 

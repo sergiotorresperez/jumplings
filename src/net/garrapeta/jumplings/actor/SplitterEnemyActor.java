@@ -34,7 +34,7 @@ public class SplitterEnemyActor extends EnemyActor {
     /**
      * Nivel de anidamiendo. Si 1 se divide en dos at�micos.
      */
-    private final int mLevel;
+    private int mLevel;
 
     // ------------------------------------------------------ Variables de
     // instancia
@@ -76,12 +76,16 @@ public class SplitterEnemyActor extends EnemyActor {
     // ----------------------------------------------------------------
     // Constructor
 
-    public SplitterEnemyActor(JumplingsGameWorld mWorld, int level) {
-        super(mWorld, DEFAULT_BASE_RADIUS + level * DEFAULT_BASE_RADIUS * RADIUS_FACTOR);
+    public SplitterEnemyActor(JumplingsGameWorld mWorld) {
+        super(mWorld);
+    }
+
+    public void init(PointF worldPos, int level) {
         if (level > 2) {
             throw new IllegalArgumentException("Maximun level for " + SplitterEnemyActor.class.getCanonicalName() + " is 2");
         }
         mLevel = level;
+        mRadius = DEFAULT_BASE_RADIUS + level * DEFAULT_BASE_RADIUS * RADIUS_FACTOR;
 
         switch (mLevel) {
         case 2:
@@ -94,6 +98,7 @@ public class SplitterEnemyActor extends EnemyActor {
             mCode = SplitterEnemyActor.JUMPER_CODE_SPLITTER_SIMPLE;
             break;
         }
+        super.init(worldPos);
     }
 
     // ----------------------------------------- M�todos de EnemyActor
@@ -217,8 +222,8 @@ public class SplitterEnemyActor extends EnemyActor {
     public void onHitted() {
         if (mLevel > 0) {
             RectF b = getWorld().mViewport.getWorldBoundaries();
-            EnemyActor actor1 = null;
-            EnemyActor actor2 = null;
+            SplitterEnemyActor actor1 = null;
+            SplitterEnemyActor actor2 = null;
 
             Vector2 wc = mMainBody.getWorldCenter();
 
@@ -234,11 +239,9 @@ public class SplitterEnemyActor extends EnemyActor {
             float posY2 = Math.max(b.bottom + mRadius, wc.y - mRadius);
             posY2 = Math.min(posY2, b.top - mRadius);
 
-            actor1 = new SplitterEnemyActor(getWorld(), mLevel - 1);
-            actor1.init(new PointF(posX1, posY1));
+            actor1 = getWorld().getFactory().getSplitterEnemyActor(new PointF(posX1, posY1), mLevel - 1);
 
-            actor2 = new SplitterEnemyActor(getWorld(), mLevel - 1);
-            actor2.init(new PointF(posX2, posY2));
+            actor2 = getWorld().getFactory().getSplitterEnemyActor(new PointF(posX2, posY2), mLevel - 1);
 
             float xVel = mRadius * mLevel * 2;
             float yVel = getRestorationInitVy(getWorldPos().y);
@@ -254,4 +257,9 @@ public class SplitterEnemyActor extends EnemyActor {
         super.onHitted();
     }
 
+    @Override
+    public void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        getWorld().getFactory().free(this);
+    }
 }

@@ -44,7 +44,8 @@ public abstract class PowerUpActor extends JumplingsGameActor {
     // --------------------------------------------------- Constructor
 
     public PowerUpActor(JumplingsGameWorld world) {
-        super(world, BladePowerUpActor.DEFAULT_RADIUS, Z_INDEX);
+        super(world, Z_INDEX);
+        mRadius = PowerUpActor.DEFAULT_RADIUS;
         // vivo
         BitmapManager mb = world.getBitmapManager();
         mBmpBg = mb.getBitmap(BMP_POWERUP_BG);
@@ -103,8 +104,7 @@ public abstract class PowerUpActor extends JumplingsGameActor {
         // Main Body
         {
             Body body = mMainBody;
-            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
-            debrisActor.init(body, mBmpDebrisBg);
+            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisBg);
 
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -113,8 +113,7 @@ public abstract class PowerUpActor extends JumplingsGameActor {
         // Icon
         {
             Body body = mIconBody;
-            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
-            debrisActor.init(body, mBmpDebrisIcon);
+            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisIcon);
 
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);

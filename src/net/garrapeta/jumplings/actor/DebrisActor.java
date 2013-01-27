@@ -2,7 +2,6 @@ package net.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import net.garrapeta.jumplings.ActorPool.PoolableActor;
 import net.garrapeta.jumplings.JumplingsWorld;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -13,12 +12,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-public class DebrisActor extends JumplingActor<JumplingsWorld> implements PoolableActor {
+public class DebrisActor extends JumplingActor<JumplingsWorld> {
 
     // ----------------------------------------------------------- Constantes
-
-    // FIXME: remove this
-    public static int sCount = 0 ;
 
     /**
      * Z-Index del actor
@@ -61,10 +57,8 @@ public class DebrisActor extends JumplingActor<JumplingsWorld> implements Poolab
     // ---------------------------------------------------------- Constructor
 
     public DebrisActor(JumplingsWorld world) {
-        // FIXME: avoid this void values
-        super(world, 0, Z_INDEX);
+        super(world, Z_INDEX);
         mPaint = new Paint();
-        sCount ++;
     }
 
     public void init(Body body, Bitmap bitmap) {
@@ -118,4 +112,9 @@ public class DebrisActor extends JumplingActor<JumplingsWorld> implements Poolab
         mPaint = null;
     }
 
+    @Override
+    public void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        getWorld().getFactory().free(this);
+    }
 }

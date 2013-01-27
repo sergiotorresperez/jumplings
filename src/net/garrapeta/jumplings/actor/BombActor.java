@@ -74,7 +74,8 @@ public class BombActor extends JumplingsGameActor {
     // --------------------------------------------------- Constructor
 
     public BombActor(JumplingsGameWorld world) {
-        super(world, BombActor.DEFAULT_RADIUS, Z_INDEX);
+        super(world, Z_INDEX);
+        mRadius = BombActor.DEFAULT_RADIUS;
         mCode = BombActor.JUMPER_CODE_BOMB;
     }
 
@@ -143,8 +144,7 @@ public class BombActor extends JumplingsGameActor {
         // Main Body
         {
             Body body = mMainBody;
-            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
-            debrisActor.init(body, mBmpDebrisBody);
+            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisBody);
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
@@ -152,8 +152,7 @@ public class BombActor extends JumplingsGameActor {
         // Fuse
         {
             Body body = mFuseBody;
-            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
-            debrisActor.init(body, mBmpDebrisFuse);
+            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisFuse);
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
@@ -170,8 +169,7 @@ public class BombActor extends JumplingsGameActor {
             for (int i = 0; i < sparkles; i++) {
                 PointF aux = Viewport.vector2ToPointF(mFuseBody.getWorldCenter());
                 PointF pos = new PointF(aux.x, aux.y);
-                SparksActor sparkle = new SparksActor(getWorld());
-                sparkle.init(pos, SPARKLE_LONGEVITY_FUSE);
+                SparksActor sparkle = getWorld().getFactory().getSparksActor(pos, SPARKLE_LONGEVITY_FUSE);
                 getWorld().addActor(sparkle);
                 mLastSparkle = now;
             }
@@ -224,8 +222,7 @@ public class BombActor extends JumplingsGameActor {
         Vector2 aux = mMainBody.getWorldCenter();
         ArrayList<JumplingActor<?>> sparkles = new ArrayList<JumplingActor<?>>();
         for (int i = 0; i < SPARKS_AT_EXPLOSION; i++) {
-            SparksActor sparkle = new SparksActor(getWorld());
-            sparkle.init(new PointF(aux.x, aux.y), SPARKLE_LONGEVITY_EXPLOSION);
+            SparksActor sparkle = getWorld().getFactory().getSparksActor(new PointF(aux.x, aux.y), SPARKLE_LONGEVITY_EXPLOSION);
             getWorld().addActor(sparkle);
             sparkles.add(sparkle);
         }

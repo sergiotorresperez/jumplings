@@ -34,7 +34,8 @@ public class DoubleSonEnemyActor extends EnemyActor {
     // Constructor
 
     public DoubleSonEnemyActor(JumplingsGameWorld mWorld) {
-        super(mWorld, DoubleSonEnemyActor.DEFAULT_RADIUS);
+        super(mWorld);
+        mRadius = DoubleSonEnemyActor.DEFAULT_RADIUS;
         mCode = DoubleSonEnemyActor.JUMPER_CODE_DOUBLE_SON;
     }
 
@@ -80,5 +81,11 @@ public class DoubleSonEnemyActor extends EnemyActor {
 
         mBmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
         mBmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
+    }
+    
+    @Override
+    public void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        getWorld().getFactory().free(this);
     }
 }

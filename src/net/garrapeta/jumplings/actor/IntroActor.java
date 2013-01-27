@@ -60,7 +60,8 @@ public class IntroActor extends JumplingActor<JumplingsWorld> implements IBumpab
     // --------------------------------------------------- Constructor
 
     public IntroActor(JumplingsWorld world) {
-        super(world, IntroActor.DEFAULT_RADIUS, Z_INDEX);
+        super(world, Z_INDEX);
+        mRadius = IntroActor.DEFAULT_RADIUS;
         mAnthtopoDelegate = new AnthropomorphicDelegate<JumplingsWorld>(this);
         mBumpDelegate = new BumpDelegate(this);
     }

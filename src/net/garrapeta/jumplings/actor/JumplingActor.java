@@ -77,9 +77,8 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
 
     // --------------------------------------------------- Constructor
 
-    protected  JumplingActor(T world, float radius, int zIndex) {
+    protected  JumplingActor(T world, int zIndex) {
         super(world, zIndex);
-        mRadius = radius;
     }
 
     
@@ -88,12 +87,6 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
     @Override
     public void onAddedToWorld() {
         mEntered = isInsideWorld();
-    }
-
-    @Override
-    public void onRemovedFromWorld() {
-        super.onRemovedFromWorld();
-        getWorld().getJumplingsFactory().free(this);
     }
 
     @Override

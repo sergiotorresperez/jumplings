@@ -31,8 +31,8 @@ public abstract class JumplingsGameActor extends JumplingActor<JumplingsGameWorl
 	
 	// ---------------------------------------------------------------- Constructor
 	
-	public JumplingsGameActor(JumplingsGameWorld world,  float radius, int zIndex) {
-        super(world, radius, zIndex);
+	public JumplingsGameActor(JumplingsGameWorld world, int zIndex) {
+        super(world, zIndex);
         this.timestamp = System.currentTimeMillis();
     }
 

@@ -58,7 +58,8 @@ public class SparksActor extends JumplingActor<JumplingsWorld> {
     // --------------------------------------------------- Constructor
 
     public SparksActor(JumplingsWorld world) {
-        super(world, SparksActor.DEFAULT_RADIUS, Z_INDEX);
+        super(world, Z_INDEX);
+        mRadius = SparksActor.DEFAULT_RADIUS;
         mPaint = new Paint();
     }
 
@@ -107,6 +108,12 @@ public class SparksActor extends JumplingActor<JumplingsWorld> {
     protected void drawBitmaps(Canvas canvas) {
         mPaint.setAlpha(mAlpha);
         getWorld().drawBitmap(canvas, this.mMainBody, mBmpSparkle, mPaint);
+    }
+
+    @Override
+    public void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        getWorld().getFactory().free(this);
     }
 
     @Override
