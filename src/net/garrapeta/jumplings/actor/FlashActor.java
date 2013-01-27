@@ -10,7 +10,7 @@ import android.graphics.Color;
  * TODO: avoid haviing only one flash actor active or blend colours
  *
  */
-public class FlashActor extends Actor {
+public class FlashActor extends Actor<JumplingsGameWorld> {
 
     // ----------------------------------------------------------- Constantes
 
@@ -62,8 +62,8 @@ public class FlashActor extends Actor {
 
     // ---------------------------------------------------------- Constructor
 
-    public FlashActor(JumplingsGameWorld cWorld) {
-        super(cWorld, Integer.MAX_VALUE);
+    public FlashActor(JumplingsGameWorld world) {
+        super(world, Integer.MAX_VALUE);
         
     }
 

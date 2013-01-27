@@ -5,8 +5,8 @@ import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.Wave;
+import net.garrapeta.jumplings.actor.JumplingsGameActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
-import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.actor.RoundEnemyActor;
 import net.garrapeta.jumplings.scenario.IScenario;
 import net.garrapeta.jumplings.scenario.ScenarioFactory;
@@ -16,7 +16,7 @@ import android.widget.Button;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class TestWave extends Wave {
+public class TestWave extends Wave<JumplingsGameWorld> {
 
     // ----------------------------------------------------- Constantes
 
@@ -53,7 +53,7 @@ public class TestWave extends Wave {
     @Override
     public void onProcessFrame(float gameTimeStep) {
         if (mScenario == null) {
-            mScenario = ScenarioFactory.getScenario(mJWorld, ScenarioFactory.ScenariosIds.NATURE);
+            mScenario = ScenarioFactory.getScenario(getWorld(), ScenarioFactory.ScenariosIds.NATURE);
             jgWorld.setScenario(mScenario);
             mScenario.init();
         }
@@ -169,7 +169,7 @@ public class TestWave extends Wave {
         // ShapeActor sa =
         // world.cActivity.CreateShapeEnemy(ShapelingsGameActivity.SHAPE_CIRCLE,
         // initPos, bodyWorldRadius);
-        MainActor mainActor = new LifePowerUpActor(jgWorld);
+        JumplingsGameActor mainActor = new LifePowerUpActor(jgWorld);
         mainActor.init(initPos);
 
         // EnemyActor enemy = new SplitterEnemyActor(world,

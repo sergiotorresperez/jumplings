@@ -43,7 +43,7 @@ public class JumplingsWorld extends Box2DWorld {
     public Activity mActivity;
 
     /** Wave actual */
-    Wave mWave;
+    Wave<?> mWave;
 
     // centro de la pantalla
     float centerX;

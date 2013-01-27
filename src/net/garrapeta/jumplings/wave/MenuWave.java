@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Wave used in the menu activity
  */
-public class MenuWave extends Wave {
+public class MenuWave extends Wave<JumplingsWorld> {
 
     // ----------------------------------------------------- Constantes
 
@@ -50,7 +50,7 @@ public class MenuWave extends Wave {
     // ---------------------------------------------------- M�todos propios
 
     private void scheduleIntroActorCreation() {
-        mJWorld.post(new SyncGameMessage() {
+        getWorld().post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
                 if  (countIntroActors() < getMaxIntroActors()) {
@@ -64,7 +64,7 @@ public class MenuWave extends Wave {
 
     private int countIntroActors() {
         int introActorsCount = 0;
-        for (Actor actor : mJWorld.mActors) {
+        for (Actor<?> actor : getWorld().mActors) {
             if (actor instanceof IntroActor) {
                 introActorsCount ++;
             }
@@ -73,7 +73,7 @@ public class MenuWave extends Wave {
     }
 
     private int getMaxIntroActors() {
-        RectF worldBoundaries = mJWorld.mViewport.getWorldBoundaries();
+        RectF worldBoundaries = getWorld().mViewport.getWorldBoundaries();
         //FIXME: the - should not be needed. Maybe RectF is not a good class for holding the worldBoundaries
         float worldSquareUnits = worldBoundaries.width() * -worldBoundaries.height();
         return (int) (worldSquareUnits * WORLD_WIDTH_JUMPLINGS_RATIO);
@@ -91,10 +91,10 @@ public class MenuWave extends Wave {
         PointF initPos = new PointF(worldXPos, worldYPos);
         Vector2 initVel = getInitialVelocity(initPos);
 
-        IntroActor actor = new IntroActor(mJWorld);
+        IntroActor actor = new IntroActor(getWorld());
         actor.init(initPos);
         actor.setLinearVelocity(initVel.x, initVel.y);
-        mJWorld.addActor(actor);
+        getWorld().addActor(actor);
     }
 
 }

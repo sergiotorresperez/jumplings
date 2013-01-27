@@ -9,8 +9,8 @@ import net.garrapeta.jumplings.actor.BladePowerUpActor;
 import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.DoubleEnemyActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
+import net.garrapeta.jumplings.actor.JumplingsGameActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
-import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.actor.PowerUpActor;
 import net.garrapeta.jumplings.actor.RoundEnemyActor;
 import net.garrapeta.jumplings.actor.SplitterEnemyActor;
@@ -20,15 +20,13 @@ import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class AllowanceGameWave extends AllowanceWave {
+public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 
     // --------------------------------------------------- Constantes
 
     private static float POWERUP_BASE_LAPSE = 40000;
 
     // ---------------------------------------- Variables de instancia
-
-    JumplingsGameWorld mJgWorld;
 
     private short nextJumperCode;
 
@@ -46,9 +44,8 @@ public class AllowanceGameWave extends AllowanceWave {
 
     // -------------------------------------------------------- Constructor
 
-    public AllowanceGameWave(JumplingsGameWorld jgWorld, IWaveEndListener listener, int level) {
-        super(jgWorld, listener, level);
-        this.mJgWorld = jgWorld;
+    public AllowanceGameWave(JumplingsGameWorld world, IWaveEndListener listener, int level) {
+        super(world, listener, level);
 
         nextJumperCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
 
@@ -74,7 +71,7 @@ public class AllowanceGameWave extends AllowanceWave {
 
     @Override
     protected float getCurrentThreat() {
-        return mJgWorld.getThread();
+        return getWorld().getThread();
     }
 
     @Override
@@ -95,9 +92,8 @@ public class AllowanceGameWave extends AllowanceWave {
         if (getProgress() >= 100) {
             // no se comunica el fin de la wave hasta que todos los enemigos
             // est�n muertos
-            if (mJgWorld.jumplingActors.size() == 0 && mListener != null) {
+            if (getWorld().jumplingActors.size() == 0 && mListener != null) {
                 mListener.onWaveEnded();
-                ;
             }
         } else {
             super.onProcessFrame(stepTime);
@@ -117,12 +113,6 @@ public class AllowanceGameWave extends AllowanceWave {
         return kills * 100 / totalKills;
     }
 
-    @Override
-    public void dispose() {
-        super.dispose();
-        mJgWorld = null;
-    }
-
     // -------------------------------------------------- M�todos propios
 
     private short generateJumperCode() {
@@ -130,7 +120,7 @@ public class AllowanceGameWave extends AllowanceWave {
 
         do {
             while (true) {
-                if (Math.random() < bombProbability && mJgWorld.getBombCount()  < maxBombs) {
+                if (Math.random() < bombProbability && getWorld().getBombCount()  < maxBombs) {
                     code = BombActor.JUMPER_CODE_BOMB;
                     break;
                 }
@@ -153,35 +143,35 @@ public class AllowanceGameWave extends AllowanceWave {
                 code = SplitterEnemyActor.JUMPER_CODE_SPLITTER_DOUBLE;
                 break;
             }
-        } while (MainActor.getBaseThread(code) > getMaxThreat());
+        } while (JumplingsGameActor.getBaseThread(code) > getMaxThreat());
 
         Log.i(LOG_SRC, "Next enemy code: " + code);
         return code;
     }
 
     private double tryToCreateJumper(double threatNeeded, PointF initPos, Vector2 initVel) {
-        double threat = MainActor.getBaseThread(nextJumperCode);
-        MainActor mainActor = null;
+        double threat = JumplingsGameActor.getBaseThread(nextJumperCode);
+        JumplingsGameActor mainActor = null;
 
         if (threat <= threatNeeded) {
 
             switch (nextJumperCode) {
             case RoundEnemyActor.JUMPER_CODE_SIMPLE:
                 // simple
-                mainActor = mJgWorld.getJumplingsFactory().getRoundEnemyActor();
+                mainActor = getWorld().getJumplingsFactory().getRoundEnemyActor();
                 break;
             case DoubleEnemyActor.JUMPER_CODE_DOUBLE:
                 // double
-                mainActor = new DoubleEnemyActor(mJgWorld, initPos);
+                mainActor = new DoubleEnemyActor(getWorld(), initPos);
                 break;
             case SplitterEnemyActor.JUMPER_CODE_SPLITTER_DOUBLE:
-                mainActor = new SplitterEnemyActor(mJgWorld, 1);
+                mainActor = new SplitterEnemyActor(getWorld(), 1);
                 break;
             case SplitterEnemyActor.JUMPER_CODE_SPLITTER_TRIPLE:
-                mainActor = new SplitterEnemyActor(mJgWorld, 2);
+                mainActor = new SplitterEnemyActor(getWorld(), 2);
                 break;
             case BombActor.JUMPER_CODE_BOMB:
-                mainActor = new BombActor(mJgWorld);
+                mainActor = new BombActor(getWorld());
                 break;
             }
         }
@@ -189,7 +179,7 @@ public class AllowanceGameWave extends AllowanceWave {
         if (mainActor != null) {
             mainActor.init(initPos);
             mainActor.setLinearVelocity(initVel.x, initVel.y);
-            mJgWorld.addActor(mainActor);
+            getWorld().addActor(mainActor);
             Log.i(LOG_SRC, "Added mainActor: " + nextJumperCode);
             nextJumperCode = generateJumperCode();
             return threat;
@@ -270,14 +260,14 @@ public class AllowanceGameWave extends AllowanceWave {
 
     private void createInitVel(PointF pos, Vector2 vel) {
         // vel
-        float g = mJgWorld.getGravityY();
+        float g = getWorld().getGravityY();
 
         // Factor de aletoriedad (0 - 1)
         float XFACTOR = 0.9f;
         float YFACTOR = 0.75f;
 
         // Distancia m�xima que pueda viajar verticalmente
-        RectF bounds = mJgWorld.mViewport.getWorldBoundaries();
+        RectF bounds = getWorld().mViewport.getWorldBoundaries();
         float boundsHeight = bounds.top - bounds.bottom;
 
         // Distancia vertical que va a alcanzar. Se le hace un poco aleatoria.
@@ -321,14 +311,14 @@ public class AllowanceGameWave extends AllowanceWave {
     }
 
     private float getPowerUpCreationLapse() {
-        int wounds = Player.DEFAUL_INIT_LIFES - mJgWorld.getPlayer().getLifes();
+        int wounds = Player.DEFAUL_INIT_LIFES - getWorld().getPlayer().getLifes();
 
         float l = POWERUP_BASE_LAPSE - ((POWERUP_BASE_LAPSE / 3) * wounds);
         return l;
     }
 
     private void scheduleGeneratePowerUp(float delay) {
-        mJWorld.post(new SyncGameMessage() {
+        getWorld().post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
                 if (!mIsGameOver) {
@@ -350,17 +340,17 @@ public class AllowanceGameWave extends AllowanceWave {
         // la probabilidad de que salga una vida crece conforme se ha perdido
         // vida
         float lifeUpBaseProbability = 0.4f;
-        float woundedFactor = 1 - (mJgWorld.getPlayer().getLifes() / mJgWorld.getPlayer().getMaxLifes());
+        float woundedFactor = 1 - (getWorld().getPlayer().getLifes() / getWorld().getPlayer().getMaxLifes());
         float lifeUpProbability = lifeUpBaseProbability * woundedFactor;
 
         if (Math.random() < lifeUpProbability) {
-            powerUp = new LifePowerUpActor(mJgWorld);
+            powerUp = new LifePowerUpActor(getWorld());
         } else {
-            powerUp = new BladePowerUpActor(mJgWorld);
+            powerUp = new BladePowerUpActor(getWorld());
         }
         powerUp.init(initPos);
         powerUp.setLinearVelocity(initVel.x, initVel.y);
-        mJgWorld.addActor(powerUp);
+        getWorld().addActor(powerUp);
     }
 
 }

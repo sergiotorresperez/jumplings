@@ -45,8 +45,8 @@ public class RoundEnemyActor extends EnemyActor {
     // ----------------------------------------------------------------
     // Constructor
 
-    public RoundEnemyActor(JumplingsGameWorld mJWorld) {
-        super(mJWorld, RoundEnemyActor.DEFAULT_RADIUS);
+    public RoundEnemyActor(JumplingsGameWorld world) {
+        super(world, RoundEnemyActor.DEFAULT_RADIUS);
         mCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
         sCount ++;
     }
@@ -63,7 +63,7 @@ public class RoundEnemyActor extends EnemyActor {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(mRadius);
-            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody = getWorld().createBody(this, worldPos, true);
             mMainBody.setBullet(true);
 
             // Assign shape to Body
@@ -83,7 +83,7 @@ public class RoundEnemyActor extends EnemyActor {
                 BMP_RED_HAND_LEFT_ID, BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID, BMP_EYE_0_RIGHT_CLOSED_ID, BMP_EYE_0_LEFT_CLOSED_ID);
 
         // debris
-        BitmapManager mb = mJWorld.getBitmapManager();
+        BitmapManager mb = getWorld().getBitmapManager();
         mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_RED_BODY_ID);
 
         mBmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_RED_FOOT_RIGHT_ID);

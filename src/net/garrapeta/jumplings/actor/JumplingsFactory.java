@@ -38,7 +38,7 @@ public class JumplingsFactory {
         return mRoundEnemyActorPool.obtain();
     }
 
-    public void free(JumplingActor jumplingActor) {
+    public void free(JumplingActor<?> jumplingActor) {
         // FIXME: try to do this without instanceof
         if (jumplingActor instanceof RoundEnemyActor) {
             Log.d(LOG_SRC, "freeing:  " + jumplingActor);

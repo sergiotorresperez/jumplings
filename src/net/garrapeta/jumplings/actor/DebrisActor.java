@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-public class DebrisActor extends JumplingActor implements PoolableActor {
+public class DebrisActor extends JumplingActor<JumplingsWorld> implements PoolableActor {
 
     // ----------------------------------------------------------- Constantes
 
@@ -60,10 +60,9 @@ public class DebrisActor extends JumplingActor implements PoolableActor {
 
     // ---------------------------------------------------------- Constructor
 
-    public DebrisActor(JumplingsWorld jWorld) {
+    public DebrisActor(JumplingsWorld world) {
         // FIXME: avoid this void values
-        super(jWorld, 0, Z_INDEX);
-        mJWorld = jWorld;
+        super(world, 0, Z_INDEX);
         mPaint = new Paint();
         sCount ++;
     }
@@ -100,14 +99,14 @@ public class DebrisActor extends JumplingActor implements PoolableActor {
 
     protected void drawBitmaps(Canvas canvas) {
         mPaint.setAlpha(mAlpha);
-        mJWorld.drawBitmap(canvas, mMainBody, mBitmap, mPaint);
+        getWorld().drawBitmap(canvas, mMainBody, mBitmap, mPaint);
     }
 
     @Override
     public void processFrame(float gameTimeStep) {
         mLifeTime = Math.max(0, mLifeTime - gameTimeStep);
         if (mLifeTime <= 0) {
-            mGameWorld.removeActor(this);
+            getWorld().removeActor(this);
         }
         mAlpha = (int) (255 * mLifeTime / mLongevity);
     }

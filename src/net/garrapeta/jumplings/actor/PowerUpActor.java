@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 
-public abstract class PowerUpActor extends MainActor {
+public abstract class PowerUpActor extends JumplingsGameActor {
 
     // ----------------------------------------------------------- Constantes
     public final static float DEFAULT_RADIUS = BASE_RADIUS * 1.05f;
@@ -43,10 +43,10 @@ public abstract class PowerUpActor extends MainActor {
 
     // --------------------------------------------------- Constructor
 
-    public PowerUpActor(JumplingsGameWorld mJWorld) {
-        super(mJWorld, BladePowerUpActor.DEFAULT_RADIUS, Z_INDEX);
+    public PowerUpActor(JumplingsGameWorld world) {
+        super(world, BladePowerUpActor.DEFAULT_RADIUS, Z_INDEX);
         // vivo
-        BitmapManager mb = mJWorld.getBitmapManager();
+        BitmapManager mb = world.getBitmapManager();
         mBmpBg = mb.getBitmap(BMP_POWERUP_BG);
         // debris
         mBmpDebrisBg = mb.getBitmap(BMP_DEBRIS_POWERUP_BG);
@@ -62,7 +62,7 @@ public abstract class PowerUpActor extends MainActor {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(mRadius);
-            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody = getWorld().createBody(this, worldPos, true);
             mMainBody.setBullet(true);
 
             // Assign shape to Body
@@ -78,7 +78,7 @@ public abstract class PowerUpActor extends MainActor {
             PolygonShape polygonShape = new PolygonShape();
             polygonShape.setAsBox(mRadius, mRadius);
             PointF pos = new PointF(worldPos.x, worldPos.y);
-            mIconBody = mJWorld.createBody(this, pos, true);
+            mIconBody = getWorld().createBody(this, pos, true);
             mIconBody.setBullet(false);
 
             // Assign shape to Body
@@ -92,31 +92,31 @@ public abstract class PowerUpActor extends MainActor {
 
             jointDef.initialize(mMainBody, mIconBody, Viewport.pointFToVector2(pos));
 
-            mJWorld.createJoint(this, jointDef);
+            getWorld().createJoint(this, jointDef);
         }
     }
 
     @Override
-    protected ArrayList<JumplingActor> getDebrisBodies() {
-        ArrayList<JumplingActor> debrisActors = new ArrayList<JumplingActor>();
+    protected ArrayList<JumplingActor<?>> getDebrisBodies() {
+        ArrayList<JumplingActor<?>> debrisActors = new ArrayList<JumplingActor<?>>();
 
         // Main Body
         {
             Body body = mMainBody;
-            DebrisActor debrisActor = mJgWorld.getJumplingsFactory().getDebrisActor();
+            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
             debrisActor.init(body, mBmpDebrisBg);
 
-            mGameWorld.addActor(debrisActor);
+            getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
 
         // Icon
         {
             Body body = mIconBody;
-            DebrisActor debrisActor = mJgWorld.getJumplingsFactory().getDebrisActor();
+            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
             debrisActor.init(body, mBmpDebrisIcon);
 
-            mGameWorld.addActor(debrisActor);
+            getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
 
@@ -125,8 +125,8 @@ public abstract class PowerUpActor extends MainActor {
 
     @Override
     protected void drawBitmaps(Canvas canvas) {
-        mJWorld.drawBitmap(canvas, this.mMainBody, mBmpBg);
-        mJWorld.drawBitmap(canvas, this.mIconBody, mBmpIcon);
+        getWorld().drawBitmap(canvas, this.mMainBody, mBmpBg);
+        getWorld().drawBitmap(canvas, this.mIconBody, mBmpIcon);
     }
 
     @Override

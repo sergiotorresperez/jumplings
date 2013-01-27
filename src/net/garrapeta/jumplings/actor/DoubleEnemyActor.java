@@ -57,8 +57,8 @@ public class DoubleEnemyActor extends EnemyActor {
     /**
      * @param gameWorld
      */
-    public DoubleEnemyActor(JumplingsGameWorld mJWorld, PointF worldPos) {
-        super(mJWorld, DoubleEnemyActor.DEFAULT_RADIUS);
+    public DoubleEnemyActor(JumplingsGameWorld mWorld, PointF worldPos) {
+        super(mWorld, DoubleEnemyActor.DEFAULT_RADIUS);
         this.mCode = DoubleEnemyActor.JUMPER_CODE_DOUBLE;
     }
 
@@ -71,7 +71,7 @@ public class DoubleEnemyActor extends EnemyActor {
             Vector2[] vertices = new Vector2[] { new Vector2(0, mRadius), new Vector2(-mRadius, 0), new Vector2(0, -mRadius), new Vector2(mRadius, 0) };
             polygonShape.set(vertices);
 
-            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody = getWorld().createBody(this, worldPos, true);
             mMainBody.setBullet(true);
 
             // Assign shape to Body
@@ -91,7 +91,7 @@ public class DoubleEnemyActor extends EnemyActor {
                 BMP_ORANGE_HAND_LEFT_ID, BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID, BMP_EYE_0_RIGHT_CLOSED_ID, BMP_EYE_0_LEFT_CLOSED_ID);
 
         // debris
-        BitmapManager mb = mJWorld.getBitmapManager();
+        BitmapManager mb = getWorld().getBitmapManager();
         mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_ORANGE_BODY_ID);
 
         mBmpDebrisFootRight = mb.getBitmap(BMP_DEBRIS_ORANGE_FOOT_RIGHT_ID);
@@ -107,7 +107,7 @@ public class DoubleEnemyActor extends EnemyActor {
     // -------------------------------------------------------- M�todos propios
 
     private final float getRestorationInitVy(float posY) {
-        float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (mJWorld.mViewport.getWorldBoundaries().top - posY);
+        float maxHeight = posY + HEIGHT_RESTORATION_FACTOR * (getWorld().mViewport.getWorldBoundaries().top - posY);
         return (float) getInitialYVelocity(maxHeight);
     }
 
@@ -119,12 +119,12 @@ public class DoubleEnemyActor extends EnemyActor {
         Vector2 pos = null;
 
         pos = mMainBody.getWorldCenter();
-        son = new DoubleSonEnemyActor(mJgWorld);
+        son = new DoubleSonEnemyActor(getWorld());
         son.init(Viewport.vector2ToPointF(pos));
 
         xVel = mMainBody.getLinearVelocity().x;
 
-        mJWorld.addActor(son);
+        getWorld().addActor(son);
 
         float yVel = getRestorationInitVy(pos.y);
         son.setLinearVelocity(xVel / 2, yVel);

@@ -11,7 +11,7 @@ import android.graphics.Canvas;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 
-public abstract class EnemyActor extends MainActor implements IBumpable {
+public abstract class EnemyActor extends JumplingsGameActor implements IBumpable {
 
     // ---------------------------------------------------- Constantes
 
@@ -39,7 +39,7 @@ public abstract class EnemyActor extends MainActor implements IBumpable {
 
     // ------------------------------------------ Variables de instancia
 
-    protected AnthropomorphicDelegate mAnthtopoDelegate;
+    protected AnthropomorphicDelegate<JumplingsGameWorld> mAnthtopoDelegate;
     protected BumpDelegate mBumpDelegate;
 
     // Bitmaps del actor muerto (debris)
@@ -65,13 +65,13 @@ public abstract class EnemyActor extends MainActor implements IBumpable {
     // Constructor
 
     /**
-     * @param mJWorld
+     * @param mWorld
      * @param radius
      * @param worldPos
      */
-    public EnemyActor(JumplingsGameWorld mJWorld, float radius) {
-        super(mJWorld, radius, Z_INDEX);
-        mAnthtopoDelegate = new AnthropomorphicDelegate(this);
+    public EnemyActor(JumplingsGameWorld world, float radius) {
+        super(world, radius, Z_INDEX);
+        mAnthtopoDelegate = new AnthropomorphicDelegate<JumplingsGameWorld>(this);
         mBumpDelegate = new BumpDelegate(this);
     }
 
@@ -85,16 +85,16 @@ public abstract class EnemyActor extends MainActor implements IBumpable {
     @Override
     public void onAddedToWorld() {
         super.onAddedToWorld();
-        if (getWorldPos().y > mJWorld.mViewport.getWorldBoundaries().top) {
+        if (getWorldPos().y > getWorld().mViewport.getWorldBoundaries().top) {
             // TODO: sample when enemy falls
-            // mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_THROW);
+            // mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_THROW);
         } else {
-            mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_BOING);
+            getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_BOING);
         }
     }
 
     @Override
-    public void onBeginContact(Body thisBody, Box2DActor other, Body otherBody, Contact contact) {
+    public void onBeginContact(Body thisBody, Box2DActor<JumplingsGameWorld> other, Body otherBody, Contact contact) {
         super.onBeginContact(thisBody, other, otherBody, contact);
         mBumpDelegate.onBeginContact(mEntered, thisBody, other, otherBody, contact);
     }
@@ -108,88 +108,88 @@ public abstract class EnemyActor extends MainActor implements IBumpable {
 
     @Override
     protected void onScapedFromBounds() {
-        mJgWorld.onEnemyScaped(this);
+        getWorld().onEnemyScaped(this);
         super.onScapedFromBounds();
     }
 
     @Override
     public void onHitted() {
-        mJgWorld.onEnemyKilled(this);
+        getWorld().onEnemyKilled(this);
         super.onHitted();
     }
 
     @Override
-    protected ArrayList<JumplingActor> getDebrisBodies() {
-        ArrayList<JumplingActor> debrisActors = new ArrayList<JumplingActor>();
+    protected ArrayList<JumplingActor<?>> getDebrisBodies() {
+        ArrayList<JumplingActor<?>> debrisActors = new ArrayList<JumplingActor<?>>();
 
         // Main Body
         {
             Body body = mMainBody;
-            DebrisActor debrisActor = mJgWorld.getJumplingsFactory().getDebrisActor();
+            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
             debrisActor.init(body, mBmpDebrisBody);
 
-            mGameWorld.addActor(debrisActor);
+            getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
 
         // Left hand
         {
             Body body = mAnthtopoDelegate.leftHandBody;
-            DebrisActor debrisActor = mJgWorld.getJumplingsFactory().getDebrisActor();
+            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
             debrisActor.init(body, mBmpDebrisHandLeft);
             
-            mGameWorld.addActor(debrisActor);
+            getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
 
         // Right Hand
         {
             Body body = mAnthtopoDelegate.rightHandBody;
-            DebrisActor debrisActor = mJgWorld.getJumplingsFactory().getDebrisActor();
+            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
             debrisActor.init(body, mBmpDebrisHandRight);
 
-            mGameWorld.addActor(debrisActor);
+            getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
 
         // Left foot
         {
             Body body = mAnthtopoDelegate.leftFootBody;
-            DebrisActor debrisActor = mJgWorld.getJumplingsFactory().getDebrisActor();
+            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
             debrisActor.init(body, mBmpDebrisFootLeft);
 
-            mGameWorld.addActor(debrisActor);
+            getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
 
         // Right foot
         {
             Body body = mAnthtopoDelegate.rightFootBody;
-            DebrisActor debrisActor = mJgWorld.getJumplingsFactory().getDebrisActor();
+            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
             debrisActor.init(body, mBmpDebrisFootRight);
 
             
-            mGameWorld.addActor(debrisActor);
+            getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
 
         // Left Eye
         {
             Body body = mAnthtopoDelegate.leftEyeBody;
-            DebrisActor debrisActor = mJgWorld.getJumplingsFactory().getDebrisActor();
+            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
             debrisActor.init(body, mBmpDebrisEyeLeft);
 
-            mGameWorld.addActor(debrisActor);
+            getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
 
         // Right Eye
         {
             Body body = mAnthtopoDelegate.rightEyeBody;
-            DebrisActor debrisActor = mJgWorld.getJumplingsFactory().getDebrisActor();
+            DebrisActor debrisActor = getWorld().getJumplingsFactory().getDebrisActor();
             debrisActor.init(body, mBmpDebrisEyeRight);
 
-            mGameWorld.addActor(debrisActor);
+            getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
 

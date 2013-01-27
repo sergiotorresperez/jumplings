@@ -76,8 +76,8 @@ public class SplitterEnemyActor extends EnemyActor {
     // ----------------------------------------------------------------
     // Constructor
 
-    public SplitterEnemyActor(JumplingsGameWorld mJWorld, int level) {
-        super(mJWorld, DEFAULT_BASE_RADIUS + level * DEFAULT_BASE_RADIUS * RADIUS_FACTOR);
+    public SplitterEnemyActor(JumplingsGameWorld mWorld, int level) {
+        super(mWorld, DEFAULT_BASE_RADIUS + level * DEFAULT_BASE_RADIUS * RADIUS_FACTOR);
         if (level > 2) {
             throw new IllegalArgumentException("Maximun level for " + SplitterEnemyActor.class.getCanonicalName() + " is 2");
         }
@@ -100,7 +100,7 @@ public class SplitterEnemyActor extends EnemyActor {
 
     private final float getRestorationInitVy(float posY) {
         float maxHeight = posY + HEIGHT_RESTORATION_FACTOR
-                * (mJWorld.mViewport.getWorldBoundaries().top - mJWorld.mViewport.getWorldBoundaries().bottom - posY);
+                * (getWorld().mViewport.getWorldBoundaries().top - getWorld().mViewport.getWorldBoundaries().bottom - posY);
         return (float) getInitialYVelocity(maxHeight);
     }
 
@@ -119,7 +119,7 @@ public class SplitterEnemyActor extends EnemyActor {
         // Cuerpo
         {
 
-            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody = getWorld().createBody(this, worldPos, true);
             mMainBody.setBullet(true);
 
             // n�mero de segmentos que conforman la circunferencia
@@ -154,7 +154,7 @@ public class SplitterEnemyActor extends EnemyActor {
 
     @Override
     protected void initBitmaps() {
-        BitmapManager mb = mJWorld.getBitmapManager();
+        BitmapManager mb = getWorld().getBitmapManager();
         switch (mLevel) {
         case 2:
             // vivo
@@ -216,7 +216,7 @@ public class SplitterEnemyActor extends EnemyActor {
     @Override
     public void onHitted() {
         if (mLevel > 0) {
-            RectF b = mJWorld.mViewport.getWorldBoundaries();
+            RectF b = getWorld().mViewport.getWorldBoundaries();
             EnemyActor actor1 = null;
             EnemyActor actor2 = null;
 
@@ -234,19 +234,19 @@ public class SplitterEnemyActor extends EnemyActor {
             float posY2 = Math.max(b.bottom + mRadius, wc.y - mRadius);
             posY2 = Math.min(posY2, b.top - mRadius);
 
-            actor1 = new SplitterEnemyActor(mJgWorld, mLevel - 1);
+            actor1 = new SplitterEnemyActor(getWorld(), mLevel - 1);
             actor1.init(new PointF(posX1, posY1));
 
-            actor2 = new SplitterEnemyActor(mJgWorld, mLevel - 1);
+            actor2 = new SplitterEnemyActor(getWorld(), mLevel - 1);
             actor2.init(new PointF(posX2, posY2));
 
             float xVel = mRadius * mLevel * 2;
             float yVel = getRestorationInitVy(getWorldPos().y);
 
-            mJWorld.addActor(actor1);
+            getWorld().addActor(actor1);
             actor1.setLinearVelocity(-xVel, yVel);
 
-            mJWorld.addActor(actor2);
+            getWorld().addActor(actor2);
             actor2.setLinearVelocity(xVel, yVel);
 
         }

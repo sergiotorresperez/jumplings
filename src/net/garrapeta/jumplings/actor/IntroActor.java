@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-public class IntroActor extends JumplingActor implements IBumpable {
+public class IntroActor extends JumplingActor<JumplingsWorld> implements IBumpable {
 
     // ----------------------------------------------------------- Constantes
     public final static float DEFAULT_RADIUS = BASE_RADIUS * 3f;
@@ -40,7 +40,7 @@ public class IntroActor extends JumplingActor implements IBumpable {
     protected final static int BMP_INTRO_EYE_LEFT_CLOSED_ID = R.drawable.intro_eye_left_closed;
     // ----------------------------------------------- Variables de instancia
 
-    private AnthropomorphicDelegate mAnthtopoDelegate;
+    private AnthropomorphicDelegate<JumplingsWorld> mAnthtopoDelegate;
     private BumpDelegate mBumpDelegate;
 
     // Bitmaps del actor vivo
@@ -59,10 +59,9 @@ public class IntroActor extends JumplingActor implements IBumpable {
 
     // --------------------------------------------------- Constructor
 
-    public IntroActor(JumplingsWorld jWorld) {
-        super(jWorld, IntroActor.DEFAULT_RADIUS, Z_INDEX);
-        mJWorld = jWorld;
-        mAnthtopoDelegate = new AnthropomorphicDelegate(this);
+    public IntroActor(JumplingsWorld world) {
+        super(world, IntroActor.DEFAULT_RADIUS, Z_INDEX);
+        mAnthtopoDelegate = new AnthropomorphicDelegate<JumplingsWorld>(this);
         mBumpDelegate = new BumpDelegate(this);
     }
 
@@ -76,7 +75,7 @@ public class IntroActor extends JumplingActor implements IBumpable {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(mRadius);
-            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody = getWorld().createBody(this, worldPos, true);
             mMainBody.setBullet(true);
 
             // Assign shape to Body
@@ -114,7 +113,7 @@ public class IntroActor extends JumplingActor implements IBumpable {
     }
 
     @Override
-    public void onBeginContact(Body thisBody, Box2DActor other, Body otherBody, Contact contact) {
+    public void onBeginContact(Body thisBody, Box2DActor<JumplingsWorld> other, Body otherBody, Contact contact) {
         super.onBeginContact(thisBody, other, otherBody, contact);
         mBumpDelegate.onBeginContact(mEntered, thisBody, other, otherBody, contact);
     }

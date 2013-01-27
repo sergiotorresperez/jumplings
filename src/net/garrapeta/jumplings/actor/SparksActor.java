@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-public class SparksActor extends JumplingActor {
+public class SparksActor extends JumplingActor<JumplingsWorld> {
 
     // ----------------------------------------------------------- Constantes
     public final static float DEFAULT_RADIUS = BASE_RADIUS * 1.2f;
@@ -57,8 +57,8 @@ public class SparksActor extends JumplingActor {
 
     // --------------------------------------------------- Constructor
 
-    public SparksActor(JumplingsWorld jWorld) {
-        super(jWorld, SparksActor.DEFAULT_RADIUS, Z_INDEX);
+    public SparksActor(JumplingsWorld world) {
+        super(world, SparksActor.DEFAULT_RADIUS, Z_INDEX);
         mPaint = new Paint();
     }
 
@@ -77,7 +77,7 @@ public class SparksActor extends JumplingActor {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(mRadius);
-            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody = getWorld().createBody(this, worldPos, true);
             mMainBody.setBullet(true);
 
             // Assign shape to Body
@@ -90,7 +90,7 @@ public class SparksActor extends JumplingActor {
 
     @Override
     protected void initBitmaps() {
-        BitmapManager mb = mJWorld.getBitmapManager();
+        BitmapManager mb = getWorld().getBitmapManager();
         mBmpSparkle = mb.getBitmap(bmpsSparkles[(int) (Math.random() * bmpsSparkles.length)]);
     }
 
@@ -98,7 +98,7 @@ public class SparksActor extends JumplingActor {
     public void processFrame(float gameTimeStep) {
         mLifeTime = Math.max(0, mLifeTime - gameTimeStep);
         if (mLifeTime <= 0) {
-            mGameWorld.removeActor(this);
+            getWorld().removeActor(this);
         }
         mAlpha = (int) (255 * mLifeTime / mLongevity);
     }
@@ -106,7 +106,7 @@ public class SparksActor extends JumplingActor {
     @Override
     protected void drawBitmaps(Canvas canvas) {
         mPaint.setAlpha(mAlpha);
-        mJWorld.drawBitmap(canvas, this.mMainBody, mBmpSparkle, mPaint);
+        getWorld().drawBitmap(canvas, this.mMainBody, mBmpSparkle, mPaint);
     }
 
     @Override

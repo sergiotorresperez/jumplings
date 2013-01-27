@@ -20,7 +20,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
  * 
  * @author GaRRaPeTa
  */
-public abstract class JumplingActor extends Box2DActor {
+public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor<T> {
 
     // ----------------------------------------- Constantes
 
@@ -42,8 +42,6 @@ public abstract class JumplingActor extends Box2DActor {
     public final static Filter CONTACT_FILTER;
 
     // ----------------------------------------- Variables de instancia
-
-    JumplingsWorld mJWorld;
 
     public Body mMainBody;
 
@@ -79,9 +77,8 @@ public abstract class JumplingActor extends Box2DActor {
 
     // --------------------------------------------------- Constructor
 
-    protected  JumplingActor(JumplingsWorld jWorld, float radius, int zIndex) {
-        super(jWorld, zIndex);
-        mJWorld = jWorld;
+    protected  JumplingActor(T world, float radius, int zIndex) {
+        super(world, zIndex);
         mRadius = radius;
     }
 
@@ -90,17 +87,17 @@ public abstract class JumplingActor extends Box2DActor {
 
     @Override
     public void onAddedToWorld() {
-        this.mEntered = isInsideWorld();
+        mEntered = isInsideWorld();
     }
 
     @Override
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
-        mJWorld.getJumplingsFactory().free(this);
+        getWorld().getJumplingsFactory().free(this);
     }
 
     @Override
-    public final void onPreSolveContact(Body bodyA, Box2DActor actorB, Body bodyB, Contact contact, Manifold oldManifold) {
+    public final void onPreSolveContact(Body bodyA, Box2DActor<T> actorB, Body bodyB, Contact contact, Manifold oldManifold) {
 
         if (actorB instanceof WallActor) {
             WallActor wall = (WallActor) actorB;
@@ -123,18 +120,18 @@ public abstract class JumplingActor extends Box2DActor {
     }
 
     @Override
-    public void onBeginContact(Body thisBody, Box2DActor other, Body otherBody, Contact contact) {
+    public void onBeginContact(Body thisBody, Box2DActor<T> other, Body otherBody, Contact contact) {
         if (other instanceof WallActor) {
             WallActor wall = (WallActor) other;
             if (wall.security) {
-                mJWorld.removeActor(this);
+                getWorld().removeActor(this);
                 mEntered = false;
             }
         }
     }
 
     @Override
-    public void onEndContact(Body bodyA, Box2DActor actorB, Body bodyB, Contact contact) {
+    public void onEndContact(Body bodyA, Box2DActor<T> actorB, Body bodyB, Contact contact) {
 
         if (actorB instanceof WallActor) {
 
@@ -166,7 +163,6 @@ public abstract class JumplingActor extends Box2DActor {
     @Override
     protected void dispose() {
         super.dispose();
-        mJWorld = null;
         mMainBody = null;
     }
 
@@ -211,14 +207,14 @@ public abstract class JumplingActor extends Box2DActor {
      */
     protected boolean isInsideWorld() {
         PointF worldPos = this.getWorldPos();
-        RectF wr = mJWorld.mViewport.getWorldBoundaries();
+        RectF wr = getWorld().mViewport.getWorldBoundaries();
 
         return MathUtils.isCircunferenceInRectangle(worldPos.x, worldPos.y, mRadius, wr.left, wr.bottom, wr.right, wr.top);
 
     }
 
     protected void onScapedFromBounds() {
-        mJWorld.removeActor(this);
+        getWorld().removeActor(this);
     }
 
     /**
@@ -301,7 +297,7 @@ public abstract class JumplingActor extends Box2DActor {
      */
     public final double getInitialYVelocity(double maxHeight) {
         double distance = maxHeight - getWorldPos().y;
-        return PhysicsUtils.getInitialVelocity(distance, 0, mJWorld.getGravityY());
+        return PhysicsUtils.getInitialVelocity(distance, 0, getWorld().getGravityY());
     }
 
     protected abstract void drawBitmaps(Canvas canvas);

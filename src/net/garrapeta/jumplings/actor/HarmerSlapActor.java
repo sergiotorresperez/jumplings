@@ -61,7 +61,7 @@ public class HarmerSlapActor extends HarmerActor {
         // vida de la bala
         mLifeTime = Math.max(0, mLifeTime - gameTimeStep);
         if (mLifeTime <= 0) {
-            mGameWorld.removeActor(this);
+            mWorld.removeActor(this);
         }
 
         super.processFrame(gameTimeStep);
@@ -72,13 +72,13 @@ public class HarmerSlapActor extends HarmerActor {
     @Override
     protected void dispose() {
         super.dispose();
-        mJWorld = null;
+        mWorld = null;
         mPaint = null;
         mWorldPos = null;
     }
 
     @Override
-    protected void effectOver(MainActor j) {
+    protected void effectOver(JumplingsGameActor j) {
         if (mFirstFrame) {
             if (this.kills(j)) {
                 j.onHitted();
@@ -100,7 +100,7 @@ public class HarmerSlapActor extends HarmerActor {
 
     // --------------------------------------- M�todos propios
 
-    private boolean hits(MainActor mainActor) {
+    private boolean hits(JumplingsGameActor mainActor) {
         PointF pos = mainActor.getWorldPos();
 
         RectF otherRect = new RectF(pos.x - mainActor.mRadius, pos.y - mainActor.mRadius, pos.x + mainActor.mRadius, pos.y + mainActor.mRadius);
@@ -108,7 +108,7 @@ public class HarmerSlapActor extends HarmerActor {
         return RectF.intersects(otherRect, thisRect);
     }
 
-    private boolean kills(MainActor mainActor) {
+    private boolean kills(JumplingsGameActor mainActor) {
         if (!mAlreadyKilled) {
             if (hits(mainActor)) {
                 mAlreadyKilled = true;

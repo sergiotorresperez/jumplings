@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Joint;
 
-public abstract class MainActor extends JumplingActor {
+public abstract class JumplingsGameActor extends JumplingActor<JumplingsGameWorld> {
 
 	// ---------------------------------------------------- Constantes
 	
@@ -27,16 +27,12 @@ public abstract class MainActor extends JumplingActor {
 	public final static float DESINTEGRATION_FORCE = 100;
 	
 	// ------------------------------------------ Variables de instancia
-	
-    JumplingsGameWorld mJgWorld;
-	
 
 	
 	// ---------------------------------------------------------------- Constructor
 	
-	public MainActor(JumplingsGameWorld mJWorld,  float radius, int zIndex) {
-        super(mJWorld, radius, zIndex);
-        this.mJgWorld = mJWorld;
+	public JumplingsGameActor(JumplingsGameWorld world,  float radius, int zIndex) {
+        super(world, radius, zIndex);
         this.timestamp = System.currentTimeMillis();
     }
 
@@ -86,7 +82,7 @@ public abstract class MainActor extends JumplingActor {
 		if (mJoints != null) {
 			Object[] aux = mJoints.toArray();
 			for (int i = 0; i < aux.length; i++) {
-				mJWorld.destroyJoint(this, (Joint) aux[i]);
+			    getWorld().destroyJoint(this, (Joint) aux[i]);
 			}
 		}
 		
@@ -99,14 +95,14 @@ public abstract class MainActor extends JumplingActor {
 	 * Acerela los actores como si fuera efecto de una onda expansiva
 	 * @param as
 	 */
-	protected void applyBlast(ArrayList<JumplingActor> as, float force) {
+	protected void applyBlast(ArrayList<JumplingActor<?>> as, float force) {
 		double twoPi = 2 * Math.PI;
 		double offset = Math.random() * twoPi;
 		int l = as.size();
 		for (int i = 0; i < l; i++) {
 			int remaining = l - i;
 			int index =  (int) Math.floor(Math.random() * remaining);
-			JumplingActor a = as.get(index);
+			JumplingActor<?> a = as.get(index);
 			
 			double angle = (offset + ( twoPi / l) * i) % twoPi;
 			
@@ -127,7 +123,7 @@ public abstract class MainActor extends JumplingActor {
 	 * Desintegraci�n en basurilla
 	 * @return  array con los actores de basurilla
 	 */
-	protected abstract ArrayList<JumplingActor> getDebrisBodies();
+	protected abstract ArrayList<JumplingActor<?>> getDebrisBodies();
 	
 
 	
@@ -137,12 +133,7 @@ public abstract class MainActor extends JumplingActor {
 
 	public void onHitted() {
 		desintegrateInDebris();
-		mJWorld.removeActor(this);
+		getWorld().removeActor(this);
 	}
 
-    @Override
-    protected void dispose() {
-        super.dispose();
-        mJgWorld = null;
-    }
 }

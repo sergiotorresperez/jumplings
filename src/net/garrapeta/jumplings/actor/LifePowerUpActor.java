@@ -22,8 +22,8 @@ public class LifePowerUpActor extends PowerUpActor {
 
     // --------------------------------------------------- Constructor
 
-    public LifePowerUpActor(JumplingsGameWorld mJWorld) {
-        super(mJWorld);
+    public LifePowerUpActor(JumplingsGameWorld mWorld) {
+        super(mWorld);
         mCode = LifePowerUpActor.JUMPER_CODE_POWER_UP_LIFE;
     }
 
@@ -38,7 +38,7 @@ public class LifePowerUpActor extends PowerUpActor {
     @Override
     protected void initBitmaps() {
         // vivo
-        BitmapManager mb = mJWorld.getBitmapManager();
+        BitmapManager mb = getWorld().getBitmapManager();
         mBmpIcon = mb.getBitmap(BMP_HEART_ID);
 
         // debris
@@ -47,7 +47,7 @@ public class LifePowerUpActor extends PowerUpActor {
  
     @Override
     public void onHitted() {
-        mJgWorld.onLifePowerUp(this);
+        getWorld().onLifePowerUp(this);
         super.onHitted();
     }
 

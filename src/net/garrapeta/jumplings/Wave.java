@@ -13,7 +13,7 @@ import android.widget.Button;
 
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class Wave {
+public abstract class Wave<T extends JumplingsWorld> {
 
     // ------------------------------------------------- Constantes
 
@@ -24,8 +24,8 @@ public abstract class Wave {
 
     // ------------------------------------ Variables de instancia
 
-    /** mundo due�o de la wave */
-    protected JumplingsWorld mJWorld;
+    /** mundo dueño de la wave */
+    private T mWorld;
 
     /** listener de la wave */
     protected IWaveEndListener mListener;
@@ -42,13 +42,13 @@ public abstract class Wave {
 
     // ------------------------------------------------ Constructor
 
-    public Wave(JumplingsWorld jworld, IWaveEndListener listener, int level) {
-        this.mJWorld = jworld;
+    public Wave(T world, IWaveEndListener listener, int level) {
+        this.mWorld = world;
         this.mListener = listener;
         this.level = level;
 
         // Se resetean defaults
-        jworld.setGravityX(0);
+        mWorld.setGravityX(0);
     }
 
     // --------------------------------------------------- M�todos
@@ -169,23 +169,23 @@ public abstract class Wave {
     // ------------------------------ M�todos de utilidad para crear enemigos
 
     protected float getLeftPos() {
-        return mJWorld.mViewport.getWorldBoundaries().left - ENEMY_OFFSET;
+        return mWorld.mViewport.getWorldBoundaries().left - ENEMY_OFFSET;
     }
 
     protected float getRightPos() {
-        return mJWorld.mViewport.getWorldBoundaries().right + ENEMY_OFFSET;
+        return mWorld.mViewport.getWorldBoundaries().right + ENEMY_OFFSET;
     }
 
     protected float getTopPos() {
-        return mJWorld.mViewport.getWorldBoundaries().top + ENEMY_OFFSET;
+        return mWorld.mViewport.getWorldBoundaries().top + ENEMY_OFFSET;
     }
 
     protected float getBottomPos() {
-        return mJWorld.mViewport.getWorldBoundaries().bottom - ENEMY_OFFSET;
+        return mWorld.mViewport.getWorldBoundaries().bottom - ENEMY_OFFSET;
     }
 
     protected float getRandomPosX() {
-        RectF bounds = mJWorld.mViewport.getWorldBoundaries();
+        RectF bounds = mWorld.mViewport.getWorldBoundaries();
 
         float init = bounds.left + ENEMY_OFFSET;
         float fin = bounds.right - ENEMY_OFFSET;
@@ -194,15 +194,15 @@ public abstract class Wave {
     }
 
     protected float getRandomPosY() {
-        RectF bounds = mJWorld.mViewport.getWorldBoundaries();
+        RectF bounds = mWorld.mViewport.getWorldBoundaries();
         float minY = bounds.bottom;
         float maxY = (bounds.top - bounds.bottom) / 2;
         return (float) (minY + (Math.random() * (maxY - minY)));
     }
 
     protected Vector2 getInitialVelocity(PointF initPos) {
-        float g = mJWorld.getGravityY();
-        RectF bounds = mJWorld.mViewport.getWorldBoundaries();
+        float g = mWorld.getGravityY();
+        RectF bounds = mWorld.mViewport.getWorldBoundaries();
 
         // Factor de aletoriedad (0 - 1)
         float XFACTOR = 0.9f;
@@ -244,7 +244,7 @@ public abstract class Wave {
      * Frees resources
      */
     public void dispose() {
-        mJWorld = null;
+        mWorld = null;
         mListener = null;
     }
 
@@ -252,6 +252,10 @@ public abstract class Wave {
     public void onTestButtonClicked(Button showAdBtn) {
     }
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+
+    protected T getWorld() {
+        return mWorld;
+    }
 
 
 

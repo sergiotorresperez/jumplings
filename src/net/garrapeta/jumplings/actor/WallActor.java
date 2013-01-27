@@ -2,8 +2,8 @@ package net.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import net.garrapeta.gameengine.Box2DWorld;
 import net.garrapeta.gameengine.actor.Box2DEdgeActor;
+import net.garrapeta.jumplings.JumplingsWorld;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 
@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
 
-public class WallActor extends Box2DEdgeActor {
+public class WallActor extends Box2DEdgeActor<JumplingsWorld> {
 
 	// ---------------------------------------------------- Constantes
 	
@@ -46,7 +46,7 @@ public class WallActor extends Box2DEdgeActor {
 	
 	// ---------------------------------------------------------------- Constructor
 
-	public WallActor(Box2DWorld world, PointF worldPos, PointF p0, PointF p1, boolean floor, boolean security) {
+	public WallActor(JumplingsWorld world, PointF worldPos, PointF p0, PointF p1, boolean floor, boolean security) {
 		
 		super(world, worldPos, p0, p1, false);
 		

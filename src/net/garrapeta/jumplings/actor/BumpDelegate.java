@@ -36,7 +36,7 @@ public class BumpDelegate {
         }
     }
 
-    public void onBeginContact(boolean entered, Body thisBody, Box2DActor other, Body otherBody, Contact contact) {
+    public void onBeginContact(boolean entered, Body thisBody, Box2DActor<?> other, Body otherBody, Contact contact) {
         if (mIsBumped || !entered) {
             return;
         }
@@ -51,9 +51,9 @@ public class BumpDelegate {
         mBumpable.onBumpedChanged(true);
     }
 
-    public void onBumped(boolean bumped, JumplingActor actor, AnthropomorphicDelegate anthrophoDelegate) {
+    public void onBumped(boolean bumped, JumplingActor<?> actor, AnthropomorphicDelegate<?> anthrophoDelegate) {
         if (bumped) {
-            actor.mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_PAIN);
+            actor.getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_PAIN);
         }
         anthrophoDelegate.setEyesOpened(!bumped);
     }

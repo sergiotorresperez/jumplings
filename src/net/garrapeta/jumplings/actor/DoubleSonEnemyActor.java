@@ -33,8 +33,8 @@ public class DoubleSonEnemyActor extends EnemyActor {
     // ----------------------------------------------------------------
     // Constructor
 
-    public DoubleSonEnemyActor(JumplingsGameWorld mJWorld) {
-        super(mJWorld, DoubleSonEnemyActor.DEFAULT_RADIUS);
+    public DoubleSonEnemyActor(JumplingsGameWorld mWorld) {
+        super(mWorld, DoubleSonEnemyActor.DEFAULT_RADIUS);
         mCode = DoubleSonEnemyActor.JUMPER_CODE_DOUBLE_SON;
     }
 
@@ -48,7 +48,7 @@ public class DoubleSonEnemyActor extends EnemyActor {
             // Create Shape with Properties
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(mRadius);
-            mMainBody = mJWorld.createBody(this, worldPos, true);
+            mMainBody = getWorld().createBody(this, worldPos, true);
             mMainBody.setBullet(true);
 
             // Assign shape to Body
@@ -69,7 +69,7 @@ public class DoubleSonEnemyActor extends EnemyActor {
                 BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID, BMP_EYE_0_RIGHT_CLOSED_ID, BMP_EYE_0_LEFT_CLOSED_ID);
 
         // debris
-        BitmapManager mb = mJWorld.getBitmapManager();
+        BitmapManager mb = getWorld().getBitmapManager();
         mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_ORANGE_SIMPLE_BODY_ID);
 
         mBmpDebrisFootRight = mb.getBitmap(DoubleEnemyActor.BMP_DEBRIS_ORANGE_FOOT_RIGHT_ID);

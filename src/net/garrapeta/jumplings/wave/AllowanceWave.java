@@ -7,7 +7,7 @@ import net.garrapeta.jumplings.Wave;
 import android.view.View;
 import android.widget.ProgressBar;
 
-public abstract class AllowanceWave extends Wave {
+public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
 
     // ----------------------------------------------------- Constantes
 
@@ -32,8 +32,8 @@ public abstract class AllowanceWave extends Wave {
     /**
      * @param jWorld
      */
-    public AllowanceWave(JumplingsWorld jWorld, IWaveEndListener listener, int level) {
-        super(jWorld, listener, level);
+    public AllowanceWave(T world, IWaveEndListener listener, int level) {
+        super(world, listener, level);
     }
 
     // ------------------------------------------------------- M�todos heredados
@@ -94,16 +94,16 @@ public abstract class AllowanceWave extends Wave {
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         if (JumplingsApplication.DEBUG_THREAD_BARS_ENABLED) {
 
-            this.mJWorld.mActivity.runOnUiThread(new Runnable() {
+            this.getWorld().mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mJWorld.mActivity.findViewById(id.game_threadBars).setVisibility(View.VISIBLE);
+                    getWorld().mActivity.findViewById(id.game_threadBars).setVisibility(View.VISIBLE);
                 }
             });
 
-            mThreadRatioBar = (ProgressBar) mJWorld.mActivity.findViewById(id.game_threadRatio);
-            mAllowedThreadGenerationBar = (ProgressBar) mJWorld.mActivity.findViewById(id.game_allowedThreadGeneration);
-            mAccumulatedThreatBar = (ProgressBar) mJWorld.mActivity.findViewById(id.game_acumulatedThreat);
+            mThreadRatioBar = (ProgressBar) getWorld().mActivity.findViewById(id.game_threadRatio);
+            mAllowedThreadGenerationBar = (ProgressBar) getWorld().mActivity.findViewById(id.game_allowedThreadGeneration);
+            mAccumulatedThreatBar = (ProgressBar) getWorld().mActivity.findViewById(id.game_acumulatedThreat);
 
             mThreadRatioBar.setMax(100);
             mAllowedThreadGenerationBar.setMax((int) (maxThreat * 100));
@@ -125,7 +125,7 @@ public abstract class AllowanceWave extends Wave {
     // M�todos de debug
 
     private void updateThreadRatioBar() {
-        mJWorld.mActivity.runOnUiThread(new Runnable() {
+        getWorld().mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
@@ -137,7 +137,7 @@ public abstract class AllowanceWave extends Wave {
     }
 
     private void updateAllowedThreadGenerationBar() {
-        mJWorld.mActivity.runOnUiThread(new Runnable() {
+        getWorld().mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
@@ -149,7 +149,7 @@ public abstract class AllowanceWave extends Wave {
     }
 
     private void updateAccumulatedThreatBar() {
-        mJWorld.mActivity.runOnUiThread(new Runnable() {
+        getWorld().mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {

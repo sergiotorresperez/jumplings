@@ -14,7 +14,7 @@ import net.garrapeta.jumplings.scenario.ScenarioFactory;
 import android.util.Log;
 import android.widget.Toast;
 
-public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
+public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IWaveEndListener {
 
     // ----------------------------------------------------- Constantes
 
@@ -109,7 +109,7 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
 
     @Override
     public void dispose() {
-        mJWorld = null;
+        mWorld = null;
         mScenario.dispose();
         mScenario = null;
         mCurrentWave.dispose();
@@ -157,7 +157,7 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
     }
 
     private void showLevel() {
-        mJWorld.mActivity.runOnUiThread(new Runnable() {
+        mWorld.mActivity.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
@@ -172,7 +172,7 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
     }
 
     private void scheduleNextWave(float delay) {
-        mJWorld.post(new SyncGameMessage() {
+        mWorld.post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
                 switchWave();
@@ -185,7 +185,7 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
     }
 
     private void scheduleResume(float delay) {
-        mJWorld.post(new SyncGameMessage() {
+        mWorld.post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
                 mCurrentWave.play();
@@ -194,7 +194,7 @@ public class CampaignSurvivalWave extends Wave implements IWaveEndListener {
     }
 
     private void scheduleNextScenario(float delay) {
-        mJWorld.post(new SyncGameMessage() {
+        mWorld.post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
                 mScenario.end();

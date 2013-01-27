@@ -30,8 +30,8 @@ public class HarmerSwipeActor extends HarmerActor {
 
     // ---------------------------------------------------- Constructor
 
-    public HarmerSwipeActor(JumplingsGameWorld mJWorld) {
-        super(mJWorld);
+    public HarmerSwipeActor(JumplingsGameWorld mWorld) {
+        super(mWorld);
         mSwipePoints = new ArrayList<double[]>();
 
         mPaint = new Paint();
@@ -87,7 +87,7 @@ public class HarmerSwipeActor extends HarmerActor {
     }
 
     @Override
-    protected void effectOver(MainActor mainActor) {
+    protected void effectOver(JumplingsGameActor mainActor) {
         if (hits(mainActor)) {
             mainActor.onHitted();
         }
@@ -123,9 +123,9 @@ public class HarmerSwipeActor extends HarmerActor {
                             swipping = true;
                             mTimestamp = System.currentTimeMillis();
 
-                            mJWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SWING);
-                            if (mJWorld.mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
-                                mJWorld.mFlashActor.init(Color.WHITE, 50, 250, -1);
+                            getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SWING);
+                            if (getWorld().mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
+                                getWorld().mFlashActor.init(Color.WHITE, 50, 250, -1);
                             }
                         }
                     } else {
@@ -150,7 +150,7 @@ public class HarmerSwipeActor extends HarmerActor {
 
     }
 
-    public boolean hits(MainActor mainActor) {
+    public boolean hits(JumplingsGameActor mainActor) {
         PointF pos = mainActor.getWorldPos();
 
         if (!mKillingAreaUpdated) {
@@ -158,8 +158,8 @@ public class HarmerSwipeActor extends HarmerActor {
             mKillingAreaUpdated = true;
         }
 
-        float sr = mJWorld.mViewport.worldUnitsToPixels(mainActor.mRadius);
-        PointF sc = mJWorld.mViewport.worldToScreen(pos.x, pos.y);
+        float sr = getWorld().mViewport.worldUnitsToPixels(mainActor.mRadius);
+        PointF sc = getWorld().mViewport.worldToScreen(pos.x, pos.y);
         RectF aux = new RectF(sc.x - sr, sc.y - sr, sc.x + sr, sc.y + sr);
 
         return RectF.intersects(aux, mKillingArea);

@@ -14,8 +14,8 @@ import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
 import net.garrapeta.jumplings.actor.FlashActor;
 import net.garrapeta.jumplings.actor.JumplingActor;
+import net.garrapeta.jumplings.actor.JumplingsGameActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
-import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.scenario.IScenario;
 import android.content.Context;
 import android.content.res.Resources;
@@ -76,9 +76,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public GameActivity mGameActivity;
 
-    public ArrayList<JumplingActor> jumplingActors = new ArrayList<JumplingActor>();
+    public ArrayList<JumplingActor<?>> jumplingActors = new ArrayList<JumplingActor<?>>();
 
-    public ArrayList<MainActor> mainActors = new ArrayList<MainActor>();
+    public ArrayList<JumplingsGameActor> mainActors = new ArrayList<JumplingsGameActor>();
 
     public ArrayList<EnemyActor> enemies = new ArrayList<EnemyActor>();
 
@@ -346,43 +346,43 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     // M�todos de gesti�n de actores
 
     @Override
-    public void onActorAdded(Actor a) {
+    public void onActorAdded(Actor<?> a) {
         super.onActorAdded(a);
         if (a instanceof JumplingActor) {
-            addJumplingActor((JumplingActor) a);
+            addJumplingActor((JumplingActor<?>) a);
         }
     }
 
     @Override
-    public void onActorRemoved(Actor a) {
+    public void onActorRemoved(Actor<?> a) {
         super.onActorRemoved(a);
         if (a instanceof JumplingActor) {
-            removeJumplingActor((JumplingActor) a);
+            removeJumplingActor((JumplingActor<?>) a);
         }
     }
 
-    private void addJumplingActor(JumplingActor pa) {
+    private void addJumplingActor(JumplingActor<?> pa) {
         jumplingActors.add(pa);
-        if (pa instanceof MainActor) {
-            addMainActor((MainActor) pa);
+        if (pa instanceof JumplingsGameActor) {
+            addMainActor((JumplingsGameActor) pa);
         }
     }
 
-    private void removeJumplingActor(JumplingActor pa) {
+    private void removeJumplingActor(JumplingActor<?> pa) {
         jumplingActors.remove(pa);
-        if (pa instanceof MainActor) {
-            removeMainActor((MainActor) pa);
+        if (pa instanceof JumplingsGameActor) {
+            removeMainActor((JumplingsGameActor) pa);
         }
     }
 
-    private void addMainActor(MainActor mainActor) {
+    private void addMainActor(JumplingsGameActor mainActor) {
         mainActors.add(mainActor);
         if (mainActor instanceof EnemyActor) {
             addEnemy((EnemyActor) mainActor);
         }
     }
 
-    private void removeMainActor(MainActor mainActor) {
+    private void removeMainActor(JumplingsGameActor mainActor) {
         mainActors.remove(mainActor);
         if (mainActor instanceof EnemyActor) {
             removeEnemy((EnemyActor) mainActor);
@@ -401,7 +401,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         int hits = 0;
         int s = mainActors.size();
         for (int i = 0; i < s; i++) {
-            hits += MainActor.getBaseThread(mainActors.get(i).getCode());
+            hits += JumplingsGameActor.getBaseThread(mainActors.get(i).getCode());
         }
         return hits;
     }
@@ -546,7 +546,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     
     public int getBombCount() {
         int count = 0;
-        for (Actor actor : mActors) {
+        for (Actor<?> actor : mActors) {
             if (actor instanceof BombActor) {
                 count ++;
             }
