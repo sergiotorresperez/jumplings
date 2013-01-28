@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 
-public abstract class PowerUpActor extends JumplingsGameActor {
+public abstract class PowerUpActor extends MainActor {
 
     // ----------------------------------------------------------- Constantes
     public final static float DEFAULT_RADIUS = BASE_RADIUS * 1.05f;

@@ -21,12 +21,12 @@ public abstract class HarmerActor extends Actor<JumplingsGameWorld> {
     @Override
     protected void processFrame(float gameTimeStep) {
         // efectos sobre los mainActors
-        Object[] as = getWorld().mainActors.toArray();
+        Object[] as = getWorld().mMainActors.toArray();
 
         int l = as.length;
 
         for (int i = 0; i < l; i++) {
-            JumplingsGameActor j = (JumplingsGameActor) as[i];
+            MainActor j = (MainActor) as[i];
             if (j.timestamp <= mTimestamp) {
                 effectOver(j);
             }
@@ -35,6 +35,6 @@ public abstract class HarmerActor extends Actor<JumplingsGameWorld> {
 
 
     // ----------------------------------------------- M�todos propios
-    protected abstract void effectOver(JumplingsGameActor j);
+    protected abstract void effectOver(MainActor j);
 
 }

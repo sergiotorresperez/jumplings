@@ -87,7 +87,7 @@ public class HarmerSwipeActor extends HarmerActor {
     }
 
     @Override
-    protected void effectOver(JumplingsGameActor mainActor) {
+    protected void effectOver(MainActor mainActor) {
         if (hits(mainActor)) {
             mainActor.onHitted();
         }
@@ -150,7 +150,7 @@ public class HarmerSwipeActor extends HarmerActor {
 
     }
 
-    public boolean hits(JumplingsGameActor mainActor) {
+    public boolean hits(MainActor mainActor) {
         PointF pos = mainActor.getWorldPos();
 
         if (!mKillingAreaUpdated) {

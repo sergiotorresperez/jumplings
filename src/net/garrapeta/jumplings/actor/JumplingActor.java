@@ -86,13 +86,16 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
    // ----------------------------------------- M�todos de Box2DActor
 
     @Override
-    public void onAddedToWorld() {
+    protected void onAddedToWorld() {
+        super.onAddedToWorld();
+        getWorld().onJumplingActorAdded(this);
         mEntered = isInsideWorld();
     }
 
     @Override
-    public void onRemovedFromWorld() {
+    protected void onRemovedFromWorld() {
         super.onRemovedFromWorld();
+        getWorld().onJumplingActorRemoved(this);
         free(getWorld().getFactory());
     }
 

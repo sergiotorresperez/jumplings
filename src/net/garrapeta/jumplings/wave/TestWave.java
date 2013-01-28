@@ -6,7 +6,7 @@ import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.Wave;
 import net.garrapeta.jumplings.actor.BombActor;
-import net.garrapeta.jumplings.actor.JumplingsGameActor;
+import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.scenario.IScenario;
 import net.garrapeta.jumplings.scenario.ScenarioFactory;
@@ -76,7 +76,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
 
             @Override
             public void doInGameLoop(GameWorld world) {
-                createPowerUp();
+                createEnemy();
 //                if (progess == 100) {
 //                    progess = 0;
 //                    mScenario.onGameOver();
@@ -168,7 +168,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
         // ShapeActor sa =
         // world.cActivity.CreateShapeEnemy(ShapelingsGameActivity.SHAPE_CIRCLE,
         // initPos, bodyWorldRadius);
-        JumplingsGameActor mainActor = getWorld().getFactory().getLifePowerUpActor(initPos);
+        MainActor mainActor = getWorld().getFactory().getLifePowerUpActor(initPos);
  
 
         // EnemyActor enemy = new SplitterEnemyActor(world,

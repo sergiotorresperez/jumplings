@@ -11,7 +11,7 @@ import android.graphics.Canvas;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 
-public abstract class EnemyActor extends JumplingsGameActor implements IBumpable {
+public abstract class EnemyActor extends MainActor implements IBumpable {
 
     // ---------------------------------------------------- Constantes
 
@@ -84,6 +84,8 @@ public abstract class EnemyActor extends JumplingsGameActor implements IBumpable
     @Override
     public void onAddedToWorld() {
         super.onAddedToWorld();
+        getWorld().onEnemyActorAdded(this);
+
         if (getWorldPos().y > getWorld().mViewport.getWorldBoundaries().top) {
             // TODO: sample when enemy falls
             // mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_THROW);
@@ -92,6 +94,12 @@ public abstract class EnemyActor extends JumplingsGameActor implements IBumpable
         }
     }
 
+    @Override
+    protected void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        getWorld().onEnemyActorRemoved(this);
+    }
+ 
     @Override
     public void onBeginContact(Body thisBody, Box2DActor<JumplingsGameWorld> other, Body otherBody, Contact contact) {
         super.onBeginContact(thisBody, other, otherBody, contact);

@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Joint;
 
-public abstract class JumplingsGameActor extends JumplingActor<JumplingsGameWorld> {
+public abstract class MainActor extends JumplingActor<JumplingsGameWorld> {
 
 	// ---------------------------------------------------- Constantes
 	
@@ -31,7 +31,7 @@ public abstract class JumplingsGameActor extends JumplingActor<JumplingsGameWorl
 	
 	// ---------------------------------------------------------------- Constructor
 	
-	public JumplingsGameActor(JumplingsGameWorld world, int zIndex) {
+	public MainActor(JumplingsGameWorld world, int zIndex) {
         super(world, zIndex);
         this.timestamp = System.currentTimeMillis();
     }
@@ -64,7 +64,18 @@ public abstract class JumplingsGameActor extends JumplingActor<JumplingsGameWorl
 	}
 	
 
+    @Override
+    public void onAddedToWorld() {
+        super.onAddedToWorld();
+        getWorld().onMainActorAdded(this);
+    }
 
+    @Override
+    protected void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        getWorld().onMainActorRemoved(this);
+    }
+    
 	// ------------------------------------------------------- M�todos Propios
 	
 	/**

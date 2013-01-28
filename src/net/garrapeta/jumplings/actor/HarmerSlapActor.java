@@ -78,7 +78,7 @@ public class HarmerSlapActor extends HarmerActor {
     }
 
     @Override
-    protected void effectOver(JumplingsGameActor j) {
+    protected void effectOver(MainActor j) {
         if (mFirstFrame) {
             if (this.kills(j)) {
                 j.onHitted();
@@ -100,7 +100,7 @@ public class HarmerSlapActor extends HarmerActor {
 
     // --------------------------------------- M�todos propios
 
-    private boolean hits(JumplingsGameActor mainActor) {
+    private boolean hits(MainActor mainActor) {
         PointF pos = mainActor.getWorldPos();
 
         RectF otherRect = new RectF(pos.x - mainActor.mRadius, pos.y - mainActor.mRadius, pos.x + mainActor.mRadius, pos.y + mainActor.mRadius);
@@ -108,7 +108,7 @@ public class HarmerSlapActor extends HarmerActor {
         return RectF.intersects(otherRect, thisRect);
     }
 
-    private boolean kills(JumplingsGameActor mainActor) {
+    private boolean kills(MainActor mainActor) {
         if (!mAlreadyKilled) {
             if (hits(mainActor)) {
                 mAlreadyKilled = true;

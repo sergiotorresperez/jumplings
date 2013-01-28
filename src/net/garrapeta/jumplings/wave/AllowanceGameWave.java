@@ -8,7 +8,7 @@ import net.garrapeta.jumplings.Player;
 import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.DoubleEnemyActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
-import net.garrapeta.jumplings.actor.JumplingsGameActor;
+import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.actor.PowerUpActor;
 import net.garrapeta.jumplings.actor.RoundEnemyActor;
 import net.garrapeta.jumplings.actor.SplitterEnemyActor;
@@ -90,7 +90,7 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
         if (getProgress() >= 100) {
             // no se comunica el fin de la wave hasta que todos los enemigos
             // est�n muertos
-            if (getWorld().jumplingActors.size() == 0 && mListener != null) {
+            if (getWorld().mJumplingActors.size() == 0 && mListener != null) {
                 mListener.onWaveEnded();
             }
         } else {
@@ -118,7 +118,7 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 
         do {
             while (true) {
-                if (Math.random() < bombProbability && getWorld().getBombCount()  < maxBombs) {
+                if (Math.random() < bombProbability && getWorld().mBombActors.size()  < maxBombs) {
                     code = BombActor.JUMPER_CODE_BOMB;
                     break;
                 }
@@ -141,15 +141,15 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
                 code = SplitterEnemyActor.JUMPER_CODE_SPLITTER_DOUBLE;
                 break;
             }
-        } while (JumplingsGameActor.getBaseThread(code) > getMaxThreat());
+        } while (MainActor.getBaseThread(code) > getMaxThreat());
 
         Log.i(LOG_SRC, "Next enemy code: " + code);
         return code;
     }
 
     private double tryToCreateJumper(double threatNeeded, PointF initPos, Vector2 initVel) {
-        double threat = JumplingsGameActor.getBaseThread(nextJumperCode);
-        JumplingsGameActor mainActor = null;
+        double threat = MainActor.getBaseThread(nextJumperCode);
+        MainActor mainActor = null;
 
         if (threat <= threatNeeded) {
 

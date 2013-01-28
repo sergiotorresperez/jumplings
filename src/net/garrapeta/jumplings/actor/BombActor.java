@@ -18,7 +18,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 
-public class BombActor extends JumplingsGameActor {
+public class BombActor extends MainActor {
 
     // ----------------------------------------------------------- Constantes
 
@@ -62,8 +62,7 @@ public class BombActor extends JumplingsGameActor {
 
     private long mLastSparkle;
 
-    // TODO: make this static???
-    private MediaPlayer mFusePlayer;
+    private static MediaPlayer sFusePlayer;
 
     // ---------------------------------------------------- M�todos est�ticos
 
@@ -185,16 +184,17 @@ public class BombActor extends JumplingsGameActor {
     @Override
     public void onAddedToWorld() {
         super.onAddedToWorld();
+        getWorld().onBombActorAdded(this);
         getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_LAUNCH);
-        mFusePlayer = getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_FUSE, true, false);
+        sFusePlayer = getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_FUSE, true, false);
     }
 
     @Override
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
-
-        if (getWorld().getBombCount() <= 1 && mFusePlayer != null) {
-            getWorld().getSoundManager().stop(mFusePlayer);
+        getWorld().onBombActorRemoved(this);
+        if (getWorld().mBombActors.size() == 0 && sFusePlayer != null) {
+            getWorld().getSoundManager().stop(sFusePlayer);
         }
     }
     
@@ -210,7 +210,7 @@ public class BombActor extends JumplingsGameActor {
         getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_BOOM);
 
         // Se genera una onda expansiva sobre los enemigos
-        Object[] as = getWorld().jumplingActors.toArray();
+        Object[] as = getWorld().mJumplingActors.toArray();
 
         int l = as.length;
 
@@ -247,7 +247,7 @@ public class BombActor extends JumplingsGameActor {
         mBmpDebrisBody = null;
         mBmpDebrisFuse = null;
         mFuseBody = null;
-        mFusePlayer = null;
+        sFusePlayer = null;
     }
 
 }

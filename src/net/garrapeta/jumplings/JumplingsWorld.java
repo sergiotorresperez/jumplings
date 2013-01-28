@@ -1,9 +1,12 @@
 package net.garrapeta.jumplings;
 
+import java.util.ArrayList;
+
 import net.garrapeta.gameengine.Box2DWorld;
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.gameengine.module.BitmapManager;
 import net.garrapeta.gameengine.module.SoundManager;
+import net.garrapeta.jumplings.actor.JumplingActor;
 import net.garrapeta.jumplings.actor.JumplingsFactory;
 import net.garrapeta.jumplings.actor.WallActor;
 import android.app.Activity;
@@ -50,6 +53,8 @@ public class JumplingsWorld extends Box2DWorld {
     float centerY;
 
     private JumplingsFactory mFactory;
+
+    public ArrayList<JumplingActor<?>> mJumplingActors = new ArrayList<JumplingActor<?>>();
 
     // ----------------------------------------------------------- Constructor
 
@@ -184,6 +189,15 @@ public class JumplingsWorld extends Box2DWorld {
         }
     }
 
+    public void onJumplingActorAdded(JumplingActor<?> actor) {
+        mJumplingActors.add(actor);
+    }
+
+    public void onJumplingActorRemoved(JumplingActor<?> actor) {
+        mJumplingActors.remove(actor);
+    }
+    
+
     @Override
     protected void dispose() {
         super.dispose();
@@ -192,6 +206,8 @@ public class JumplingsWorld extends Box2DWorld {
         mWave = null;
         mFactory.clear();
         mFactory = null;
+        mJumplingActors.clear();
+        mJumplingActors = null;
     }
 
     // -------------------------------------------------------- M�todos propios

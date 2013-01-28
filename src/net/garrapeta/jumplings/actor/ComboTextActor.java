@@ -33,4 +33,16 @@ public class ComboTextActor extends TextActor {
         mPaint.setTextSize(textSize);
     }
 
+    @Override
+    protected void onAddedToWorld() {
+        super.onAddedToWorld();
+        getWorld().onComboTextActorAdded(this);
+    }
+
+    @Override
+    protected void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        getWorld().onComboTextActorRemoved(this);
+    }
+
 }

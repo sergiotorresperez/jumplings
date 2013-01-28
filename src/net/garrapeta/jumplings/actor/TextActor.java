@@ -3,14 +3,13 @@ package net.garrapeta.jumplings.actor;
 import net.garrapeta.gameengine.Actor;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
-import net.garrapeta.jumplings.JumplingsWorld;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PointF;
 
-public abstract class TextActor extends Actor<JumplingsWorld> {
+public abstract class TextActor extends Actor<JumplingsGameWorld> {
 
     // ----------------------------------------------------- Constantes
 
@@ -72,6 +71,8 @@ public abstract class TextActor extends Actor<JumplingsWorld> {
         mText = null;
         mPaint = null;
     }
-    // --------------------------------------------------- IAtomicActor
-
+ 
+    public void forceDisappear() {
+        mLifeTime =mLifeTime / 4;
+    }
 }

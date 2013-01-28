@@ -38,4 +38,15 @@ public class ScoreTextActor extends TextActor {
 
     }
 
+    @Override
+    protected void onAddedToWorld() {
+        super.onAddedToWorld();
+        getWorld().onScoreTextActorAdded(this);
+    }
+
+    @Override
+    protected void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        getWorld().onScoreTextActorRemoved(this);
+    }
 }
