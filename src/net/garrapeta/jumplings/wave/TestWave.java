@@ -5,9 +5,9 @@ import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.Wave;
+import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.JumplingsGameActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
-import net.garrapeta.jumplings.actor.SplitterEnemyActor;
 import net.garrapeta.jumplings.scenario.IScenario;
 import net.garrapeta.jumplings.scenario.ScenarioFactory;
 import android.graphics.PointF;
@@ -115,7 +115,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
         PointF initPos = new PointF(5, 12);
 //        Vector2 initVel = getInitialVelocity(initPos);
 
-         SplitterEnemyActor mainActor = jgWorld.getFactory().getSplitterEnemyActor(initPos, 2);
+         BombActor mainActor = jgWorld.getFactory().getBombActor(initPos);
         // ShapeActor sa =
         // world.cActivity.CreateShapeEnemy(ShapelingsGameActivity.SHAPE_CIRCLE,
         // initPos, bodyWorldRadius);

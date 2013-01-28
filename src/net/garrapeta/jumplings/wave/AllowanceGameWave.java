@@ -5,12 +5,10 @@ import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.gameengine.utils.PhysicsUtils;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.Player;
-import net.garrapeta.jumplings.actor.BladePowerUpActor;
 import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.DoubleEnemyActor;
 import net.garrapeta.jumplings.actor.EnemyActor;
 import net.garrapeta.jumplings.actor.JumplingsGameActor;
-import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.PowerUpActor;
 import net.garrapeta.jumplings.actor.RoundEnemyActor;
 import net.garrapeta.jumplings.actor.SplitterEnemyActor;
@@ -346,11 +344,10 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
         float lifeUpProbability = lifeUpBaseProbability * woundedFactor;
 
         if (Math.random() < lifeUpProbability) {
-            powerUp = new LifePowerUpActor(getWorld());
+            powerUp = getWorld().getFactory().getLifePowerUpActor(initPos);
         } else {
-            powerUp = new BladePowerUpActor(getWorld());
+            powerUp = getWorld().getFactory().getBladePowerUpActor(initPos);
         }
-        powerUp.init(initPos);
         powerUp.setLinearVelocity(initVel.x, initVel.y);
         getWorld().addActor(powerUp);
     }

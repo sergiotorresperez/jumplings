@@ -26,6 +26,8 @@ public class JumplingsFactory {
     private Pool<DoubleSonEnemyActor> mDoubleSonEnemyActorPool;
     private Pool<SplitterEnemyActor> mSplitterEnemyActorPool;
     private Pool<BombActor> mBombActorPool;
+    private Pool<BladePowerUpActor> mBladePowerUpActorPool;
+    private Pool<LifePowerUpActor> mLifePowerUpActorPool;
 
     public JumplingsFactory(JumplingsWorld jumplingsWorld) {
         mJumplingsWorld = jumplingsWorld;
@@ -77,7 +79,18 @@ public class JumplingsFactory {
                     return new BombActor(jumplingsGameWorld);
                 }
             };
-            
+            mBladePowerUpActorPool = new Pool<BladePowerUpActor>() {
+                @Override
+                protected BladePowerUpActor newObject() {
+                    return new BladePowerUpActor(jumplingsGameWorld);
+                }
+            };
+            mLifePowerUpActorPool = new Pool<LifePowerUpActor>() {
+                @Override
+                protected LifePowerUpActor newObject() {
+                    return new LifePowerUpActor(jumplingsGameWorld);
+                }
+            };
         }
     }
 
@@ -131,7 +144,20 @@ public class JumplingsFactory {
         actor.init(worldPos);
         return actor;
     }
- 
+
+    public BladePowerUpActor getBladePowerUpActor(PointF worldPos) {
+        BladePowerUpActor actor = mBladePowerUpActorPool.obtain();
+        Log.i(LOG_SRC, "BladePowerUpActor: " + mBladePowerUpActorPool.getDebugString());
+        actor.init(worldPos);
+        return actor;
+    }
+    
+    public LifePowerUpActor getLifePowerUpActor(PointF worldPos) {
+        LifePowerUpActor actor = mLifePowerUpActorPool.obtain();
+        Log.i(LOG_SRC, "LifePowerUpActor: " + mLifePowerUpActorPool.getDebugString());
+        actor.init(worldPos);
+        return actor;
+    }
     // Free
 
     public void free(DebrisActor actor) {
@@ -160,5 +186,13 @@ public class JumplingsFactory {
 
     public void free(BombActor actor) {
         mBombActorPool.free(actor);
+    }
+ 
+    public void free(BladePowerUpActor actor) {
+        mBladePowerUpActorPool.free(actor);
+    } 
+
+    public void free(LifePowerUpActor actor) {
+        mLifePowerUpActorPool.free(actor);
     } 
 }

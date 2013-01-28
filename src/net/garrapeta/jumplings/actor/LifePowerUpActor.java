@@ -50,5 +50,10 @@ public class LifePowerUpActor extends PowerUpActor {
         super.onHitted();
     }
 
+    @Override
+    public void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        getWorld().getFactory().free(this);
+    }
 
 }
