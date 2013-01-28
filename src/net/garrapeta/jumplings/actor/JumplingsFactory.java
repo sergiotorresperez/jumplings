@@ -25,6 +25,7 @@ public class JumplingsFactory {
     private Pool<DoubleEnemyActor> mDoubleEnemyActorPool;
     private Pool<DoubleSonEnemyActor> mDoubleSonEnemyActorPool;
     private Pool<SplitterEnemyActor> mSplitterEnemyActorPool;
+    private Pool<BombActor> mBombActorPool;
 
     public JumplingsFactory(JumplingsWorld jumplingsWorld) {
         mJumplingsWorld = jumplingsWorld;
@@ -70,6 +71,13 @@ public class JumplingsFactory {
                     return new SplitterEnemyActor(jumplingsGameWorld);
                 }
             };
+            mBombActorPool = new Pool<BombActor>() {
+                @Override
+                protected BombActor newObject() {
+                    return new BombActor(jumplingsGameWorld);
+                }
+            };
+            
         }
     }
 
@@ -117,6 +125,13 @@ public class JumplingsFactory {
         return actor;
     }
 
+    public BombActor getBombActor(PointF worldPos) {
+        BombActor actor = mBombActorPool.obtain();
+        Log.i(LOG_SRC, "BombActor: " + mBombActorPool.getDebugString());
+        actor.init(worldPos);
+        return actor;
+    }
+ 
     // Free
 
     public void free(DebrisActor actor) {
@@ -142,4 +157,8 @@ public class JumplingsFactory {
     public void free(SplitterEnemyActor actor) {
         mSplitterEnemyActorPool.free(actor);
     }
+
+    public void free(BombActor actor) {
+        mBombActorPool.free(actor);
+    } 
 }

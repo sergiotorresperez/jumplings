@@ -165,14 +165,16 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
                 mainActor = getWorld().getFactory().getDoubleEnemyActor(initPos);
                 break;
             case SplitterEnemyActor.JUMPER_CODE_SPLITTER_DOUBLE:
+                // splitter small
                 mainActor = getWorld().getFactory().getSplitterEnemyActor(initPos, 1);
                 break;
             case SplitterEnemyActor.JUMPER_CODE_SPLITTER_TRIPLE:
+                // splitter big
                 mainActor =getWorld().getFactory().getSplitterEnemyActor(initPos, 2);
                 break;
             case BombActor.JUMPER_CODE_BOMB:
-                mainActor = new BombActor(getWorld());
-                mainActor.init(initPos);
+                // bomb
+                mainActor = getWorld().getFactory().getBombActor(initPos);
                 break;
             }
         }

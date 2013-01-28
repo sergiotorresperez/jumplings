@@ -192,6 +192,8 @@ public class BombActor extends JumplingsGameActor {
     @Override
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
+        getWorld().getFactory().free(this);
+
         if (getWorld().getBombCount() <= 1 && mFusePlayer != null) {
             getWorld().getSoundManager().stop(mFusePlayer);
         }
