@@ -91,8 +91,7 @@ public class MenuWave extends Wave<JumplingsWorld> {
         PointF initPos = new PointF(worldXPos, worldYPos);
         Vector2 initVel = getInitialVelocity(initPos);
 
-        IntroActor actor = new IntroActor(getWorld());
-        actor.init(initPos);
+        IntroActor actor = getWorld().getFactory().getIntroActor(initPos);
         actor.setLinearVelocity(initVel.x, initVel.y);
         getWorld().addActor(actor);
     }

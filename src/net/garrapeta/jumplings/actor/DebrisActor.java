@@ -106,15 +106,14 @@ public class DebrisActor extends JumplingActor<JumplingsWorld> {
     }
 
     @Override
+    protected void free(JumplingsFactory factory) {
+        getWorld().getFactory().free(this);
+    }
+
+    @Override
     protected void dispose() {
         super.dispose();
         mBitmap = null;
         mPaint = null;
-    }
-
-    @Override
-    public void onRemovedFromWorld() {
-        super.onRemovedFromWorld();
-        getWorld().getFactory().free(this);
     }
 }

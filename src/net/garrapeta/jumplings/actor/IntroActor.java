@@ -22,7 +22,7 @@ public class IntroActor extends JumplingActor<JumplingsWorld> implements IBumpab
      */
     public final static int Z_INDEX = 0;
 
-    // ------------------------------------------------- Variables est�ticas
+    // ------------------------------------------------- Variables estáticas
 
     // vivo
     protected final static int BMP_INTRO_BODY_ID = R.drawable.intro_body;
@@ -117,6 +117,11 @@ public class IntroActor extends JumplingActor<JumplingsWorld> implements IBumpab
     public void onBeginContact(Body thisBody, Box2DActor<JumplingsWorld> other, Body otherBody, Contact contact) {
         super.onBeginContact(thisBody, other, otherBody, contact);
         mBumpDelegate.onBeginContact(mEntered, thisBody, other, otherBody, contact);
+    }
+
+    @Override
+    protected void free(JumplingsFactory factory) {
+        getWorld().getFactory().free(this);
     }
 
     @Override

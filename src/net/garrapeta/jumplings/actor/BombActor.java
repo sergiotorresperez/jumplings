@@ -192,7 +192,6 @@ public class BombActor extends JumplingsGameActor {
     @Override
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
-        getWorld().getFactory().free(this);
 
         if (getWorld().getBombCount() <= 1 && mFusePlayer != null) {
             getWorld().getSoundManager().stop(mFusePlayer);
@@ -233,6 +232,11 @@ public class BombActor extends JumplingsGameActor {
         applyBlast(sparkles, EXPLOSION_SPARKLE_FORCE);
 
         super.onHitted();
+    }
+
+    @Override
+    protected void free(JumplingsFactory factory) {
+        getWorld().getFactory().free(this);
     }
 
     @Override

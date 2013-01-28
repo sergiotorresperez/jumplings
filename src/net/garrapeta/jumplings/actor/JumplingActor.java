@@ -14,13 +14,14 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.utils.Pool.Poolable;
 
 /**
- * Clase base de los actores f�sicos
+ * Clase base de los actores Jumplings
  * 
  * @author GaRRaPeTa
  */
-public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor<T> {
+public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor<T> implements Poolable {
 
     // ----------------------------------------- Constantes
 
@@ -87,6 +88,12 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
     @Override
     public void onAddedToWorld() {
         mEntered = isInsideWorld();
+    }
+
+    @Override
+    public void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        free(getWorld().getFactory());
     }
 
     @Override
@@ -159,7 +166,15 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
         mMainBody = null;
     }
 
-    // ------------------------------------------------ M�todos propios
+    // ----------------------------------------------- Methods from Poolable
+
+    @Override
+    public final void reset() {
+        assertInnited();
+        setNotInitted();
+    }
+    
+    // ------------------------------------------------ Métodos propios
 
     public void init(PointF worldPos) {
         initBodies(worldPos);
@@ -294,4 +309,12 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
     }
 
     protected abstract void drawBitmaps(Canvas canvas);
+
+    /**
+     * To be implemented by extending classes to free this resource 
+     * from its pool in the factory
+     * @param factory
+     */
+    protected abstract void free(JumplingsFactory factory);
+
 }

@@ -49,14 +49,14 @@ public class JumplingsWorld extends Box2DWorld {
     float centerX;
     float centerY;
 
-    private final JumplingsFactory mJumplingsFactory;
+    private JumplingsFactory mFactory;
 
     // ----------------------------------------------------------- Constructor
 
     public JumplingsWorld(Activity activity, GameView gameView, Context context) {
         super(gameView, context);
         mActivity = activity;
-        mJumplingsFactory = new JumplingsFactory(this);
+        mFactory = new JumplingsFactory(this);
     }
 
     // ----------------------------------------------------- M�todos de World
@@ -190,6 +190,8 @@ public class JumplingsWorld extends Box2DWorld {
         mActivity = null;
         mWave.dispose();
         mWave = null;
+        mFactory.clear();
+        mFactory = null;
     }
 
     // -------------------------------------------------------- M�todos propios
@@ -227,6 +229,6 @@ public class JumplingsWorld extends Box2DWorld {
      * @return the factory to create Jumplings
      */
     public JumplingsFactory getFactory() {
-        return mJumplingsFactory;
+        return mFactory;
     }
 }

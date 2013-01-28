@@ -76,7 +76,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
 
             @Override
             public void doInGameLoop(GameWorld world) {
-                createEnemy();
+                createPowerUp();
 //                if (progess == 100) {
 //                    progess = 0;
 //                    mScenario.onGameOver();
@@ -168,8 +168,8 @@ public class TestWave extends Wave<JumplingsGameWorld> {
         // ShapeActor sa =
         // world.cActivity.CreateShapeEnemy(ShapelingsGameActivity.SHAPE_CIRCLE,
         // initPos, bodyWorldRadius);
-        JumplingsGameActor mainActor = new LifePowerUpActor(jgWorld);
-        mainActor.init(initPos);
+        JumplingsGameActor mainActor = getWorld().getFactory().getLifePowerUpActor(initPos);
+ 
 
         // EnemyActor enemy = new SplitterEnemyActor(world,
         // SplitterEnemyActor.DEFAULT_BASE_RADIUS,

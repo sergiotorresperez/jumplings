@@ -51,8 +51,8 @@ public class BladePowerUpActor extends PowerUpActor {
     }
 
     @Override
-    public void onRemovedFromWorld() {
-        super.onRemovedFromWorld();
+    protected void free(JumplingsFactory factory) {
         getWorld().getFactory().free(this);
     }
+
 }

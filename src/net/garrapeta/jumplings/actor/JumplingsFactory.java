@@ -11,14 +11,20 @@ import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.util.Log;
 
+/**
+ * Class to control the creation of the Jumplings, so pools can be
+ * used and allocation reduced
+ */
 public class JumplingsFactory {
 
     public final static String LOG_SRC = JumplingsApplication.LOG_SRC_JUMPLINGS + ".pool";
-
+    private final static int MAX_INSTANCES = 300;
+    
     private final JumplingsWorld mJumplingsWorld;
 
     private final Pool<DebrisActor> mDebrisActorPool;
     private final Pool<SparksActor> mSparksActor;
+    private final Pool<IntroActor> mIntroActor;
 
     // TODO: make the pools final
     private Pool<RoundEnemyActor> mRoundEnemyActorPool;
@@ -32,60 +38,67 @@ public class JumplingsFactory {
     public JumplingsFactory(JumplingsWorld jumplingsWorld) {
         mJumplingsWorld = jumplingsWorld;
 
-        mDebrisActorPool = new  Pool<DebrisActor>() {
+        mDebrisActorPool = new  Pool<DebrisActor>(128, MAX_INSTANCES) {
             @Override
             protected DebrisActor newObject() {
                 return new DebrisActor(mJumplingsWorld);
             }
         };
 
-        mSparksActor = new Pool<SparksActor>() {
+        mSparksActor = new Pool<SparksActor>(16, MAX_INSTANCES) {
             @Override
             protected SparksActor newObject() {
                 return new SparksActor(mJumplingsWorld);
             }
         };
 
+        mIntroActor = new Pool<IntroActor>(4, MAX_INSTANCES) {
+            @Override
+            protected IntroActor newObject() {
+                return new IntroActor(mJumplingsWorld);
+            }
+        };
+ 
         // FIXME: fix this dynamic cast
         if (mJumplingsWorld instanceof JumplingsGameWorld) {
             final JumplingsGameWorld jumplingsGameWorld = (JumplingsGameWorld) mJumplingsWorld;
-            mRoundEnemyActorPool = new Pool<RoundEnemyActor>() {
+            mRoundEnemyActorPool = new Pool<RoundEnemyActor>(8, MAX_INSTANCES) {
                 @Override
                 protected RoundEnemyActor newObject() {
                     return new RoundEnemyActor(jumplingsGameWorld);
                 }
             };
-            mDoubleEnemyActorPool = new Pool<DoubleEnemyActor>(){
+            mDoubleEnemyActorPool = new Pool<DoubleEnemyActor>(8, MAX_INSTANCES){
                 @Override
                 protected DoubleEnemyActor newObject() {
                     return new DoubleEnemyActor(jumplingsGameWorld);
                 }
             };
-            mDoubleSonEnemyActorPool = new Pool<DoubleSonEnemyActor>(){
+            mDoubleSonEnemyActorPool = new Pool<DoubleSonEnemyActor>(8, MAX_INSTANCES){
                 @Override
                 protected DoubleSonEnemyActor newObject() {
                     return new DoubleSonEnemyActor(jumplingsGameWorld);
                 }
             };
-            mSplitterEnemyActorPool = new Pool<SplitterEnemyActor>(){
+            mSplitterEnemyActorPool = new Pool<SplitterEnemyActor>(16, MAX_INSTANCES){
                 @Override
                 protected SplitterEnemyActor newObject() {
                     return new SplitterEnemyActor(jumplingsGameWorld);
                 }
             };
-            mBombActorPool = new Pool<BombActor>() {
+            mBombActorPool = new Pool<BombActor>(4, MAX_INSTANCES) {
                 @Override
                 protected BombActor newObject() {
                     return new BombActor(jumplingsGameWorld);
                 }
             };
-            mBladePowerUpActorPool = new Pool<BladePowerUpActor>() {
+            mBladePowerUpActorPool = new Pool<BladePowerUpActor>(2, MAX_INSTANCES) {
                 @Override
                 protected BladePowerUpActor newObject() {
                     return new BladePowerUpActor(jumplingsGameWorld);
                 }
             };
-            mLifePowerUpActorPool = new Pool<LifePowerUpActor>() {
+            mLifePowerUpActorPool = new Pool<LifePowerUpActor>(2, MAX_INSTANCES) {
                 @Override
                 protected LifePowerUpActor newObject() {
                     return new LifePowerUpActor(jumplingsGameWorld);
@@ -103,13 +116,20 @@ public class JumplingsFactory {
         return actor;
     }
 
+    public IntroActor getIntroActor(PointF worldPos) {
+        IntroActor actor = mIntroActor.obtain();
+        Log.i(LOG_SRC, "IntroActor: " + mIntroActor.getDebugString());
+        actor.init(worldPos);
+        return actor;
+    }
+
     public SparksActor getSparksActor(PointF worldPos, int longevity) {
         SparksActor actor = mSparksActor.obtain();
         Log.i(LOG_SRC, "SparksActor: " + mSparksActor.getDebugString());
         actor.init(worldPos, longevity);
         return actor;
     }
-
+ 
     public RoundEnemyActor getRoundEnemyActor(PointF worldPos) {
         RoundEnemyActor actor = mRoundEnemyActorPool.obtain();
         Log.i(LOG_SRC, "RoundEnemyActor: " +  mRoundEnemyActorPool.getDebugString());
@@ -168,6 +188,10 @@ public class JumplingsFactory {
         mSparksActor.free(actor);
     }
 
+    public void free(IntroActor  actor) {
+        mIntroActor.free(actor);
+    }
+
     public void free(RoundEnemyActor actor) {
         mRoundEnemyActorPool.free(actor);
     }
@@ -194,5 +218,24 @@ public class JumplingsFactory {
 
     public void free(LifePowerUpActor actor) {
         mLifePowerUpActorPool.free(actor);
-    } 
+    }
+
+    /**
+     * Frees all the resources
+     */
+    public void clear() {
+        mDebrisActorPool.clear();
+        mSparksActor.clear();
+        mIntroActor.clear();
+        // FIXME: avoid this instanceof
+        if (mJumplingsWorld instanceof JumplingsGameWorld) {
+            mRoundEnemyActorPool.clear();
+            mDoubleEnemyActorPool.clear();
+            mDoubleSonEnemyActorPool.clear();
+            mSplitterEnemyActorPool.clear();
+            mBombActorPool.clear();
+            mBladePowerUpActorPool.clear();
+            mLifePowerUpActorPool.clear();
+        }
+    }
 }
