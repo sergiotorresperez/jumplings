@@ -33,13 +33,11 @@ import android.view.View.OnTouchListener;
  * 
  * @author GaRRaPeTa
  */
-public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListener {
+public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListener, GameEventsListener {
 
     // -------------------------------------------------------- Constantes
 
     public static final float LIFE_LOSS_FACTOR = 5;
-
-    public static final float INVULNERABLE_TIME = 1500;
 
     public static final int WEAPON_GUN = 0;
     public static final int WEAPON_SHOTGUN = 1;
@@ -96,6 +94,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     /** Jugador */
     Player mPlayer;
+    
+    private final Tutorial mTutorial;
 
     // TODO: use this paint for painting the Jumplings
     protected Paint mPaint = new Paint();
@@ -117,8 +117,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public JumplingsGameWorld(GameActivity gameActivity, GameView gameView, Context context) {
         super(gameActivity, gameView, context);
-        this.mGameActivity = gameActivity;
+        mGameActivity = gameActivity;
         mPlayer = new Player(this);
+        mTutorial = new Tutorial(gameActivity, this);
         mGameView.setOnTouchListener(this);
      }
 
@@ -154,6 +155,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mFlashActor.setInitted();
         addActor(mFlashActor);
 
+        // inicialización del tutorial
+        mTutorial.init();
+        
         mGameActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -405,15 +409,121 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         return hits;
     }
 
-    public void onEnemyScaped(EnemyActor e) {
-        if (!mGameActivity.isGameOver()) {
+    // Methods from GameEventListener
 
-            if (mPlayer.isVulnerable() && !mWave.onEnemyScaped(e)) {
-                onPostEnemyScaped(e);
+    @Override
+    public boolean onEnemyScaped(EnemyActor enemy) {
+        if (!mGameActivity.isGameOver() && mPlayer.isVulnerable()) {            
+            if (mWave.onEnemyScaped(enemy)) {
+                return true;
             }
+            if (mTutorial.onEnemyScaped(enemy)) {
+                mPlayer.makeInvulnerable();
+                return true;
+            }
+            onPostEnemyScaped(enemy);
         }
+        return true;
     }
 
+    @Override
+    public boolean onGameOver() {
+        if (mWave.onGameOver()) {
+            return true;
+        }
+        mTutorial.onGameOver();
+        mGameActivity.onGameOver();
+        return true;
+    }
+    
+    @Override
+    public boolean onCombo() {
+        if (mWave.onCombo()) {
+            return true;
+        }
+        mTutorial.onCombo();
+        return true;
+    }
+    
+    @Override
+    public boolean onEnemyKilled(EnemyActor enemy) {
+        getSoundManager().play(SAMPLE_ENEMY_KILLED);
+        getSoundManager().play(SAMPLE_ENEMY_PAIN);
+
+        if (mVibrateCfgLevel == PermData.CFG_LEVEL_ALL) {
+            VibratorManager.getInstance().play(VIBRATION_ENEMY_KILLED);
+        }
+
+        if (mWave.onEnemyKilled(enemy)) {
+            return true;
+        }
+
+        mTutorial.onEnemyKilled(enemy);
+        
+        mPlayer.onEnemyKilled(enemy);
+        if (mShakeCfgLevel == PermData.CFG_LEVEL_ALL) {
+            createShake(100f, 0.20f);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onBombExploded(BombActor bomb) {
+        if (!mGameActivity.isGameOver() && mPlayer.isVulnerable() ) {
+            if (mWave.onBombExploded(bomb)) {
+                return true;
+            }
+            if (mTutorial.onBombExploded(bomb)) {
+                return true;
+            }
+            onPostBombExploded(bomb);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onLifePowerUp(LifePowerUpActor lifePowerUpActor) {
+        if (!mGameActivity.isGameOver()) {
+            if (mWave.onLifePowerUp(lifePowerUpActor)) {
+                return true;
+            }
+            
+            mTutorial.onLifePowerUp(lifePowerUpActor);
+            
+            onPostLifePowerUp(lifePowerUpActor);
+        }
+        return true;
+    }
+    
+    @Override
+    public boolean onBladePowerUpStart(BladePowerUpActor bladePowerUpActor) {
+       if (!mGameActivity.isGameOver()) {
+
+           if (mWave.onBladePowerUpStart(bladePowerUpActor)) {
+               return true;
+           }
+           
+           mTutorial.onBladePowerUpStart(bladePowerUpActor);
+
+           onPostBladePowerUp(bladePowerUpActor);
+       }
+       return true;
+   }
+    
+    @Override
+    public boolean onBladePowerUpEnd() {
+       if (!mGameActivity.isGameOver()) {
+
+           if (mWave.onBladePowerUpEnd()) {
+               return true;
+           }
+           
+           mTutorial.onBladePowerUpEnd();
+
+       }
+       return true;
+   }
     public void onPostEnemyScaped(EnemyActor e) {
         if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
             mFlashActor
@@ -421,30 +531,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         }
 
         onFail();
-    }
-
-    public void onEnemyKilled(EnemyActor enemy) {
-        if (!mWave.onEnemyKilled(enemy)) {
-            getSoundManager().play(SAMPLE_ENEMY_KILLED);
-            getSoundManager().play(SAMPLE_ENEMY_PAIN);
-            if (mVibrateCfgLevel == PermData.CFG_LEVEL_ALL) {
-                VibratorManager.getInstance().play(VIBRATION_ENEMY_KILLED);
-            }
-
-            mPlayer.onEnemyKilled(enemy);
-            if (mShakeCfgLevel == PermData.CFG_LEVEL_ALL) {
-                createShake(100f, 0.20f);
-            }
-        }
-    }
-
-    public void onBombExploded(BombActor bomb) {
-        if (!mGameActivity.isGameOver()) {
-
-            if (mPlayer.isVulnerable() && !mWave.onBombExploded(bomb)) {
-                onPostBombExploded(bomb);
-            }
-        }
     }
 
     private void onPostBombExploded(BombActor bomb) {
@@ -456,17 +542,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
                     .init(FlashActor.FLASH_FAIL_COLOR, FlashActor.FLASH_FAIL_ALPHA, FlashActor.FLASH_FAIL_DURATION, FlashActor.FLASH_FAIL_PRIORITY);
 
         }
-
         onFail();
-    }
-
-    public void onLifePowerUp(LifePowerUpActor lifePowerUpActor) {
-        if (!mGameActivity.isGameOver()) {
-
-            if (mPlayer.isVulnerable() && !mWave.onLifePowerUp(lifePowerUpActor)) {
-                onPostLifePowerUp(lifePowerUpActor);
-            }
-        }
     }
 
     private void onPostLifePowerUp(LifePowerUpActor lifePowerUpActor) {
@@ -479,16 +555,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
         mPlayer.addLifes(1);
     }
-
-    public void onBladePowerUp(BladePowerUpActor bladePowerUpActor) {
-        if (!mGameActivity.isGameOver()) {
-
-            if (mPlayer.isVulnerable() && !mWave.onBladePowerUp(bladePowerUpActor)) {
-                onPostBladePowerUp(bladePowerUpActor);
-            }
-        }
-    }
-
+    
     private void onPostBladePowerUp(BladePowerUpActor bladePowerUpActor) {
         setWeapon(WeaponSword.WEAPON_CODE_BLADE);
 
@@ -543,7 +610,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     /**
-     * M�todo ejecutado cuando el jugador falla
+     * Método ejecutado cuando el jugador falla
      */
     private void onFail() {
         if (!mWave.onFail()) {
@@ -552,18 +619,15 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
                 VibratorManager.getInstance().play(VIBRATION_FAIL);
             }
 
-            Player player = getPlayer();
-            player.subLifes(1);
-            player.makeInvulnerable(INVULNERABLE_TIME);
+            mPlayer.subLifes(1);
+            mPlayer.makeInvulnerable();
 
             if (mShakeCfgLevel >= PermData.CFG_LEVEL_SOME) {
                 createShake(425f, 0.75f);
             }
 
-            if (player.getLifes() <= 0) {
-                if (!mWave.onGameOver()) {
-                    mGameActivity.onGameOver();
-                }
+            if (mPlayer.getLifes() <= 0) {
+                onGameOver();
             }
         }
     }

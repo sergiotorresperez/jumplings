@@ -20,6 +20,8 @@ public class Player {
     public static final int COMBO_MAX_SPACING_TIME = 350;
 
     public static final int BASE_POINTS = 5;
+    
+    public static final float INVULNERABLE_TIME = 1500;
 
     // --------------------------------------------- Variables de instancia
 
@@ -105,6 +107,7 @@ public class Player {
 
         mWorld.addActor(scoreActor);
         if (mCurrentComboLevel > 0) {
+            mWorld.onCombo();
             ComboTextActor comboActor = new ComboTextActor(mWorld, new PointF(worldPos.x, worldPos.y), mCurrentComboLevel);
             comboActor.setInitted();
             mWorld.addActor(comboActor);
@@ -130,19 +133,18 @@ public class Player {
         this.mIsVulnerable = true;
     }
 
-    public void makeInvulnerable(final float time) {
+    public void makeInvulnerable() {
         this.mIsVulnerable = false;
         mWorld.mGameActivity.startBlinkingLifeBar();
 
-        if (time > 0) {
-            mWorld.post(new SyncGameMessage() {
+        mWorld.post(new SyncGameMessage() {
 
-                @Override
-                public void doInGameLoop(GameWorld world) {
-                    makeVulnerable();
-                }
-            }, time);
-        }
+            @Override
+            public void doInGameLoop(GameWorld world) {
+                makeVulnerable();
+            }
+        }, INVULNERABLE_TIME);
+
     }
 
 }

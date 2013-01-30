@@ -13,7 +13,7 @@ import android.widget.Button;
 
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class Wave<T extends JumplingsWorld> {
+public abstract class Wave<T extends JumplingsWorld> implements GameEventsListener {
 
     // ------------------------------------------------- Constantes
 
@@ -36,6 +36,7 @@ public abstract class Wave<T extends JumplingsWorld> {
     /** nivel */
     protected int level;
     
+    // FIXME avoid this field and use the one in the world
     /** If game is over */
     protected boolean mIsGameOver = false;
 
@@ -91,48 +92,44 @@ public abstract class Wave<T extends JumplingsWorld> {
         return level;
     }
 
-    /**
-     * M�todo ejecutado cuando un enemigo escapa de pantalla
-     * 
-     * @return si el evento es consumido por la wave
-     */
+    @Override
     public boolean onEnemyScaped(EnemyActor e) {
         return false;
     }
+    
+    @Override
+    public boolean onGameOver() {
+        mIsGameOver = true;
+        return false;
+    }
+    
+    @Override
+    public boolean onCombo() {
+        return false;
+    }
 
-    /**
-     * M�todo ejecutado cuando una bomba estalla
-     * 
-     * @return si el evento es consumido por la wave
-     */
+    @Override
     public boolean onBombExploded(BombActor bomb) {
         return false;
     }
 
-    /**
-     * M�todo ejecutado cuando el usuario coge un power up de vida
-     * 
-     * @return si el evento es consumido por la wave
-     */
+    @Override
+    public boolean onEnemyKilled(EnemyActor enemy) {
+        return false;
+    }
+
+    @Override
     public boolean onLifePowerUp(LifePowerUpActor lifePowerUpActor) {
         return false;
     }
 
-    /**
-     * M�todo ejecutado cuando el usuario coge un power up de blade
-     * 
-     * @return si el evento es consumido por la wave
-     */
-    public boolean onBladePowerUp(BladePowerUpActor bladePowerUpActor) {
+    @Override
+    public boolean onBladePowerUpStart(BladePowerUpActor bladePowerUpActor) {
         return false;
     }
-
-    /**
-     * M�todo ejecutado cuando el jugador mata un enemigo
-     * 
-     * @return si el evento es consumido por la wave
-     */
-    public boolean onEnemyKilled(EnemyActor enemy) {
+    
+    @Override
+    public boolean onBladePowerUpEnd() {
         return false;
     }
 
@@ -140,15 +137,7 @@ public abstract class Wave<T extends JumplingsWorld> {
         return false;
     }
 
-    /**
-     * M�todo ejecutado cuando el jugador pierde el juego
-     * 
-     * @return si el evento es consumido por la wave
-     */
-    public boolean onGameOver() {
-        mIsGameOver = true;
-        return false;
-    }
+
 
     // --------------------------------------------------- M�todos abstractos
 

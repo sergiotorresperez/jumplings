@@ -2,6 +2,8 @@ package net.garrapeta.jumplings;
 
 import java.util.ArrayList;
 
+import net.garrapeta.jumplings.Tutorial.TipId;
+
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
@@ -23,6 +25,8 @@ public class PermData {
     public static final String TWITTER_ACCESS_TOKEN_SECRET_KEY = "twitterTokenSecret";
 
     public static final String LOCAL_SCORES_SUBMISSION_PENDING_KEY = "localScoresSubmissionPending";
+
+    public static final String TUTORIAL_TIP_PREFIX = "tip_";
     
     // niveles de configuracion
     public final static short CFG_LEVEL_NONE = 1;
@@ -204,6 +208,26 @@ public class PermData {
         editor.commit();
     }
     
+    /**
+     * @param tipId
+     * @return if the tip with the supplied id has been shown
+     */
+    public boolean isTipShown(TipId tipId) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+        return sharedPref.getBoolean(TUTORIAL_TIP_PREFIX + tipId.name(), false);
+    }
+
+    /**
+     * Sets the tip with the supplied id as shown
+     * @param pending
+     */
+    public void setTipShown(TipId tipId) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+        Editor editor = sharedPref.edit();
+        editor.putBoolean(TUTORIAL_TIP_PREFIX + tipId.name(), true);
+        editor.commit();
+    }
+
     public boolean getSoundConfig() {
         return getLevelPreference(R.string.config_sound_key);
     }

@@ -42,6 +42,7 @@ public class WeaponSword extends Weapon {
 
     @Override
     public void onEnd() {
+        mWorld.onBladePowerUpEnd();
         mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_UNSHEATH);
         mWorld.removeActor(mSwipe);
     }

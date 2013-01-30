@@ -204,12 +204,14 @@ public class GameOverActivity extends Activity {
 
                 }
             });
+
+            mPlayerNameEditText.setText(PermData.getInstance().getLastPlayerName());
         } else {
             scoreIntroductionView.setVisibility(View.INVISIBLE);
             nextActionView.setVisibility(View.VISIBLE);
         }
 
-        mPlayerNameEditText.setText(PermData.getInstance().getLastPlayerName());
+        
 
         if (waveKey != null) {
             Button replayButton = (Button) findViewById(R.id.gameover_replayBtn);

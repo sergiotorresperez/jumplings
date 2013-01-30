@@ -46,7 +46,7 @@ public class BladePowerUpActor extends PowerUpActor {
     }
     @Override
     public void onHitted() {
-        getWorld().onBladePowerUp(this);
+        getWorld().onBladePowerUpStart(this);
         super.onHitted();
     }
 

@@ -1,13 +1,14 @@
 package net.garrapeta.jumplings;
 
 import net.garrapeta.gameengine.GameView;
+import net.garrapeta.jumplings.Tutorial.TipDialogFragment.TipDialogListener;
 import net.garrapeta.jumplings.ui.AdDialogFactory;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import net.garrapeta.jumplings.wave.TestWave;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,7 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class GameActivity extends Activity {
+public class GameActivity extends FragmentActivity implements TipDialogListener {
 
     // -----------------------------------------------------------------
     // Constantes
@@ -475,6 +476,18 @@ public class GameActivity extends Activity {
         });
     }
 
+    @Override
+    public void onTipDialogShown() {
+        if (mWorld.isStarted()) {
+            mWorld.pause();
+        }
+    }
+
+    @Override
+    public void onTipDialogClosed() {
+        mWorld.resume();
+    }
+
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 
     public void updateWeaponsRadioGroup(final short weaponId) {
@@ -506,5 +519,7 @@ public class GameActivity extends Activity {
         }
     }
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+
+
 
 }
