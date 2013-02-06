@@ -1,40 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   			  android:orientation="vertical" 
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"              
-              style="@style/CustomDialogContent">
-    
-   	<!-- MOBCLIX -->
-	<com.mobclix.android.sdk.MobclixIABRectangleMAdView 
-	    android:id="@+id/adddialog_advertising_rectangle_view"
-	    android:layout_height="250dp"
-	    android:layout_width="300dp"
-	    android:layout_gravity="center_horizontal"
-	/>
-	<!-- /MOBCLIX -->
-	
-    <LinearLayout 
- 			   android:orientation="horizontal" 
-               android:layout_width="match_parent" 
-               android:layout_height="wrap_content">
-	        		  
-	    <net.garrapeta.jumplings.ui.CustomFontButton 
-	    	 android:text="Get Rid of ads" 
-	    	 android:id="@+id/addialog_buy" 
-			 android:layout_width="0dp"
-			 android:layout_height="wrap_content"
-			 android:layout_weight="0.5"
-	         style="@style/ColorfulButton"/>
-	   	
-	    <net.garrapeta.jumplings.ui.CustomFontButton
-	    	android:text="Play"  
-	    	android:id="@+id/addialog_continue"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="0.5"
-	        style="@style/ColorfulButton"/>
-	   	    	  
-	</LinearLayout>
-	
-</LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CustomDialogContent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <FrameLayout
+        android:id="@+id/adddialog_advertising_rectangle_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/adddialog_advertising_rectangle_frame"
+        android:orientation="horizontal" >
+
+        <net.garrapeta.jumplings.ui.CustomFontButton
+            android:id="@+id/addialog_buy"
+            style="@style/ColorfulButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Get Rid of ads" />
+
+        <net.garrapeta.jumplings.ui.CustomFontButton
+            android:id="@+id/addialog_continue"
+            style="@style/ColorfulButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:enabled="false"
+            android:text="Play" />
+    </LinearLayout>
+
+</RelativeLayout>

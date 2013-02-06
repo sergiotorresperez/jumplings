@@ -144,7 +144,8 @@ public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IW
             mWorld.mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mWorld.mActivity.showDialog(GameActivity.DIALOG_AD_ID);
+                    // FIXME: avoid this cast
+                    ((GameActivity)mWorld.mActivity).showAdDialogIfAvailable();
                 }
             });
 

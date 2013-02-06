@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import com.badlogic.gdx.math.Vector2;
 
+@SuppressWarnings("unused")
 public class TestWave extends Wave<JumplingsGameWorld> {
 
     // ----------------------------------------------------- Constantes

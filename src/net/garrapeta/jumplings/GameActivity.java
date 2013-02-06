@@ -2,7 +2,8 @@ package net.garrapeta.jumplings;
 
 import net.garrapeta.gameengine.GameView;
 import net.garrapeta.jumplings.Tutorial.TipDialogFragment.TipDialogListener;
-import net.garrapeta.jumplings.ui.AdDialogFactory;
+import net.garrapeta.jumplings.ui.AdDialogHelper;
+import net.garrapeta.jumplings.ui.AdDialogHelper.AdDialogListener;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import net.garrapeta.jumplings.wave.TestWave;
 import android.app.Dialog;
@@ -22,7 +23,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class GameActivity extends FragmentActivity implements TipDialogListener {
+public class GameActivity extends FragmentActivity implements TipDialogListener, AdDialogListener {
 
     // -----------------------------------------------------------------
     // Constantes
@@ -30,7 +31,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener 
     /** ID de di�logos */
     public static final int DIALOG_PAUSE_ID = 0;
     public static final int DIALOG_GAMEOVER_ID = 1;
-    public static final int DIALOG_AD_ID = 2;
 
     // Constantes de keys del bundle
     public static final String WAVE_BUNDLE_KEY = "waveKey";
@@ -66,6 +66,8 @@ public class GameActivity extends FragmentActivity implements TipDialogListener 
     TextView mScoreTextView;
 
     TextView mLocalHighScoreTextView;
+    
+    private AdDialogHelper mAdDialogHelper;
 
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     // DEBUG
@@ -162,10 +164,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener 
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
 
-        // Preparaci�n del di�logo de anuncions
-        AdDialogFactory.getInstance().init(this);
-
-
         updateLifeCounterView();
         updateScoreTextView();
 
@@ -181,6 +179,9 @@ public class GameActivity extends FragmentActivity implements TipDialogListener 
         } else {
             throw new IllegalArgumentException("Cannot create wave: " + waveKey);
         }
+        
+        // Preparation of ad dialog helper
+        mAdDialogHelper = new AdDialogHelper(this);
     }
 
     @Override
@@ -276,9 +277,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener 
             });
             break;
 
-        case DIALOG_AD_ID:
-            dialog = AdDialogFactory.getInstance().createAdDialogView();
-            break;
         }
 
         return dialog;
@@ -476,6 +474,15 @@ public class GameActivity extends FragmentActivity implements TipDialogListener 
         });
     }
 
+    /**
+     * Shows an ad dialog if there is an ad available
+     * @return if the dialog has been shown.
+     */
+    public boolean showAdDialogIfAvailable() {
+        return mAdDialogHelper.showIfAvailable();
+    }
+    
+
     @Override
     public void onTipDialogShown() {
         if (mWorld.isStarted()) {
@@ -488,6 +495,23 @@ public class GameActivity extends FragmentActivity implements TipDialogListener 
         mWorld.resume();
     }
 
+    @Override
+    public void onAdDialogShown() {
+        if (mWorld.isStarted()) {
+            mWorld.pause();
+        }
+    }
+
+    @Override
+    public void onAdDialogClosed() {
+        mWorld.resume();
+    }
+    
+    @Override
+    public AdDialogHelper getAdDialogFactory() {
+        return mAdDialogHelper;
+    }
+ 
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 
     public void updateWeaponsRadioGroup(final short weaponId) {
@@ -519,7 +543,5 @@ public class GameActivity extends FragmentActivity implements TipDialogListener 
         }
     }
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-
-
 
 }

@@ -36,7 +36,7 @@ public class JumplingsApplication extends Application {
     public static boolean DEBUG_THREAD_BARS_ENABLED = false;
     public static boolean DEBUG_AUTOPLAY = false;
 
-    public static boolean MOBCLIX_ENABLED = false;
+    public static boolean MOBCLIX_ENABLED = true;
     public static boolean MOBCLIX_BUY_DIALOG_BUTTON_ENABLED = false;
 
     public static boolean FACEBOOK_ENABLED = true;

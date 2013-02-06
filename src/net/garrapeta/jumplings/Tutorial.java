@@ -50,9 +50,8 @@ public class Tutorial implements GameEventsListener {
 
     /**
      * @param activity
-     * @param world
      */
-    public Tutorial(FragmentActivity activity,  JumplingsWorld world) {
+    public Tutorial(FragmentActivity activity) {
         mActivity = activity;
         
         mTipData = new HashMap<TipId, TipData>();
