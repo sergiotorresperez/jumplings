@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CustomDialogContent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <net.garrapeta.jumplings.ui.CustomFontTextView   
+        android:id="@+id/dialog_message_big"
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:gravity="center_horizontal"
+	    android:visibility="gone"
+	    style="@style/MainFont.CustomFontTextView.h1"
+    />
+       	
+     <net.garrapeta.jumplings.ui.CustomFontTextView   
+        android:id="@+id/dialog_message_small"
+        android:layout_below="@id/dialog_message_big"
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:gravity="center_horizontal"
+	    android:visibility="gone"
+	    android:textColor="@android:color/black"
+	    style="@style/MainFont.CustomFontTextView.h2"
+    />
+        
+    <FrameLayout
+        android:id="@+id/dialog_body_frame"
+        android:layout_below="@id/dialog_message_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+         />
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_body_frame"
+        android:orientation="horizontal" >
+
+        <net.garrapeta.jumplings.ui.CustomFontButton
+            android:id="@+id/dialog_left_btn"
+            style="@style/ColorfulButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:visibility="gone" />
+
+        <net.garrapeta.jumplings.ui.CustomFontButton
+            android:id="@+id/dialog_right_btn"
+            style="@style/ColorfulButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</RelativeLayout>

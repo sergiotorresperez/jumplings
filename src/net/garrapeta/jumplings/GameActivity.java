@@ -4,11 +4,15 @@ import net.garrapeta.gameengine.GameView;
 import net.garrapeta.jumplings.Tutorial.TipDialogFragment.TipDialogListener;
 import net.garrapeta.jumplings.ui.AdDialogHelper;
 import net.garrapeta.jumplings.ui.AdDialogHelper.AdDialogListener;
+import net.garrapeta.jumplings.ui.GameOverDialogFactory;
+import net.garrapeta.jumplings.ui.GameOverDialogFactory.GameOverDialogFragment.GameOverDialogListener;
+import net.garrapeta.jumplings.ui.PauseDialogFactory;
+import net.garrapeta.jumplings.ui.PauseDialogFactory.PauseDialogFragment.PauseDialogListener;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import net.garrapeta.jumplings.wave.TestWave;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -23,20 +27,21 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class GameActivity extends FragmentActivity implements TipDialogListener, AdDialogListener {
+public class GameActivity extends FragmentActivity implements TipDialogListener, AdDialogListener, PauseDialogListener, GameOverDialogListener {
 
     // -----------------------------------------------------------------
     // Constantes
-
-    /** ID de di�logos */
-    public static final int DIALOG_PAUSE_ID = 0;
-    public static final int DIALOG_GAMEOVER_ID = 1;
 
     // Constantes de keys del bundle
     public static final String WAVE_BUNDLE_KEY = "waveKey";
 
     /** Lapso de parpadeo de la barra de vida, en ms */
     private static final int LIFEBAR_BLINKING_LAPSE = 100;
+    
+    /**
+     * Tag used to refer to the dialog fragment
+     */
+    static final String DIALOG_FRAGMENT_TAG = "dialog_fragment_tag";
 
 
 
@@ -95,6 +100,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
             @Override
             public void onClick(View v) {
                 pauseGame();
+                showPauseDialog();
             }
         });
         mLifeCounterView = (ViewGroup) findViewById(R.id.lifes_counter_layout);
@@ -181,7 +187,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         }
         
         // Preparation of ad dialog helper
-        mAdDialogHelper = new AdDialogHelper(this);
+        mAdDialogHelper = new AdDialogHelper(this, DIALOG_FRAGMENT_TAG);
     }
 
     @Override
@@ -215,6 +221,9 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     protected void onResume() {
         super.onResume();
         Log.i(JumplingsApplication.LOG_SRC, "onResume " + this);
+        if (!gameOver && mWorld.isPaused()) {
+            showPauseDialog();
+        }
         // Do not resume game here: user will resume by pressing button in pause
         // dialog
     }
@@ -228,58 +237,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         // If the user presses the on / off button of the phone and the activity
         // is destroyed, we want to show the menu activity when going to the task again.
         finish();
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog = null;
-
-        switch (id) {
-        case DIALOG_PAUSE_ID:
-
-            dialog = new Dialog(GameActivity.this, R.style.CustomDialog);
-            dialog.setCancelable(false);
-            dialog.setContentView(R.layout.dialog_pause);
-
-            Button resumeBtn = (Button) dialog.findViewById(R.id.pauseDialog_resumeBtn);
-            resumeBtn.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    resumeGame();
-                    dismissDialog(DIALOG_PAUSE_ID);
-                }
-            });
-            Button mainMenuBtn = (Button) dialog.findViewById(R.id.pauseDialog_mainMenuBtn);
-            mainMenuBtn.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismissDialog(DIALOG_PAUSE_ID);
-                    gotoMenuActivity();
-                }
-
-            });
-            break;
-
-        case DIALOG_GAMEOVER_ID:
-
-            dialog = new Dialog(GameActivity.this, R.style.CustomDialog);
-            dialog.setCancelable(false);
-            dialog.setContentView(R.layout.dialog_gameover);
-
-            Button gameOverBtn = (Button) dialog.findViewById(R.id.gameoverDialog_proceedBtn);
-            gameOverBtn.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismissDialog(DIALOG_GAMEOVER_ID);
-                    gotoGameOverActivity();
-                }
-
-            });
-            break;
-
-        }
-
-        return dialog;
     }
 
     // ---------------------------------------------------- M�todos propios
@@ -319,6 +276,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     public void onBackPressed() {
         pauseGame();
+        showPauseDialog();
     }
 
     /**
@@ -326,13 +284,20 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
      */
     void pauseGame() {
         if (!mWorld.isPaused()) {
-            if (!gameOver) {
-                // If the game is over the game over dialog will be active
-                showDialog(DIALOG_PAUSE_ID);
-                mPauseBtn.setVisibility(View.GONE);
-            }
             mWorld.pause();
         }
+    }
+    
+    private void showPauseDialog() {
+        if (getSupportFragmentManager().findFragmentByTag(DIALOG_FRAGMENT_TAG) != null) {
+            // the dialog was already shown
+            return;
+        }
+        
+        // If the game is over the game over dialog will be active
+        DialogFragment dialog = PauseDialogFactory.create();
+        dialog.show(getSupportFragmentManager(),  DIALOG_FRAGMENT_TAG);
+        mPauseBtn.setVisibility(View.GONE);
     }
 
     /**
@@ -360,7 +325,8 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                showDialog(DIALOG_GAMEOVER_ID);
+                DialogFragment dialog = GameOverDialogFactory.create();
+                dialog.show(getSupportFragmentManager(),  DIALOG_FRAGMENT_TAG);
             }
         });
     }
@@ -482,7 +448,34 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         return mAdDialogHelper.showIfAvailable();
     }
     
+    @Override
+    public void onPauseDialogShown() {
+    }
 
+    @Override
+    public void onPauseDialogClosed() {
+    }
+    
+
+    @Override
+    public void onResumeButtonClicked() {
+        resumeGame();
+    }
+
+    @Override
+    public void onMainMenuButtonClicked() {
+        gotoMenuActivity();
+    }
+ 
+    @Override
+    public void onGameOverDialogShown() {
+    }
+
+    @Override
+    public void onGameOverDialogClosed() {
+        gotoGameOverActivity();
+    }
+    
     @Override
     public void onTipDialogShown() {
         if (mWorld.isStarted()) {
