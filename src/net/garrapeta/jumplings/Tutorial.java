@@ -10,16 +10,16 @@ import net.garrapeta.jumplings.actor.EnemyActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.actor.RoundEnemyActor;
 import net.garrapeta.jumplings.actor.SplitterEnemyActor;
+import net.garrapeta.jumplings.ui.CustomDialogBuilder;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 /**
  * Tutorial that shows tips to help the player learn the different features of the game *
@@ -33,7 +33,6 @@ public class Tutorial implements GameEventsListener {
      */
     public enum TipId {
         TIP_ON_ENEMY_SCAPED, 
-        TIP_ON_GAME_OVER, 
         TIP_ON_COMBO, 
         TIP_ON_ROUND_ENEMY_KILLED, 
         TIP_ON_DOUBLE_ENEMY_KILLED, 
@@ -45,14 +44,17 @@ public class Tutorial implements GameEventsListener {
     }
 
     private final FragmentActivity mActivity;
+    private final String mFragmentTag;
     private final Handler mTipHandler;
     private Map<TipId, TipData> mTipData;
 
     /**
      * @param activity
+     * @param fragmentTag
      */
-    public Tutorial(FragmentActivity activity) {
+    public Tutorial(FragmentActivity activity, String fragmentTag) {
         mActivity = activity;
+        mFragmentTag = fragmentTag;
         
         mTipData = new HashMap<TipId, TipData>();
     
@@ -64,7 +66,7 @@ public class Tutorial implements GameEventsListener {
                 Bundle bundle = new Bundle();
                 bundle.putInt(MESSAGE_ID_KEY, tipData.mMessageResId);
                 tipDialogFragment.setArguments(bundle);
-                tipDialogFragment.show(mActivity.getSupportFragmentManager(),  "tip_" + tipData.mMessageResId);
+                tipDialogFragment.show(mActivity.getSupportFragmentManager(),  mFragmentTag);
                 return true;
             }
         });
@@ -77,7 +79,6 @@ public class Tutorial implements GameEventsListener {
     public void init() {
         PermData permData = PermData.getInstance();
         mTipData.put(TipId.TIP_ON_ENEMY_SCAPED, new TipData(R.string.tip_enemy_scaped, permData.isTipShown(TipId.TIP_ON_ENEMY_SCAPED)));
-        mTipData.put(TipId.TIP_ON_GAME_OVER, new TipData(R.string.tip_game_over, permData.isTipShown(TipId.TIP_ON_GAME_OVER)));
         mTipData.put(TipId.TIP_ON_COMBO, new TipData(R.string.tip_combo, permData.isTipShown(TipId.TIP_ON_COMBO)));
         mTipData.put(TipId.TIP_ON_ROUND_ENEMY_KILLED, new TipData(R.string.tip_round_enemy_killed, permData.isTipShown(TipId.TIP_ON_ROUND_ENEMY_KILLED)));
         mTipData.put(TipId.TIP_ON_DOUBLE_ENEMY_KILLED, new TipData(R.string.tip_double_enemy_killed, permData.isTipShown(TipId.TIP_ON_DOUBLE_ENEMY_KILLED)));
@@ -95,7 +96,6 @@ public class Tutorial implements GameEventsListener {
 
     @Override
     public boolean onGameOver() {
-        showTip(TipId.TIP_ON_GAME_OVER);
         return false;
     }
 
@@ -184,15 +184,19 @@ public class Tutorial implements GameEventsListener {
         
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            
+            CustomDialogBuilder builder = new CustomDialogBuilder(getActivity());
 
-            builder.setMessage(getArguments().getInt(MESSAGE_ID_KEY)).setPositiveButton("OK", new OnClickListener() {
+            builder.setMessageSmall(getArguments().getInt(MESSAGE_ID_KEY)).setLeftButton("OK", new OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(View v) {
                     mListener.onTipDialogClosed();
+                    dismiss();
                 }
-            }).setCancelable(true);
+            });
 
+            
+            
             return builder.create();
         }
         

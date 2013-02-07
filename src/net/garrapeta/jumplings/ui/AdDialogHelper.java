@@ -1,17 +1,17 @@
 package net.garrapeta.jumplings.ui;
 
 import net.garrapeta.jumplings.JumplingsApplication;
-import net.garrapeta.jumplings.R;
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.mobclix.android.sdk.MobclixAdView;
 import com.mobclix.android.sdk.MobclixAdViewListener;
@@ -23,6 +23,8 @@ import com.mobclix.android.sdk.MobclixIABRectangleMAdView;
 public class AdDialogHelper implements MobclixAdViewListener {
 
     private FragmentActivity mActivity;
+    
+    private final String mFragmentTag;
 
     private boolean mAvailable = false;
 
@@ -36,9 +38,11 @@ public class AdDialogHelper implements MobclixAdViewListener {
      * Constructor
      * 
      * @param activity
+     * @param fragmentTag
      */
-    public AdDialogHelper(FragmentActivity activity) {
+    public AdDialogHelper(FragmentActivity activity, String fragmentTag) {
         mActivity = activity;
+        mFragmentTag = fragmentTag;
 
         mAdView = new MobclixIABRectangleMAdView(mActivity);
         mAdView.addMobclixAdViewListener(this);
@@ -53,7 +57,8 @@ public class AdDialogHelper implements MobclixAdViewListener {
     public boolean showIfAvailable() {
         if (mAvailable) {
             AdDialogFragment adDialogFragment = new AdDialogFragment();
-            adDialogFragment.show(mActivity.getSupportFragmentManager(), "ad");
+            adDialogFragment.setCancelable(false);
+            adDialogFragment.show(mActivity.getSupportFragmentManager(), mFragmentTag);
             return true;
         } else {
             return false;
@@ -75,7 +80,7 @@ public class AdDialogHelper implements MobclixAdViewListener {
     public static class AdDialogFragment extends DialogFragment {
 
         private int NEGATIVE_BUTTON_DISABLED_TIME = 5;
-        private static final String NEGATIVE_BUTTON_STR = "Play";
+        private static final String CONTINUE_BUTTON_STR = "Play";
         
         private final static int MSG_CONTINUE_BTN_STEP = 0;
         
@@ -96,10 +101,10 @@ public class AdDialogHelper implements MobclixAdViewListener {
                         int n = msg.arg1;
 
                         if (n == 0) {
-                            mContinueBtn.setText(NEGATIVE_BUTTON_STR);
+                            mContinueBtn.setText(CONTINUE_BUTTON_STR);
                             mContinueBtn.setEnabled(true);
                         } else {
-                            mContinueBtn.setText(NEGATIVE_BUTTON_STR + " (" + n + ")");
+                            mContinueBtn.setText(CONTINUE_BUTTON_STR + " (" + n + ")");
                             continueButtonStep(1000, --n);
                         }
                     }
@@ -109,30 +114,38 @@ public class AdDialogHelper implements MobclixAdViewListener {
             });
         }
  
+        
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            CustomDialogBuilder builder = new CustomDialogBuilder(getActivity());
 
-            View view = inflater.inflate(R.layout.dialog_ad, null);
-
-            ViewGroup adFrame = (ViewGroup) view.findViewById(R.id.adddialog_advertising_rectangle_frame);
-            adFrame.addView(mClient.getAdDialogFactory().mAdView);
-
-            setCancelable(false);
-            getDialog().getWindow().requestFeature(STYLE_NO_TITLE);
-
-            mContinueBtn = (Button) view.findViewById(R.id.addialog_continue);
-            mContinueBtn.setOnClickListener(new View.OnClickListener() {
+            builder.setBody(mClient.getAdDialogFactory().mAdView);
+            
+            builder.setRightButton(CONTINUE_BUTTON_STR, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     getDialog().dismiss();
                     mClient.getAdDialogFactory().mAdView.getAd();
                 }
             });
+            
+            if (JumplingsApplication.MOBCLIX_BUY_DIALOG_BUTTON_ENABLED ) {
+                builder.setLeftButton("Get rid of ads", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
 
-            Button buyButton = (Button) view.findViewById(R.id.addialog_buy);
-            buyButton.setVisibility(JumplingsApplication.MOBCLIX_BUY_DIALOG_BUTTON_ENABLED ? View.VISIBLE : View.GONE);
- 
-            return view;
+            
+            Dialog dialog = builder.create();
+            
+            mContinueBtn = builder.getRightButton();
+            mContinueBtn.setEnabled(false);
+            continueButtonStep(0, NEGATIVE_BUTTON_DISABLED_TIME);
+            
+            return dialog;
         }
 
         @Override
@@ -141,7 +154,6 @@ public class AdDialogHelper implements MobclixAdViewListener {
             try {
                 mClient = (AdDialogListener) activity;
                 mClient.onAdDialogShown();
-                continueButtonStep(0, NEGATIVE_BUTTON_DISABLED_TIME);
             } catch (ClassCastException e) {
                 throw new ClassCastException(activity.toString() + " must implement " + AdDialogListener.class.getSimpleName());
             }

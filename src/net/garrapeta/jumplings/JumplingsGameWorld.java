@@ -119,7 +119,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         super(gameActivity, gameView, context);
         mGameActivity = gameActivity;
         mPlayer = new Player(this);
-        mTutorial = new Tutorial(gameActivity);
+        mTutorial = new Tutorial(gameActivity, GameActivity.DIALOG_FRAGMENT_TAG);
         mGameView.setOnTouchListener(this);
      }
 
