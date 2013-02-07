@@ -26,7 +26,7 @@ public class BombActor extends MainActor {
 
     public final static float DEFAULT_RADIUS = BASE_RADIUS * 1.25f;
 
-    private final static int SPARKS_LAPSE = 250;
+    private final static int SPARKS_LAPSE = 150;
 
     private final static int SPARKS_PER_LAPSE = 2;
 
@@ -34,13 +34,13 @@ public class BombActor extends MainActor {
     private final static int SPARKLE_LONGEVITY_FUSE = 1500;
 
     /** Tiempo que permanecen las chispas, en ms. Al explotar las bombas */
-    private final static int SPARKLE_LONGEVITY_EXPLOSION = 4000;
+    private final static int SPARKLE_LONGEVITY_EXPLOSION = 700;
 
     /** N�mero de chispas que salen al explotar la bomba */
-    private final static int SPARKS_AT_EXPLOSION = 12;
+    private final static int SPARKS_AT_EXPLOSION = 25;
 
     /** Fuerza de las chispas al explotar la bomba */
-    private final static int EXPLOSION_SPARKLE_FORCE = 1000;
+    private final static int EXPLOSION_SPARKLE_FORCE = 500;
 
     /** Fuerza de las onda expansiva */
     private float BLAST_FORCE = 80;
@@ -220,16 +220,22 @@ public class BombActor extends MainActor {
         }
 
         // Se crean chispas de la explosi�n
-        Vector2 aux = mMainBody.getWorldCenter();
-        ArrayList<JumplingActor<?>> sparkles = new ArrayList<JumplingActor<?>>();
-        for (int i = 0; i < SPARKS_AT_EXPLOSION; i++) {
-            SparksActor sparkle = getWorld().getFactory().getSparksActor(new PointF(aux.x, aux.y), SPARKLE_LONGEVITY_EXPLOSION);
-            getWorld().addActor(sparkle);
-            sparkles.add(sparkle);
+        int rounds = 3;
+        for (int round = 0; round < rounds; round++) {
+            Vector2 aux = mMainBody.getWorldCenter();
+            ArrayList<JumplingActor<?>> sparkles = new ArrayList<JumplingActor<?>>();
+            float force = EXPLOSION_SPARKLE_FORCE / (round + 1);
+            for (int j = 0; j < SPARKS_AT_EXPLOSION / rounds; j++) {
+                SparksActor sparkle = getWorld().getFactory().getSparksActor(new PointF(aux.x, aux.y), SPARKLE_LONGEVITY_EXPLOSION);
+                getWorld().addActor(sparkle);
+                sparkles.add(sparkle);
+            }
+            
+            // se aceleran para que salgan disparadas
+            applyBlast(sparkles, force);
         }
 
-        // se aceleran para que salgan disparadas
-        applyBlast(sparkles, EXPLOSION_SPARKLE_FORCE);
+
 
         super.onHitted();
     }

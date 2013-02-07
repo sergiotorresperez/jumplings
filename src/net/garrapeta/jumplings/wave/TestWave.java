@@ -8,6 +8,7 @@ import net.garrapeta.jumplings.Wave;
 import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.MainActor;
 import net.garrapeta.jumplings.actor.LifePowerUpActor;
+import net.garrapeta.jumplings.actor.RoundEnemyActor;
 import net.garrapeta.jumplings.scenario.IScenario;
 import net.garrapeta.jumplings.scenario.ScenarioFactory;
 import android.graphics.PointF;
@@ -97,7 +98,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
     // ---------------------------------------------------- M�todos propios
 
     public void createEnemy() {
-
+        this.jgWorld.setGravityY(0);
 //        boolean debug = false;
 
 //        float worldXPos;
@@ -116,7 +117,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
         PointF initPos = new PointF(5, 12);
 //        Vector2 initVel = getInitialVelocity(initPos);
 
-         BombActor mainActor = jgWorld.getFactory().getBombActor(initPos);
+         MainActor mainActor = jgWorld.getFactory().getRoundEnemyActor(initPos);
         // ShapeActor sa =
         // world.cActivity.CreateShapeEnemy(ShapelingsGameActivity.SHAPE_CIRCLE,
         // initPos, bodyWorldRadius);
@@ -140,6 +141,11 @@ public class TestWave extends Wave<JumplingsGameWorld> {
 //            mainActor.setLinearVelocity(initVel.x, initVel.y);
 //
 //        }
+        jgWorld.addActor(mainActor);
+
+        initPos.x += 8;
+        
+        mainActor = jgWorld.getFactory().getBombActor(initPos);
         jgWorld.addActor(mainActor);
 
     }

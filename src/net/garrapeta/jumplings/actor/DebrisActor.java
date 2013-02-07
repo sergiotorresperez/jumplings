@@ -26,7 +26,7 @@ public class DebrisActor extends JumplingActor<JumplingsWorld> {
     public final static int DEBRIS_FILTER_BIT = 0x00004;
 
     /** Tiempo que permanece el actor en pantalla, en ms */
-    private final static int DEFAULT_LONGEVITY = 1500;
+    private final static int DEFAULT_LONGEVITY = 1250;
 
     // ------------------------------------------------ Variables est�ticas
 
@@ -50,7 +50,7 @@ public class DebrisActor extends JumplingActor<JumplingsWorld> {
 
         DEBRIS_FILTER.categoryBits = DebrisActor.DEBRIS_FILTER_BIT;
 
-        DEBRIS_FILTER.maskBits = WallActor.WALL_FILTER_BIT | WallActor.FLOOR_FILTER_BIT | DebrisActor.DEBRIS_FILTER_BIT;
+        DEBRIS_FILTER.maskBits = WallActor.WALL_FILTER_BIT | WallActor.FLOOR_FILTER_BIT ;
 
     }
 
