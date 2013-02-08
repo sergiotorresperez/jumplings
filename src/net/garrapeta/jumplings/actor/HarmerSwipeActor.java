@@ -16,7 +16,7 @@ public class HarmerSwipeActor extends HarmerActor {
 
     private ArrayList<double[]> mSwipePoints;
     private Paint mPaint;
-    private final int TIME = 100;
+    private final int TIME = 150;
     private Path mPath = new Path();
 
     private final int MIN_START_DISTANCE = 30;

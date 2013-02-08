@@ -22,7 +22,7 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 
     // --------------------------------------------------- Constantes
 
-    private static float POWERUP_BASE_LAPSE = 40000;
+    private static float POWERUP_BASE_LAPSE = 30000;
 
     public static short JUMPER_CODE_NULL = Short.MIN_VALUE;
     
@@ -44,7 +44,7 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 
     // -------------------------------------------------------- Constructor
 
-    public AllowanceGameWave(JumplingsGameWorld world, IWaveEndListener listener, int level) {
+    public AllowanceGameWave(JumplingsGameWorld world, IWaveEndListener listener, int level, boolean schedulePowerUpAtStart) {
         super(world, listener, level);
 
         nextJumperCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
@@ -64,7 +64,9 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 
         totalKills = 30 + level * 10;
 
-        scheduleGeneratePowerUp(getPowerUpCreationLapse());
+        if (schedulePowerUpAtStart) {
+            scheduleGeneratePowerUp(getPowerUpCreationLapse());
+        }
     }
 
     // ------------------------------------------------- M�todos heredados
@@ -92,7 +94,7 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
     @Override
     public void onProcessFrame(float stepTime) {
         // se comprueba que la wave no ha terminado por tiempo
-        if (getProgress() >= 100) {
+        if (isCompleted()) {
             // no se comunica el fin de la wave hasta que todos los enemigos
             // est�n muertos
             if (getWorld().mJumplingActors.size() == 0 && mListener != null) {
@@ -114,6 +116,10 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
      */
     public float getProgress() {
         return kills * 100 / totalKills;
+    }
+    
+    public boolean isCompleted() {
+        return getProgress() >= 100;
     }
 
     // -------------------------------------------------- M�todos propios
@@ -318,10 +324,11 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
     }
 
     private float getPowerUpCreationLapse() {
-        int wounds = Player.DEFAUL_INIT_LIFES - getWorld().getPlayer().getLifes();
+        int wounds = Math.max(0, Player.DEFAUL_INIT_LIFES - getWorld().getPlayer().getLifes());
 
-        float l = POWERUP_BASE_LAPSE - ((POWERUP_BASE_LAPSE / 3) * wounds);
-        return l;
+        float lapse =  POWERUP_BASE_LAPSE - (wounds * (POWERUP_BASE_LAPSE / Player.DEFAUL_INIT_LIFES));
+        Log.e(LOG_SRC, "Next power up in: " + lapse + " ms (" +  getWorld().getPlayer().getLifes() + " lives)");
+        return lapse;
     }
 
     private void scheduleGeneratePowerUp(float delay) {
