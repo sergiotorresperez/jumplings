@@ -50,7 +50,7 @@ public class SparksActor extends JumplingActor<JumplingsWorld> {
 
         SPARKS_FILTER.categoryBits = SPARKS_FILTER_BIT;
 
-        SPARKS_FILTER.maskBits = SPARKS_FILTER_BIT | WallActor.WALL_FILTER_BIT;
+        SPARKS_FILTER.maskBits = WallActor.WALL_FILTER_BIT;
     }
 
     // ---------------------------------------------------- M�todos est�ticos

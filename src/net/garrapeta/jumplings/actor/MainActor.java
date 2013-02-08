@@ -24,7 +24,7 @@ public abstract class MainActor extends JumplingActor<JumplingsGameWorld> {
 	public long timestamp;
 	
 	/** Fuerza con la que se desintegran los actores en basurilla  */
-	public final static float DESINTEGRATION_FORCE = 100;
+	public final static float DESINTEGRATION_FORCE = 60;
 	
 	// ------------------------------------------ Variables de instancia
 
