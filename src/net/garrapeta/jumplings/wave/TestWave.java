@@ -5,9 +5,7 @@ import net.garrapeta.gameengine.SyncGameMessage;
 import net.garrapeta.jumplings.JumplingsApplication;
 import net.garrapeta.jumplings.JumplingsGameWorld;
 import net.garrapeta.jumplings.Wave;
-import net.garrapeta.jumplings.actor.BombActor;
 import net.garrapeta.jumplings.actor.MainActor;
-import net.garrapeta.jumplings.actor.LifePowerUpActor;
 import net.garrapeta.jumplings.scenario.IScenario;
 import net.garrapeta.jumplings.scenario.ScenarioFactory;
 import android.graphics.PointF;
@@ -97,49 +95,19 @@ public class TestWave extends Wave<JumplingsGameWorld> {
     // ---------------------------------------------------- M�todos propios
 
     public void createEnemy() {
-
-//        boolean debug = false;
-
-//        float worldXPos;
-//        float worldYPos;
-
-//        if (debug) {
-//            // world.setGravityY(0);
-//            worldXPos = (jgWorld.mViewport.getWorldBoundaries().right - jgWorld.mViewport.getWorldBoundaries().left) / 2;
-//            // worldYPos = (world.worldBoundaries.top - ENEMY_OFFSET);
-//            worldYPos = 2;
-//        } else {
-//            worldXPos = getRandomPosX();
-//            worldYPos = getBottomPos();
-//        }
+        this.jgWorld.setGravityY(0);
 
         PointF initPos = new PointF(5, 12);
 //        Vector2 initVel = getInitialVelocity(initPos);
 
-         BombActor mainActor = jgWorld.getFactory().getBombActor(initPos);
-        // ShapeActor sa =
-        // world.cActivity.CreateShapeEnemy(ShapelingsGameActivity.SHAPE_CIRCLE,
-        // initPos, bodyWorldRadius);
-        // JumperActor mainActor = new SplitterEnemyActor(world, initPos,
-        // color2, 2);
+         MainActor mainActor;
+//         mainActor = jgWorld.getFactory().getSplitterEnemyActor(initPos, 1);
 
-        // EnemyActor enemy = new SplitterEnemyActor(world,
-        // SplitterEnemyActor.DEFAULT_BASE_RADIUS,
-        // initPos, (short) 2, 2);
+//        jgWorld.addActor(mainActor);
 
-        // DoubleEnemyActor ba = new DoubleEnemyActor(world, bodyWorldRadius,
-        // worldPos, color1, color2);
-        // SquareEnemyActor ba = new SquareEnemyActor(world, bodyWorldRadius,
-        // worldPos, color1);
-//        MainActor mainActor = new SplitterEnemyActor(jgWorld, 1);
-//        mainActor.init(initPos);
-
-//        if (!debug) {
-//            mainActor.setLinearVelocity(initVel.x, initVel.y);
-//        } else {
-//            mainActor.setLinearVelocity(initVel.x, initVel.y);
-//
-//        }
+        initPos.x += 8;
+        
+        mainActor = jgWorld.getFactory().getBombActor(initPos);
         jgWorld.addActor(mainActor);
 
     }

@@ -45,7 +45,7 @@ public class JumplingsFactory {
             }
         };
 
-        mSparksActor = new Pool<SparksActor>(16, MAX_INSTANCES) {
+        mSparksActor = new Pool<SparksActor>(128, MAX_INSTANCES) {
             @Override
             protected SparksActor newObject() {
                 return new SparksActor(mJumplingsWorld);
