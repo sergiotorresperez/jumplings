@@ -24,6 +24,8 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 
     private static float POWERUP_BASE_LAPSE = 40000;
 
+    public static short JUMPER_CODE_NULL = Short.MIN_VALUE;
+    
     // ---------------------------------------- Variables de instancia
 
     private short nextJumperCode;
@@ -79,6 +81,9 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 
         createInitPosAndVel(initPos, initVel);
 
+        if (nextJumperCode == JUMPER_CODE_NULL) {
+            nextJumperCode = generateJumperCode();
+        }
         double threat = tryToCreateJumper(threatNeeded, initPos, initVel);
 
         return threat;
@@ -144,6 +149,8 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
         } while (MainActor.getBaseThread(code) > getMaxThreat());
 
         Log.i(LOG_SRC, "Next enemy code: " + code);
+        
+//        Log.w("stp", "Next " + code + " maxBombs " + maxBombs + " currentBombs " + getWorld().mBombActors.size());
         return code;
     }
 
@@ -181,7 +188,7 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
             mainActor.setLinearVelocity(initVel.x, initVel.y);
             getWorld().addActor(mainActor);
             Log.i(LOG_SRC, "Added mainActor: " + nextJumperCode);
-            nextJumperCode = generateJumperCode();
+            nextJumperCode = JUMPER_CODE_NULL;
             return threat;
 
         } else {

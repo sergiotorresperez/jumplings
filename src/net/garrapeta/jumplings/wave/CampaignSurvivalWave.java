@@ -22,7 +22,7 @@ public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IW
     public final static String WAVE_KEY = CampaignSurvivalWave.class.getCanonicalName();
 
     /** Nivel inicial de la wave hija */
-    private final static int INIT_LEVEL = 1;
+    private final static int INIT_LEVEL = 3;
 
     /**
      * Ms que tarda en aparecer la primerta wave
