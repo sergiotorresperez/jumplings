@@ -12,7 +12,6 @@ import net.garrapeta.jumplings.scenario.IScenario;
 import net.garrapeta.jumplings.scenario.RollingScenario;
 import net.garrapeta.jumplings.scenario.ScenarioFactory;
 import android.util.Log;
-import android.widget.Toast;
 
 public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IWaveEndListener {
 
@@ -35,7 +34,7 @@ public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IW
      */
     public static final int INTER_WAVE_DELAY = 500;
 
-    private static final int NEXT_SCENARIO_DELAY = 1500;
+    private static final int NEXT_SCENARIO_DELAY = 1000;
 
     private static final int RESUME_DELAY = NEXT_SCENARIO_DELAY + RollingScenario.FADE_IN_TIME;
 
@@ -158,18 +157,8 @@ public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IW
     }
 
     private void showLevel() {
-        mWorld.mActivity.runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-                final String message = "Level " + level;
-                Log.i(LOG_SRC, message);
-
-                Toast toast = Toast.makeText(CampaignSurvivalWave.this.mWorld.mActivity, message, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-
+        // FIXME: avoid this cast
+        ((GameActivity)mWorld.mActivity).onLevelChanged(level);
     }
 
     private void scheduleNextWave(float delay) {

@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
@@ -506,6 +507,22 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     public AdDialogHelper getAdDialogFactory() {
         return mAdDialogHelper;
     }
+    
+    /**
+     * Executed when the level changes
+     * @param level
+     */
+    public void onLevelChanged(final int level) {
+        mWorld.mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String message =  "Level " + level;
+                TextView levelTextView = (TextView) findViewById(R.id.game_levelTextView);
+                levelTextView.setText(message);
+                Toast.makeText(GameActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
  
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 
@@ -538,5 +555,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         }
     }
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+
+
 
 }

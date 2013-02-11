@@ -26,7 +26,7 @@ public class BombActor extends MainActor {
 
     public final static float DEFAULT_RADIUS = BASE_RADIUS * 1.25f;
 
-    private final static int SPARKS_LAPSE = 400;
+    private final static int SPARKS_LAPSE = 300;
 
     private final static int SPARKS_PER_LAPSE = 2;
 
