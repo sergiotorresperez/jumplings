@@ -16,7 +16,8 @@ public class HarmerSwipeActor extends HarmerActor {
 
     private ArrayList<double[]> mSwipePoints;
     private Paint mPaint;
-    private final int TIME = 150;
+    private final int SWIPE_TIME = 150;
+    
     private Path mPath = new Path();
 
     private final int MIN_START_DISTANCE = 30;
@@ -49,7 +50,7 @@ public class HarmerSwipeActor extends HarmerActor {
         long now = System.currentTimeMillis();
         while (mSwipePoints.size() > 0) {
             double[] info = mSwipePoints.get(0);
-            if (now - info[3] > TIME) {
+            if (now - info[3] > SWIPE_TIME) {
                 mSwipePoints.remove(info);
             } else {
                 break;
