@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -144,6 +145,8 @@ public class CustomDialogBuilder {
             mRightButton.setOnClickListener(mRightBtnOnClickListener);
         }
         
+        int width = mActivity.getResources().getDimensionPixelSize(R.dimen.dialog_width);
+        dialog.getWindow().setLayout(width, LayoutParams.WRAP_CONTENT);
         return dialog;
     }
 
