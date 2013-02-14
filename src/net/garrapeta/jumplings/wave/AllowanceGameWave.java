@@ -327,7 +327,7 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
         int wounds = Math.max(0, Player.DEFAUL_INIT_LIFES - getWorld().getPlayer().getLifes());
 
         float lapse =  POWERUP_BASE_LAPSE - (wounds * (POWERUP_BASE_LAPSE / Player.DEFAUL_INIT_LIFES));
-        Log.e(LOG_SRC, "Next power up in: " + lapse + " ms (" +  getWorld().getPlayer().getLifes() + " lives)");
+        Log.i(LOG_SRC, "Next power up in: " + lapse + " ms (" +  getWorld().getPlayer().getLifes() + " lives)");
         return lapse;
     }
 
