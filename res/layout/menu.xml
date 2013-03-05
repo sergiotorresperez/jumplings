@@ -2,117 +2,134 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/white">
-    
+    android:background="@android:color/white" >
+
     <!-- GAME SURFACE -->
-   	<net.garrapeta.gameengine.GameView 
-		android:id = "@+id/menu_gamesurface"
-		android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	>
-	</net.garrapeta.gameengine.GameView>
-	<!-- /GAME SURFACE -->
-	
-	<!-- UI -->
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:orientation="vertical"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent">
-	
-	
-	    <!-- BUTTONS -->
-		<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  android:layout_width="fill_parent"
-			  android:layout_height="fill_parent"
-		      android:layout_weight="1"
-		      android:padding="20dp">
-			
-			<Button android:id="@+id/menu_playBtn" 
-			        android:background="@drawable/play_button_background_selector"
-			        android:layout_centerInParent="true"
-			        android:layout_width="wrap_content" 
-			        android:layout_height="wrap_content"
-			        style="@style/ColorfulButton">
-			</Button>
-			
-			<ImageButton android:id="@+id/menu_preferencesBtn" 
-			        android:src="@drawable/icon_preferences"
-			        android:layout_alignParentLeft="true"
-			        android:layout_alignParentTop="true"
-			        android:layout_width="wrap_content" 
-			        android:layout_height="wrap_content"
-			        style="@style/ColorfulButton">
-			</ImageButton>
-			
-			<ImageButton android:id="@+id/menu_highScoresBtn" 
-			        android:src="@drawable/icon_score"
-			        android:layout_alignParentRight="true"
-			        android:layout_alignParentTop="true"
-			        android:layout_width="wrap_content"		         
-			        android:layout_height="wrap_content"
-			        style="@style/ColorfulButton">
-			</ImageButton>
-			
-			<ImageButton android:id="@+id/menu_aboutBtn" 
-			        android:src="@drawable/icon_about"
-			        android:layout_width="wrap_content"
-			        android:layout_alignParentLeft="true"
-			        android:layout_alignParentBottom="true"
-			        android:layout_height="wrap_content"
-			        style="@style/ColorfulButton">
-			</ImageButton>
-			
-			<ImageButton android:id="@+id/menu_feintLeaderBoardBtn"
-					android:src="@drawable/icon_feint"  
-			        android:layout_width="wrap_content" 
-			        android:layout_height="wrap_content"
-			        android:layout_alignParentRight="true"
-			        android:layout_alignParentBottom="true"
-			        android:visibility="gone"
-			        style="@style/ColorfulButton">
-			</ImageButton>
-			
-			
-			<!-- DEBUG -->
-			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			    android:orientation="horizontal"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_centerHorizontal="true"
-			    android:layout_alignParentBottom="true">
-	    
-				<net.garrapeta.jumplings.ui.CustomFontButton 
-						android:text="Test" android:id="@+id/menu_testBtn" 
-				        android:layout_width="wrap_content" 
-				        android:layout_height="wrap_content"
-				        android:visibility="gone"
-				        style="@style/ColorfulButton"/>
-	
-				<net.garrapeta.jumplings.ui.CustomFontButton  
-						android:text="Exit" android:id="@+id/menu_exitBtn" 
-				        android:layout_width="wrap_content" 
-				        android:layout_height="wrap_content"
-				        android:visibility="gone"
-				        style="@style/ColorfulButton"/>
-				
-			</LinearLayout>
-			<!-- /DEBUG -->
-		  
-		</RelativeLayout>
-		<!-- / BUTTONS -->
-	
-		<!-- MOBCLIX -->
-		<com.mobclix.android.sdk.MobclixMMABannerXLAdView 
-		    android:id="@+id/menu_advertising_banner_view"
-		    android:layout_height="50dp"
-		    android:layout_width="320dp"		    
-		    android:layout_gravity="center"
-		    android:tag="adspace"
-		    android:layout_centerHorizontal="true"
-		    android:layout_weight="0"
-		    android:visibility="gone"/>
-		<!-- /MOBCLIX -->
-	</LinearLayout>
-	<!-- /UI -->
-	
+
+    <net.garrapeta.gameengine.GameView
+        android:id="@+id/menu_gamesurface"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </net.garrapeta.gameengine.GameView>
+    <!-- /GAME SURFACE -->
+
+
+    <!-- UI -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/menu_advertising_banner_view"
+        android:padding="15dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-30dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/jumplings_title" />
+
+            <Button
+                android:id="@+id/menu_playBtn"
+                style="@style/ColorfulButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/play_button_background_selector"
+                android:layout_marginBottom="45dp" >
+            </Button>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/menu_preferencesBtn"
+            style="@style/ColorfulButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/icon_preferences" >
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/menu_highScoresBtn"
+            style="@style/ColorfulButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/icon_score" >
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/menu_aboutBtn"
+            style="@style/ColorfulButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/icon_about" >
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/menu_feintLeaderBoardBtn"
+            style="@style/ColorfulButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_feint"
+            android:visibility="gone" >
+        </ImageButton>
+
+        <!-- DEBUG -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal" >
+
+            <net.garrapeta.jumplings.ui.CustomFontButton
+                android:id="@+id/menu_testBtn"
+                style="@style/ColorfulButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Test"
+                android:visibility="gone" />
+
+            <net.garrapeta.jumplings.ui.CustomFontButton
+                android:id="@+id/menu_exitBtn"
+                style="@style/ColorfulButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exit"
+                android:visibility="gone" />
+        </LinearLayout>
+        <!-- /DEBUG -->
+
+    </RelativeLayout>
+
+    <!-- MOBCLIX -->
+
+    <com.mobclix.android.sdk.MobclixMMABannerXLAdView
+        android:id="@+id/menu_advertising_banner_view"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:tag="adspace"
+        android:visibility="gone" />
+    <!-- /MOBCLIX -->
+
+
+    <!-- /UI -->
+
 </RelativeLayout>
