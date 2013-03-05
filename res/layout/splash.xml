@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <net.garrapeta.jumplings.ui.CustomFontTextView
+            android:id="@+id/splash_title"
+            style="@style/MainFont.CustomFontTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sergio Megaherzio"
+            android:textSize="65sp"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"  />
+
+           <net.garrapeta.jumplings.ui.CustomFontTextView
+            android:id="@+id/splash_subtitle"
+            style="@style/MainFont.CustomFontTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="presents"
+            android:textSize="30sp"
+            android:layout_below="@+id/splash_title"
+            android:layout_alignRight="@+id/splash_title" />
+    </RelativeLayout>
+
+</RelativeLayout>

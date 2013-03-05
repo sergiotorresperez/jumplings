@@ -23,6 +23,9 @@ import com.openfeint.api.resource.CurrentUser;
 import com.openfeint.api.resource.User;
 import com.openfeint.api.ui.Dashboard;
 
+/**
+ * Activity implementing the menu screen
+ */
 public class MenuActivity extends Activity {
 
     // -----------------------------------------------------------------
@@ -44,7 +47,6 @@ public class MenuActivity extends Activity {
 
     // -------------------------------------------------- M�todos de Activity
 
-    /** Called when the activity is first created. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,7 @@ public class MenuActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // Preparaci�n de la UI
+        // Preparación de la UI
         setContentView(R.layout.menu);
 
         // OPEN FEINT
