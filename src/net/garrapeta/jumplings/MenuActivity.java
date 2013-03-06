@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Animation.AnimationListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -28,24 +31,20 @@ import com.openfeint.api.ui.Dashboard;
  */
 public class MenuActivity extends Activity {
 
-    // -----------------------------------------------------------------
-    // Constantes
+    private View mTitle;
+    
+    private Button mStartBtn;
+    private ImageButton mPreferencesBtn;
+    private ImageButton mHighScoresBtn;
+    private ImageButton mAboutBtn;
+    private ImageButton mFeintLeaderBoardBtn;
+    
+    private View mMobClixView;
+    private View mDebugGroup;
 
-    // ----------------------------------------------------- Variables est�ticas
-
-    // ----------------------------------------------------- Variables de
-    // instancia
-
-    ImageButton feintLeaderBoardBtn;
-
+    
     /** World */
     JumplingsWorld mWorld;
-
-    // ------------------------------------------- Variables de configuraci�n
-
-    // ---------------------------------------------------- M�todos est�ticos
-
-    // -------------------------------------------------- M�todos de Activity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,62 +88,61 @@ public class MenuActivity extends Activity {
             });
         }
 
-        Button startBtn = (Button) findViewById(R.id.menu_playBtn);
-        startBtn.setOnClickListener(new OnClickListener() {
+        mTitle = findViewById(R.id.menu_title);
+ 
+        mStartBtn = (Button) findViewById(R.id.menu_playBtn);
+        mStartBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 startNewGame();
             }
         });
 
-        if (JumplingsApplication.DEBUG_ENABLED) {
-            Button testBtn = (Button) findViewById(R.id.menu_testBtn);
-            testBtn.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startTest();
-                }
-            });
-            testBtn.setVisibility(View.VISIBLE);
+        mDebugGroup = findViewById(R.id.menu_debug_view_group);
+        
+        Button testBtn = (Button) findViewById(R.id.menu_testBtn);
+        testBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTest();
+            }
+        });
 
-            Button exitBtn = (Button) findViewById(R.id.menu_exitBtn);
-            exitBtn.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
-            exitBtn.setVisibility(View.VISIBLE);
-        }
+        Button exitBtn = (Button) findViewById(R.id.menu_exitBtn);
+        exitBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-        ImageButton highScoresBtn = (ImageButton) findViewById(R.id.menu_highScoresBtn);
-        highScoresBtn.setOnClickListener(new OnClickListener() {
+        mHighScoresBtn = (ImageButton) findViewById(R.id.menu_highScoresBtn);
+        mHighScoresBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 showHighScores();
             }
         });
 
-        if (JumplingsApplication.FEINT_ENABLED) {
-            feintLeaderBoardBtn = (ImageButton) findViewById(R.id.menu_feintLeaderBoardBtn);
-            feintLeaderBoardBtn.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showFeintLeaderboard();
-                }
-            });
-        }
 
-        ImageButton preferencesBtn = (ImageButton) findViewById(R.id.menu_preferencesBtn);
-        preferencesBtn.setOnClickListener(new OnClickListener() {
+        mFeintLeaderBoardBtn = (ImageButton) findViewById(R.id.menu_feintLeaderBoardBtn);
+        mFeintLeaderBoardBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFeintLeaderboard();
+            }
+        });
+
+        mPreferencesBtn = (ImageButton) findViewById(R.id.menu_preferencesBtn);
+        mPreferencesBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPreferences();
             }
         });
 
-        ImageButton aboutBtn = (ImageButton) findViewById(R.id.menu_aboutBtn);
-        aboutBtn.setOnClickListener(new OnClickListener() {
+        mAboutBtn = (ImageButton) findViewById(R.id.menu_aboutBtn);
+        mAboutBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 showAbout();
@@ -153,10 +151,9 @@ public class MenuActivity extends Activity {
         
 
         // Ads
-        if (JumplingsApplication.MOBCLIX_ENABLED) {
-            findViewById(R.id.menu_advertising_banner_view).setVisibility(View.VISIBLE);
-        }
-
+        mMobClixView = findViewById(R.id.menu_advertising_banner_view);
+ 
+        onStartAnimationPhaseOne();
     }
 
     @Override
@@ -211,9 +208,70 @@ public class MenuActivity extends Activity {
         Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
     }
 
-    // ---------------------------------------------------- M�todos propios
-    
-    // ---------------------------- M�todos de componentes de interacci�n
+    private void onStartAnimationPhaseOne() {
+        
+        mTitle.setVisibility(View.INVISIBLE);
+        mStartBtn.setVisibility(View.INVISIBLE);
+        mPreferencesBtn.setVisibility(View.INVISIBLE);
+        mHighScoresBtn.setVisibility(View.INVISIBLE);
+        mAboutBtn.setVisibility(View.INVISIBLE);
+        mFeintLeaderBoardBtn.setVisibility(JumplingsApplication.FEINT_ENABLED ? View.INVISIBLE : View.GONE);
+        mDebugGroup.setVisibility(JumplingsApplication.DEBUG_ENABLED ? View.INVISIBLE : View.GONE);
+        mMobClixView.setVisibility(JumplingsApplication.MOBCLIX_ENABLED ? View.INVISIBLE : View.GONE);
+        
+
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.menu_screen_scale_in);
+        fadeInAnimation.setAnimationListener(new AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mTitle.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                onStartAnimationPhaseTwo(); 
+            }
+        });
+
+        mTitle.startAnimation(fadeInAnimation);
+    }
+
+    private void onStartAnimationPhaseTwo() {
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        fadeInAnimation.setAnimationListener(new AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mStartBtn.setVisibility(View.VISIBLE);
+                mStartBtn.setVisibility(View.VISIBLE);
+                mPreferencesBtn.setVisibility(View.VISIBLE);
+                mHighScoresBtn.setVisibility(View.VISIBLE);
+                mAboutBtn.setVisibility(View.VISIBLE);
+                mFeintLeaderBoardBtn.setVisibility(JumplingsApplication.FEINT_ENABLED ? View.VISIBLE : View.GONE);
+                mDebugGroup.setVisibility(JumplingsApplication.DEBUG_ENABLED ? View.VISIBLE : View.GONE);
+                mMobClixView.setVisibility(JumplingsApplication.MOBCLIX_ENABLED ? View.VISIBLE : View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+        });
+
+        mStartBtn.startAnimation(fadeInAnimation);
+        mPreferencesBtn.startAnimation(fadeInAnimation);
+        mHighScoresBtn.startAnimation(fadeInAnimation);
+        mAboutBtn.startAnimation(fadeInAnimation);
+        mFeintLeaderBoardBtn.startAnimation(fadeInAnimation);
+        mDebugGroup.startAnimation(fadeInAnimation);
+        mMobClixView.startAnimation(fadeInAnimation);
+    }
 
     private void startNewGame() {
         Intent i = new Intent(this, GameActivity.class);
@@ -244,11 +302,11 @@ public class MenuActivity extends Activity {
     }
 
     private void enableFeintLeaderboardButton() {
-        feintLeaderBoardBtn.setVisibility(View.VISIBLE);
+        mFeintLeaderBoardBtn.setVisibility(View.VISIBLE);
     }
 
     private void disableFeintLeaderboardButton() {
-        feintLeaderBoardBtn.setVisibility(View.GONE);
+        mFeintLeaderBoardBtn.setVisibility(View.GONE);
     }
 
     private void showFeintLeaderboard() {

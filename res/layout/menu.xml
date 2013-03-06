@@ -30,6 +30,7 @@
             android:orientation="vertical" >
 
             <ImageView
+                android:id="@+id/menu_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="-30dp"
@@ -83,13 +84,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/icon_feint"
-            android:visibility="gone" >
+            android:src="@drawable/icon_feint" >
         </ImageButton>
 
         <!-- DEBUG -->
 
         <LinearLayout
+            android:id="@+id/menu_debug_view_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -101,16 +102,14 @@
                 style="@style/ColorfulButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Test"
-                android:visibility="gone" />
+                android:text="Test" />
 
             <net.garrapeta.jumplings.ui.CustomFontButton
                 android:id="@+id/menu_exitBtn"
                 style="@style/ColorfulButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Exit"
-                android:visibility="gone" />
+                android:text="Exit" />
         </LinearLayout>
         <!-- /DEBUG -->
 
@@ -125,8 +124,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:tag="adspace"
-        android:visibility="gone" />
+        android:tag="adspace"/>
     <!-- /MOBCLIX -->
 
 

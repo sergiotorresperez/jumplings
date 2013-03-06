@@ -3,7 +3,9 @@ package net.garrapeta.jumplings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -17,8 +19,8 @@ public class SplashActivity extends Activity {
 
     private View mTitleView;
     private View mSubtitleView;
-
-    @Override
+    
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -26,6 +28,14 @@ public class SplashActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.splash);
+        
+        View root = findViewById(R.id.splash_root);
+        root.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMenuActivity(false);
+            }
+        });
 
         mTitleView = findViewById(R.id.splash_title);
         mSubtitleView = findViewById(R.id.splash_subtitle);
@@ -33,12 +43,17 @@ public class SplashActivity extends Activity {
         mTitleView.setVisibility(View.INVISIBLE);
         mSubtitleView.setVisibility(View.INVISIBLE);
  
-        startAnimationPhaseOne();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onAnimationPhaseOne();
+            }
+        }, 400);
     }
 
-    private void startAnimationPhaseOne() {
-        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_in);
-        fadeInAnimation.setAnimationListener(new AnimationListener() {
+    private void onAnimationPhaseOne() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_in);
+        animation.setAnimationListener(new AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
                 mTitleView.setVisibility(View.VISIBLE);
@@ -50,16 +65,16 @@ public class SplashActivity extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startAnimationPhaseTwo(); 
+                onAnimationPhaseTwo(); 
             }
         });
 
-        mTitleView.startAnimation(fadeInAnimation);
+        mTitleView.startAnimation(animation);
     }
 
-    private void startAnimationPhaseTwo() {
-        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_in);
-        fadeInAnimation.setAnimationListener(new AnimationListener() {
+    private void onAnimationPhaseTwo() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_in);
+        animation.setAnimationListener(new AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
                 mSubtitleView.setVisibility(View.VISIBLE);
@@ -71,15 +86,15 @@ public class SplashActivity extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startAnimationPhaseThree(); 
+                onAnimationPhaseThree(); 
             }
         });
-        mSubtitleView.startAnimation(fadeInAnimation);
+        mSubtitleView.startAnimation(animation);
     }
 
-    private void startAnimationPhaseThree() {
-        Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_out);
-        fadeOutAnimation.setAnimationListener(new AnimationListener() {
+    private void onAnimationPhaseThree() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_out);
+        animation.setAnimationListener(new AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
             }
@@ -92,16 +107,18 @@ public class SplashActivity extends Activity {
             public void onAnimationEnd(Animation animation) {
                 mTitleView.setVisibility(View.INVISIBLE);
                 mSubtitleView.setVisibility(View.INVISIBLE);
-                openMenuActivity(); 
+                openMenuActivity(true); 
             }
         });
-        mTitleView.startAnimation(fadeOutAnimation);
-        mSubtitleView.startAnimation(fadeOutAnimation);
+        mTitleView.startAnimation(animation);
+        mSubtitleView.startAnimation(animation);
     }
 
-    private void openMenuActivity() {
+    private void openMenuActivity(boolean disableTransition) {
         finish();
-        overridePendingTransition(0, 0);
+        if (disableTransition) { 
+            overridePendingTransition(0, 0);
+        }
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
