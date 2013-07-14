@@ -1,0 +1,27 @@
+
+Keystore type: JKS
+Keystore provider: SUN
+
+Your keystore contains 1 entry
+
+Alias name: alias_name
+Creation date: 17-Aug-2011
+Entry type: PrivateKeyEntry
+Certificate chain length: 1
+Certificate[1]:
+Owner: CN=Sergio Torres, OU=garrapeta.net, O=garrapeta.net, L=Madrid, ST=Madrid, C=ES
+Issuer: CN=Sergio Torres, OU=garrapeta.net, O=garrapeta.net, L=Madrid, ST=Madrid, C=ES
+Serial number: 4e4c18e4
+Valid from: Wed Aug 17 20:39:16 BST 2011 until: Sun Jan 02 19:39:16 GMT 2039
+Certificate fingerprints:
+	 MD5:  54:AD:35:CB:E0:DA:12:65:B9:10:B2:BC:97:55:E9:F3
+	 SHA1: 5C:90:72:4B:69:72:F3:EF:C8:30:82:6B:29:73:C0:95:2F:C8:B1:CF
+	 SHA256: 16:50:3B:99:21:1D:2E:BA:E0:51:FB:9C:A1:C5:F1:8E:07:39:82:65:4B:F9:8E:33:64:54:20:5C:27:49:B9:36
+	 Signature algorithm name: SHA1withRSA
+	 Version: 3
+
+
+*******************************************
+*******************************************
+
+

@@ -1,0 +1,24 @@
+READ: http://android-developers.blogspot.co.uk/2013/01/verifying-back-end-calls-from-android.html
+
+Project in Google API console
+--------------------------------------------------------
+https://code.google.com/apis/console/#project:977583415901:access
+
+
+Client ID for web applications
+--------------------------------------------------------
+Client ID:	977583415901.apps.googleusercontent.com
+Email address:	977583415901@developer.gserviceaccount.com
+Client secret:	nuAL-fSKk5wA4nOlQtfS11cM
+Redirect URIs:	none
+JavaScript origins:	none
+
+
+Client ID for installed applications
+--------------------------------------------------------
+Client ID:977583415901-kk730hsqah9946u3scd7rbkb52veo8lv.apps.googleusercontent.com
+Redirect URIs:	urn:ietf:wg:oauth:2.0:oob , http://localhost
+Application type:	Android
+Package name:	net.garrapeta.jumplings
+Certificate fingerprint (SHA1):	5C:90:72:4B:69:72:F3:EF:C8:30:82:6B:29:73:C0:95:2F:C8:B1:CF
+Deep Linking:	Disabled
