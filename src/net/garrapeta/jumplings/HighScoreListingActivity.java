@@ -2,18 +2,16 @@ package net.garrapeta.jumplings;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.List;
 
 import net.garrapeta.gameengine.utils.IOUtils;
-import net.garrapeta.gameengine.utils.AsynchronousHttpSender.AsynchronousHttpSender;
-import net.garrapeta.gameengine.utils.AsynchronousHttpSender.ResponseListener;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +20,7 @@ import android.app.TabActivity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,7 +42,7 @@ import android.widget.Toast;
 import com.openfeint.api.OpenFeint;
 import com.openfeint.api.ui.Dashboard;
 
-public class HighScoreListingActivity extends TabActivity implements ResponseListener, OnTabChangeListener {
+public class HighScoreListingActivity extends TabActivity implements  OnTabChangeListener {
 
     // ----------------------------------------------------------------
     // Constantes
@@ -54,15 +53,15 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
     // -----------------------------------------------------------------
     // Variables
 
-    private ArrayList<HighScore> localScoreList;
-    private ArrayList<HighScore> globalScoreList;
+    private List<HighScore> mLocalScoreList;
+    private List<HighScore> mGlobalScoreList;
 
-    private ListView localHighScoresView;
-    private ListView globalHighScoresView;
+    private ListView mLocalHighScoresView;
+    private ListView mGlobalHighScoresView;
 
-    private Button feintLeaderBoardBtn;
+    private Button mFeintLeaderBoardBtn;
     private Button mSubmitScoresBtn;
-    private Button clearScoresBtn;
+    private Button mClearScoresBtn;
     private TabHost mTabHost;
     private ProgressBar mProgressBar;
 
@@ -80,8 +79,8 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         Log.i(JumplingsApplication.LOG_SRC, "onCreate " + this);
 
         // Lectura de datos persistentes
-        localScoreList = PermData.getInstance().getLocalScoresList();
-        globalScoreList = PermData.getInstance().getGlobalScoresList();
+        mLocalScoreList = PermData.getInstance().getLocalScoresList();
+        mGlobalScoreList = PermData.getInstance().getGlobalScoresList();
 
         // Preparaci�n de la UI
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -127,7 +126,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
 
         // Preparaci�n de contenido de tab local
 
-        localHighScoresView = (ListView) findViewById(R.id.highscoresListing_localHighScoresListView);
+        mLocalHighScoresView = (ListView) findViewById(R.id.highscoresListing_localHighScoresListView);
 
         // Se rellenan los scores locales
         feedLocalHighScoresView();
@@ -138,7 +137,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         findViewById(R.id.highscoresListing_globalScoresTabContent).findViewById(R.id.scoreHeader_globalRank).setVisibility(View.INVISIBLE);
 
         // Se rellenan los scores globales
-        globalHighScoresView = (ListView) findViewById(R.id.highscoresListing_globalHighScoresListView);
+        mGlobalHighScoresView = (ListView) findViewById(R.id.highscoresListing_globalHighScoresListView);
         feedGlobalHighScoresView();
 
         // Preparaci�n de los botones
@@ -152,17 +151,17 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         });
 
         if (JumplingsApplication.DEBUG_ENABLED) {
-            clearScoresBtn = (Button) findViewById(R.id.highscoresListing_clearLocalScoresBtn);
-            clearScoresBtn.setOnClickListener(new OnClickListener() {
+            mClearScoresBtn = (Button) findViewById(R.id.highscoresListing_clearLocalScoresBtn);
+            mClearScoresBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     PermData.getInstance().clearAll();
                     updateSubmitScoresBtnVisibility();
-                    localScoreList = PermData.getInstance().getLocalScoresList();
+                    mLocalScoreList = PermData.getInstance().getLocalScoresList();
                     feedLocalHighScoresView();
                 }
             });
-            clearScoresBtn.setVisibility(View.VISIBLE);
+            mClearScoresBtn.setVisibility(View.VISIBLE);
         }
 
         mSubmitScoresBtn = (Button) findViewById(R.id.highscoresListing_submitBtn);
@@ -179,8 +178,8 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         updateSubmitScoresBtnVisibility();
 
         if (JumplingsApplication.FEINT_ENABLED) {
-            feintLeaderBoardBtn = (Button) findViewById(R.id.highscoresListing_feintLeaderBoardBtn);
-            feintLeaderBoardBtn.setOnClickListener(new OnClickListener() {
+            mFeintLeaderBoardBtn = (Button) findViewById(R.id.highscoresListing_feintLeaderBoardBtn);
+            mFeintLeaderBoardBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Dashboard.openLeaderboard(GameOverActivity.feintLeaderboardId);
@@ -188,7 +187,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
             });
 
             if (OpenFeint.isUserLoggedIn()) {
-                feintLeaderBoardBtn.setVisibility(View.VISIBLE);
+                mFeintLeaderBoardBtn.setVisibility(View.VISIBLE);
             }
         }
 
@@ -197,7 +196,9 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
             findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(View.VISIBLE);
         }
 
-        updateScoresIfNetworkIsAvailable();
+        if (isNetworkAvailable()) {
+        	updateScores();
+        }
     }
 
     // ---------------------------------------------- M�todos propios
@@ -207,10 +208,10 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
      */
     private void feedLocalHighScoresView() {
 
-        CustomAdapter adapter = new CustomAdapter(localScoreList, true);
-        localHighScoresView.setAdapter(adapter);
+        CustomAdapter adapter = new CustomAdapter(mLocalScoreList, true);
+        mLocalHighScoresView.setAdapter(adapter);
 
-        localHighScoresView.setCacheColorHint(0xFFFFFFFF);
+        mLocalHighScoresView.setCacheColorHint(0xFFFFFFFF);
     }
 
     /**
@@ -218,44 +219,33 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
      */
     private void feedGlobalHighScoresView() {
 
-        CustomAdapter adapter = new CustomAdapter(globalScoreList, false);
-        globalHighScoresView.setAdapter(adapter);
+        CustomAdapter adapter = new CustomAdapter(mGlobalScoreList, false);
+        mGlobalHighScoresView.setAdapter(adapter);
 
-        globalHighScoresView.setCacheColorHint(0xFFFFFFFF);
+        mGlobalHighScoresView.setCacheColorHint(0xFFFFFFFF);
     }
 
     /**
      * Sube los scores locales al servidor
      */
     private void submitScores() {
-        boolean sent = false;
-        try {
-            setHttpRequestProgressBarVisible(true);
+		try {
+	    	// Show progress bar
+	    	setHttpRequestProgressBarVisible(true);
 
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(HighScore.JSON_REQUEST_OBJ_STR, HighScore.JSON_REQUEST_OBJ_SUBMIT_VALUE);
-
-            jsonObject.put(HighScore.JSON_LOCALSCORES_ARRAY_STR, HighScore.formatJSON(localScoreList));
-
-            String requestBody = jsonObject.toString();
-
-            Log.i(JumplingsApplication.LOG_SRC, "Submitting local score: " + requestBody);
-
-            HttpPost request = new HttpPost(JumplingsApplication.SCORE_SERVICES_URL);
-            StringEntity se = new StringEntity(requestBody);
-            request.setEntity(se);
-
-            AsynchronousHttpSender.sendRequest(request, this);
-            sent = true;
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } catch (JSONException jee) {
-            Log.e(JumplingsApplication.LOG_SRC, "Error creating JSONs when submiting scores: " + jee.toString());
-            jee.printStackTrace();
-        }
-        if (!sent) {
-            Toast.makeText(this, "Error when communicating to server to submit scores", Toast.LENGTH_LONG).show();
-        }
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put(HighScore.JSON_REQUEST_OBJ_STR, HighScore.JSON_REQUEST_OBJ_SUBMIT_VALUE);
+	        jsonObject.put(HighScore.JSON_LOCALSCORES_ARRAY_STR, HighScore.formatJSON(mLocalScoreList));
+	        String requestBody = jsonObject.toString();
+	        
+	    	Log.i(JumplingsApplication.LOG_SRC, "Submitting local score: " + requestBody);
+	    	
+	    	new ServerRequestAsyncTask().execute(requestBody);
+	    	
+		} catch (JSONException e) {
+			Log.e(JumplingsApplication.LOG_SRC, "Error creating JSONs when submiting scores: " + e.toString(), e);
+			notifyError("Error submitting score to server", e);
+		}
     }
 
     /**
@@ -275,47 +265,34 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         // we update the global table, to see our new scores in it
         // TODO: receive the global scores in the response of the upload, so we
         // can skip this call
-        updateScoresIfNetworkIsAvailable();
-
+        if (isNetworkAvailable()) {
+        	updateScores();
+        }
     }
 
     /**
      * Actualiza los scores del servidor
      */
-    private void updateScoresIfNetworkIsAvailable() {
-        if (!isNetworkAvailable()) {
-            return;
-        }
-
-        boolean sent = false;
-        try {
-            setHttpRequestProgressBarVisible(true);
-
+    private void updateScores() {
+		try {
+	    	// Show progress bar
+	    	setHttpRequestProgressBarVisible(true);
+	    	
             JSONObject jsonObject = new JSONObject();
-            // se pone la acci�n
+            // action
             jsonObject.put(HighScore.JSON_REQUEST_OBJ_STR, HighScore.JSON_REQUEST_OBJ_RETRIEVE_VALUE);
-            // se mandan scores locales, para que el servidor comunique el
-            // ranking
-            jsonObject.put(HighScore.JSON_LOCALSCORES_ARRAY_STR, HighScore.formatJSON(localScoreList));
-
+            // local scores
+            jsonObject.put(HighScore.JSON_LOCALSCORES_ARRAY_STR, HighScore.formatJSON(mLocalScoreList));
             String requestBody = jsonObject.toString();
-
-            HttpPost request = new HttpPost(JumplingsApplication.SCORE_SERVICES_URL);
-            StringEntity se = new StringEntity(requestBody);
-            request.setEntity(se);
-
-            AsynchronousHttpSender.sendRequest(request, this);
-            sent = true;
-        } catch (IOException ioe) {
-            Log.e(JumplingsApplication.LOG_SRC, "Error setting entity when retrieving scores: " + ioe.toString());
-            ioe.printStackTrace();
-        } catch (JSONException jee) {
-            Log.e(JumplingsApplication.LOG_SRC, "Error creating JSONs when retrieving scores: " + jee.toString());
-            jee.printStackTrace();
-        }
-        if (!sent) {
-            Toast.makeText(this, "Error when communicating to server to update global score", Toast.LENGTH_LONG).show();
-        }
+	        
+	    	Log.i(JumplingsApplication.LOG_SRC, "Requesting global scores update: " + requestBody);
+	    	
+	    	new ServerRequestAsyncTask().execute(requestBody);
+	    	
+		} catch (JSONException e) {
+			Log.e(JumplingsApplication.LOG_SRC, "Error creating JSONs when updating scores: " + e.toString(), e);
+			notifyError("Error updating scores from server", e);
+		}
     }
 
     /**
@@ -326,9 +303,9 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
      */
     private void onScoresUpdated(JSONArray scores) throws JSONException {
         // componemos la lista de scores goblales
-        globalScoreList = HighScore.parseJSON(scores);
+        mGlobalScoreList = HighScore.parseJSON(scores);
         // la salvamos
-        PermData.getInstance().saveGlobalScoresList(globalScoreList);
+        PermData.getInstance().saveGlobalScoresList(mGlobalScoreList);
         // rellenamos la tabla de scores globales
         feedGlobalHighScoresView();
     }
@@ -342,15 +319,15 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
      */
     private void onRankingUpdated(JSONArray scores) throws JSONException {
         // componemos la lista de scores que nos ha dado el server
-        ArrayList<HighScore> tmpScoreList = HighScore.parseJSON(scores);
+        List<HighScore> tmpScoreList = HighScore.parseJSON(scores);
 
         // para cada elemento recibido del server..
         for (int i = 0; i < tmpScoreList.size(); i++) {
             HighScore aux = tmpScoreList.get(i);
 
             // buscamos el score en la lista local
-            for (int j = 0; j < localScoreList.size(); j++) {
-                HighScore local = localScoreList.get(i);
+            for (int j = 0; j < mLocalScoreList.size(); j++) {
+                HighScore local = mLocalScoreList.get(i);
 
                 if (local.localId.equals(aux.localId)) {
                     local.globalRank = aux.globalRank;
@@ -360,7 +337,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         }
 
         // salvamos la lista local
-        PermData.getInstance().saveLocalScoresList(localScoreList);
+        PermData.getInstance().saveLocalScoresList(mLocalScoreList);
         // rellenamos la tabla de scores locales
         feedLocalHighScoresView();
     }
@@ -386,8 +363,47 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
-    // ------------------------------------------------------ M�todos de
-    // OnTabChangeListener
+ 
+    // FIXME: externalize and localize error message
+    private void notifyError(String errorMessage, Exception error) {
+    	setHttpRequestProgressBarVisible(false);
+    	 Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+    }
+    
+	private void manageServerResponse(HttpResponse response) throws IllegalStateException, IOException, JSONException, HttpException {
+        // Dismiss progress dialog
+        setHttpRequestProgressBarVisible(false);
+  
+		int code = response.getStatusLine().getStatusCode();
+
+        HttpEntity er = response.getEntity();
+        InputStream is;
+        is = er.getContent();
+        String responseString = IOUtils.getStringFromInputStream(is);
+
+        Log.i(JumplingsApplication.LOG_SRC, "Response received = " + code + ". Response: " + responseString);
+
+        if (code == 200) {
+
+            
+            JSONObject responseObj = new JSONObject(responseString);
+
+            String responseAction = responseObj.get(HighScore.JSON_RESPONSE_OBJ_STR).toString();
+            if (HighScore.JSON_REQUEST_OBJ_SUBMIT_VALUE.equals(responseAction)) {
+                onScoresSubmitted(responseObj.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
+                onRankingUpdated(responseObj.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
+            } else if (HighScore.JSON_REQUEST_OBJ_RETRIEVE_VALUE.equals(responseAction)) {
+                onScoresUpdated(responseObj.getJSONArray(HighScore.JSON_GLOBALSCORES_ARRAY_STR));
+                onRankingUpdated(responseObj.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
+            } else {
+                throw new HttpException("Unknown response action: " + responseAction);
+            }
+
+        } else {
+            throw new HttpException("Server reports error: HTTP code = " + code + ". Response: " + responseString);
+        }
+	}
+    // -------------------------------------------------OnTabChangeListener methods
 
     @Override
     public void onTabChanged(String tabId) {
@@ -395,110 +411,31 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         
         if (TAB_LOCALSCORES_ID.equals(tabId)) {
             if (JumplingsApplication.DEBUG_ENABLED) {
-                clearScoresBtn.setVisibility(View.VISIBLE);
+                mClearScoresBtn.setVisibility(View.VISIBLE);
             }
 
         } else if (TAB_GLOBALSCORES_ID.equals(tabId)) {
             if (JumplingsApplication.DEBUG_ENABLED) {
-                clearScoresBtn.setVisibility(View.GONE);
+                mClearScoresBtn.setVisibility(View.GONE);
             }
         }
     }
 
-    // ------------------------------------------------- M�todos de
-    // ResponseListener
+    
 
-    @Override
-    public void onResponseReceived(HttpResponse response) {
-        boolean success = false;
-        try {
-            // Dismiss progress dialog
-            setHttpRequestProgressBarVisible(false);
-
-            int code = response.getStatusLine().getStatusCode();
-
-            HttpEntity er = response.getEntity();
-            InputStream is;
-            is = er.getContent();
-            String responseString = IOUtils.getStringFromInputStream(is);
-
-            Log.i(JumplingsApplication.LOG_SRC, "Response received = " + code + ". Response: " + responseString);
-
-            if (code == 200) {
-                JSONObject responseObj = new JSONObject(responseString);
-
-                String responseAction = responseObj.get(HighScore.JSON_RESPONSE_OBJ_STR).toString();
-                if (HighScore.JSON_REQUEST_OBJ_SUBMIT_VALUE.equals(responseAction)) {
-                    onScoresSubmitted(responseObj.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
-                    onRankingUpdated(responseObj.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
-                } else if (HighScore.JSON_REQUEST_OBJ_RETRIEVE_VALUE.equals(responseAction)) {
-                    onScoresUpdated(responseObj.getJSONArray(HighScore.JSON_GLOBALSCORES_ARRAY_STR));
-                    onRankingUpdated(responseObj.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
-                } else {
-                    throw new HttpException("Unknown response action: " + responseAction);
-                }
-
-            } else {
-                throw new HttpException("Server reports error: HTTP code = " + code + ". Response: " + responseString);
-            }
-            success = true;
-        } catch (IOException ioe) {
-            Log.e(JumplingsApplication.LOG_SRC, "IOException when reading server response: " + ioe.toString());
-            ioe.printStackTrace();
-        } catch (JSONException je) {
-            Log.e(JumplingsApplication.LOG_SRC, "JSONException when reading server response: " + je.toString());
-            je.printStackTrace();
-        } catch (HttpException httpe) {
-            Log.e(JumplingsApplication.LOG_SRC, "HttpException when reading server response: " + httpe.toString());
-            httpe.printStackTrace();
-        }
-        if (!success) {
-            Toast.makeText(this, "Error when communicating to server", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onClientProtocolExceptionWhenSending(ClientProtocolException cpe) {
-        setHttpRequestProgressBarVisible(false);
-        Log.e(JumplingsApplication.LOG_SRC, "ClientProtocolException when submiting scores: " + cpe.toString());
-        cpe.printStackTrace();
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(HighScoreListingActivity.this, "Error when communicating to server", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    @Override
-    public void onIOExceptionWhenSending(IOException ioe) {
-        setHttpRequestProgressBarVisible(false);
-        Log.e(JumplingsApplication.LOG_SRC, "IOException when submiting scores: " + ioe.toString());
-        ioe.printStackTrace();
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(HighScoreListingActivity.this, "Error when communicating to server", Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }
-
-    // -------------------------------------------------------- Clases internas
+    // -------------------------------------------------------- Internal classes
 
     /**
-     * Adaptador de la lista de highscores
+     * Highscores list adapter
      * 
      * @author GaRRaPeTa
      */
-    class CustomAdapter extends BaseAdapter {
+    private class CustomAdapter extends BaseAdapter {
 
         // --------------------------------------- Variables de instancia
 
         // lista que alimenta la tabla
-        private ArrayList<HighScore> list;
+        private List<HighScore> list;
         // si es para la lista local o global
         private boolean local;
 
@@ -507,7 +444,7 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
         /**
          * @param list
          */
-        public CustomAdapter(ArrayList<HighScore> list, boolean local) {
+        public CustomAdapter(List<HighScore> list, boolean local) {
             this.list = list;
             this.local = local;
         }
@@ -577,6 +514,45 @@ public class HighScoreListingActivity extends TabActivity implements ResponseLis
             return convertView;
         }
 
+    }
+    
+    /**
+     * Task for contacting the server.
+     * </p>
+     * First parameter is the post string to send.
+     */
+    private class ServerRequestAsyncTask extends AsyncTask<String, Void, HttpResponse> {
+    	private Exception mError;
+    	
+		@Override
+		protected HttpResponse doInBackground(String... args) {
+			try {
+	            HttpPost request = new HttpPost(JumplingsApplication.SCORE_SERVICES_URL);
+	            StringEntity se = new StringEntity(args[0]);
+	            request.setEntity(se);
+	
+	            DefaultHttpClient client = new DefaultHttpClient();
+	            return client.execute(request);
+			} catch (Exception e) {
+				Log.e(JumplingsApplication.LOG_SRC, "Error preparing http request: " + e.toString(), e);
+				mError = e;
+	            return null;
+			}
+		}
+
+		@Override
+		protected void onPostExecute(HttpResponse response) {
+			super.onPostExecute(response);
+            try {
+            	if (mError != null) {
+            		throw mError;
+            	}
+	            manageServerResponse(response);
+            } catch (Exception e) {
+            	notifyError("Error when communicating to server", e);
+            }
+		}
+    	
     }
 
 }

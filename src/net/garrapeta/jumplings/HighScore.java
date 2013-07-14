@@ -1,6 +1,7 @@
 package net.garrapeta.jumplings;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.json.JSONArray;
@@ -67,7 +68,7 @@ class HighScore implements Parcelable {
 	 * @return la posici�n obtenida por el player dentro de los highscores localles
 	 */
 	static int getLocalHighScoresPosition(long newScore) {
-		ArrayList<HighScore> list = PermData.getInstance().getLocalScoresList();
+		List<HighScore> list = PermData.getInstance().getLocalScoresList();
 		
 		int index = 0;
 		for (index = 0; index < list.size(); index++) {
@@ -178,13 +179,13 @@ class HighScore implements Parcelable {
 	}
 	
 	public static JSONArray formatJSON(HighScore score) throws JSONException {
-		ArrayList<HighScore> scores = new ArrayList<HighScore>();
+		List<HighScore> scores = new ArrayList<HighScore>();
 		scores.add(score);
 		
 		return formatJSON(scores);
 	}
 	
-	public static JSONArray formatJSON(ArrayList<HighScore> scores) throws JSONException {
+	public static JSONArray formatJSON(List<HighScore> scores) throws JSONException {
 		JSONArray array = new JSONArray();
 		for (int i = 0; i < scores.size(); i++) {
 			array.put(scores.get(i).formatJSON());
@@ -208,8 +209,8 @@ class HighScore implements Parcelable {
 		return score;
 	}
 	
-	public static ArrayList<HighScore> parseJSON(JSONArray scores) throws JSONException {
-		ArrayList<HighScore> list = new ArrayList<HighScore>();
+	public static List<HighScore> parseJSON(JSONArray scores) throws JSONException {
+		List<HighScore> list = new ArrayList<HighScore>();
 		
 		for (int i = 0; i < scores.length(); i++) {
 			list.add(parseJSON(scores.getJSONObject(i)));

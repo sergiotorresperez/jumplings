@@ -47,9 +47,9 @@ public class JumplingsApplication extends Application {
 
     // SCORE SERVER
     // local
-    // public static final String SCORE_SERVICES_URL = "http://192.168.0.4/projects/JumplingsServer/index.php";
+    // public static final String SCORE_SERVICES_URL = "http://192.168.0.4/jumplings/index.php";
     // remote
-     public static final String SCORE_SERVICES_URL = "http://garrapeta.eu.pn/jumplings/index.php";
+    public static final String SCORE_SERVICES_URL = "http://garrapeta.eu.pn/jumplings/index.php";
 
     // OPEN FEINT
     static final String feintGameName = "testgame2";

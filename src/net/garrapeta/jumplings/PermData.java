@@ -1,6 +1,7 @@
 package net.garrapeta.jumplings;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.garrapeta.jumplings.Tutorial.TipId;
 
@@ -106,7 +107,7 @@ public class PermData {
      * 
      * @return
      */
-    public void saveLocalScoresList(ArrayList<HighScore> localScoreList) {
+    public void saveLocalScoresList(List<HighScore> localScoreList) {
         // Salvado
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
 
@@ -158,7 +159,7 @@ public class PermData {
      * 
      * @return
      */
-    public void saveGlobalScoresList(ArrayList<HighScore> globalScoreList) {
+    public void saveGlobalScoresList(List<HighScore> globalScoreList) {
         // Salvado
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
 
