@@ -110,9 +110,9 @@ public class BackendConnector {
 
 			if (mCallback != null) {
 				if (mError != null) {
-					mCallback.onError(mError);
+					mCallback.onBackendRequestError(mError);
 				} else {
-					mCallback.onSuccess(response);
+					mCallback.onBackendRequestSuccess(response);
 				}
 			}
 		}

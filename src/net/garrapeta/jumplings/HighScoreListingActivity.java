@@ -190,7 +190,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         }
 
         if (isNetworkAvailable()) {
-        	updateScores();
+        	downloadScores();
         }
     }
 
@@ -227,7 +227,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	    	setHttpRequestProgressBarVisible(true);
 
 			JSONObject jsonObject = new JSONObject();
-			jsonObject.put(HighScore.JSON_REQUEST_OBJ_STR, HighScore.JSON_REQUEST_OBJ_SUBMIT_VALUE);
+			jsonObject.put(HighScore.JSON_ACTION_STR, HighScore.JSON_ACTION_SUBMIT_SCORES_STR);
 	        jsonObject.put(HighScore.JSON_LOCALSCORES_ARRAY_STR, HighScore.formatJSON(mLocalScoreList));
 	        String requestBody = jsonObject.toString();
 	        
@@ -258,21 +258,21 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         // TODO: receive the global scores in the response of the upload, so we
         // can skip this call
         if (isNetworkAvailable()) {
-        	updateScores();
+        	downloadScores();
         }
     }
 
     /**
      * Actualiza los scores del servidor
      */
-    private void updateScores() {
+    private void downloadScores() {
 		try {
 	    	// Show progress bar
 	    	setHttpRequestProgressBarVisible(true);
 	    	
             JSONObject jsonObject = new JSONObject();
             // action
-            jsonObject.put(HighScore.JSON_REQUEST_OBJ_STR, HighScore.JSON_REQUEST_OBJ_RETRIEVE_VALUE);
+            jsonObject.put(HighScore.JSON_ACTION_STR, HighScore.JSON_ACTION_DOWNLOAD_SCORES_STR);
             // local scores
             jsonObject.put(HighScore.JSON_LOCALSCORES_ARRAY_STR, HighScore.formatJSON(mLocalScoreList));
             String requestBody = jsonObject.toString();
@@ -366,10 +366,10 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         // Dismiss progress dialog
         setHttpRequestProgressBarVisible(false);
         String responseAction = response.get(HighScore.JSON_RESPONSE_OBJ_STR).toString();
-        if (HighScore.JSON_REQUEST_OBJ_SUBMIT_VALUE.equals(responseAction)) {
+        if (HighScore.JSON_ACTION_SUBMIT_SCORES_STR.equals(responseAction)) {
             onScoresSubmitted(response.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
             onRankingUpdated(response.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
-        } else if (HighScore.JSON_REQUEST_OBJ_RETRIEVE_VALUE.equals(responseAction)) {
+        } else if (HighScore.JSON_ACTION_DOWNLOAD_SCORES_STR.equals(responseAction)) {
             onScoresUpdated(response.getJSONArray(HighScore.JSON_GLOBALSCORES_ARRAY_STR));
             onRankingUpdated(response.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
         } else {
@@ -490,7 +490,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     }
     
  	@Override
-	public void onSuccess(JSONObject response) {
+	public void onBackendRequestSuccess(JSONObject response) {
         try {
             manageServerResponse(response);
         } catch (Exception e) {
@@ -499,7 +499,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	}
 
 	@Override
-	public void onError(BackendConnectionException error) {
+	public void onBackendRequestError(BackendConnectionException error) {
 		notifyError("Error processing server response", error);
 	}
 

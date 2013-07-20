@@ -7,7 +7,7 @@ import org.json.JSONObject;
  */
 public interface BackendConnectorCallback {
 	
-	public void onSuccess(JSONObject response);
+	public void onBackendRequestSuccess(JSONObject response);
 	
-	public void onError(BackendConnectionException error);
+	public void onBackendRequestError(BackendConnectionException error);
 }

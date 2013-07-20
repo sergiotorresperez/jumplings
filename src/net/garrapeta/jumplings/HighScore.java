@@ -30,13 +30,16 @@ class HighScore implements Parcelable {
 	public static final int MAX_GLOBAL_HIGHSCORE_COUNT = 50;
 	
 	
-	// Comunicaci�n con el servidor
+	// Communication with server
 	
-	public static final String JSON_REQUEST_OBJ_STR           	= "request";
+	// Name of the action to perform
+	public static final String JSON_ACTION_STR           		= "action";
 	public static final String JSON_RESPONSE_OBJ_STR          	= "response";
 	
-	public static final String JSON_REQUEST_OBJ_SUBMIT_VALUE   	= "submit";
-	public static final String JSON_REQUEST_OBJ_RETRIEVE_VALUE 	= "retrieve";
+	// Value of the action for downloading scores
+	public static final String JSON_ACTION_DOWNLOAD_SCORES_STR  = "download_scores";
+	// Value of the action for submitting scores
+	public static final String JSON_ACTION_SUBMIT_SCORES_STR 	= "submit_scores";
 	
 	public static final String JSON_LOCALSCORES_ARRAY_STR 		= "localScores";
 	public static final String JSON_GLOBALSCORES_ARRAY_STR 		= "globalScores";
