@@ -1,17 +1,11 @@
 package net.garrapeta.jumplings;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
-import net.garrapeta.gameengine.utils.IOUtils;
+import net.garrapeta.jumplings.comms.BackendConnectionException;
+import net.garrapeta.jumplings.comms.BackendConnector;
+import net.garrapeta.jumplings.comms.BackendConnectorCallback;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpException;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +14,6 @@ import android.app.TabActivity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,7 +35,7 @@ import android.widget.Toast;
 import com.openfeint.api.OpenFeint;
 import com.openfeint.api.ui.Dashboard;
 
-public class HighScoreListingActivity extends TabActivity implements  OnTabChangeListener {
+public class HighScoreListingActivity extends TabActivity implements OnTabChangeListener, BackendConnectorCallback {
 
     // ----------------------------------------------------------------
     // Constantes
@@ -239,8 +232,7 @@ public class HighScoreListingActivity extends TabActivity implements  OnTabChang
 	        String requestBody = jsonObject.toString();
 	        
 	    	Log.i(JumplingsApplication.LOG_SRC, "Submitting local score: " + requestBody);
-	    	
-	    	new ServerRequestAsyncTask().execute(requestBody);
+	    	BackendConnector.postRequestAsync(requestBody, this);
 	    	
 		} catch (JSONException e) {
 			Log.e(JumplingsApplication.LOG_SRC, "Error creating JSONs when submiting scores: " + e.toString(), e);
@@ -287,7 +279,7 @@ public class HighScoreListingActivity extends TabActivity implements  OnTabChang
 	        
 	    	Log.i(JumplingsApplication.LOG_SRC, "Requesting global scores update: " + requestBody);
 	    	
-	    	new ServerRequestAsyncTask().execute(requestBody);
+	    	BackendConnector.postRequestAsync(requestBody, this);
 	    	
 		} catch (JSONException e) {
 			Log.e(JumplingsApplication.LOG_SRC, "Error creating JSONs when updating scores: " + e.toString(), e);
@@ -370,37 +362,18 @@ public class HighScoreListingActivity extends TabActivity implements  OnTabChang
     	 Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
     }
     
-	private void manageServerResponse(HttpResponse response) throws IllegalStateException, IOException, JSONException, HttpException {
+	private void manageServerResponse(JSONObject response) throws IllegalStateException, JSONException {
         // Dismiss progress dialog
         setHttpRequestProgressBarVisible(false);
-  
-		int code = response.getStatusLine().getStatusCode();
-
-        HttpEntity er = response.getEntity();
-        InputStream is;
-        is = er.getContent();
-        String responseString = IOUtils.getStringFromInputStream(is);
-
-        Log.i(JumplingsApplication.LOG_SRC, "Response received = " + code + ". Response: " + responseString);
-
-        if (code == 200) {
-
-            
-            JSONObject responseObj = new JSONObject(responseString);
-
-            String responseAction = responseObj.get(HighScore.JSON_RESPONSE_OBJ_STR).toString();
-            if (HighScore.JSON_REQUEST_OBJ_SUBMIT_VALUE.equals(responseAction)) {
-                onScoresSubmitted(responseObj.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
-                onRankingUpdated(responseObj.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
-            } else if (HighScore.JSON_REQUEST_OBJ_RETRIEVE_VALUE.equals(responseAction)) {
-                onScoresUpdated(responseObj.getJSONArray(HighScore.JSON_GLOBALSCORES_ARRAY_STR));
-                onRankingUpdated(responseObj.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
-            } else {
-                throw new HttpException("Unknown response action: " + responseAction);
-            }
-
+        String responseAction = response.get(HighScore.JSON_RESPONSE_OBJ_STR).toString();
+        if (HighScore.JSON_REQUEST_OBJ_SUBMIT_VALUE.equals(responseAction)) {
+            onScoresSubmitted(response.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
+            onRankingUpdated(response.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
+        } else if (HighScore.JSON_REQUEST_OBJ_RETRIEVE_VALUE.equals(responseAction)) {
+            onScoresUpdated(response.getJSONArray(HighScore.JSON_GLOBALSCORES_ARRAY_STR));
+            onRankingUpdated(response.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
         } else {
-            throw new HttpException("Server reports error: HTTP code = " + code + ". Response: " + responseString);
+            throw new IllegalStateException("Unknown response action: " + responseAction);
         }
 	}
     // -------------------------------------------------OnTabChangeListener methods
@@ -516,43 +489,18 @@ public class HighScoreListingActivity extends TabActivity implements  OnTabChang
 
     }
     
-    /**
-     * Task for contacting the server.
-     * </p>
-     * First parameter is the post string to send.
-     */
-    private class ServerRequestAsyncTask extends AsyncTask<String, Void, HttpResponse> {
-    	private Exception mError;
-    	
-		@Override
-		protected HttpResponse doInBackground(String... args) {
-			try {
-	            HttpPost request = new HttpPost(JumplingsApplication.SCORE_SERVICES_URL);
-	            StringEntity se = new StringEntity(args[0]);
-	            request.setEntity(se);
-	
-	            DefaultHttpClient client = new DefaultHttpClient();
-	            return client.execute(request);
-			} catch (Exception e) {
-				Log.e(JumplingsApplication.LOG_SRC, "Error preparing http request: " + e.toString(), e);
-				mError = e;
-	            return null;
-			}
-		}
+ 	@Override
+	public void onSuccess(JSONObject response) {
+        try {
+            manageServerResponse(response);
+        } catch (Exception e) {
+        	notifyError("Error when communicating to server", e);
+        }
+	}
 
-		@Override
-		protected void onPostExecute(HttpResponse response) {
-			super.onPostExecute(response);
-            try {
-            	if (mError != null) {
-            		throw mError;
-            	}
-	            manageServerResponse(response);
-            } catch (Exception e) {
-            	notifyError("Error when communicating to server", e);
-            }
-		}
-    	
-    }
+	@Override
+	public void onError(BackendConnectionException error) {
+		notifyError("Error processing server response", error);
+	}
 
 }
