@@ -6,11 +6,11 @@
 
     <!-- GAME SURFACE -->
 
-    <net.garrapeta.gameengine.GameView
+    <com.garrapeta.gameengine.GameView
         android:id="@+id/menu_gamesurface"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
-    </net.garrapeta.gameengine.GameView>
+    </com.garrapeta.gameengine.GameView>
     <!-- /GAME SURFACE -->
 
 
@@ -97,14 +97,14 @@
             android:layout_centerHorizontal="true"
             android:orientation="horizontal" >
 
-            <net.garrapeta.jumplings.ui.CustomFontButton
+            <com.garrapeta.jumplings.ui.CustomFontButton
                 android:id="@+id/menu_testBtn"
                 style="@style/ColorfulButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Test" />
 
-            <net.garrapeta.jumplings.ui.CustomFontButton
+            <com.garrapeta.jumplings.ui.CustomFontButton
                 android:id="@+id/menu_exitBtn"
                 style="@style/ColorfulButton"
                 android:layout_width="wrap_content"

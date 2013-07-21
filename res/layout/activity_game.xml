@@ -7,7 +7,7 @@
 
     <!-- game surface -->
 
-    <net.garrapeta.gameengine.GameView
+    <com.garrapeta.gameengine.GameView
         android:id="@+id/game_surface"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

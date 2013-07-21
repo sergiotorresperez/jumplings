@@ -46,7 +46,7 @@
 
     <!-- test button -->
 
-    <net.garrapeta.jumplings.ui.CustomFontButton
+    <com.garrapeta.jumplings.ui.CustomFontButton
         android:id="@+id/game_testBtn"
         style="@style/ColorfulButton"
         android:layout_width="wrap_content"

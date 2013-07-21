@@ -103,7 +103,7 @@
             android:layout_weight="0"
             android:orientation="horizontal" >
 
-            <net.garrapeta.jumplings.ui.CustomFontButton
+            <com.garrapeta.jumplings.ui.CustomFontButton
                 android:id="@+id/highscoresListing_clearLocalScoresBtn"
                 style="@style/ColorfulButton"
                 android:layout_width="wrap_content"
@@ -111,14 +111,14 @@
                 android:text="Clear"
                 android:visibility="gone" />
 
-            <net.garrapeta.jumplings.ui.CustomFontButton
+            <com.garrapeta.jumplings.ui.CustomFontButton
                 android:id="@+id/highscoresListing_submitBtn"
                 style="@style/ColorfulButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Submit" />
 
-            <net.garrapeta.jumplings.ui.CustomFontButton
+            <com.garrapeta.jumplings.ui.CustomFontButton
                 android:id="@+id/highscoresListing_backBtn"
                 style="@style/ColorfulButton"
                 android:layout_width="wrap_content"
