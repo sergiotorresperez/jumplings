@@ -2,27 +2,33 @@ package net.garrapeta.jumplings.comms;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.garrapeta.gameengine.utils.IOUtils;
 import net.garrapeta.jumplings.JumplingsApplication;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * Helper class to deal with the communication with the backend
  */
 public class BackendConnector {
 
+	private final static String PARAM_DATA 		 = "data";
+	
 	// used to parse and format the requests and responses to Json
 	private final static Gson sGson = new Gson();
 	
@@ -33,13 +39,16 @@ public class BackendConnector {
 	 */
 	public static ResponseModel postRequestSync(final RequestModel request) throws BackendConnectionException {
 		try {
-			HttpPost htttPost = new HttpPost(JumplingsApplication.SCORE_SERVICES_URL);
-			String content = sGson.toJson(request);
-			StringEntity se = new StringEntity(content);
-			htttPost.setEntity(se);
-
-			DefaultHttpClient client = new DefaultHttpClient();
-			HttpResponse response = client.execute(htttPost);
+			HttpPost httpPost = new HttpPost(JumplingsApplication.SCORE_SERVICES_URL);
+			String data = sGson.toJson(request);
+			
+			List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+	        nvps.add(new BasicNameValuePair(PARAM_DATA, data));
+	        
+	        httpPost.setEntity(new UrlEncodedFormEntity(nvps, "UTF_8"));
+			
+	        DefaultHttpClient client = new DefaultHttpClient();
+			HttpResponse response = client.execute(httpPost);
 			return manageResponse(response);
 		} catch (Exception e) {
 			throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not send request", e);
