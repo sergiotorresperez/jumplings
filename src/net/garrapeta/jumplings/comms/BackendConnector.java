@@ -2,13 +2,13 @@ package net.garrapeta.jumplings.comms;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.garrapeta.gameengine.utils.IOUtils;
 import net.garrapeta.jumplings.JumplingsApplication;
+import net.garrapeta.jumplings.util.Utils;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -105,7 +105,7 @@ public class BackendConnector {
 	 * @throws NoSuchAlgorithmException 
 	 */
 	private static String computeAuthToken(String data) throws NoSuchAlgorithmException {
-		return md5(getSecretMD5Prefix() + data);
+		return Utils.md5(getSecretMD5Prefix() + data);
 	}
 
 	/**
@@ -116,31 +116,6 @@ public class BackendConnector {
 		return SECRET_MD5_PREFIX;
 	}
 
-	/**
-	 * Computes the MD5 hash of one string
-	 * {@link http://stackoverflow.com/questions/4846484/md5-or-other-hashing-in-android}
-	 * 
-	 * @param string
-	 * @return
-	 * @throws NoSuchAlgorithmException
-	 */
-	private static final String md5(final String string) throws NoSuchAlgorithmException {
-        // Create MD5 Hash
-        MessageDigest digest = java.security.MessageDigest .getInstance("MD5");
-        digest.update(string.getBytes());
-        byte messageDigest[] = digest.digest();
-
-        // Create Hex String
-        StringBuffer hexString = new StringBuffer();
-        for (int i = 0; i < messageDigest.length; i++) {
-            String h = Integer.toHexString(0xFF & messageDigest[i]);
-            while (h.length() < 2)
-                h = "0" + h;
-            hexString.append(h);
-        }
-        return hexString.toString();
-	}
-	
 	/**
 	 * Task for contacting the server.
 	 * </p>

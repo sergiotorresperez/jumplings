@@ -8,13 +8,12 @@ import net.garrapeta.jumplings.comms.BackendConnectorCallback;
 import net.garrapeta.jumplings.comms.RequestFactory;
 import net.garrapeta.jumplings.comms.RequestModel;
 import net.garrapeta.jumplings.comms.ResponseModel;
+import net.garrapeta.jumplings.util.Utils;
 
 import org.json.JSONException;
 
 import android.app.TabActivity;
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -162,7 +161,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         mSubmitScoresBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isNetworkAvailable()) {
+                if (Utils.isNetworkAvailable(HighScoreListingActivity.this)) {
                     submitScores();
                 } else {
                     Toast.makeText(HighScoreListingActivity.this, "You need to be connected to the Internet to upload your scores", Toast.LENGTH_LONG).show();
@@ -190,7 +189,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
             findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(View.VISIBLE);
         }
 
-        if (isNetworkAvailable()) {
+        if (Utils.isNetworkAvailable(this)) {
         	downloadScores();
         }
     }
@@ -266,7 +265,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         // we update the global table, to see our new scores in it
         // TODO: receive the global scores in the response of the upload, so we
         // can skip this call
-        if (isNetworkAvailable()) {
+        if (Utils.isNetworkAvailable(this)) {
         	downloadScores();
         }
     }
@@ -358,11 +357,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         }
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager  = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null;
-    }
+
  
     // FIXME: externalize and localize error message
     private void notifyError(String errorMessage, Exception error) {
