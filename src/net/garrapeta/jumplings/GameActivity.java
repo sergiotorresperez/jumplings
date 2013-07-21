@@ -94,7 +94,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
-        setContentView(R.layout.game);
+        setContentView(R.layout.activity_game);
         
         mPauseBtn = (ImageButton) findViewById(R.id.game_pauseBtn);
         mPauseBtn.setOnClickListener(new OnClickListener() {

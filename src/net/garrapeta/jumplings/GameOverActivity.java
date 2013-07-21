@@ -93,7 +93,7 @@ public class GameOverActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		setContentView(R.layout.gameover);
+		setContentView(R.layout.activity_gameover);
 
 		Button shareButton = (Button) findViewById(R.id.gameover_shareBtn);
 		shareButton.setOnClickListener(new OnClickListener() {

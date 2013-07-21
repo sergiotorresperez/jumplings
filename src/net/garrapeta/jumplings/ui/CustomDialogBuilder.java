@@ -110,7 +110,7 @@ public class CustomDialogBuilder {
     public Dialog create() {
         Dialog dialog  = new Dialog(mActivity, R.style.CustomDialog);
         LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.custom_dialog,  null);
+        View view = inflater.inflate(R.layout.dialog_custom,  null);
         dialog.setContentView(view);
         
         if (mMessageBigResId != Integer.MIN_VALUE) {

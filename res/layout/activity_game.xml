@@ -16,13 +16,13 @@
 
     <include
         android:id="@+id/loading"
-        layout="@layout/game_loading" />
+        layout="@layout/include_game_loading" />
 
     <!-- game gui -->
 
     <include
         android:id="@+id/loading"
-        layout="@layout/game_gui" />
+        layout="@layout/include_game_gui" />
 
     <!-- special weapon bar -->
 
@@ -44,6 +44,6 @@
 
     <include
         android:id="@+id/game_debug_controls"
-        layout="@layout/game_debug" />
+        layout="@layout/activity_game_debug" />
 
 </RelativeLayout>

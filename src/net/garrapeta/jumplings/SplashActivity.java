@@ -27,7 +27,7 @@ public class SplashActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.splash);
+        setContentView(R.layout.activity_splash);
         
         View root = findViewById(R.id.splash_root);
         root.setOnClickListener(new OnClickListener() {

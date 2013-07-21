@@ -47,7 +47,7 @@
 
                         <include
                             android:id="@+id/highscoresListing_localScoresHeader"
-                            layout="@layout/score_header" />
+                            layout="@layout/include_score_header" />
 
                         <!-- lista de scores -->
 
@@ -75,7 +75,7 @@
 
                         <include
                             android:id="@+id/highscoresListing_localScoresHeader"
-                            layout="@layout/score_header" />
+                            layout="@layout/include_score_header" />
 
                         <!-- lista de scores -->
 

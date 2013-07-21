@@ -48,7 +48,7 @@ public class MenuActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Preparación de la UI
-        setContentView(R.layout.menu);
+        setContentView(R.layout.activity_menu);
 
         mTitle = findViewById(R.id.menu_title);
  

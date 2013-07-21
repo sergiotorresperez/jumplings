@@ -75,7 +75,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.highscores_listing);
+        setContentView(R.layout.activity_highscores);
 
         mProgressBar = (ProgressBar) findViewById(R.id.highscoresListing_progress_bar);
         setHttpRequestProgressBarVisible(false);
@@ -86,7 +86,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         // NOTE:
         // http://ondrejcermak.info/programovani/custom-tabs-in-android-tutorial/comment-page-1/
         {
-            View tabIndicator = LayoutInflater.from(this).inflate(R.layout.custom_tab_indicator, getTabWidget(), false);
+            View tabIndicator = LayoutInflater.from(this).inflate(R.layout.tab_indicator, getTabWidget(), false);
             TextView indicatorTextView = (TextView) tabIndicator.findViewById(R.id.custom_tab_indicator_text);
             indicatorTextView.setText("Local scores");
 
@@ -97,7 +97,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         }
 
         {
-            View tabIndicator = LayoutInflater.from(this).inflate(R.layout.custom_tab_indicator, getTabWidget(), false);
+            View tabIndicator = LayoutInflater.from(this).inflate(R.layout.tab_indicator, getTabWidget(), false);
             TextView indicatorTextView = (TextView) tabIndicator.findViewById(R.id.custom_tab_indicator_text);
             indicatorTextView.setText("Global scores");
 
@@ -416,7 +416,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
                 // convertView = inflater.inflate(R.layout.score_item, parent,
                 // false);
                 LayoutInflater inflater = (LayoutInflater) HighScoreListingActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.score_item, parent, false);
+                convertView = inflater.inflate(R.layout.listview_item_score, parent, false);
             }
 
             Score hs = list.get(position);
