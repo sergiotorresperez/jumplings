@@ -40,7 +40,7 @@ import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.FacebookError;
 import com.openfeint.api.OpenFeint;
 import com.openfeint.api.resource.Leaderboard;
-import com.openfeint.api.resource.Score;
+
 
 /**
  * Actividad para introducir un nuevo High Score
@@ -53,7 +53,7 @@ public class GameOverActivity extends Activity {
     // Constantes
 
     /** Clave para pasar highScore entre actividades */
-    public static final String NEW_HIGHSCORE_KEY = HighScore.class.getCanonicalName();
+    public static final String NEW_HIGHSCORE_KEY = Score.class.getCanonicalName();
 
     public static final int SCORE_SUBMISSION_ERROR_DIALOG = 0;
     public static final int SERVER_COMUNICATION_PROGRESS_DIALOG = 1;
@@ -72,7 +72,7 @@ public class GameOverActivity extends Activity {
     // ------------------------------------------------------------------
     // Variables
 
-    private HighScore playerScore;
+    private Score playerScore;
 
     private Button mSaveScoreButton;
 
@@ -112,13 +112,13 @@ public class GameOverActivity extends Activity {
         Bundle b = getIntent().getExtras();
         if (b != null) {
             waveKey = b.getString(GameActivity.WAVE_BUNDLE_KEY);
-            playerScore = (HighScore) b.getParcelable(NEW_HIGHSCORE_KEY);
+            playerScore = (Score) b.getParcelable(NEW_HIGHSCORE_KEY);
         }
 
         // DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG
         // - DEBUG
         if (playerScore == null) {
-            playerScore = new HighScore(this);
+            playerScore = new Score(this);
             playerScore.score = 999999;
             playerScore.level = 99;
         }
@@ -137,12 +137,12 @@ public class GameOverActivity extends Activity {
 
         setContentView(R.layout.gameover);
 
-        newHighScore = playerScore.score > 0 && HighScore.getLocalHighScoresPosition(playerScore.score) < HighScore.MAX_LOCAL_HIGHSCORE_COUNT;
+        newHighScore = playerScore.score > 0 && Score.getLocalHighScoresPosition(playerScore.score) < Score.MAX_LOCAL_HIGHSCORE_COUNT;
 
         TextView scoreTextView = (TextView) findViewById(R.id.gameover_scoreTextView);
         scoreTextView.setText("Your score: " + playerScore.score);
 
-        HighScore highest = PermData.getInstance().getLocalGetHighScore();
+        Score highest = PermData.getInstance().getLocalGetHighScore();
         if (highest != null) {
             TextView messageTextView = (TextView) findViewById(R.id.gameover_messageTextView);
             messageTextView.setVisibility(View.VISIBLE);
@@ -391,7 +391,7 @@ public class GameOverActivity extends Activity {
      * Manda el score a Feint
      */
     private void submitHighScoreToFeint() {
-        Score s = new Score(playerScore.score, null); // Second parameter is
+    	com.openfeint.api.resource.Score s = new com.openfeint.api.resource.Score(playerScore.score, null); // Second parameter is
                                                       // null to indicate that
                                                       // custom display text is
                                                       // not used.
@@ -399,7 +399,7 @@ public class GameOverActivity extends Activity {
 
         showDialog(FEINT_COMUNICATION_PROGRESS_DIALOG);
 
-        s.submitTo(l, new Score.SubmitToCB() {
+        s.submitTo(l, new com.openfeint.api.resource.Score.SubmitToCB() {
             @Override
             public void onSuccess(boolean newHighScore) {
                 // TODO: No daba Feint feedback del success??
