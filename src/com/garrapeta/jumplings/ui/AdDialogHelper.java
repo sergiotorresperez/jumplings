@@ -129,7 +129,7 @@ public class AdDialogHelper implements MobclixAdViewListener {
                 }
             });
             
-            if (JumplingsApplication.MOBCLIX_BUY_DIALOG_BUTTON_ENABLED ) {
+            if (JumplingsApplication.ADS_BUY_DIALOG_BUTTON_ENABLED ) {
                 builder.setLeftButton("Get rid of ads", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

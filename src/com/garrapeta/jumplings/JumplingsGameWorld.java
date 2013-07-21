@@ -603,7 +603,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mGameActivity.activateSpecialWeaponBar(active);
 
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-        if (JumplingsApplication.DEBUG_ENABLED) {
+        if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
             mGameActivity.updateWeaponsRadioGroup(weaponId);
         }
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG

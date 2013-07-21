@@ -139,7 +139,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
             }
         });
 
-        if (JumplingsApplication.DEBUG_ENABLED) {
+        if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
             mClearScoresBtn = (Button) findViewById(R.id.highscoresListing_clearLocalScoresBtn);
             mClearScoresBtn.setOnClickListener(new OnClickListener() {
                 @Override
@@ -167,7 +167,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         updateSubmitScoresBtnVisibility();
 
         // Ads
-        if (JumplingsApplication.MOBCLIX_ENABLED) {
+        if (JumplingsApplication.ADS_ENABLED) {
             findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(View.VISIBLE);
         }
 
@@ -354,12 +354,12 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         updateSubmitScoresBtnVisibility();
         
         if (TAB_LOCALSCORES_ID.equals(tabId)) {
-            if (JumplingsApplication.DEBUG_ENABLED) {
+            if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
                 mClearScoresBtn.setVisibility(View.VISIBLE);
             }
 
         } else if (TAB_GLOBALSCORES_ID.equals(tabId)) {
-            if (JumplingsApplication.DEBUG_ENABLED) {
+            if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
                 mClearScoresBtn.setVisibility(View.GONE);
             }
         }

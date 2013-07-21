@@ -224,7 +224,7 @@ public class GameOverActivity extends Activity {
 		});
 
 		// Ads
-		if (JumplingsApplication.MOBCLIX_ENABLED) {
+		if (JumplingsApplication.ADS_ENABLED) {
 			findViewById(R.id.gameover_advertising_banner_view).setVisibility(
 					View.VISIBLE);
 		}

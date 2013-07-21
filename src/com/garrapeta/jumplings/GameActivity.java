@@ -135,13 +135,13 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
 
         mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface), this);
-        mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
+        mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED);
         
         
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
 
-        if (JumplingsApplication.DEBUG_ENABLED) {
+        if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
             testBtn = (Button) findViewById(R.id.game_testBtn);
             testBtn.setOnClickListener(new OnClickListener() {
                 @Override

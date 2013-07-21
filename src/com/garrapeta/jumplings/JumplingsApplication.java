@@ -22,27 +22,20 @@ public class JumplingsApplication extends Application {
 
     // Enabled features
 
-    public static boolean DRAW_ACTOR_SHAPES = false;
-    public static boolean DRAW_ACTOR_BITMAPS = true;
-    public static final boolean DRAW_SCENARIO = true;
+    public static boolean DRAW_ACTOR_SHAPES;
+    public static boolean DRAW_ACTOR_BITMAPS;
+    public static boolean DRAW_SCENARIO;
 
-    public static boolean DEBUG_ENABLED = true;
-    public static boolean DEBUG_THREAD_BARS_ENABLED = false;
-    public static boolean DEBUG_AUTOPLAY = false;
+    public static boolean DEBUG_FUNCTIONS_ENABLED;
+    public static boolean DEBUG_THREAD_BARS_ENABLED;
+    public static boolean DEBUG_AUTOPLAY;
+    
+    public static boolean ADS_ENABLED;
+    public static boolean ADS_BUY_DIALOG_BUTTON_ENABLED;
 
-    public static boolean MOBCLIX_ENABLED = true;
-    public static boolean MOBCLIX_BUY_DIALOG_BUTTON_ENABLED = false;
+    public static String SCORE_SERVICES_URL;
 
-    // ---------------------------------------------------- Otras Constantes
-
-    // SCORE SERVER
-    // local
-    public static final String SCORE_SERVICES_URL = "http://192.168.0.2/jumplings/index.php";
-    // remote
-    // public static final String SCORE_SERVICES_URL = "http://garrapeta.eu.pn/jumplings/index.php";
-
-
-    private final static String GAME_FONT_PATH = "fonts/AnuDaw.ttf";
+    private static String GAME_FONT_PATH = "fonts/AnuDaw.ttf";
 
     // ---------------------------------------------- Variables est�ticas
 
@@ -50,6 +43,8 @@ public class JumplingsApplication extends Application {
     private static JumplingsApplication instance;
 
     public static Typeface game_font;
+
+
 
     // ---------------------------------------------------- M�todos est�ticos
 
@@ -68,6 +63,19 @@ public class JumplingsApplication extends Application {
         instance = this;
 
         game_font = Typeface.createFromAsset(getAssets(), GAME_FONT_PATH);
+        
+    	DRAW_ACTOR_SHAPES = getInstance().getResources().getBoolean(R.bool.config_draw_actor_shapes);
+    	DRAW_ACTOR_BITMAPS = getInstance().getResources().getBoolean(R.bool.config_draw_actor_bitmaps);
+    	DRAW_SCENARIO = getInstance().getResources().getBoolean(R.bool.config_draw_scenario);
+    	
+    	DEBUG_FUNCTIONS_ENABLED = getInstance().getResources().getBoolean(R.bool.config_debug_functions_enabled);
+    	DEBUG_THREAD_BARS_ENABLED = getInstance().getResources().getBoolean(R.bool.config_debug_thread_bars_enabled);
+    	DEBUG_AUTOPLAY = getInstance().getResources().getBoolean(R.bool.config_debug_autoplay);
+    	
+    	ADS_ENABLED = getInstance().getResources().getBoolean(R.bool.config_ads_enabled);
+    	ADS_BUY_DIALOG_BUTTON_ENABLED = getInstance().getResources().getBoolean(R.bool.config_ads_buy_dialog_button_enabled);
+    	
+    	SCORE_SERVICES_URL = getInstance().getResources().getString(R.string.config_score_server_url);
     }
 
     @Override

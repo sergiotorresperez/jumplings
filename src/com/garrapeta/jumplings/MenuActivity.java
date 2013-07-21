@@ -125,7 +125,7 @@ public class MenuActivity extends Activity {
         Log.i(JumplingsApplication.LOG_SRC, "onStart " + this);
 
         mWorld = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface), this);
-        mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
+        mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED);
 
         // Preparaci�n de la wave
 
@@ -173,8 +173,8 @@ public class MenuActivity extends Activity {
         mPreferencesBtn.setVisibility(View.INVISIBLE);
         mHighScoresBtn.setVisibility(View.INVISIBLE);
         mAboutBtn.setVisibility(View.INVISIBLE);
-        mDebugGroup.setVisibility(JumplingsApplication.DEBUG_ENABLED ? View.INVISIBLE : View.GONE);
-        mMobClixView.setVisibility(JumplingsApplication.MOBCLIX_ENABLED ? View.INVISIBLE : View.GONE);
+        mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.INVISIBLE : View.GONE);
+        mMobClixView.setVisibility(JumplingsApplication.ADS_ENABLED ? View.INVISIBLE : View.GONE);
         mShareButton.setVisibility(View.INVISIBLE);
 
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.menu_screen_scale_in);
@@ -207,8 +207,8 @@ public class MenuActivity extends Activity {
                 mPreferencesBtn.setVisibility(View.VISIBLE);
                 mHighScoresBtn.setVisibility(View.VISIBLE);
                 mAboutBtn.setVisibility(View.VISIBLE);
-                mDebugGroup.setVisibility(JumplingsApplication.DEBUG_ENABLED ? View.VISIBLE : View.GONE);
-                mMobClixView.setVisibility(JumplingsApplication.MOBCLIX_ENABLED ? View.VISIBLE : View.GONE);
+                mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.VISIBLE : View.GONE);
+                mMobClixView.setVisibility(JumplingsApplication.ADS_ENABLED ? View.VISIBLE : View.GONE);
                 mShareButton.setVisibility(View.VISIBLE);
             }
 

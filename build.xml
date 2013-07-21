@@ -84,11 +84,9 @@
 
 	<!-- Builds the debug and release builds -->
 	<target name="jumplings-all" description="Builds the debug and release builds" depends="clean">
-		<antcall target="debug"/>
-		<antcall target="release"/>
+		<antcall target="debug" />
+		<antcall target="release" />
 	</target>
-
-
 
 	<!--
     	****************************************    "PRIVATE" TASKS     ****************************************
@@ -109,10 +107,23 @@
 
 		<!-- CONFIG PROPERTIES -->
 
-		<!-- configure the in-app billing platform depending on the ant property-->
-		<!-- replace file="${resource.absolute.dir}/values/config.xml" token="GooglePlayIABv2" value="${in-app.billing.platform}"/-->
+		<if>
+			<condition>
+				<equals arg1="${build.target}" arg2="release" />
+			</condition>
+			<then>
+				<replace file="res/values/config.xml" token="@bool/default_config_draw_actor_shapes" value="false"/>
+				<replace file="res/values/config.xml" token="@bool/default_config_draw_actor_bitmaps" value="true"/>
+				<replace file="res/values/config.xml" token="@bool/default_config_draw_scenario" value="true"/>
+				<replace file="res/values/config.xml" token="@bool/default_config_debug_functions_enabled" value="false"/>
+				<replace file="res/values/config.xml" token="@bool/default_config_debug_thread_bars_enabled" value="false"/>
+				<replace file="res/values/config.xml" token="@bool/default_config_debug_autoplay" value="false"/>
+				<replace file="res/values/config.xml" token="@bool/default_config_ads_enabled" value="true"/>
+				<replace file="res/values/config.xml" token="@bool/default_config_ads_buy_dialog_button_enabled" value="false"/>
+				<replace file="res/values/config.xml" token="@string/default_config_score_server_url" value="@string/config_score_server_url_production"/>
+			</then>
+		</if>
 	</target>
-
 
 	<!--
     	This target exists in the original android build file. The original one is empty, and it is called just before finishing the 
