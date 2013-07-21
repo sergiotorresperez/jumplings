@@ -108,7 +108,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         mSpecialWeaponBar = (ProgressBar) findViewById(R.id.game_specialWeaponBar);
         mScoreTextView = (TextView) findViewById(R.id.game_scoreTextView);
         mLocalHighScoreTextView = (TextView) findViewById(R.id.game_localHightscoreTextView);
-        HighScore hs = PermData.getInstance().getLocalGetHighScore();
+        Score hs = PermData.getInstance().getLocalGetHighScore();
         if (hs != null) {
             long localHighScore = hs.score;
             if (localHighScore > 0) {
@@ -255,7 +255,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         finish();
         Intent i = new Intent(this, GameOverActivity.class);
 
-        HighScore highScore = new HighScore(this);
+        Score highScore = new Score(this);
         highScore.score = mWorld.getPlayer().getScore();
         highScore.level = mWorld.mWave.getLevel();
 

@@ -11,8 +11,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -22,19 +23,23 @@ import android.util.Log;
  */
 public class BackendConnector {
 
+	// used to parse and format the requests and responses to Json
+	private final static Gson sGson = new Gson();
+	
 	/**
-	 * Sends a request to the backend using POST synchronously
-	 * @param message
+	 * Sends a request to the request using POST synchronously
+	 * @param request
 	 * @throws BackendConnectionException
 	 */
-	public static JSONObject postRequestSync(final String message) throws BackendConnectionException {
+	public static ResponseModel postRequestSync(final RequestModel request) throws BackendConnectionException {
 		try {
-			HttpPost request = new HttpPost(JumplingsApplication.SCORE_SERVICES_URL);
-			StringEntity se = new StringEntity(message);
-			request.setEntity(se);
+			HttpPost htttPost = new HttpPost(JumplingsApplication.SCORE_SERVICES_URL);
+			String content = sGson.toJson(request);
+			StringEntity se = new StringEntity(content);
+			htttPost.setEntity(se);
 
 			DefaultHttpClient client = new DefaultHttpClient();
-			HttpResponse response = client.execute(request);
+			HttpResponse response = client.execute(htttPost);
 			return manageResponse(response);
 		} catch (Exception e) {
 			throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not send request", e);
@@ -43,13 +48,13 @@ public class BackendConnector {
 
 	/**
 	 * Sends a request to the backend using POST asynchronously
-	 * @param message
+	 * @param request
 	 */
-	public static void postRequestAsync(final String message, BackendConnectorCallback callback) {
-		new ServerRequestAsyncTask(callback).execute(message);
+	public static void postRequestAsync(final RequestModel request, BackendConnectorCallback callback) {
+		new ServerRequestAsyncTask(callback).execute(request);
 	}
 
-	private static JSONObject manageResponse(HttpResponse response) throws BackendConnectionException{
+	private static ResponseModel manageResponse(HttpResponse response) throws BackendConnectionException{
 		try {
 			int code = response.getStatusLine().getStatusCode();
 
@@ -62,9 +67,8 @@ public class BackendConnector {
 
 			if (code == 200) {
 				try {
-					JSONObject responseObj = new JSONObject(responseString);
-					return responseObj;
-				} catch (JSONException je) {
+					return sGson.fromJson(responseString, ResponseModel.class);
+				} catch (JsonSyntaxException je) {
 					throw new BackendConnectionException(BackendConnectionException.ErrorType.PARSING_ERROR, "Could not parse response", je);
 				}
 			} else {
@@ -80,7 +84,7 @@ public class BackendConnector {
 	 * </p>
 	 * First parameter is the post string to send.
 	 */
-	private static class ServerRequestAsyncTask extends AsyncTask<String, Void, JSONObject> {
+	private static class ServerRequestAsyncTask extends AsyncTask<RequestModel, Void, ResponseModel> {
 		
 		private final BackendConnectorCallback mCallback;
 		private BackendConnectionException mError;
@@ -94,7 +98,7 @@ public class BackendConnector {
 		}
 
 		@Override
-		protected JSONObject doInBackground(String... args) {
+		protected ResponseModel doInBackground(RequestModel... args) {
 			try {
 				return BackendConnector.postRequestSync(args[0]);
 			} catch (BackendConnectionException e) {
@@ -105,7 +109,7 @@ public class BackendConnector {
 		}
 
 		@Override
-		protected void onPostExecute(JSONObject response) {
+		protected void onPostExecute(ResponseModel response) {
 			super.onPostExecute(response);
 
 			if (mCallback != null) {

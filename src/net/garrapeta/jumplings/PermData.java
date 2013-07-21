@@ -56,8 +56,8 @@ public class PermData {
     /**
      * @return
      */
-    public HighScore getLocalGetHighScore() {
-        ArrayList<HighScore> localScoreList = getLocalScoresList();
+    public Score getLocalGetHighScore() {
+        ArrayList<Score> localScoreList = getLocalScoresList();
         if (localScoreList.size() > 0) {
             return localScoreList.get(0);
         } else {
@@ -70,12 +70,12 @@ public class PermData {
      * 
      * @return
      */
-    public void addNewLocalScore(HighScore highScore) {
-        ArrayList<HighScore> list = getLocalScoresList();
+    public void addNewLocalScore(Score highScore) {
+        ArrayList<Score> list = getLocalScoresList();
 
-        int index = HighScore.getLocalHighScoresPosition(highScore.score);
+        int index = Score.getLocalHighScoresPosition(highScore.score);
 
-        if (index < HighScore.MAX_LOCAL_HIGHSCORE_COUNT) {
+        if (index < Score.MAX_LOCAL_HIGHSCORE_COUNT) {
             list.add(index, highScore);
         }
 
@@ -85,15 +85,15 @@ public class PermData {
     /**
      * @return lista con scores m�s altos
      */
-    public ArrayList<HighScore> getLocalScoresList() {
-        ArrayList<HighScore> localScoreList = new ArrayList<HighScore>();
+    public ArrayList<Score> getLocalScoresList() {
+        ArrayList<Score> localScoreList = new ArrayList<Score>();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
 
-        for (int i = 0; i < HighScore.MAX_LOCAL_HIGHSCORE_COUNT; i++) {
+        for (int i = 0; i < Score.MAX_LOCAL_HIGHSCORE_COUNT; i++) {
             String str = sharedPref.getString(LOCAL_HIGHSCORE_KEY_PREFIX + i, null);
             if (str != null) {
-                localScoreList.add(new HighScore(str));
+                localScoreList.add(Score.parseFromJson(str));
             } else {
                 break;
             }
@@ -107,14 +107,14 @@ public class PermData {
      * 
      * @return
      */
-    public void saveLocalScoresList(List<HighScore> localScoreList) {
+    public void saveLocalScoresList(List<Score> localScoreList) {
         // Salvado
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
 
         Editor editor = sharedPref.edit();
 
-        for (int i = 0; i < HighScore.MAX_LOCAL_HIGHSCORE_COUNT && i < localScoreList.size(); i++) {
-            editor.putString(LOCAL_HIGHSCORE_KEY_PREFIX + i, localScoreList.get(i).formatString());
+        for (int i = 0; i < Score.MAX_LOCAL_HIGHSCORE_COUNT && i < localScoreList.size(); i++) {
+            editor.putString(LOCAL_HIGHSCORE_KEY_PREFIX + i, Score.formatToJson(localScoreList.get(i)));
         }
 
         editor.commit();
@@ -136,16 +136,16 @@ public class PermData {
     /**
      * @return lista con scores m�s altos
      */
-    public ArrayList<HighScore> getGlobalScoresList() {
+    public ArrayList<Score> getGlobalScoresList() {
 
-        ArrayList<HighScore> globalScoreList = new ArrayList<HighScore>();
+        ArrayList<Score> globalScoreList = new ArrayList<Score>();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
 
-        for (int i = 0; i < HighScore.MAX_GLOBAL_HIGHSCORE_COUNT; i++) {
+        for (int i = 0; i < Score.MAX_GLOBAL_HIGHSCORE_COUNT; i++) {
             String str = sharedPref.getString(GLOBAL_HIGHSCORE_KEY_PREFIX + i, null);
             if (str != null) {
-                globalScoreList.add(new HighScore(str));
+                globalScoreList.add(Score.parseFromJson(str));
             } else {
                 break;
             }
@@ -159,14 +159,14 @@ public class PermData {
      * 
      * @return
      */
-    public void saveGlobalScoresList(List<HighScore> globalScoreList) {
+    public void saveGlobalScoresList(List<Score> globalScoreList) {
         // Salvado
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
 
         Editor editor = sharedPref.edit();
 
-        for (int i = 0; i < HighScore.MAX_GLOBAL_HIGHSCORE_COUNT && i < globalScoreList.size(); i++) {
-            editor.putString(GLOBAL_HIGHSCORE_KEY_PREFIX + i, globalScoreList.get(i).formatString());
+        for (int i = 0; i < Score.MAX_GLOBAL_HIGHSCORE_COUNT && i < globalScoreList.size(); i++) {
+            editor.putString(GLOBAL_HIGHSCORE_KEY_PREFIX + i, Score.formatToJson(globalScoreList.get(i)));
         }
 
         editor.commit();

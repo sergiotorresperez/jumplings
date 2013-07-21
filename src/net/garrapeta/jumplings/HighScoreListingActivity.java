@@ -5,10 +5,11 @@ import java.util.List;
 import net.garrapeta.jumplings.comms.BackendConnectionException;
 import net.garrapeta.jumplings.comms.BackendConnector;
 import net.garrapeta.jumplings.comms.BackendConnectorCallback;
+import net.garrapeta.jumplings.comms.RequestFactory;
+import net.garrapeta.jumplings.comms.RequestModel;
+import net.garrapeta.jumplings.comms.ResponseModel;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.TabActivity;
 import android.content.Context;
@@ -35,7 +36,7 @@ import android.widget.Toast;
 import com.openfeint.api.OpenFeint;
 import com.openfeint.api.ui.Dashboard;
 
-public class HighScoreListingActivity extends TabActivity implements OnTabChangeListener, BackendConnectorCallback {
+public class HighScoreListingActivity extends TabActivity implements OnTabChangeListener {
 
     // ----------------------------------------------------------------
     // Constantes
@@ -46,8 +47,8 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     // -----------------------------------------------------------------
     // Variables
 
-    private List<HighScore> mLocalScoreList;
-    private List<HighScore> mGlobalScoreList;
+    private List<Score> mLocalScoreList;
+    private List<Score> mGlobalScoreList;
 
     private ListView mLocalHighScoresView;
     private ListView mGlobalHighScoresView;
@@ -222,30 +223,38 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
      * Sube los scores locales al servidor
      */
     private void submitScores() {
-		try {
-	    	// Show progress bar
-	    	setHttpRequestProgressBarVisible(true);
+		Log.i(JumplingsApplication.LOG_SRC, "Submitting local scores");
+		
+		// Show progress bar
+    	setHttpRequestProgressBarVisible(true);
+    	
+    	// Send
+    	RequestModel request = RequestFactory.createSubmitScoresRequestModel(mLocalScoreList);
+    	BackendConnector.postRequestAsync(request, new BackendConnectorCallback() {
+    	 	@Override
+    		public void onBackendRequestSuccess(ResponseModel response) {
+    	        try {
+    	            // Dismiss progress dialog
+    	            setHttpRequestProgressBarVisible(false);
 
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put(HighScore.JSON_ACTION_STR, HighScore.JSON_ACTION_SUBMIT_SCORES_STR);
-	        jsonObject.put(HighScore.JSON_LOCALSCORES_ARRAY_STR, HighScore.formatJSON(mLocalScoreList));
-	        String requestBody = jsonObject.toString();
-	        
-	    	Log.i(JumplingsApplication.LOG_SRC, "Submitting local score: " + requestBody);
-	    	BackendConnector.postRequestAsync(requestBody, this);
-	    	
-		} catch (JSONException e) {
-			Log.e(JumplingsApplication.LOG_SRC, "Error creating JSONs when submiting scores: " + e.toString(), e);
-			notifyError("Error submitting score to server", e);
-		}
+    	            onScoresSubmitted();
+    	            onRankingUpdated(response.localScores);
+    	        } catch (Exception e) {
+    	        	notifyError("Error when communicating to server", e);
+    	        }
+    		}
+
+    		@Override
+    		public void onBackendRequestError(BackendConnectionException error) {
+    			notifyError("Error processing server response", error);
+    		}});
     }
 
     /**
      * Ejecutado cuando los scores se han mandado correctamente al servidor
      * 
-     * @param scores
      */
-    private void onScoresSubmitted(JSONArray scores) {
+    private void onScoresSubmitted() {
         // Los scores se han mandado al servidor
 
         Toast toast = Toast.makeText(HighScoreListingActivity.this, "Scores submitted", Toast.LENGTH_LONG);
@@ -266,36 +275,41 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
      * Actualiza los scores del servidor
      */
     private void downloadScores() {
-		try {
-	    	// Show progress bar
-	    	setHttpRequestProgressBarVisible(true);
-	    	
-            JSONObject jsonObject = new JSONObject();
-            // action
-            jsonObject.put(HighScore.JSON_ACTION_STR, HighScore.JSON_ACTION_DOWNLOAD_SCORES_STR);
-            // local scores
-            jsonObject.put(HighScore.JSON_LOCALSCORES_ARRAY_STR, HighScore.formatJSON(mLocalScoreList));
-            String requestBody = jsonObject.toString();
-	        
-	    	Log.i(JumplingsApplication.LOG_SRC, "Requesting global scores update: " + requestBody);
-	    	
-	    	BackendConnector.postRequestAsync(requestBody, this);
-	    	
-		} catch (JSONException e) {
-			Log.e(JumplingsApplication.LOG_SRC, "Error creating JSONs when updating scores: " + e.toString(), e);
-			notifyError("Error updating scores from server", e);
-		}
+		Log.i(JumplingsApplication.LOG_SRC, "Requesting global scores update. ");
+		
+		// Show progress bar
+    	setHttpRequestProgressBarVisible(true);
+    	
+    	// Send
+    	RequestModel request = RequestFactory.createDownloadScoresRequestModel(mLocalScoreList);
+    	BackendConnector.postRequestAsync(request, new BackendConnectorCallback() {
+    	 	@Override
+    		public void onBackendRequestSuccess(ResponseModel response) {
+    	        try {
+    	            // Dismiss progress dialog
+    	            setHttpRequestProgressBarVisible(false);
+ 	                onScoresUpdated(response.globalScores);
+ 	                onRankingUpdated(response.localScores);
+    	        } catch (Exception e) {
+    	        	notifyError("Error when communicating to server", e);
+    	        }
+    		}
+
+    		@Override
+    		public void onBackendRequestError(BackendConnectionException error) {
+    			notifyError("Error processing server response", error);
+    		}});
     }
 
     /**
      * Ejecutado cuando los scores se han actualizado correctamente del servidor
      * 
-     * @param scores
+     * @param globalScores
      * @throws JSONException
      */
-    private void onScoresUpdated(JSONArray scores) throws JSONException {
-        // componemos la lista de scores goblales
-        mGlobalScoreList = HighScore.parseJSON(scores);
+    private void onScoresUpdated(List<Score> globalScores) throws JSONException {
+        // copiamos la lista de scores goblales
+        mGlobalScoreList = globalScores;
         // la salvamos
         PermData.getInstance().saveGlobalScoresList(mGlobalScoreList);
         // rellenamos la tabla de scores globales
@@ -303,25 +317,19 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     }
 
     /**
-     * Ejecutado cuando recibimos una actualizaci�n del ranking de los scores
+     * Ejecutado cuando recibimos una actualizacion del ranking de los scores
      * locales
      * 
-     * @param scores
+     * @param localScores
      * @throws JSONException
      */
-    private void onRankingUpdated(JSONArray scores) throws JSONException {
-        // componemos la lista de scores que nos ha dado el server
-        List<HighScore> tmpScoreList = HighScore.parseJSON(scores);
-
+    private void onRankingUpdated(List<Score> localScores) throws JSONException {
         // para cada elemento recibido del server..
-        for (int i = 0; i < tmpScoreList.size(); i++) {
-            HighScore aux = tmpScoreList.get(i);
-
+        for (Score aux : localScores) {
+        	
             // buscamos el score en la lista local
-            for (int j = 0; j < mLocalScoreList.size(); j++) {
-                HighScore local = mLocalScoreList.get(i);
-
-                if (local.localId.equals(aux.localId)) {
+            for (Score local : mLocalScoreList) {
+                if (local.clientId.equals(aux.clientId)) {
                     local.globalRank = aux.globalRank;
                     break;
                 }
@@ -362,20 +370,6 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     	 Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
     }
     
-	private void manageServerResponse(JSONObject response) throws IllegalStateException, JSONException {
-        // Dismiss progress dialog
-        setHttpRequestProgressBarVisible(false);
-        String responseAction = response.get(HighScore.JSON_RESPONSE_OBJ_STR).toString();
-        if (HighScore.JSON_ACTION_SUBMIT_SCORES_STR.equals(responseAction)) {
-            onScoresSubmitted(response.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
-            onRankingUpdated(response.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
-        } else if (HighScore.JSON_ACTION_DOWNLOAD_SCORES_STR.equals(responseAction)) {
-            onScoresUpdated(response.getJSONArray(HighScore.JSON_GLOBALSCORES_ARRAY_STR));
-            onRankingUpdated(response.getJSONArray(HighScore.JSON_LOCALSCORES_ARRAY_STR));
-        } else {
-            throw new IllegalStateException("Unknown response action: " + responseAction);
-        }
-	}
     // -------------------------------------------------OnTabChangeListener methods
 
     @Override
@@ -408,7 +402,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         // --------------------------------------- Variables de instancia
 
         // lista que alimenta la tabla
-        private List<HighScore> list;
+        private List<Score> list;
         // si es para la lista local o global
         private boolean local;
 
@@ -417,7 +411,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         /**
          * @param list
          */
-        public CustomAdapter(List<HighScore> list, boolean local) {
+        public CustomAdapter(List<Score> list, boolean local) {
             this.list = list;
             this.local = local;
         }
@@ -448,7 +442,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
                 convertView = inflater.inflate(R.layout.score_item, parent, false);
             }
 
-            HighScore hs = list.get(position);
+            Score hs = list.get(position);
 
             {
                 // index
@@ -488,19 +482,5 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         }
 
     }
-    
- 	@Override
-	public void onBackendRequestSuccess(JSONObject response) {
-        try {
-            manageServerResponse(response);
-        } catch (Exception e) {
-        	notifyError("Error when communicating to server", e);
-        }
-	}
-
-	@Override
-	public void onBackendRequestError(BackendConnectionException error) {
-		notifyError("Error processing server response", error);
-	}
 
 }

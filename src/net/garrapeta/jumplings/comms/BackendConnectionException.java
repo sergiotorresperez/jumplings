@@ -1,7 +1,5 @@
 package net.garrapeta.jumplings.comms;
 
-
-
 /**
  * Exceptions that may happen when communicating with the backend
  */
