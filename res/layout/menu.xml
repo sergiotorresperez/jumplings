@@ -78,13 +78,13 @@
         </ImageButton>
 
         <ImageButton
-            android:id="@+id/menu_feintLeaderBoardBtn"
+            android:id="@+id/menu_shareBtn"
             style="@style/ColorfulButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/icon_feint" >
+            android:src="@drawable/icon_share" >
         </ImageButton>
 
         <!-- DEBUG -->

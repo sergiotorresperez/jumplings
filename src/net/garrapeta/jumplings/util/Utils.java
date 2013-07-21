@@ -22,6 +22,20 @@ public class Utils {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
+	
+	/**
+	 * Launches an Intent to share the message
+	 * 
+	 * @param context
+	 * @param message
+	 */
+	public static void share(Context context, String message) {
+		Intent sendIntent = new Intent();
+		sendIntent.setAction(Intent.ACTION_SEND);
+		sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+		sendIntent.setType("text/plain");
+		context.startActivity(sendIntent);
+	}
 
 	/**
 	 * Computes the MD5 hash of one string

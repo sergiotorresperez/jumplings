@@ -5,7 +5,6 @@
     android:background="@android:color/white" >
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
@@ -13,7 +12,6 @@
         <!-- Tabs -->
 
         <TabHost
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@android:id/tabhost"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -40,7 +38,6 @@
                     <!-- TAB 1 CONTENT -->
 
                     <LinearLayout
-                        xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/highscoresListing_localScoresTabContent"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
@@ -55,7 +52,6 @@
                         <!-- lista de scores -->
 
                         <ListView
-                            xmlns:android="http://schemas.android.com/apk/res/android"
                             android:id="@+id/highscoresListing_localHighScoresListView"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
@@ -70,7 +66,6 @@
                     <!-- TAB 2 CONTENT -->
 
                     <LinearLayout
-                        xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/highscoresListing_globalScoresTabContent"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
@@ -85,7 +80,6 @@
                         <!-- lista de scores -->
 
                         <ListView
-                            xmlns:android="http://schemas.android.com/apk/res/android"
                             android:id="@+id/highscoresListing_globalHighScoresListView"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
@@ -102,7 +96,6 @@
         <!-- Botones -->
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/highscoresListing_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -124,15 +117,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Submit" />
-
-            <net.garrapeta.jumplings.ui.CustomFontButton
-                android:id="@+id/highscoresListing_feintLeaderBoardBtn"
-                style="@style/ColorfulButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/icon_feint"
-                android:text="Feint leaderboard"
-                android:visibility="gone" />
 
             <net.garrapeta.jumplings.ui.CustomFontButton
                 android:id="@+id/highscoresListing_backBtn"

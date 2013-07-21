@@ -1,15 +1,9 @@
 package net.garrapeta.jumplings;
 
-import oauth.signpost.OAuthProvider;
-import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
-import twitter4j.Twitter;
-import twitter4j.TwitterFactory;
 import android.app.Application;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.util.Log;
-
-import com.openfeint.api.OpenFeintSettings;
 
 /**
  * Encapsula algunas variables y estado global de la aplicaci�n,
@@ -39,10 +33,6 @@ public class JumplingsApplication extends Application {
     public static boolean MOBCLIX_ENABLED = true;
     public static boolean MOBCLIX_BUY_DIALOG_BUTTON_ENABLED = false;
 
-    public static boolean FACEBOOK_ENABLED = true;
-    public static boolean FEINT_ENABLED = false;
-    public static boolean TWITTER_ENABLED = true;
-
     // ---------------------------------------------------- Otras Constantes
 
     // SCORE SERVER
@@ -51,62 +41,15 @@ public class JumplingsApplication extends Application {
     // remote
     // public static final String SCORE_SERVICES_URL = "http://garrapeta.eu.pn/jumplings/index.php";
 
-    // OPEN FEINT
-    static final String feintGameName = "testgame2";
-    static final String feintGameID = "350982";
-    static final String feintGameKey = "WyHj1euWAXXfx6kzxxkVAQ";
-    static final String feintGameSecret = "8rleAsGDSebvTy0DR6dK91lXoEK8DQsAOCbOn2j28A";
-
-    // FACEBOOK
-    static final String facebokAppID = (DEBUG_ENABLED) ? "546077452076534" : "268934839876721";
-    static final String facebokSecret = (DEBUG_ENABLED) ? "42ea86e1755d56c15a8aa2bf9578bb0f" : "a8b48ec6599fd9e9b27fed0160ff69a6";
-
-    // TWITTER
-
-    /*
-     * Consumer key RPoGnrTCOHRALLqHILhTBA Consumer secret
-     * E9ZZN3a4jhlf2Jf7fJZQwcEnh7gTMEk8MVM8m79ZU Request token URL
-     * https://api.twitter.com/oauth/request_token Authorize URL
-     * https://api.twitter.com/oauth/authorize Access token URL
-     * https://api.twitter.com/oauth/access_token Callback URL
-     * http://garrapeta.net
-     */
-
-    final static String twitterConsumerKey = "RPoGnrTCOHRALLqHILhTBA";
-    final static String twitterConsumerSecret = "E9ZZN3a4jhlf2Jf7fJZQwcEnh7gTMEk8MVM8m79ZU";
-    final static String twitterScreenName = "";
-    final static String twitterPassword = "";
-    final static String twitterCallbackUrl = "twitter4j://authenticated";
 
     private final static String GAME_FONT_PATH = "fonts/AnuDaw.ttf";
 
     // ---------------------------------------------- Variables est�ticas
 
-
-    // TWITTER
-    public static CommonsHttpOAuthConsumer twitterHttpOauthConsumer;
-    public static OAuthProvider twitterHttpOauthprovider;
-    public static Twitter twitter;
-
-    // OPEN FEINT
-    public static OpenFeintSettings feintSettings;
-
     // Instancia singleton
     private static JumplingsApplication instance;
 
     public static Typeface game_font;
-
-    // ---------------------------------------------- Inicializaci�n est�tica
-
-    static {
-        if (FEINT_ENABLED) {
-            feintSettings = new OpenFeintSettings(feintGameName, feintGameKey, feintGameSecret, feintGameID);
-        }
-        if (TWITTER_ENABLED) {
-            twitter = new TwitterFactory().getInstance();
-        }
-
-    }
 
     // ---------------------------------------------------- M�todos est�ticos
 

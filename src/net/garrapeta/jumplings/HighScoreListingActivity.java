@@ -32,9 +32,6 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.openfeint.api.OpenFeint;
-import com.openfeint.api.ui.Dashboard;
-
 public class HighScoreListingActivity extends TabActivity implements OnTabChangeListener {
 
     // ----------------------------------------------------------------
@@ -52,7 +49,6 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     private ListView mLocalHighScoresView;
     private ListView mGlobalHighScoresView;
 
-    private Button mFeintLeaderBoardBtn;
     private Button mSubmitScoresBtn;
     private Button mClearScoresBtn;
     private TabHost mTabHost;
@@ -169,20 +165,6 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
             }
         });
         updateSubmitScoresBtnVisibility();
-
-        if (JumplingsApplication.FEINT_ENABLED) {
-            mFeintLeaderBoardBtn = (Button) findViewById(R.id.highscoresListing_feintLeaderBoardBtn);
-            mFeintLeaderBoardBtn.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Dashboard.openLeaderboard(GameOverActivity.feintLeaderboardId);
-                }
-            });
-
-            if (OpenFeint.isUserLoggedIn()) {
-                mFeintLeaderBoardBtn.setVisibility(View.VISIBLE);
-            }
-        }
 
         // Ads
         if (JumplingsApplication.MOBCLIX_ENABLED) {

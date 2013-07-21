@@ -1,11 +1,11 @@
 package net.garrapeta.jumplings;
 
 import net.garrapeta.gameengine.GameView;
+import net.garrapeta.jumplings.util.Utils;
 import net.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import net.garrapeta.jumplings.wave.MenuWave;
 import net.garrapeta.jumplings.wave.TestWave;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,12 +20,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.openfeint.api.OpenFeint;
-import com.openfeint.api.OpenFeintDelegate;
-import com.openfeint.api.resource.CurrentUser;
-import com.openfeint.api.resource.User;
-import com.openfeint.api.ui.Dashboard;
-
 /**
  * Activity implementing the menu screen
  */
@@ -37,7 +31,7 @@ public class MenuActivity extends Activity {
     private ImageButton mPreferencesBtn;
     private ImageButton mHighScoresBtn;
     private ImageButton mAboutBtn;
-    private ImageButton mFeintLeaderBoardBtn;
+    private ImageButton mShareButton;
     
     private View mMobClixView;
     private View mDebugGroup;
@@ -55,38 +49,6 @@ public class MenuActivity extends Activity {
 
         // Preparación de la UI
         setContentView(R.layout.menu);
-
-        // OPEN FEINT
-        if (JumplingsApplication.FEINT_ENABLED) {
-            OpenFeint.initialize(this, JumplingsApplication.feintSettings, new OpenFeintDelegate() {
-                @Override
-                public void userLoggedIn(CurrentUser user) {
-                    super.userLoggedIn(user);
-                    enableFeintLeaderboardButton();
-                }
-
-                @Override
-                public void userLoggedOut(User user) {
-                    super.userLoggedOut(user);
-                    disableFeintLeaderboardButton();
-                }
-
-                @Override
-                public void onDashboardAppear() {
-                    super.onDashboardAppear();
-                }
-
-                @Override
-                public void onDashboardDisappear() {
-                    super.onDashboardDisappear();
-                }
-
-                @Override
-                public boolean showCustomApprovalFlow(Context ctx) {
-                    return super.showCustomApprovalFlow(ctx);
-                }
-            });
-        }
 
         mTitle = findViewById(R.id.menu_title);
  
@@ -125,11 +87,12 @@ public class MenuActivity extends Activity {
         });
 
 
-        mFeintLeaderBoardBtn = (ImageButton) findViewById(R.id.menu_feintLeaderBoardBtn);
-        mFeintLeaderBoardBtn.setOnClickListener(new OnClickListener() {
+        mShareButton = (ImageButton) findViewById(R.id.menu_shareBtn);
+        mShareButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                showFeintLeaderboard();
+            	// TODO: externalize share string
+                Utils.share(MenuActivity.this, "I'm playing Jumplings!");
             }
         });
 
@@ -160,11 +123,6 @@ public class MenuActivity extends Activity {
     protected void onStart() {
         super.onStart();
         Log.i(JumplingsApplication.LOG_SRC, "onStart " + this);
-
-        // Si ahora est� logeado se activa el bot�n de Feint
-        if (JumplingsApplication.FEINT_ENABLED && OpenFeint.isUserLoggedIn()) {
-            enableFeintLeaderboardButton();
-        }
 
         mWorld = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface), this);
         mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_ENABLED);
@@ -215,10 +173,9 @@ public class MenuActivity extends Activity {
         mPreferencesBtn.setVisibility(View.INVISIBLE);
         mHighScoresBtn.setVisibility(View.INVISIBLE);
         mAboutBtn.setVisibility(View.INVISIBLE);
-        mFeintLeaderBoardBtn.setVisibility(JumplingsApplication.FEINT_ENABLED ? View.INVISIBLE : View.GONE);
         mDebugGroup.setVisibility(JumplingsApplication.DEBUG_ENABLED ? View.INVISIBLE : View.GONE);
         mMobClixView.setVisibility(JumplingsApplication.MOBCLIX_ENABLED ? View.INVISIBLE : View.GONE);
-        
+        mShareButton.setVisibility(View.INVISIBLE);
 
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.menu_screen_scale_in);
         fadeInAnimation.setAnimationListener(new AnimationListener() {
@@ -250,9 +207,9 @@ public class MenuActivity extends Activity {
                 mPreferencesBtn.setVisibility(View.VISIBLE);
                 mHighScoresBtn.setVisibility(View.VISIBLE);
                 mAboutBtn.setVisibility(View.VISIBLE);
-                mFeintLeaderBoardBtn.setVisibility(JumplingsApplication.FEINT_ENABLED ? View.VISIBLE : View.GONE);
                 mDebugGroup.setVisibility(JumplingsApplication.DEBUG_ENABLED ? View.VISIBLE : View.GONE);
                 mMobClixView.setVisibility(JumplingsApplication.MOBCLIX_ENABLED ? View.VISIBLE : View.GONE);
+                mShareButton.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -268,9 +225,9 @@ public class MenuActivity extends Activity {
         mPreferencesBtn.startAnimation(fadeInAnimation);
         mHighScoresBtn.startAnimation(fadeInAnimation);
         mAboutBtn.startAnimation(fadeInAnimation);
-        mFeintLeaderBoardBtn.startAnimation(fadeInAnimation);
         mDebugGroup.startAnimation(fadeInAnimation);
         mMobClixView.startAnimation(fadeInAnimation);
+        mShareButton.startAnimation(fadeInAnimation);
     }
 
     private void startNewGame() {
@@ -299,18 +256,6 @@ public class MenuActivity extends Activity {
 
     private void showAbout() {
         Toast.makeText(this, "TODO: about/info Activity", Toast.LENGTH_LONG).show();
-    }
-
-    private void enableFeintLeaderboardButton() {
-        mFeintLeaderBoardBtn.setVisibility(View.VISIBLE);
-    }
-
-    private void disableFeintLeaderboardButton() {
-        mFeintLeaderBoardBtn.setVisibility(View.GONE);
-    }
-
-    private void showFeintLeaderboard() {
-        Dashboard.openLeaderboard(GameOverActivity.feintLeaderboardId);
     }
 
 }
