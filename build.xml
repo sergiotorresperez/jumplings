@@ -145,7 +145,7 @@
 		<property name="filenames.prefix" value="${release.dir}/${ant.project.name}_${manifest.android:versionName}_${build.target}" />
 
 		<!-- copies the apk -->
-		<copy file="${out.final.file}" tofile="${filenames.prefix}.apk" failonerror="true" overwrite="false" />
+		<copy file="${out.final.file}" tofile="${filenames.prefix}.apk" failonerror="true" overwrite="true" />
 		<!-- copies the proguard mapping file, if obfuscating -->
 		<if condition="${proguard.enabled}">
 			<then>
