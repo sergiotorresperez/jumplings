@@ -2,6 +2,7 @@ package com.garrapeta.jumplings;
 
 import com.garrapeta.gameengine.GameView;
 import com.garrapeta.jumplings.Tutorial.TipDialogFragment.TipDialogListener;
+import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.AdDialogHelper;
 import com.garrapeta.jumplings.ui.AdDialogHelper.AdDialogListener;
 import com.garrapeta.jumplings.ui.GameOverDialogFactory;
@@ -196,13 +197,14 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         super.onStart();
         Log.i(JumplingsApplication.LOG_SRC, "onStart " + this);
         // FIXME: no se realiza repintado
+        FlurryHelper.onStartSession(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
-
+        FlurryHelper.onEndSession(this);
     }
 
     @Override

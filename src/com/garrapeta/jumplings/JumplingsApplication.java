@@ -1,5 +1,7 @@
 package com.garrapeta.jumplings;
 
+import com.garrapeta.jumplings.flurry.FlurryHelper;
+
 import android.app.Application;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
@@ -34,6 +36,7 @@ public class JumplingsApplication extends Application {
     public static boolean ADS_BUY_DIALOG_BUTTON_ENABLED;
 
     public static String SCORE_SERVICES_URL;
+    
 
     private static String GAME_FONT_PATH = "fonts/AnuDaw.ttf";
 
@@ -62,6 +65,11 @@ public class JumplingsApplication extends Application {
         // Preparaci�n de la instancia del singleton
         instance = this;
 
+    	// Flurry initialization
+    	final boolean flurryEnabled = getInstance().getResources().getBoolean(R.bool.config_flurry_enabled);
+    	final String flurryApiKey = getInstance().getResources().getString(R.string.config_flurry_api_key);
+    	FlurryHelper.initialize(flurryEnabled, flurryApiKey, false);
+    	
         game_font = Typeface.createFromAsset(getAssets(), GAME_FONT_PATH);
         
     	DRAW_ACTOR_SHAPES = getInstance().getResources().getBoolean(R.bool.config_draw_actor_shapes);

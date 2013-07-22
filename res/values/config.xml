@@ -36,6 +36,13 @@
     <!-- Ads dialog has a buy button -->
     <bool name="config_ads_buy_dialog_button_enabled">@bool/default_config_ads_buy_dialog_button_enabled</bool>
     <bool name="default_config_ads_buy_dialog_button_enabled">false</bool>
+
+    <!-- If Flurry is enabled -->
+    <bool name="config_flurry_enabled">@bool/default_config_flurry_enabled</bool>
+    <bool name="default_config_flurry_enabled">false</bool>
+    
+    <!-- Flurry API Key -->
+    <string name="config_flurry_api_key">TFRC6DJ8GSJD6D8X7S2K</string>
     
     <!-- URL of the score backend -->
     <string name="config_score_server_url">@string/default_config_score_server_url</string>

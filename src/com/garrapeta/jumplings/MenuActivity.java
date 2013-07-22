@@ -1,6 +1,7 @@
 package com.garrapeta.jumplings;
 
 import com.garrapeta.gameengine.GameView;
+import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.util.Utils;
 import com.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import com.garrapeta.jumplings.wave.MenuWave;
@@ -123,6 +124,8 @@ public class MenuActivity extends Activity {
     protected void onStart() {
         super.onStart();
         Log.i(JumplingsApplication.LOG_SRC, "onStart " + this);
+        
+        FlurryHelper.onStartSession(this);
 
         mWorld = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface), this);
         mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED);
@@ -130,12 +133,6 @@ public class MenuActivity extends Activity {
         // Preparaci�n de la wave
 
         mWorld.mWave = new MenuWave(mWorld, null);
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i(JumplingsApplication.LOG_SRC, "onRestart " + this);
     }
 
     @Override
@@ -158,6 +155,7 @@ public class MenuActivity extends Activity {
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
         mWorld.finish();
         mWorld = null;
+        FlurryHelper.onEndSession(this);
     }
 
     @Override

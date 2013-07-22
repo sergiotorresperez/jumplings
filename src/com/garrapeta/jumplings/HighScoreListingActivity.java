@@ -8,6 +8,7 @@ import com.garrapeta.jumplings.comms.BackendConnectorCallback;
 import com.garrapeta.jumplings.comms.RequestFactory;
 import com.garrapeta.jumplings.comms.RequestModel;
 import com.garrapeta.jumplings.comms.ResponseModel;
+import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.util.Utils;
 
 import org.json.JSONException;
@@ -175,7 +176,19 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         	downloadScores();
         }
     }
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryHelper.onStartSession(this);
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryHelper.onEndSession(this);
+    }
+    
     // ---------------------------------------------- M�todos propios
 
     /**

@@ -1,5 +1,6 @@
 package com.garrapeta.jumplings;
 
+import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.util.Utils;
 import android.app.Activity;
 import android.content.Intent;
@@ -89,6 +90,18 @@ public class GameOverActivity extends Activity {
 
 	}
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryHelper.onStartSession(this);
+    }
+    
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryHelper.onEndSession(this);
+    }
+    
 	private void initGui() {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
