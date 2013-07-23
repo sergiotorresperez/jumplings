@@ -5347,8 +5347,6 @@ com.badlogic.gdx.utils.TimSort -> com.badlogic.gdx.utils.TimSort:
     void mergeHi(int,int,int,int) -> mergeHi
     java.lang.Object[] ensureCapacity(int) -> ensureCapacity
     void rangeCheck(int,int,int) -> rangeCheck
-<<<<<<< HEAD
-=======
 com.flurry.android.AdReportedId -> com.a.a.a:
     com.flurry.org.apache.avro.Schema SCHEMA$ -> a
     int type -> b
@@ -10529,7 +10527,6 @@ com.flurry.org.codehaus.jackson.util.TokenBuffer$Segment -> com.a.b.b.a.h.p:
     com.flurry.org.codehaus.jackson.util.TokenBuffer$Segment append(int,com.flurry.org.codehaus.jackson.JsonToken,java.lang.Object) -> a
     void set(int,com.flurry.org.codehaus.jackson.JsonToken) -> b
     void set(int,com.flurry.org.codehaus.jackson.JsonToken,java.lang.Object) -> b
->>>>>>> - Flurry integrated
 com.garrapeta.gameengine.Actor -> com.garrapeta.gameengine.a:
     com.garrapeta.gameengine.GameWorld mWorld -> a
     int mZIndex -> b
@@ -10618,15 +10615,9 @@ com.garrapeta.gameengine.GameWorld -> com.garrapeta.gameengine.g:
     android.graphics.Paint mDebugPaint -> k
     long mCurrentGameMillis -> l
     boolean drawDebugInfo -> m
-<<<<<<< HEAD
-    com.garrapeta.jumplings.comms.RequestFactory mBitmapManager$6fa64d3b -> n
-    com.garrapeta.gameengine.module.SoundManager mSoundManager -> o
-    com.garrapeta.jumplings.comms.RequestFactory getBitmapManager$40b2505c() -> d
-=======
     com.garrapeta.gameengine.module.BitmapManager mBitmapManager -> n
     com.garrapeta.gameengine.module.SoundManager mSoundManager -> o
     com.garrapeta.gameengine.module.BitmapManager getBitmapManager() -> d
->>>>>>> - Flurry integrated
     com.garrapeta.gameengine.module.SoundManager getSoundManager() -> e
     long currentGameMillis() -> f
     void setDrawDebugInfo(boolean) -> a
@@ -10723,9 +10714,6 @@ com.garrapeta.gameengine.Viewport$ProjectionMode -> com.garrapeta.gameengine.p:
 com.garrapeta.gameengine.actor.Box2DAtomicActor -> com.garrapeta.gameengine.a.a:
     void processFrame(float) -> a
 com.garrapeta.gameengine.actor.Box2DEdgeActor -> com.garrapeta.gameengine.a.b:
-<<<<<<< HEAD
-com.garrapeta.gameengine.module.SoundManager -> com.garrapeta.gameengine.b.a:
-=======
 com.garrapeta.gameengine.module.BitmapManager -> com.garrapeta.gameengine.b.a:
     android.util.SparseArray mBitmaps -> a
     android.graphics.Bitmap getBitmap(int) -> a
@@ -10733,7 +10721,6 @@ com.garrapeta.gameengine.module.BitmapManager -> com.garrapeta.gameengine.b.a:
     void releaseBitmap(int) -> b
     void releaseAll() -> a
 com.garrapeta.gameengine.module.SoundManager -> com.garrapeta.gameengine.b.b:
->>>>>>> - Flurry integrated
     android.util.SparseArray mPlayerSets -> a
     boolean mSoundEnabled -> b
     boolean isSoundEnabled() -> a
@@ -10748,11 +10735,7 @@ com.garrapeta.gameengine.module.SoundManager -> com.garrapeta.gameengine.b.b:
     void pauseAll() -> c
     void resumeAll() -> d
     void onCompletion(android.media.MediaPlayer) -> onCompletion
-<<<<<<< HEAD
-com.garrapeta.gameengine.module.SoundManager$PlayerSet -> com.garrapeta.gameengine.b.b:
-=======
 com.garrapeta.gameengine.module.SoundManager$PlayerSet -> com.garrapeta.gameengine.b.c:
->>>>>>> - Flurry integrated
     android.media.MediaPlayer mPlayer -> a
     java.util.ArrayList mPlayers -> b
     com.garrapeta.gameengine.module.SoundManager this$0 -> c
@@ -10762,11 +10745,7 @@ com.garrapeta.gameengine.module.SoundManager$PlayerSet -> com.garrapeta.gameengi
     void resumeAll() -> b
     void stopAll() -> c
     void releaseAll() -> d
-<<<<<<< HEAD
-com.garrapeta.gameengine.module.VibratorManager -> com.garrapeta.gameengine.b.c:
-=======
 com.garrapeta.gameengine.module.VibratorManager -> com.garrapeta.gameengine.b.d:
->>>>>>> - Flurry integrated
     com.garrapeta.gameengine.module.VibratorManager sInstance -> a
     android.util.SparseArray mPatterns -> b
     android.os.Vibrator mVibrator -> c
@@ -10885,11 +10864,8 @@ com.garrapeta.jumplings.GameOverActivity -> com.garrapeta.jumplings.GameOverActi
     boolean newHighScore -> g
     java.lang.String waveKey -> h
     void onCreate(android.os.Bundle) -> onCreate
-<<<<<<< HEAD
-=======
     void onStart() -> onStart
     void onStop() -> onStop
->>>>>>> - Flurry integrated
     java.lang.String access$000(com.garrapeta.jumplings.GameOverActivity) -> a
     void access$100(com.garrapeta.jumplings.GameOverActivity) -> b
     android.widget.Button access$200(com.garrapeta.jumplings.GameOverActivity) -> c
@@ -10927,11 +10903,8 @@ com.garrapeta.jumplings.HighScoreListingActivity -> com.garrapeta.jumplings.High
     android.widget.TabHost mTabHost -> g
     android.widget.ProgressBar mProgressBar -> h
     void onCreate(android.os.Bundle) -> onCreate
-<<<<<<< HEAD
-=======
     void onStart() -> onStart
     void onStop() -> onStop
->>>>>>> - Flurry integrated
     void feedLocalHighScoresView() -> a
     void feedGlobalHighScoresView() -> b
     void downloadScores() -> c
@@ -11078,10 +11051,6 @@ com.garrapeta.jumplings.MenuActivity -> com.garrapeta.jumplings.MenuActivity:
     com.garrapeta.jumplings.JumplingsWorld mWorld -> i
     void onCreate(android.os.Bundle) -> onCreate
     void onStart() -> onStart
-<<<<<<< HEAD
-    void onRestart() -> onRestart
-=======
->>>>>>> - Flurry integrated
     void onPause() -> onPause
     void onResume() -> onResume
     void onStop() -> onStop
@@ -11168,11 +11137,8 @@ com.garrapeta.jumplings.Player$1 -> com.garrapeta.jumplings.O:
     void doInGameLoop$46c3e775() -> b
 com.garrapeta.jumplings.PreferencesActivity -> com.garrapeta.jumplings.PreferencesActivity:
     void onCreate(android.os.Bundle) -> onCreate
-<<<<<<< HEAD
-=======
     void onStart() -> onStart
     void onStop() -> onStop
->>>>>>> - Flurry integrated
 com.garrapeta.jumplings.R$styleable -> com.garrapeta.jumplings.P:
     int[] CustomFontView -> a
 com.garrapeta.jumplings.Score -> com.garrapeta.jumplings.Score:
@@ -11212,11 +11178,8 @@ com.garrapeta.jumplings.SplashActivity -> com.garrapeta.jumplings.SplashActivity
     android.view.View mTitleView -> a
     android.view.View mSubtitleView -> b
     void onCreate(android.os.Bundle) -> onCreate
-<<<<<<< HEAD
-=======
     void onStart() -> onStart
     void onStop() -> onStop
->>>>>>> - Flurry integrated
     void access$000(com.garrapeta.jumplings.SplashActivity,boolean) -> a
     void access$100(com.garrapeta.jumplings.SplashActivity) -> a
     android.view.View access$200(com.garrapeta.jumplings.SplashActivity) -> b
@@ -11698,26 +11661,6 @@ com.garrapeta.jumplings.comms.BackendConnectorCallback -> com.garrapeta.jumpling
     void onBackendRequestSuccess(com.garrapeta.jumplings.comms.ResponseModel) -> a
     void onBackendRequestError(com.garrapeta.jumplings.comms.BackendConnectionException) -> a
 com.garrapeta.jumplings.comms.RequestFactory -> com.garrapeta.jumplings.b.f:
-<<<<<<< HEAD
-    android.util.SparseArray mBitmaps -> a
-    com.garrapeta.jumplings.comms.RequestModel createDownloadScoresRequestModel(java.util.List) -> a
-    com.garrapeta.jumplings.comms.RequestModel createSubmitScoresRequestModel(java.util.List) -> b
-    android.graphics.Bitmap getBitmap(int) -> a
-    android.graphics.Bitmap loadBitmap(android.content.res.Resources,int) -> a
-    void releaseBitmap(int) -> b
-    void releaseAll() -> a
-    byte[] getBytesFromInputStream(java.io.InputStream) -> a
-    double getInitialVelocity(double,double,double) -> a
-    boolean isNetworkAvailable(android.content.Context) -> a
-    void share(android.content.Context,java.lang.String) -> a
-    java.lang.String md5(java.lang.String) -> a
-com.garrapeta.jumplings.comms.RequestModel -> com.garrapeta.jumplings.b.g:
-com.garrapeta.jumplings.comms.ResponseModel -> com.garrapeta.jumplings.b.h:
-com.garrapeta.jumplings.scenario.DesertScenario -> com.garrapeta.jumplings.c.a:
-    void initLayers$5cc5f056(com.garrapeta.jumplings.comms.RequestFactory) -> a
-    void dispose() -> a
-com.garrapeta.jumplings.scenario.IScenario -> com.garrapeta.jumplings.c.b:
-=======
     com.garrapeta.jumplings.comms.RequestModel createDownloadScoresRequestModel(java.util.List) -> a
     com.garrapeta.jumplings.comms.RequestModel createSubmitScoresRequestModel(java.util.List) -> b
 com.garrapeta.jumplings.comms.RequestModel -> com.garrapeta.jumplings.b.g:
@@ -11735,7 +11678,6 @@ com.garrapeta.jumplings.scenario.DesertScenario -> com.garrapeta.jumplings.d.a:
     void initLayers(com.garrapeta.gameengine.module.BitmapManager) -> a
     void dispose() -> a
 com.garrapeta.jumplings.scenario.IScenario -> com.garrapeta.jumplings.d.b:
->>>>>>> - Flurry integrated
     void init() -> b
     void end() -> c
     void setProgress(float) -> a
@@ -11743,17 +11685,10 @@ com.garrapeta.jumplings.scenario.IScenario -> com.garrapeta.jumplings.d.b:
     void processFrame(float) -> b
     void draw(android.graphics.Canvas,android.graphics.Paint) -> a
     void dispose() -> a
-<<<<<<< HEAD
-com.garrapeta.jumplings.scenario.JungleScenario -> com.garrapeta.jumplings.c.c:
-    void initLayers$5cc5f056(com.garrapeta.jumplings.comms.RequestFactory) -> a
-    void dispose() -> a
-com.garrapeta.jumplings.scenario.Layer -> com.garrapeta.jumplings.c.d:
-=======
 com.garrapeta.jumplings.scenario.JungleScenario -> com.garrapeta.jumplings.d.c:
     void initLayers(com.garrapeta.gameengine.module.BitmapManager) -> a
     void dispose() -> a
 com.garrapeta.jumplings.scenario.Layer -> com.garrapeta.jumplings.d.d:
->>>>>>> - Flurry integrated
     float PROGRESS_UPDATE_CICLES -> a
     float GAMEOVER_FALL_CICLES -> b
     float mScenarioXOffset -> c
@@ -11788,11 +11723,7 @@ com.garrapeta.jumplings.scenario.Layer -> com.garrapeta.jumplings.d.d:
     void onGameOver() -> c
     void draw(android.graphics.Canvas,android.graphics.Paint) -> a
     com.garrapeta.jumplings.scenario.IScenario getScenario(com.garrapeta.jumplings.JumplingsWorld,com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds) -> a
-<<<<<<< HEAD
-com.garrapeta.jumplings.scenario.LayerScenario -> com.garrapeta.jumplings.c.e:
-=======
 com.garrapeta.jumplings.scenario.LayerScenario -> com.garrapeta.jumplings.d.e:
->>>>>>> - Flurry integrated
     java.util.List mLayers -> b
     com.garrapeta.jumplings.JumplingsWorld mWorld -> a
     void init() -> b
@@ -11801,21 +11732,12 @@ com.garrapeta.jumplings.scenario.LayerScenario -> com.garrapeta.jumplings.d.e:
     void onGameOver() -> d
     void processFrame(float) -> b
     void draw(android.graphics.Canvas,android.graphics.Paint) -> a
-<<<<<<< HEAD
-    void initLayers$5cc5f056(com.garrapeta.jumplings.comms.RequestFactory) -> a
-    void addLayer(com.garrapeta.jumplings.scenario.Layer) -> a
-com.garrapeta.jumplings.scenario.NatureScenario -> com.garrapeta.jumplings.c.f:
-    void initLayers$5cc5f056(com.garrapeta.jumplings.comms.RequestFactory) -> a
-    void dispose() -> a
-com.garrapeta.jumplings.scenario.RollingScenario -> com.garrapeta.jumplings.c.g:
-=======
     void initLayers(com.garrapeta.gameengine.module.BitmapManager) -> a
     void addLayer(com.garrapeta.jumplings.scenario.Layer) -> a
 com.garrapeta.jumplings.scenario.NatureScenario -> com.garrapeta.jumplings.d.f:
     void initLayers(com.garrapeta.gameengine.module.BitmapManager) -> a
     void dispose() -> a
 com.garrapeta.jumplings.scenario.RollingScenario -> com.garrapeta.jumplings.d.g:
->>>>>>> - Flurry integrated
     com.garrapeta.jumplings.JumplingsWorld mWorld -> b
     int mScenarioAlpha -> c
     com.garrapeta.jumplings.scenario.IScenario mCurrentScenario -> d
@@ -11832,25 +11754,15 @@ com.garrapeta.jumplings.scenario.RollingScenario -> com.garrapeta.jumplings.d.g:
     void dispose() -> a
     com.garrapeta.jumplings.scenario.IScenario access$002(com.garrapeta.jumplings.scenario.RollingScenario,com.garrapeta.jumplings.scenario.IScenario) -> a
     com.garrapeta.jumplings.scenario.IScenario access$102(com.garrapeta.jumplings.scenario.RollingScenario,com.garrapeta.jumplings.scenario.IScenario) -> b
-<<<<<<< HEAD
-com.garrapeta.jumplings.scenario.RollingScenario$1 -> com.garrapeta.jumplings.c.h:
-=======
 com.garrapeta.jumplings.scenario.RollingScenario$1 -> com.garrapeta.jumplings.d.h:
->>>>>>> - Flurry integrated
     com.garrapeta.jumplings.scenario.IScenario val$newScenario -> b
     com.garrapeta.jumplings.scenario.IScenario val$prevScenario -> c
     com.garrapeta.jumplings.scenario.RollingScenario this$0 -> d
     void doInBackground() -> a
     void doInGameLoop$46c3e775() -> b
-<<<<<<< HEAD
-com.garrapeta.jumplings.scenario.ScenarioFactory$1 -> com.garrapeta.jumplings.c.i:
-    int[] $SwitchMap$com$garrapeta$jumplings$scenario$ScenarioFactory$ScenariosIds -> a
-com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds -> com.garrapeta.jumplings.c.j:
-=======
 com.garrapeta.jumplings.scenario.ScenarioFactory$1 -> com.garrapeta.jumplings.d.i:
     int[] $SwitchMap$com$garrapeta$jumplings$scenario$ScenarioFactory$ScenariosIds -> a
 com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds -> com.garrapeta.jumplings.d.j:
->>>>>>> - Flurry integrated
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds ROLLING -> a
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds NATURE -> b
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds DESERT -> c
@@ -11858,13 +11770,8 @@ com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds -> com.garrapeta.j
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds WINTER -> e
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds[] $VALUES -> f
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds[] values() -> a
-<<<<<<< HEAD
-com.garrapeta.jumplings.scenario.WinterScenario -> com.garrapeta.jumplings.c.k:
-    void initLayers$5cc5f056(com.garrapeta.jumplings.comms.RequestFactory) -> a
-=======
 com.garrapeta.jumplings.scenario.WinterScenario -> com.garrapeta.jumplings.d.k:
     void initLayers(com.garrapeta.gameengine.module.BitmapManager) -> a
->>>>>>> - Flurry integrated
     void dispose() -> a
 com.garrapeta.jumplings.ui.AdDialogHelper -> com.garrapeta.jumplings.ui.a:
     android.support.v4.app.FragmentActivity mActivity -> a
@@ -11956,11 +11863,7 @@ com.garrapeta.jumplings.ui.PauseDialogFactory$PauseDialogFragment$PauseDialogLis
     void onPauseDialogClosed() -> k
     void onResumeButtonClicked() -> l
     void onMainMenuButtonClicked() -> m
-<<<<<<< HEAD
-com.garrapeta.jumplings.wave.AllowanceGameWave -> com.garrapeta.jumplings.d.a:
-=======
 com.garrapeta.jumplings.wave.AllowanceGameWave -> com.garrapeta.jumplings.e.a:
->>>>>>> - Flurry integrated
     float POWERUP_BASE_LAPSE -> j
     short JUMPER_CODE_NULL -> k
     short nextJumperCode -> l
@@ -11985,17 +11888,10 @@ com.garrapeta.jumplings.wave.AllowanceGameWave -> com.garrapeta.jumplings.e.a:
     void access$100(com.garrapeta.jumplings.wave.AllowanceGameWave) -> b
     float access$200(com.garrapeta.jumplings.wave.AllowanceGameWave) -> c
     void access$300(com.garrapeta.jumplings.wave.AllowanceGameWave,float) -> a
-<<<<<<< HEAD
-com.garrapeta.jumplings.wave.AllowanceGameWave$1 -> com.garrapeta.jumplings.d.b:
-    com.garrapeta.jumplings.wave.AllowanceGameWave this$0 -> b
-    void doInGameLoop$46c3e775() -> b
-com.garrapeta.jumplings.wave.AllowanceWave -> com.garrapeta.jumplings.d.c:
-=======
 com.garrapeta.jumplings.wave.AllowanceGameWave$1 -> com.garrapeta.jumplings.e.b:
     com.garrapeta.jumplings.wave.AllowanceGameWave this$0 -> b
     void doInGameLoop$46c3e775() -> b
 com.garrapeta.jumplings.wave.AllowanceWave -> com.garrapeta.jumplings.e.c:
->>>>>>> - Flurry integrated
     float FACTOR -> j
     double maxThreat -> k
     double allowedThreadGeneration -> e
@@ -12013,21 +11909,6 @@ com.garrapeta.jumplings.wave.AllowanceWave -> com.garrapeta.jumplings.e.c:
     double generateThreat(double) -> a
     com.garrapeta.jumplings.JumplingsWorld access$000(com.garrapeta.jumplings.wave.AllowanceWave) -> a
     double access$100(com.garrapeta.jumplings.wave.AllowanceWave) -> b
-<<<<<<< HEAD
-com.garrapeta.jumplings.wave.AllowanceWave$1 -> com.garrapeta.jumplings.d.d:
-    com.garrapeta.jumplings.wave.AllowanceWave this$0 -> a
-    void run() -> run
-com.garrapeta.jumplings.wave.AllowanceWave$2 -> com.garrapeta.jumplings.d.e:
-    com.garrapeta.jumplings.wave.AllowanceWave this$0 -> a
-    void run() -> run
-com.garrapeta.jumplings.wave.AllowanceWave$3 -> com.garrapeta.jumplings.d.f:
-    com.garrapeta.jumplings.wave.AllowanceWave this$0 -> a
-    void run() -> run
-com.garrapeta.jumplings.wave.AllowanceWave$4 -> com.garrapeta.jumplings.d.g:
-    com.garrapeta.jumplings.wave.AllowanceWave this$0 -> a
-    void run() -> run
-com.garrapeta.jumplings.wave.CampaignSurvivalWave -> com.garrapeta.jumplings.d.h:
-=======
 com.garrapeta.jumplings.wave.AllowanceWave$1 -> com.garrapeta.jumplings.e.d:
     com.garrapeta.jumplings.wave.AllowanceWave this$0 -> a
     void run() -> run
@@ -12041,7 +11922,6 @@ com.garrapeta.jumplings.wave.AllowanceWave$4 -> com.garrapeta.jumplings.e.g:
     com.garrapeta.jumplings.wave.AllowanceWave this$0 -> a
     void run() -> run
 com.garrapeta.jumplings.wave.CampaignSurvivalWave -> com.garrapeta.jumplings.e.h:
->>>>>>> - Flurry integrated
     java.lang.String WAVE_KEY -> e
     int ADS_MIN_TIME_LAPSE -> h
     com.garrapeta.jumplings.JumplingsGameWorld mWorld -> f
@@ -12062,24 +11942,6 @@ com.garrapeta.jumplings.wave.CampaignSurvivalWave -> com.garrapeta.jumplings.e.h
     void access$200(com.garrapeta.jumplings.wave.CampaignSurvivalWave,float) -> a
     void access$300(com.garrapeta.jumplings.wave.CampaignSurvivalWave,float) -> b
     com.garrapeta.jumplings.wave.AllowanceGameWave access$400(com.garrapeta.jumplings.wave.CampaignSurvivalWave) -> c
-<<<<<<< HEAD
-com.garrapeta.jumplings.wave.CampaignSurvivalWave$1 -> com.garrapeta.jumplings.d.i:
-    com.garrapeta.jumplings.wave.CampaignSurvivalWave this$0 -> a
-    void run() -> run
-com.garrapeta.jumplings.wave.CampaignSurvivalWave$2 -> com.garrapeta.jumplings.d.j:
-    com.garrapeta.jumplings.wave.CampaignSurvivalWave this$0 -> b
-    void doInGameLoop$46c3e775() -> b
-com.garrapeta.jumplings.wave.CampaignSurvivalWave$3 -> com.garrapeta.jumplings.d.k:
-    com.garrapeta.jumplings.wave.CampaignSurvivalWave this$0 -> b
-    void doInGameLoop$46c3e775() -> b
-com.garrapeta.jumplings.wave.CampaignSurvivalWave$4 -> com.garrapeta.jumplings.d.l:
-    com.garrapeta.jumplings.wave.CampaignSurvivalWave this$0 -> b
-    void doInGameLoop$46c3e775() -> b
-com.garrapeta.jumplings.wave.IWaveEndListener -> com.garrapeta.jumplings.d.m:
-    void onWaveStarted() -> u
-    void onWaveEnded() -> v
-com.garrapeta.jumplings.wave.MenuWave -> com.garrapeta.jumplings.d.n:
-=======
 com.garrapeta.jumplings.wave.CampaignSurvivalWave$1 -> com.garrapeta.jumplings.e.i:
     com.garrapeta.jumplings.wave.CampaignSurvivalWave this$0 -> a
     void run() -> run
@@ -12096,7 +11958,6 @@ com.garrapeta.jumplings.wave.IWaveEndListener -> com.garrapeta.jumplings.e.m:
     void onWaveStarted() -> u
     void onWaveEnded() -> v
 com.garrapeta.jumplings.wave.MenuWave -> com.garrapeta.jumplings.e.n:
->>>>>>> - Flurry integrated
     void start() -> a
     void onProcessFrame(float) -> b
     void scheduleIntroActorCreation() -> u
@@ -12104,17 +11965,10 @@ com.garrapeta.jumplings.wave.MenuWave -> com.garrapeta.jumplings.e.n:
     int access$100(com.garrapeta.jumplings.wave.MenuWave) -> b
     void access$200(com.garrapeta.jumplings.wave.MenuWave) -> c
     void access$300(com.garrapeta.jumplings.wave.MenuWave) -> d
-<<<<<<< HEAD
-com.garrapeta.jumplings.wave.MenuWave$1 -> com.garrapeta.jumplings.d.o:
-    com.garrapeta.jumplings.wave.MenuWave this$0 -> b
-    void doInGameLoop$46c3e775() -> b
-com.garrapeta.jumplings.wave.TestWave -> com.garrapeta.jumplings.d.p:
-=======
 com.garrapeta.jumplings.wave.MenuWave$1 -> com.garrapeta.jumplings.e.o:
     com.garrapeta.jumplings.wave.MenuWave this$0 -> b
     void doInGameLoop$46c3e775() -> b
 com.garrapeta.jumplings.wave.TestWave -> com.garrapeta.jumplings.e.p:
->>>>>>> - Flurry integrated
     java.lang.String WAVE_KEY -> e
     com.garrapeta.jumplings.JumplingsGameWorld jgWorld -> f
     com.garrapeta.jumplings.scenario.IScenario mScenario -> g
@@ -12122,11 +11976,7 @@ com.garrapeta.jumplings.wave.TestWave -> com.garrapeta.jumplings.e.p:
     void onTestButtonClicked$2a4380ef() -> s
     boolean onFail() -> k
     void createEnemy() -> u
-<<<<<<< HEAD
-com.garrapeta.jumplings.wave.TestWave$1 -> com.garrapeta.jumplings.d.q:
-=======
 com.garrapeta.jumplings.wave.TestWave$1 -> com.garrapeta.jumplings.e.q:
->>>>>>> - Flurry integrated
     com.garrapeta.jumplings.wave.TestWave this$0 -> b
     void doInGameLoop$46c3e775() -> b
 com.google.gson.DefaultDateTypeAdapter -> com.google.gson.DefaultDateTypeAdapter:
