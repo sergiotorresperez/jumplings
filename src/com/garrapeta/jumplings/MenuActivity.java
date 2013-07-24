@@ -92,6 +92,7 @@ public class MenuActivity extends Activity {
         mShareButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+            	FlurryHelper.logShareButtonClicked();
             	// TODO: externalize share string
                 Utils.share(MenuActivity.this, "I'm playing Jumplings!");
             }

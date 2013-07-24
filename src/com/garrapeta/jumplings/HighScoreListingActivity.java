@@ -219,6 +219,8 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     private void submitScores() {
 		Log.i(JumplingsApplication.LOG_SRC, "Submitting local scores");
 		
+		FlurryHelper.logScoresSubmitted();
+		
 		// Show progress bar
     	setHttpRequestProgressBarVisible(true);
     	
@@ -233,13 +235,14 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 
     	            onScoresSubmitted();
     	            onRankingUpdated(response.localScores);
-    	        } catch (Exception e) {
-    	        	notifyError("Error when communicating to server", e);
+    	        } catch (JSONException e) {
+    	        	notifyError("JSON error when managing succesful scores submission response", e);
     	        }
     		}
 
     		@Override
     		public void onBackendRequestError(BackendConnectionException error) {
+    			FlurryHelper.onErrorScoreSubmissionError(error);
     			notifyError("Error processing server response", error);
     		}});
     }
@@ -284,13 +287,14 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     	            setHttpRequestProgressBarVisible(false);
  	                onScoresUpdated(response.globalScores);
  	                onRankingUpdated(response.localScores);
-    	        } catch (Exception e) {
-    	        	notifyError("Error when communicating to server", e);
+    	        } catch (JSONException e) {
+    	        	notifyError("JSON error when managing succesful scores download response", e);
     	        }
     		}
 
     		@Override
     		public void onBackendRequestError(BackendConnectionException error) {
+    			FlurryHelper.onErrorScoreDownloadError(error);
     			notifyError("Error processing server response", error);
     		}});
     }
@@ -357,7 +361,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     // FIXME: externalize and localize error message
     private void notifyError(String errorMessage, Exception error) {
     	setHttpRequestProgressBarVisible(false);
-    	 Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+    	Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
     }
     
     // -------------------------------------------------OnTabChangeListener methods

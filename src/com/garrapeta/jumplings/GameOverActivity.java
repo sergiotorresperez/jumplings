@@ -112,6 +112,7 @@ public class GameOverActivity extends Activity {
 		shareButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				FlurryHelper.logShareButtonClicked();
 				Utils.share(GameOverActivity.this, getShareScoreMessage());
 			}
 		});

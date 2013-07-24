@@ -9,6 +9,8 @@ import com.garrapeta.gameengine.module.SoundManager;
 import com.garrapeta.jumplings.actor.JumplingActor;
 import com.garrapeta.jumplings.actor.JumplingsFactory;
 import com.garrapeta.jumplings.actor.WallActor;
+import com.garrapeta.jumplings.flurry.FlurryHelper;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -20,6 +22,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -208,6 +211,13 @@ public class JumplingsWorld extends Box2DWorld {
         mFactory = null;
         mJumplingActors.clear();
         mJumplingActors = null;
+    }
+    
+    @Override
+    public void onError(Throwable error) {
+    	Toast.makeText(mActivity, "Ops, something has gone wrong :-(", Toast.LENGTH_LONG).show();
+    	FlurryHelper.onGameEngineError(error);
+    	mActivity.finish();
     }
 
     // -------------------------------------------------------- M�todos propios

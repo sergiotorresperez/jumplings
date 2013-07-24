@@ -75,6 +75,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     TextView mLocalHighScoreTextView;
     
     private AdDialogHelper mAdDialogHelper;
+    
 
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     // DEBUG
@@ -326,6 +327,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     public void onGameOver() {
         gameOver = true;
         mWorld.mScenario.onGameOver();
+        FlurryHelper.logGameOver(mWorld.currentGameMillis(), mWorld.mWave.getLevel(), mWorld.getPlayer().getScore());
 
         runOnUiThread(new Runnable() {
             @Override

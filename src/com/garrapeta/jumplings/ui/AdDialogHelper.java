@@ -1,6 +1,8 @@
 package com.garrapeta.jumplings.ui;
 
 import com.garrapeta.jumplings.JumplingsApplication;
+import com.garrapeta.jumplings.flurry.FlurryHelper;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -151,6 +153,7 @@ public class AdDialogHelper implements MobclixAdViewListener {
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
+            FlurryHelper.logAdDialogShown();
             try {
                 mClient = (AdDialogListener) activity;
                 mClient.onAdDialogShown();
