@@ -10,8 +10,8 @@ import com.garrapeta.jumplings.actor.JumplingActor;
 import com.garrapeta.jumplings.actor.JumplingsFactory;
 import com.garrapeta.jumplings.actor.WallActor;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
+import com.garrapeta.jumplings.ui.ErrorDialogFactory;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -21,8 +21,9 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -44,9 +45,14 @@ public class JumplingsWorld extends Box2DWorld {
 
     public static final int SAMPLE_ENEMY_PAIN = 0;
 
+    /**
+     * Tag used to refer to the error fragment
+     */
+	private static final String ERROR_FRAGMENT_TAG = "error_fragment_tag";
+
     // ------------------------------------------------------------ Variables
 
-    public Activity mActivity;
+    public FragmentActivity mActivity;
 
     /** Wave actual */
     Wave<?> mWave;
@@ -61,7 +67,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     // ----------------------------------------------------------- Constructor
 
-    public JumplingsWorld(Activity activity, GameView gameView, Context context) {
+    public JumplingsWorld(FragmentActivity activity, GameView gameView, Context context) {
         super(gameView, context);
         mActivity = activity;
         mFactory = new JumplingsFactory(this);
@@ -182,7 +188,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     @Override
     public void onGameWorldSizeChanged() {
-        if (!isStarted()) {
+        if (!isRunning()) {
             Log.i(JumplingsApplication.LOG_SRC, "startNewGame " + this);
 
             // Se arranca el game loop
@@ -215,9 +221,14 @@ public class JumplingsWorld extends Box2DWorld {
     
     @Override
     public void onError(Throwable error) {
-    	Toast.makeText(mActivity, "Ops, something has gone wrong :-(", Toast.LENGTH_LONG).show();
     	FlurryHelper.onGameEngineError(error);
-    	mActivity.finish();
+    	mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+	            DialogFragment dialog = ErrorDialogFactory.create();
+	            dialog.show(mActivity.getSupportFragmentManager(), ERROR_FRAGMENT_TAG);
+			}
+		});
     }
 
     // -------------------------------------------------------- M�todos propios

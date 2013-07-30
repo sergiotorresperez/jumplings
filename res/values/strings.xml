@@ -2,20 +2,9 @@
 <resources>
     <string name="app_name">Jumplings</string>
     
-    <!-- Config strings begins -->
-    <string name="config_sound_key">CFGSOUND</string>
-    <string name="config_vibrator_key">CFGVIBRATOR</string>
-    <string name="config_flash_key">CFGFLASH</string>
-    <string name="config_shake_key">CFGSHAKE</string>
-    <string name="config_value_all">CFGLEVELALL</string>
-    <string name="config_value_some">CFGLEVELSOME</string>
-    <string name="config_value_none">CFGLEVELNONE</string>
-    <string name="config_value_default">@string/config_value_all</string>
-    <string name="confing_sound_enabled_default">true</string>
-    <!-- Config strings ends -->
-    
     <string name="game_over">Game Over</string>
-    <string name="game_paused">Game Paused</string>    
+    <string name="game_paused">Game Paused</string>  
+    <string name="error">Sorry, something wrong has happened :-(</string>    
     
     <!-- Tutorial tip begins -->
     <string name="tip_enemy_scaped">If you let the Jumplings scape from the lower edge of the screen you\'ll lose a life! As this was the first time we let it pass&#8230;</string>

@@ -6,9 +6,9 @@ import com.garrapeta.jumplings.util.Utils;
 import com.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import com.garrapeta.jumplings.wave.MenuWave;
 import com.garrapeta.jumplings.wave.TestWave;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +24,7 @@ import android.widget.Toast;
 /**
  * Activity implementing the menu screen
  */
-public class MenuActivity extends Activity {
+public class MenuActivity extends FragmentActivity {
 
     private View mTitle;
     
@@ -140,7 +140,9 @@ public class MenuActivity extends Activity {
     protected void onPause() {
         super.onPause();
         Log.i(JumplingsApplication.LOG_SRC, "onPause " + this);
-        mWorld.pause();
+        if (mWorld.isRunning()) {
+        	mWorld.pause();
+        }
     }
 
     @Override
@@ -154,9 +156,12 @@ public class MenuActivity extends Activity {
     protected void onStop() {
         super.onStop();
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
-        mWorld.finish();
-        mWorld = null;
         FlurryHelper.onEndSession(this);
+        
+        if (mWorld.isRunning()) {
+        	mWorld.finish();
+        	mWorld = null;
+        }
     }
 
     @Override

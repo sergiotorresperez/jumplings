@@ -70,7 +70,6 @@ public class SplashActivity extends Activity {
 		animation.setAnimationListener(new AnimationListener() {
 			@Override
 			public void onAnimationStart(Animation animation) {
-				mTitleView.setVisibility(View.VISIBLE);
 			}
 
 			@Override
@@ -83,6 +82,8 @@ public class SplashActivity extends Activity {
 			}
 		});
 
+		// doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
+		mTitleView.setVisibility(View.VISIBLE);
 		mTitleView.startAnimation(animation);
 	}
 
@@ -91,7 +92,6 @@ public class SplashActivity extends Activity {
 		animation.setAnimationListener(new AnimationListener() {
 			@Override
 			public void onAnimationStart(Animation animation) {
-				mSubtitleView.setVisibility(View.VISIBLE);
 			}
 
 			@Override
@@ -103,6 +103,7 @@ public class SplashActivity extends Activity {
 				onAnimationPhaseThree(); 
 			}
 		});
+		mSubtitleView.setVisibility(View.VISIBLE);
 		mSubtitleView.startAnimation(animation);
 	}
 

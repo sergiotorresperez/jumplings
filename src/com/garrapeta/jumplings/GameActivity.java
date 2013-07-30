@@ -485,7 +485,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     
     @Override
     public void onTipDialogShown() {
-        if (mWorld.isStarted()) {
+        if (mWorld.isRunning()) {
             mWorld.pause();
         }
     }
@@ -497,7 +497,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
     @Override
     public void onAdDialogShown() {
-        if (mWorld.isStarted()) {
+        if (mWorld.isRunning()) {
             mWorld.pause();
         }
     }
