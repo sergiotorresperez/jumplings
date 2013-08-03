@@ -1,16 +1,16 @@
 package com.garrapeta.jumplings.actor;
 
-import com.garrapeta.MathUtils;
-import com.garrapeta.gameengine.BitmapManager;
-import com.garrapeta.gameengine.Viewport;
-import com.garrapeta.jumplings.JumplingsGameWorld;
-import com.garrapeta.jumplings.R;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.garrapeta.MathUtils;
+import com.garrapeta.gameengine.BitmapManager;
+import com.garrapeta.gameengine.Viewport;
+import com.garrapeta.jumplings.JumplingsGameWorld;
+import com.garrapeta.jumplings.R;
 
 public class SplitterEnemyActor extends EnemyActor {
 

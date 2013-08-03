@@ -3,13 +3,13 @@ package com.garrapeta.jumplings;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.garrapeta.jumplings.Tutorial.TipId;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.garrapeta.jumplings.Tutorial.TipId;
 
 public class PermData {
 

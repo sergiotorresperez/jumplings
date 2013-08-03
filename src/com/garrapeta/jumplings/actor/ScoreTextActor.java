@@ -1,8 +1,9 @@
 package com.garrapeta.jumplings.actor;
 
+import android.graphics.PointF;
+
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.Player;
-import android.graphics.PointF;
 
 public class ScoreTextActor extends TextActor {
 

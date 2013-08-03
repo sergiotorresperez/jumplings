@@ -2,15 +2,6 @@ package com.garrapeta.jumplings;
 
 import java.util.List;
 
-import com.garrapeta.jumplings.comms.BackendConnectionException;
-import com.garrapeta.jumplings.comms.BackendConnector;
-import com.garrapeta.jumplings.comms.BackendConnectorCallback;
-import com.garrapeta.jumplings.comms.RequestFactory;
-import com.garrapeta.jumplings.comms.RequestModel;
-import com.garrapeta.jumplings.comms.ResponseModel;
-import com.garrapeta.jumplings.flurry.FlurryHelper;
-import com.garrapeta.jumplings.util.Utils;
-
 import org.json.JSONException;
 
 import android.app.TabActivity;
@@ -32,6 +23,15 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.garrapeta.jumplings.comms.BackendConnectionException;
+import com.garrapeta.jumplings.comms.BackendConnector;
+import com.garrapeta.jumplings.comms.BackendConnectorCallback;
+import com.garrapeta.jumplings.comms.RequestFactory;
+import com.garrapeta.jumplings.comms.RequestModel;
+import com.garrapeta.jumplings.comms.ResponseModel;
+import com.garrapeta.jumplings.flurry.FlurryHelper;
+import com.garrapeta.jumplings.util.Utils;
 
 public class HighScoreListingActivity extends TabActivity implements OnTabChangeListener {
 

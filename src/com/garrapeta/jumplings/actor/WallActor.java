@@ -2,14 +2,14 @@ package com.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import com.garrapeta.gameengine.actor.Box2DEdgeActor;
-import com.garrapeta.jumplings.JumplingsWorld;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.garrapeta.gameengine.actor.Box2DEdgeActor;
+import com.garrapeta.jumplings.JumplingsWorld;
 
 
 public class WallActor extends Box2DEdgeActor<JumplingsWorld> {

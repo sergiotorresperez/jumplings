@@ -1,9 +1,9 @@
 package com.garrapeta.jumplings;
 
-import com.garrapeta.jumplings.flurry.FlurryHelper;
-
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
+import com.garrapeta.jumplings.flurry.FlurryHelper;
 
 /**
  * Actividad de preferencias

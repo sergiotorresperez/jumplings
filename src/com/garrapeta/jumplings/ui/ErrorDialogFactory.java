@@ -1,11 +1,12 @@
 package com.garrapeta.jumplings.ui;
 
-import com.garrapeta.jumplings.R;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import com.garrapeta.jumplings.R;
 
 /**
  * Helper class to create the Error DialogFragment 

@@ -1,11 +1,12 @@
 package com.garrapeta.jumplings;
 
+import android.graphics.PointF;
+
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
 import com.garrapeta.jumplings.actor.ComboTextActor;
 import com.garrapeta.jumplings.actor.EnemyActor;
 import com.garrapeta.jumplings.actor.ScoreTextActor;
-import android.graphics.PointF;
 
 public class Player {
 

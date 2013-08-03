@@ -1,16 +1,5 @@
 package com.garrapeta.jumplings;
 
-import com.garrapeta.gameengine.GameView;
-import com.garrapeta.jumplings.Tutorial.TipDialogFragment.TipDialogListener;
-import com.garrapeta.jumplings.flurry.FlurryHelper;
-import com.garrapeta.jumplings.ui.AdDialogHelper;
-import com.garrapeta.jumplings.ui.AdDialogHelper.AdDialogListener;
-import com.garrapeta.jumplings.ui.GameOverDialogFactory;
-import com.garrapeta.jumplings.ui.GameOverDialogFactory.GameOverDialogFragment.GameOverDialogListener;
-import com.garrapeta.jumplings.ui.PauseDialogFactory;
-import com.garrapeta.jumplings.ui.PauseDialogFactory.PauseDialogFragment.PauseDialogListener;
-import com.garrapeta.jumplings.wave.CampaignSurvivalWave;
-import com.garrapeta.jumplings.wave.TestWave;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -25,9 +14,21 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.garrapeta.gameengine.GameView;
+import com.garrapeta.jumplings.Tutorial.TipDialogFragment.TipDialogListener;
+import com.garrapeta.jumplings.flurry.FlurryHelper;
+import com.garrapeta.jumplings.ui.AdDialogHelper;
+import com.garrapeta.jumplings.ui.AdDialogHelper.AdDialogListener;
+import com.garrapeta.jumplings.ui.GameOverDialogFactory;
+import com.garrapeta.jumplings.ui.GameOverDialogFactory.GameOverDialogFragment.GameOverDialogListener;
+import com.garrapeta.jumplings.ui.PauseDialogFactory;
+import com.garrapeta.jumplings.ui.PauseDialogFactory.PauseDialogFragment.PauseDialogListener;
+import com.garrapeta.jumplings.wave.CampaignSurvivalWave;
+import com.garrapeta.jumplings.wave.TestWave;
 
 public class GameActivity extends FragmentActivity implements TipDialogListener, AdDialogListener, PauseDialogListener, GameOverDialogListener {
 

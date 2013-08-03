@@ -1,11 +1,12 @@
 package com.garrapeta.jumplings.scenario;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
 import com.garrapeta.gameengine.AsyncGameMessage;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.jumplings.JumplingsWorld;
 import com.garrapeta.jumplings.scenario.ScenarioFactory.ScenariosIds;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 
 /**
  * Scenario which implements a succession of sub-scenarios. This class handles

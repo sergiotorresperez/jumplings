@@ -1,10 +1,5 @@
 package com.garrapeta.jumplings.actor;
 
-import com.garrapeta.MathUtils;
-import com.garrapeta.gameengine.Box2DActor;
-import com.garrapeta.gameengine.utils.PhysicsUtils;
-import com.garrapeta.jumplings.JumplingsApplication;
-import com.garrapeta.jumplings.JumplingsWorld;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -15,6 +10,11 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.garrapeta.MathUtils;
+import com.garrapeta.gameengine.Box2DActor;
+import com.garrapeta.gameengine.utils.PhysicsUtils;
+import com.garrapeta.jumplings.JumplingsApplication;
+import com.garrapeta.jumplings.JumplingsWorld;
 
 /**
  * Clase base de los actores Jumplings

@@ -2,12 +2,12 @@ package com.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import com.garrapeta.jumplings.JumplingsGameWorld;
 import android.view.MotionEvent;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Joint;
+import com.garrapeta.jumplings.JumplingsGameWorld;
 
 public abstract class MainActor extends JumplingActor<JumplingsGameWorld> {
 

@@ -1,13 +1,14 @@
 package com.garrapeta.jumplings.actor;
 
-import com.garrapeta.gameengine.Actor;
-import com.garrapeta.jumplings.JumplingsApplication;
-import com.garrapeta.jumplings.JumplingsGameWorld;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PointF;
+
+import com.garrapeta.gameengine.Actor;
+import com.garrapeta.jumplings.JumplingsApplication;
+import com.garrapeta.jumplings.JumplingsGameWorld;
 
 public abstract class TextActor extends Actor<JumplingsGameWorld> {
 

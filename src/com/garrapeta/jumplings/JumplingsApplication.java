@@ -1,11 +1,11 @@
 package com.garrapeta.jumplings;
 
-import com.garrapeta.jumplings.flurry.FlurryHelper;
-
 import android.app.Application;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.util.Log;
+
+import com.garrapeta.jumplings.flurry.FlurryHelper;
 
 /**
  * Encapsula algunas variables y estado global de la aplicaci�n,

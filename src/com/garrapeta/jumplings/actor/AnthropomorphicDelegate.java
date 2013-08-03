@@ -1,8 +1,5 @@
 package com.garrapeta.jumplings.actor;
 
-import com.garrapeta.gameengine.BitmapManager;
-import com.garrapeta.gameengine.Viewport;
-import com.garrapeta.jumplings.JumplingsWorld;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,6 +9,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
+import com.garrapeta.gameengine.BitmapManager;
+import com.garrapeta.gameengine.Viewport;
+import com.garrapeta.jumplings.JumplingsWorld;
 
 /**
  * Common implementation of those aspects of the anthropomorphic creatures,, to let objects

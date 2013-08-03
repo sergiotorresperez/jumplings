@@ -1,8 +1,5 @@
 package com.garrapeta.jumplings.ui;
 
-import com.garrapeta.jumplings.JumplingsApplication;
-import com.garrapeta.jumplings.flurry.FlurryHelper;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -15,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.garrapeta.jumplings.JumplingsApplication;
+import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.mobclix.android.sdk.MobclixAdView;
 import com.mobclix.android.sdk.MobclixAdViewListener;
 import com.mobclix.android.sdk.MobclixIABRectangleMAdView;

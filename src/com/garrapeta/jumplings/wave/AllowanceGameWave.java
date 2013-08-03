@@ -1,5 +1,10 @@
 package com.garrapeta.jumplings.wave;
 
+import android.graphics.PointF;
+import android.graphics.RectF;
+import android.util.Log;
+
+import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
 import com.garrapeta.gameengine.utils.PhysicsUtils;
@@ -12,11 +17,6 @@ import com.garrapeta.jumplings.actor.MainActor;
 import com.garrapeta.jumplings.actor.PowerUpActor;
 import com.garrapeta.jumplings.actor.RoundEnemyActor;
 import com.garrapeta.jumplings.actor.SplitterEnemyActor;
-import android.graphics.PointF;
-import android.graphics.RectF;
-import android.util.Log;
-
-import com.badlogic.gdx.math.Vector2;
 
 public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 

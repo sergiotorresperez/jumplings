@@ -1,7 +1,8 @@
 package com.garrapeta.jumplings.actor;
 
-import com.garrapeta.jumplings.JumplingsGameWorld;
 import android.graphics.PointF;
+
+import com.garrapeta.jumplings.JumplingsGameWorld;
 
 public class ComboTextActor extends TextActor {
 

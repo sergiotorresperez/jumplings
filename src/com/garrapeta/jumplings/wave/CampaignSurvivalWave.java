@@ -1,5 +1,7 @@
 package com.garrapeta.jumplings.wave;
 
+import android.util.Log;
+
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
 import com.garrapeta.jumplings.GameActivity;
@@ -11,7 +13,6 @@ import com.garrapeta.jumplings.actor.EnemyActor;
 import com.garrapeta.jumplings.scenario.IScenario;
 import com.garrapeta.jumplings.scenario.RollingScenario;
 import com.garrapeta.jumplings.scenario.ScenarioFactory;
-import android.util.Log;
 
 public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IWaveEndListener {
 

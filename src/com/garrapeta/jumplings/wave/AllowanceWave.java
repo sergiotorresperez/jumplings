@@ -1,11 +1,12 @@
 package com.garrapeta.jumplings.wave;
 
+import android.view.View;
+import android.widget.ProgressBar;
+
 import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.JumplingsWorld;
 import com.garrapeta.jumplings.R.id;
 import com.garrapeta.jumplings.Wave;
-import android.view.View;
-import android.widget.ProgressBar;
 
 public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
 

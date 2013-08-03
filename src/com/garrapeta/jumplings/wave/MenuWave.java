@@ -1,16 +1,16 @@
 package com.garrapeta.jumplings.wave;
 
+import android.graphics.PointF;
+import android.graphics.RectF;
+import android.util.Log;
+
+import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.Actor;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
 import com.garrapeta.jumplings.JumplingsWorld;
 import com.garrapeta.jumplings.Wave;
 import com.garrapeta.jumplings.actor.IntroActor;
-import android.graphics.PointF;
-import android.graphics.RectF;
-import android.util.Log;
-
-import com.badlogic.gdx.math.Vector2;
 
 /**
  * Wave used in the menu activity

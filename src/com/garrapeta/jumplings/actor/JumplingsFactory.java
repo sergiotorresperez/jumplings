@@ -1,15 +1,14 @@
 package com.garrapeta.jumplings.actor;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.garrapeta.gameengine.utils.Pool;
-
-
-import com.garrapeta.jumplings.JumplingsApplication;
-import com.garrapeta.jumplings.JumplingsGameWorld;
-import com.garrapeta.jumplings.JumplingsWorld;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.util.Log;
+
+import com.badlogic.gdx.physics.box2d.Body;
+import com.garrapeta.gameengine.utils.Pool;
+import com.garrapeta.jumplings.JumplingsApplication;
+import com.garrapeta.jumplings.JumplingsGameWorld;
+import com.garrapeta.jumplings.JumplingsWorld;
 
 /**
  * Class to control the creation of the Jumplings, so pools can be

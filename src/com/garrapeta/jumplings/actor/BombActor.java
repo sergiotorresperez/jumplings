@@ -2,10 +2,6 @@ package com.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import com.garrapeta.gameengine.BitmapManager;
-import com.garrapeta.gameengine.Viewport;
-import com.garrapeta.jumplings.JumplingsGameWorld;
-import com.garrapeta.jumplings.R;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PointF;
@@ -16,6 +12,10 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
+import com.garrapeta.gameengine.BitmapManager;
+import com.garrapeta.gameengine.Viewport;
+import com.garrapeta.jumplings.JumplingsGameWorld;
+import com.garrapeta.jumplings.R;
 
 public class BombActor extends MainActor {
 

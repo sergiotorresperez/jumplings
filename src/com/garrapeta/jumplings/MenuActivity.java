@@ -1,25 +1,26 @@
 package com.garrapeta.jumplings;
 
-import com.garrapeta.gameengine.GameView;
-import com.garrapeta.jumplings.flurry.FlurryHelper;
-import com.garrapeta.jumplings.util.Utils;
-import com.garrapeta.jumplings.wave.CampaignSurvivalWave;
-import com.garrapeta.jumplings.wave.MenuWave;
-import com.garrapeta.jumplings.wave.TestWave;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.Animation.AnimationListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.garrapeta.gameengine.GameView;
+import com.garrapeta.jumplings.flurry.FlurryHelper;
+import com.garrapeta.jumplings.util.Utils;
+import com.garrapeta.jumplings.wave.CampaignSurvivalWave;
+import com.garrapeta.jumplings.wave.MenuWave;
+import com.garrapeta.jumplings.wave.TestWave;
 
 /**
  * Activity implementing the menu screen

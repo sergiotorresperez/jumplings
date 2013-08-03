@@ -2,14 +2,14 @@ package com.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import com.garrapeta.gameengine.Box2DActor;
-import com.garrapeta.jumplings.JumplingsGameWorld;
-import com.garrapeta.jumplings.R;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.garrapeta.gameengine.Box2DActor;
+import com.garrapeta.jumplings.JumplingsGameWorld;
+import com.garrapeta.jumplings.R;
 
 public abstract class EnemyActor extends MainActor implements IBumpable {
 

@@ -1,5 +1,10 @@
 package com.garrapeta.jumplings.wave;
 
+import android.graphics.PointF;
+import android.view.View;
+import android.widget.Button;
+
+import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
 import com.garrapeta.jumplings.JumplingsApplication;
@@ -8,11 +13,6 @@ import com.garrapeta.jumplings.Wave;
 import com.garrapeta.jumplings.actor.MainActor;
 import com.garrapeta.jumplings.scenario.IScenario;
 import com.garrapeta.jumplings.scenario.ScenarioFactory;
-import android.graphics.PointF;
-import android.view.View;
-import android.widget.Button;
-
-import com.badlogic.gdx.math.Vector2;
 
 @SuppressWarnings("unused")
 public class TestWave extends Wave<JumplingsGameWorld> {

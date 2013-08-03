@@ -1,8 +1,5 @@
 package com.garrapeta.jumplings.actor;
 
-import com.garrapeta.gameengine.Box2DActor;
-import com.garrapeta.jumplings.JumplingsWorld;
-import com.garrapeta.jumplings.R;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PointF;
@@ -11,6 +8,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.garrapeta.gameengine.Box2DActor;
+import com.garrapeta.jumplings.JumplingsWorld;
+import com.garrapeta.jumplings.R;
 
 public class IntroActor extends JumplingActor<JumplingsWorld> implements IBumpable {
 

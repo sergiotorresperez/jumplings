@@ -2,7 +2,6 @@ package com.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import com.garrapeta.jumplings.JumplingsWorld;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,6 +10,7 @@ import android.graphics.PointF;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.garrapeta.jumplings.JumplingsWorld;
 
 public class DebrisActor extends JumplingActor<JumplingsWorld> {
 

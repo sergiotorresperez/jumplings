@@ -1,9 +1,9 @@
 package com.garrapeta.jumplings;
 
-import com.garrapeta.jumplings.actor.FlashActor;
-import com.garrapeta.jumplings.actor.HarmerSlapActor;
 import android.graphics.PointF;
 import android.view.MotionEvent;
+
+import com.garrapeta.jumplings.actor.HarmerSlapActor;
 
 public class WeaponSlap extends Weapon {
 
@@ -40,12 +40,7 @@ public class WeaponSlap extends Weapon {
     public void onTouchEvent(double[] info) {
         if (info[0] == MotionEvent.ACTION_DOWN && (System.currentTimeMillis() - lastShootTimeStamp) >= shootTimeGap) {
 
-            if (mWorld.mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
-                mWorld.mFlashActor.init(FlashActor.FLASH_SHOT_COLOR, FlashActor.FLASH_SHOT_ALPHA, FlashActor.FLASH_SHOT_DURATION,
-                        FlashActor.FLASH_SHOT_PRIORITY);
-
-            }
-
+        	mWorld.mFlashModule.flash(FlashModule.TAP_KEY);
             mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SLAP);
 
             lastShootTimeStamp = System.currentTimeMillis();

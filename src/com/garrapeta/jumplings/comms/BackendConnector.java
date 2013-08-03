@@ -6,10 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.garrapeta.gameengine.utils.IOUtils;
-import com.garrapeta.jumplings.JumplingsApplication;
-import com.garrapeta.jumplings.util.Utils;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -21,6 +17,9 @@ import org.apache.http.message.BasicNameValuePair;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.garrapeta.gameengine.utils.IOUtils;
+import com.garrapeta.jumplings.JumplingsApplication;
+import com.garrapeta.jumplings.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 

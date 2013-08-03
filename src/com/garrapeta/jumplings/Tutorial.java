@@ -3,14 +3,6 @@ package com.garrapeta.jumplings;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.garrapeta.jumplings.actor.BladePowerUpActor;
-import com.garrapeta.jumplings.actor.BombActor;
-import com.garrapeta.jumplings.actor.DoubleEnemyActor;
-import com.garrapeta.jumplings.actor.EnemyActor;
-import com.garrapeta.jumplings.actor.LifePowerUpActor;
-import com.garrapeta.jumplings.actor.RoundEnemyActor;
-import com.garrapeta.jumplings.actor.SplitterEnemyActor;
-import com.garrapeta.jumplings.ui.CustomDialogBuilder;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -20,6 +12,15 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import com.garrapeta.jumplings.actor.BladePowerUpActor;
+import com.garrapeta.jumplings.actor.BombActor;
+import com.garrapeta.jumplings.actor.DoubleEnemyActor;
+import com.garrapeta.jumplings.actor.EnemyActor;
+import com.garrapeta.jumplings.actor.LifePowerUpActor;
+import com.garrapeta.jumplings.actor.RoundEnemyActor;
+import com.garrapeta.jumplings.actor.SplitterEnemyActor;
+import com.garrapeta.jumplings.ui.CustomDialogBuilder;
 
 /**
  * Tutorial that shows tips to help the player learn the different features of the game *

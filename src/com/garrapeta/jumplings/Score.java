@@ -2,13 +2,13 @@ package com.garrapeta.jumplings;
 
 import java.util.List;
 
-import com.google.gson.Gson;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.telephony.TelephonyManager;
+
+import com.google.gson.Gson;
 
 /**
  * Player score

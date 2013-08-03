@@ -1,10 +1,9 @@
 package com.garrapeta.jumplings.actor;
 
-import com.garrapeta.gameengine.Box2DActor;
-import com.garrapeta.jumplings.JumplingsGameWorld;
-
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.garrapeta.gameengine.Box2DActor;
+import com.garrapeta.jumplings.JumplingsGameWorld;
 
 /**
  * Common implementation for all {@link IBumpable}, to let objects

@@ -1,11 +1,12 @@
 package com.garrapeta.jumplings.ui;
 
-import com.garrapeta.jumplings.R;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
+
+import com.garrapeta.jumplings.R;
 
 public class CustomFontTextView extends TextView {
 

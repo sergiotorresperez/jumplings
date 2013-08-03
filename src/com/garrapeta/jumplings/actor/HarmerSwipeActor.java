@@ -2,15 +2,15 @@ package com.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import com.garrapeta.jumplings.JumplingsGameWorld;
-import com.garrapeta.jumplings.PermData;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Region;
 import android.view.MotionEvent;
+
+import com.garrapeta.jumplings.FlashModule;
+import com.garrapeta.jumplings.JumplingsGameWorld;
 
 public class HarmerSwipeActor extends HarmerActor {
 
@@ -119,9 +119,7 @@ public class HarmerSwipeActor extends HarmerActor {
                         mTimestamp = System.currentTimeMillis();
 
                         getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SWING);
-                        if (getWorld().mFlashCfgLevel == PermData.CFG_LEVEL_ALL) {
-                            getWorld().mFlashActor.init(Color.WHITE, 50, 250, -1);
-                        }
+                        getWorld().mFlashModule.flash(FlashModule.BLADE_SWING_KEY);
                     }
                 } else {
                     if (dist < MIN_STOP_DISTANCE) {

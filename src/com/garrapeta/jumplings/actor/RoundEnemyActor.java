@@ -1,12 +1,12 @@
 package com.garrapeta.jumplings.actor;
 
-import com.garrapeta.gameengine.BitmapManager;
-import com.garrapeta.jumplings.JumplingsGameWorld;
-import com.garrapeta.jumplings.R;
 import android.graphics.PointF;
 
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.garrapeta.gameengine.BitmapManager;
+import com.garrapeta.jumplings.JumplingsGameWorld;
+import com.garrapeta.jumplings.R;
 
 public class RoundEnemyActor extends EnemyActor {
 

@@ -1,5 +1,10 @@
 package com.garrapeta.jumplings;
 
+import android.graphics.PointF;
+import android.graphics.RectF;
+import android.widget.Button;
+
+import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.utils.PhysicsUtils;
 import com.garrapeta.jumplings.actor.BladePowerUpActor;
 import com.garrapeta.jumplings.actor.BombActor;
@@ -7,11 +12,6 @@ import com.garrapeta.jumplings.actor.EnemyActor;
 import com.garrapeta.jumplings.actor.JumplingActor;
 import com.garrapeta.jumplings.actor.LifePowerUpActor;
 import com.garrapeta.jumplings.wave.IWaveEndListener;
-import android.graphics.PointF;
-import android.graphics.RectF;
-import android.widget.Button;
-
-import com.badlogic.gdx.math.Vector2;
 
 public abstract class Wave<T extends JumplingsWorld> implements GameEventsListener {
 

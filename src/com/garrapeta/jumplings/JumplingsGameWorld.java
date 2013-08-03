@@ -2,6 +2,15 @@ package com.garrapeta.jumplings;
 
 import java.util.ArrayList;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PointF;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+
 import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.gameengine.GameView;
 import com.garrapeta.gameengine.GameWorld;
@@ -12,20 +21,11 @@ import com.garrapeta.jumplings.actor.BladePowerUpActor;
 import com.garrapeta.jumplings.actor.BombActor;
 import com.garrapeta.jumplings.actor.ComboTextActor;
 import com.garrapeta.jumplings.actor.EnemyActor;
-import com.garrapeta.jumplings.actor.FlashActor;
 import com.garrapeta.jumplings.actor.JumplingActor;
 import com.garrapeta.jumplings.actor.LifePowerUpActor;
 import com.garrapeta.jumplings.actor.MainActor;
 import com.garrapeta.jumplings.actor.ScoreTextActor;
 import com.garrapeta.jumplings.scenario.IScenario;
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PointF;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
 
 /**
  * Mundo del juego
@@ -67,8 +67,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     private static final long[] VIBRATION_ENEMY_KILLED_PATTERN = { 0, 90 };
     private static final long[] VIBRATION_FAIL_PATTERN = { 0, 100, 50, 400 };
 
-    /** Flash actor used in flash effects */
-    public FlashActor mFlashActor;
+    /** Flash module used for flash effects */
+    public FlashModule mFlashModule;
 
     // ------------------------------------------------------------ Variables
 
@@ -108,7 +108,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     // ------------------------------------------- Variables de configuraci�n
 
-    public short mFlashCfgLevel;
     public short mShakeCfgLevel;
 
     // ----------------------------------------------------------- Constructor
@@ -134,9 +133,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         // Inicializaci�n del arma
         setWeapon(WeaponSlap.WEAPON_CODE_GUN);
 
-        mFlashActor = new FlashActor(this);
-        mFlashActor.setInitted();
-        addActor(mFlashActor);
+        mFlashModule = new FlashModule(PermData.getInstance().getFlashConfig(), this);
+
 
         // inicialización del tutorial
         mTutorial.init();
@@ -153,7 +151,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     protected void loadResources() {
         // Configuration vars setup
         PermData pd = PermData.getInstance();
-        mFlashCfgLevel = pd.getFlashConfig();
         mShakeCfgLevel = pd.getShakeConfig();
         
         loadCommonResources();
@@ -501,44 +498,24 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
        return true;
    }
     public void onPostEnemyScaped(EnemyActor e) {
-        if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
-            mFlashActor
-                    .init(FlashActor.FLASH_FAIL_COLOR, FlashActor.FLASH_FAIL_ALPHA, FlashActor.FLASH_FAIL_DURATION, FlashActor.FLASH_FAIL_PRIORITY);
-        }
-
+        mFlashModule.flash(FlashModule.ENEMY_SCAPED_KEY);
         onFail();
     }
 
     private void onPostBombExploded(BombActor bomb) {
-        if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
-            // mFlashActor.init(FlashActor.FLASH_BOMB_COLOR,
-            // FlashActor.FLASH_BOMB_ALPHA, FlashActor.FLASH_BOMB_DURATION);
-
-            mFlashActor
-                    .init(FlashActor.FLASH_FAIL_COLOR, FlashActor.FLASH_FAIL_ALPHA, FlashActor.FLASH_FAIL_DURATION, FlashActor.FLASH_FAIL_PRIORITY);
-
-        }
+    	mFlashModule.flash(FlashModule.BOMB_EXPLODED_KEY);
         onFail();
     }
 
     private void onPostLifePowerUp(LifePowerUpActor lifePowerUpActor) {
         getSoundManager().play(SAMPLE_LIFE_UP);
-
-        if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
-            mFlashActor.init(FlashActor.FLASH_LIFEUP_COLOR, FlashActor.FLASH_LIFEUP_ALPHA, FlashActor.FLASH_LIFEUP_DURATION,
-                    FlashActor.FLASH_LIFEUP_PRIORITY);
-        }
-
+        mFlashModule.flash(FlashModule.LIFE_UP_KEY);
         mPlayer.addLifes(1);
     }
     
     private void onPostBladePowerUp(BladePowerUpActor bladePowerUpActor) {
         setWeapon(WeaponSword.WEAPON_CODE_BLADE);
-
-        if (mFlashCfgLevel >= PermData.CFG_LEVEL_SOME) {
-            mFlashActor.init(FlashActor.FLASH_BLADE_DRAWN_COLOR, FlashActor.FLASH_BLADE_DRAWN_ALPHA, FlashActor.FLASH_BLADE_DRAWN_DURATION,
-                    FlashActor.FLASH_BLADE_DRAWN_PRIORITY);
-        }
+        mFlashModule.flash(FlashModule.BLADE_DRAWN_KEY);
     }
 
     @Override

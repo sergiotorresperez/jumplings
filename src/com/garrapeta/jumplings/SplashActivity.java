@@ -1,7 +1,5 @@
 package com.garrapeta.jumplings;
 
-import com.garrapeta.jumplings.flurry.FlurryHelper;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +11,8 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+
+import com.garrapeta.jumplings.flurry.FlurryHelper;
 
 /**
  * Activity implementing the Splash screen

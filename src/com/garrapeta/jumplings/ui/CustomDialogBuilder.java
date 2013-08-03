@@ -1,6 +1,5 @@
 package com.garrapeta.jumplings.ui;
 
-import com.garrapeta.jumplings.R;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,6 +10,8 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.garrapeta.jumplings.R;
 
 /**
  * Helper class to create dialog with a customised appearance

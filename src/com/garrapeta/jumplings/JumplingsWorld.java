@@ -2,16 +2,6 @@ package com.garrapeta.jumplings;
 
 import java.util.ArrayList;
 
-import com.garrapeta.gameengine.BitmapManager;
-import com.garrapeta.gameengine.Box2DWorld;
-import com.garrapeta.gameengine.GameView;
-import com.garrapeta.gameengine.SoundManager;
-import com.garrapeta.jumplings.actor.JumplingActor;
-import com.garrapeta.jumplings.actor.JumplingsFactory;
-import com.garrapeta.jumplings.actor.WallActor;
-import com.garrapeta.jumplings.flurry.FlurryHelper;
-import com.garrapeta.jumplings.ui.ErrorDialogFactory;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -27,6 +17,15 @@ import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.garrapeta.gameengine.BitmapManager;
+import com.garrapeta.gameengine.Box2DWorld;
+import com.garrapeta.gameengine.GameView;
+import com.garrapeta.gameengine.SoundManager;
+import com.garrapeta.jumplings.actor.JumplingActor;
+import com.garrapeta.jumplings.actor.JumplingsFactory;
+import com.garrapeta.jumplings.actor.WallActor;
+import com.garrapeta.jumplings.flurry.FlurryHelper;
+import com.garrapeta.jumplings.ui.ErrorDialogFactory;
 
 /**
  * Mundo del juego
