@@ -1,7 +1,7 @@
 package com.garrapeta.jumplings.actor;
 
+import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.gameengine.Viewport;
-import com.garrapeta.gameengine.module.BitmapManager;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.R;
 import android.graphics.PointF;

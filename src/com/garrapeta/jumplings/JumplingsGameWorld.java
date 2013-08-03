@@ -2,12 +2,12 @@ package com.garrapeta.jumplings;
 
 import java.util.ArrayList;
 
+import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.gameengine.GameView;
 import com.garrapeta.gameengine.GameWorld;
+import com.garrapeta.gameengine.SoundManager;
 import com.garrapeta.gameengine.SyncGameMessage;
-import com.garrapeta.gameengine.module.BitmapManager;
-import com.garrapeta.gameengine.module.SoundManager;
-import com.garrapeta.gameengine.module.VibratorManager;
+import com.garrapeta.gameengine.VibratorManager;
 import com.garrapeta.jumplings.actor.BladePowerUpActor;
 import com.garrapeta.jumplings.actor.BombActor;
 import com.garrapeta.jumplings.actor.ComboTextActor;
@@ -23,7 +23,6 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -133,21 +132,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public void onBeforeRunning() {
         super.onBeforeRunning();
 
-        // Preparaci�n variables de configuraci�n
-        PermData pd = PermData.getInstance();
-        mVibrateCfgLevel = pd.getVibratorConfig();
-        mFlashCfgLevel = pd.getFlashConfig();
-        mShakeCfgLevel = pd.getShakeConfig();
-
-        // TODO: do this as with the sound manager
-        // Preparaci�n vibraciones
-        if (mVibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
-            VibratorManager vm = VibratorManager.getInstance();
-            vm.init((Vibrator)mActivity.getSystemService(Context.VIBRATOR_SERVICE));
-
-            vm.add(VIBRATION_PATTERN_ENEMY_KILLED, VIBRATION_ENEMY_KILLED);
-            vm.add(VIBRATION_PATTERN_FAIL, VIBRATION_FAIL);
-        }
         // Inicializaci�n del arma
         setWeapon(WeaponSlap.WEAPON_CODE_GUN);
 
@@ -168,6 +152,12 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     @Override
     protected void loadResources() {
+        // Configuration vars setup
+        PermData pd = PermData.getInstance();
+        mVibrateCfgLevel = pd.getVibratorConfig();
+        mFlashCfgLevel = pd.getFlashConfig();
+        mShakeCfgLevel = pd.getShakeConfig();
+        
         loadCommonResources();
 
         // Preparaci�n samples bitmaps
@@ -247,7 +237,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         bm.loadBitmap(resources, R.drawable.powerup_heart);
         bm.loadBitmap(resources, R.drawable.powerup_debris_heart);
 
-        // Preparación samples sonido
+        // Sound samples setup
         SoundManager sm = getSoundManager();
         if (sm.isSoundEnabled()) {
             sm.add(R.raw.boing1, SAMPLE_ENEMY_BOING, mActivity);
@@ -277,6 +267,13 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
             sm.add(R.raw.life_up, SAMPLE_LIFE_UP, mActivity);
 
+        }
+        
+        // Vibrations setup
+        if (mVibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
+            VibratorManager vm = getVibratorManager();
+            vm.add(VIBRATION_PATTERN_ENEMY_KILLED, VIBRATION_ENEMY_KILLED);
+            vm.add(VIBRATION_PATTERN_FAIL, VIBRATION_FAIL);
         }
     }
 
@@ -451,7 +448,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         getSoundManager().play(SAMPLE_ENEMY_PAIN);
 
         if (mVibrateCfgLevel == PermData.CFG_LEVEL_ALL) {
-            VibratorManager.getInstance().play(VIBRATION_ENEMY_KILLED);
+        	getVibratorManager().play(VIBRATION_ENEMY_KILLED);
         }
 
         if (mWave.onEnemyKilled(enemy)) {
@@ -616,7 +613,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         if (!mWave.onFail()) {
             getSoundManager().play(SAMPLE_FAIL);
             if (mVibrateCfgLevel >= PermData.CFG_LEVEL_SOME) {
-                VibratorManager.getInstance().play(VIBRATION_FAIL);
+                getVibratorManager().play(VIBRATION_FAIL);
             }
 
             mPlayer.subLifes(1);

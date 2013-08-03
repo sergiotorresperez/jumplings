@@ -3,7 +3,7 @@ package com.garrapeta.jumplings.scenario;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.garrapeta.gameengine.module.BitmapManager;
+import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.jumplings.JumplingsWorld;
 import android.graphics.Canvas;
 import android.graphics.Paint;

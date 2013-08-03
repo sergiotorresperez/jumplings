@@ -2,10 +2,10 @@ package com.garrapeta.jumplings;
 
 import java.util.ArrayList;
 
+import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.gameengine.Box2DWorld;
 import com.garrapeta.gameengine.GameView;
-import com.garrapeta.gameengine.module.BitmapManager;
-import com.garrapeta.gameengine.module.SoundManager;
+import com.garrapeta.gameengine.SoundManager;
 import com.garrapeta.jumplings.actor.JumplingActor;
 import com.garrapeta.jumplings.actor.JumplingsFactory;
 import com.garrapeta.jumplings.actor.WallActor;

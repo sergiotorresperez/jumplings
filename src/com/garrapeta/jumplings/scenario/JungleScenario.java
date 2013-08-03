@@ -1,6 +1,6 @@
 package com.garrapeta.jumplings.scenario;
 
-import com.garrapeta.gameengine.module.BitmapManager;
+import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.jumplings.JumplingsWorld;
 import com.garrapeta.jumplings.R;
 import android.graphics.Bitmap;
