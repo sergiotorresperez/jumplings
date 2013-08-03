@@ -68,8 +68,10 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     private static final long[] VIBRATION_FAIL_PATTERN = { 0, 100, 50, 400 };
 
     /** Flash module used for flash effects */
-    public FlashModule mFlashModule;
-
+    public FlashManager mFlashManager;
+    /** Flash module used for flash effects */
+    private ShakeManager mShakeManager;
+    
     // ------------------------------------------------------------ Variables
 
     public GameActivity mGameActivity;
@@ -84,13 +86,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     
     public ArrayList<ScoreTextActor> mScoreTextActors = new ArrayList<ScoreTextActor>();
     
-    /** Duranci�n en ms del shake actual */
-    private float shakeDuration = 0;
-    /** Tiempo que le queda al shake actual */
-    private float shakeRemaining = 0;
-    /** Intensidad, en unidades del mundo, del shake actual */
-    private float shakeIntensity = 0;
-
     /** Jugador */
     Player mPlayer;
     
@@ -106,10 +101,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     IScenario mScenario = null;
 
 
-    // ------------------------------------------- Variables de configuraci�n
-
-    public short mShakeCfgLevel;
-
     // ----------------------------------------------------------- Constructor
 
     public JumplingsGameWorld(GameActivity gameActivity, GameView gameView, Context context) {
@@ -118,6 +109,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mPlayer = new Player(this);
         mTutorial = new Tutorial(gameActivity, GameActivity.DIALOG_FRAGMENT_TAG);
         mGameView.setOnTouchListener(this);
+        mFlashManager = new FlashManager(PermData.getInstance().getFlashConfig(), this);
+        mShakeManager = new ShakeManager(PermData.getInstance().getShakeConfig(), this);
      }
 
     // ----------------------------------------------------- M�todos de World
@@ -133,9 +126,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         // Inicializaci�n del arma
         setWeapon(WeaponSlap.WEAPON_CODE_GUN);
 
-        mFlashModule = new FlashModule(PermData.getInstance().getFlashConfig(), this);
-
-
         // inicialización del tutorial
         mTutorial.init();
         
@@ -149,10 +139,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     @Override
     protected void loadResources() {
-        // Configuration vars setup
-        PermData pd = PermData.getInstance();
-        mShakeCfgLevel = pd.getShakeConfig();
-        
         loadCommonResources();
 
         // Preparaci�n samples bitmaps
@@ -267,9 +253,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
         super.processFrame(gameTimeStep);
 
-        if (shakeRemaining > 0) {
-            shakeRemaining -= gameTimeStep;
-        }
+        mShakeManager.processFrame(gameTimeStep);
 
         // scenario
         if (mScenario != null) {
@@ -285,29 +269,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     @Override
     protected void drawActors(Canvas canvas) {
-        if (this.shakeRemaining <= 0) {
-            super.drawActors(canvas);
-        } else {
-            float intensity = (shakeRemaining / shakeDuration) * shakeIntensity;
-
-            float pixels = (int) mViewport.worldUnitsToPixels(intensity);
-
-            float pixelsX = pixels;
-            if (Math.random() > 0.5) {
-                pixelsX *= -1;
-            }
-
-            float pixelsY = pixels;
-            if (Math.random() > 0.5) {
-                pixelsY *= -1;
-            }
-
-            canvas.save();
-            canvas.translate(pixelsX, pixelsY);
-            super.drawActors(canvas);
-
-            canvas.restore();
-        }
+        mShakeManager.preDraw(canvas, mViewport);
+        super.drawActors(canvas);
+        mShakeManager.postDraw(canvas);
     }
 
     @Override
@@ -434,9 +398,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mTutorial.onEnemyKilled(enemy);
         
         mPlayer.onEnemyKilled(enemy);
-        if (mShakeCfgLevel == PermData.CFG_LEVEL_ALL) {
-            createShake(100f, 0.20f);
-        }
+        mShakeManager.shake(ShakeManager.ENEMY_KILLED_SHAKE);
 
         return true;
     }
@@ -498,24 +460,24 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
        return true;
    }
     public void onPostEnemyScaped(EnemyActor e) {
-        mFlashModule.flash(FlashModule.ENEMY_SCAPED_KEY);
+        mFlashManager.flash(FlashManager.ENEMY_SCAPED_KEY);
         onFail();
     }
 
     private void onPostBombExploded(BombActor bomb) {
-    	mFlashModule.flash(FlashModule.BOMB_EXPLODED_KEY);
+    	mFlashManager.flash(FlashManager.BOMB_EXPLODED_KEY);
         onFail();
     }
 
     private void onPostLifePowerUp(LifePowerUpActor lifePowerUpActor) {
         getSoundManager().play(SAMPLE_LIFE_UP);
-        mFlashModule.flash(FlashModule.LIFE_UP_KEY);
+        mFlashManager.flash(FlashManager.LIFE_UP_KEY);
         mPlayer.addLifes(1);
     }
     
     private void onPostBladePowerUp(BladePowerUpActor bladePowerUpActor) {
         setWeapon(WeaponSword.WEAPON_CODE_BLADE);
-        mFlashModule.flash(FlashModule.BLADE_DRAWN_KEY);
+        mFlashManager.flash(FlashManager.BLADE_DRAWN_KEY);
     }
 
     @Override
@@ -573,26 +535,11 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             mPlayer.subLifes(1);
             mPlayer.makeInvulnerable();
 
-            if (mShakeCfgLevel >= PermData.CFG_LEVEL_SOME) {
-                createShake(425f, 0.75f);
-            }
-
+            mShakeManager.shake(ShakeManager.PLAYER_FAIL_SHAKE);
             if (mPlayer.getLifes() <= 0) {
                 onGameOver();
             }
         }
-    }
-
-    /**
-     * Programa un temblor de pantalla
-     * 
-     * @param time
-     * @param intensity
-     */
-    private void createShake(float time, float intensity) {
-        this.shakeDuration = time;
-        this.shakeRemaining = time;
-        this.shakeIntensity = intensity;
     }
 
     /**

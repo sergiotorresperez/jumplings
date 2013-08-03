@@ -40,7 +40,7 @@ public class WeaponSlap extends Weapon {
     public void onTouchEvent(double[] info) {
         if (info[0] == MotionEvent.ACTION_DOWN && (System.currentTimeMillis() - lastShootTimeStamp) >= shootTimeGap) {
 
-        	mWorld.mFlashModule.flash(FlashModule.TAP_KEY);
+        	mWorld.mFlashManager.flash(FlashManager.TAP_KEY);
             mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SLAP);
 
             lastShootTimeStamp = System.currentTimeMillis();

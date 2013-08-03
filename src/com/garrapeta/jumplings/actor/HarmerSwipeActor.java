@@ -9,7 +9,7 @@ import android.graphics.PointF;
 import android.graphics.Region;
 import android.view.MotionEvent;
 
-import com.garrapeta.jumplings.FlashModule;
+import com.garrapeta.jumplings.FlashManager;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 
 public class HarmerSwipeActor extends HarmerActor {
@@ -119,7 +119,7 @@ public class HarmerSwipeActor extends HarmerActor {
                         mTimestamp = System.currentTimeMillis();
 
                         getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SWING);
-                        getWorld().mFlashModule.flash(FlashModule.BLADE_SWING_KEY);
+                        getWorld().mFlashManager.flash(FlashManager.BLADE_SWING_KEY);
                     }
                 } else {
                     if (dist < MIN_STOP_DISTANCE) {
