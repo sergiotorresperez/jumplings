@@ -43,7 +43,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     // ------------------------------------ Consantes de sonidos y vibraciones
 
-    public static final int SAMPLE_ENEMY_PAIN = 0;
+    public static final short SAMPLE_ENEMY_PAIN = 0;
 
     /**
      * Tag used to refer to the error fragment
@@ -68,7 +68,7 @@ public class JumplingsWorld extends Box2DWorld {
     // ----------------------------------------------------------- Constructor
 
     public JumplingsWorld(FragmentActivity activity, GameView gameView, Context context) {
-        super(gameView, context);
+        super(gameView, context, (short) (PermData.getInstance().getSoundConfig() ? PermData.CFG_LEVEL_ALL : PermData.CFG_LEVEL_NONE) , PermData.getInstance().getVibratorLevel());
         mActivity = activity;
         mFactory = new JumplingsFactory(this);
     }
@@ -78,8 +78,6 @@ public class JumplingsWorld extends Box2DWorld {
     @Override
     protected void onBeforeRunning() {
         Log.i(LOG_SRC, "onBeforeRunning " + this);
-        PermData pd = PermData.getInstance();
-        getSoundManager().setSoundEnabled(pd.getSoundConfig());
 
         // Paredes
         // -----------------------------------------------------------------
@@ -148,20 +146,22 @@ public class JumplingsWorld extends Box2DWorld {
 
     protected void loadCommonResources() {
         // Preparación samples sonido
-        SoundManager sm = getSoundManager();
-        if (sm.isSoundEnabled()) {
-            sm.add(R.raw.pain01, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
-            sm.add(R.raw.pain02, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
-            sm.add(R.raw.pain03, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
-            sm.add(R.raw.pain04, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
-            sm.add(R.raw.pain05, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
-            sm.add(R.raw.pain06, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
-            sm.add(R.raw.pain07, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
-            sm.add(R.raw.pain08, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
-            sm.add(R.raw.pain09, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
-            sm.add(R.raw.pain11, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
-            sm.add(R.raw.pain12, JumplingsGameWorld.SAMPLE_ENEMY_PAIN, mActivity);
-        }
+		SoundManager sm = getSoundManager();
+		sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_PAIN)
+				.add(R.raw.pain01)
+				.add(R.raw.pain02)
+				.add(R.raw.pain03)
+				.add(R.raw.pain04)
+				.add(R.raw.pain05)
+				.add(R.raw.pain06)
+				.add(R.raw.pain07)
+				.add(R.raw.pain08)
+				.add(R.raw.pain09)
+				.add(R.raw.pain10)
+				.add(R.raw.pain11)
+				.add(R.raw.pain12);
+
+        
     }
 
     @Override

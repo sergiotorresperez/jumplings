@@ -9,7 +9,6 @@ import com.garrapeta.jumplings.R;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PointF;
-import android.media.MediaPlayer;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -61,8 +60,6 @@ public class BombActor extends MainActor {
     public Body mFuseBody;
 
     private long mLastSparkle;
-
-    private static MediaPlayer sFusePlayer;
 
     // ---------------------------------------------------- M�todos est�ticos
 
@@ -186,15 +183,15 @@ public class BombActor extends MainActor {
         super.onAddedToWorld();
         getWorld().onBombActorAdded(this);
         getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_LAUNCH);
-        sFusePlayer = getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_FUSE, true, false);
+        getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_FUSE, true);
     }
 
     @Override
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
         getWorld().onBombActorRemoved(this);
-        if (getWorld().mBombActors.size() == 0 && sFusePlayer != null) {
-            getWorld().getSoundManager().stop(sFusePlayer);
+        if (getWorld().mBombActors.size() == 0) {
+            getWorld().getSoundManager().stop(JumplingsGameWorld.SAMPLE_FUSE);
         }
     }
     
@@ -253,7 +250,6 @@ public class BombActor extends MainActor {
         mBmpDebrisBody = null;
         mBmpDebrisFuse = null;
         mFuseBody = null;
-        sFusePlayer = null;
     }
 
 }

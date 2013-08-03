@@ -30,9 +30,10 @@ public class PermData {
     public static final String TUTORIAL_TIP_PREFIX = "tip_";
     
     // niveles de configuracion
-    public final static short CFG_LEVEL_NONE = 1;
-    public final static short CFG_LEVEL_SOME = 2;
-    public final static short CFG_LEVEL_ALL = 3;
+    public final static short CFG_LEVEL_ALL = 0;
+    public final static short CFG_LEVEL_SOME = 1;
+    public final static short CFG_LEVEL_NONE = 2;
+    
 
     // -------------------------------------------------- Variables de instancia
 
@@ -233,7 +234,7 @@ public class PermData {
         return getLevelPreference(R.string.config_sound_key);
     }
 
-    public short getVibratorConfig() {
+    public short getVibratorLevel() {
         return getBooleanPreference(R.string.config_vibrator_key);
     }
 

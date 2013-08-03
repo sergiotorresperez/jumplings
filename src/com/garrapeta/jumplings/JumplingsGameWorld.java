@@ -44,28 +44,28 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     // ------------------------------------ Consantes de sonidos y vibraciones
 
-    public static final int SAMPLE_ENEMY_BOING = 1;
-    public static final int SAMPLE_ENEMY_THROW = 2;
-    public static final int SAMPLE_ENEMY_KILLED = 3;
-    public static final int SAMPLE_FAIL = 4;
+    public static final short SAMPLE_ENEMY_BOING = 1;
+    public static final short SAMPLE_ENEMY_THROW = 2;
+    public static final short SAMPLE_ENEMY_KILLED = 3;
+    public static final short SAMPLE_FAIL = 4;
 
-    public static final int SAMPLE_SLAP = 5;
-    public static final int SAMPLE_SWORD_SWING = 6;
+    public static final short SAMPLE_SLAP = 5;
+    public static final short SAMPLE_SWORD_SWING = 6;
 
-    public static final int SAMPLE_FUSE = 7;
-    public static final int SAMPLE_BOMB_BOOM = 8;
-    public static final int SAMPLE_BOMB_LAUNCH = 9;
+    public static final short SAMPLE_FUSE = 7;
+    public static final short SAMPLE_BOMB_BOOM = 8;
+    public static final short SAMPLE_BOMB_LAUNCH = 9;
 
-    public static final int SAMPLE_SWORD_SHEATH = 10;
-    public static final int SAMPLE_SWORD_UNSHEATH = 11;
+    public static final short SAMPLE_SWORD_SHEATH = 10;
+    public static final short SAMPLE_SWORD_UNSHEATH = 11;
 
-    public static final int SAMPLE_LIFE_UP = 12;
+    public static final short SAMPLE_LIFE_UP = 12;
 
-    public static final int VIBRATION_ENEMY_KILLED = 0;
-    public static final int VIBRATION_FAIL = 1;
+    public static final short VIBRATION_ENEMY_KILLED_KEY = 0;
+    public static final short VIBRATION_FAIL_KEY = 1;
 
-    private static final long[] VIBRATION_PATTERN_ENEMY_KILLED = { 0, 90 };
-    private static final long[] VIBRATION_PATTERN_FAIL = { 0, 100, 50, 400 };
+    private static final long[] VIBRATION_ENEMY_KILLED_PATTERN = { 0, 90 };
+    private static final long[] VIBRATION_FAIL_PATTERN = { 0, 100, 50, 400 };
 
     /** Flash actor used in flash effects */
     public FlashActor mFlashActor;
@@ -108,7 +108,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     // ------------------------------------------- Variables de configuraci�n
 
-    public short mVibrateCfgLevel;
     public short mFlashCfgLevel;
     public short mShakeCfgLevel;
 
@@ -154,7 +153,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     protected void loadResources() {
         // Configuration vars setup
         PermData pd = PermData.getInstance();
-        mVibrateCfgLevel = pd.getVibratorConfig();
         mFlashCfgLevel = pd.getFlashConfig();
         mShakeCfgLevel = pd.getShakeConfig();
         
@@ -238,43 +236,26 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         bm.loadBitmap(resources, R.drawable.powerup_debris_heart);
 
         // Sound samples setup
+        
+        
         SoundManager sm = getSoundManager();
-        if (sm.isSoundEnabled()) {
-            sm.add(R.raw.boing1, SAMPLE_ENEMY_BOING, mActivity);
-            sm.add(R.raw.boing2, SAMPLE_ENEMY_BOING, mActivity);
-            sm.add(R.raw.boing3, SAMPLE_ENEMY_BOING, mActivity);
-
-            sm.add(R.raw.boing1, SAMPLE_ENEMY_BOING, mActivity);
-            sm.add(R.raw.boing2, SAMPLE_ENEMY_BOING, mActivity);
-            sm.add(R.raw.boing3, SAMPLE_ENEMY_BOING, mActivity);
-
-            sm.add(R.raw.whip, SAMPLE_ENEMY_THROW, mActivity);
-
-            sm.add(R.raw.crush, SAMPLE_ENEMY_KILLED, mActivity);
-            sm.add(R.raw.wrong, SAMPLE_FAIL, mActivity);
-
-            sm.add(R.raw.whip, SAMPLE_SLAP, mActivity);
-
-            sm.add(R.raw.sword_swing, SAMPLE_SWORD_SWING, mActivity);
-
-            sm.add(R.raw.fuse, SAMPLE_FUSE, mActivity);
-
-            sm.add(R.raw.bomb_boom, SAMPLE_BOMB_BOOM, mActivity);
-            sm.add(R.raw.bomb_launch, SAMPLE_BOMB_LAUNCH, mActivity);
-
-            sm.add(R.raw.sword_sheath, SAMPLE_SWORD_SHEATH, mActivity);
-            sm.add(R.raw.sword_unsheath, SAMPLE_SWORD_UNSHEATH, mActivity);
-
-            sm.add(R.raw.life_up, SAMPLE_LIFE_UP, mActivity);
-
-        }
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_BOING).add(R.raw.boing1).add(R.raw.boing1).add(R.raw.boing3);
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_THROW).add(R.raw.whip);
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_KILLED).add(R.raw.crush);
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_FAIL).add(R.raw.wrong);
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_SLAP).add(R.raw.whip);
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_SWORD_SWING).add(R.raw.sword_swing);
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_FUSE).add(R.raw.fuse);
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_BOMB_BOOM).add(R.raw.bomb_boom);
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_BOMB_LAUNCH).add(R.raw.bomb_launch);
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_SWORD_SHEATH).add(R.raw.sword_sheath);
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_SWORD_UNSHEATH).add(R.raw.sword_unsheath);
+        sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_LIFE_UP).add(R.raw.life_up);
         
         // Vibrations setup
-        if (mVibrateCfgLevel > PermData.CFG_LEVEL_NONE) {
-            VibratorManager vm = getVibratorManager();
-            vm.add(VIBRATION_PATTERN_ENEMY_KILLED, VIBRATION_ENEMY_KILLED);
-            vm.add(VIBRATION_PATTERN_FAIL, VIBRATION_FAIL);
-        }
+        VibratorManager vm = getVibratorManager();
+        vm.add(PermData.CFG_LEVEL_ALL, VIBRATION_ENEMY_KILLED_KEY, VIBRATION_ENEMY_KILLED_PATTERN);
+        vm.add(PermData.CFG_LEVEL_SOME, VIBRATION_FAIL_KEY, VIBRATION_FAIL_PATTERN);
     }
 
     @Override
@@ -447,9 +428,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         getSoundManager().play(SAMPLE_ENEMY_KILLED);
         getSoundManager().play(SAMPLE_ENEMY_PAIN);
 
-        if (mVibrateCfgLevel == PermData.CFG_LEVEL_ALL) {
-        	getVibratorManager().play(VIBRATION_ENEMY_KILLED);
-        }
+     	getVibratorManager().vibrate(VIBRATION_ENEMY_KILLED_KEY);
 
         if (mWave.onEnemyKilled(enemy)) {
             return true;
@@ -612,9 +591,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     private void onFail() {
         if (!mWave.onFail()) {
             getSoundManager().play(SAMPLE_FAIL);
-            if (mVibrateCfgLevel >= PermData.CFG_LEVEL_SOME) {
-                getVibratorManager().play(VIBRATION_FAIL);
-            }
+            getVibratorManager().vibrate(VIBRATION_FAIL_KEY);
 
             mPlayer.subLifes(1);
             mPlayer.makeInvulnerable();
