@@ -1,164 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/about_activity_popup_vertical_margin"
-    android:layout_marginLeft="@dimen/about_activity_popup_horizontal_margin"
-    android:layout_marginRight="@dimen/about_activity_popup_horizontal_margin"
-    android:layout_marginTop="@dimen/about_activity_popup_vertical_margin"
-    android:background="@drawable/colorful_button_enabled" >
+    android:paddingBottom="@dimen/about_activity_popup_vertical_padding"
+    android:paddingLeft="@dimen/about_activity_popup_horizontal_padding"
+    android:paddingRight="@dimen/about_activity_popup_horizontal_padding"
+    android:paddingTop="@dimen/about_activity_popup_vertical_padding"
+    android:background="@android:color/transparent" >
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:background="@drawable/colorful_button_enabled" >
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.h1"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The Jumplings" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.h2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="by Sergio Megaherzio" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.h1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.h3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/about_activity_vertical_spacing"
-            android:text="How to play" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.h2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_subtitle" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tap the Jumplings before they fall from the bottom of the screen. Don&apos;t let them fall, or you&apos;ll lose one life." />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/about_activity_vertical_spacing"
+                android:text="@string/about_howto_title" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kill the Jumplings very quickly one after the other to score combos and gain extra points." />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_howto_1" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/about_activity_vertical_spacing"
-            android:drawableLeft="@drawable/icon"
-            android:text="Red Jumplings are cute" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_howto_2" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon"
-            android:text="Orange ones last two taps" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/about_activity_vertical_spacing"
+                android:drawableLeft="@drawable/about_red"
+                android:text="@string/about_howto_red" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon"
-            android:text="The yellow ones split when you tap on them" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/about_orange"
+                android:text="@string/about_howto_orange" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon"
-            android:text="Do not explode the bombs!. Haven&apos;t you played Fruit Ninja?" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/about_yellow"
+                android:text="@string/about_howto_yellow" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon"
-            android:text="Extra life power up!" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/about_bomb"
+                android:text="@string/about_howto_bomb" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon"
-            android:text="Ninja sable powerup. When you got it you can swipe throught the screen to kill them faster. Lasts only for some seconds." />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/about_lifeup"
+                android:text="@string/about_howto_lifeup" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.h3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/about_activity_vertical_spacing"
-            android:text="Credits" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/about_blade"
+                android:text="@string/about_howto_sable" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.h4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Code and design by Sergio GaRRaPeTa Megaherzio" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/about_activity_vertical_spacing"
+                android:text="@string/about_credits_title" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2011 - 2013" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_credits_1" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Plymouth and London" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.h4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_credits_2" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon"
-            android:text="http://uk.linkedin.com/in/sergiotorresperez/" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_credits_3" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.h3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/about_activity_vertical_spacing"
-            android:text="Acknowledgements" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_credits_4" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="The game integrates the adaptation of Box2D for Android made by Badlogic:" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_linkedin"
+                android:text="@string/about_credits_linkedin_profile" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="https://github.com/libgdx/libgdx" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/about_activity_vertical_spacing"
+                android:text="@string/about_ack_title" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Some sound samples and bitmaps were taken from the free source game Teeworlds and heavily modified." />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_ack_1" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.About"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:linksClickable="true"
-            android:text="https://www.teeworlds.com/" />
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_ack_2" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
-            style="@style/MainFont.h4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/about_activity_vertical_spacing"
-            android:text="© 2013 Sergio Torres Perez" />
-    </LinearLayout>
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_ack_3" />
 
-</ScrollView>
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:text="@string/about_ack_4" />
+
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.h4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/about_activity_vertical_spacing"
+                android:text="@string/about_copyright" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

@@ -3,5 +3,4 @@
     <color name="primary_text_colour">@android:color/black</color>
     <color name="secondary_text_colour">#FF0000</color>
     <color name="banner_overlay">#15000000</color>
-    
 </resources>

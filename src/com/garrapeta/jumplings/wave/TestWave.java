@@ -14,7 +14,6 @@ import com.garrapeta.jumplings.actor.MainActor;
 import com.garrapeta.jumplings.scenario.IScenario;
 import com.garrapeta.jumplings.scenario.ScenarioFactory;
 
-@SuppressWarnings("unused")
 public class TestWave extends Wave<JumplingsGameWorld> {
 
     // ----------------------------------------------------- Constantes
@@ -94,7 +93,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
 
     // ---------------------------------------------------- M�todos propios
 
-    public void createEnemy() {
+    public void createPowerUp() {
         this.jgWorld.setGravityY(0);
 
         PointF initPos = new PointF(5, 12);
@@ -112,7 +111,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
 
     }
 
-    public void createPowerUp() {
+    public void createEnemy() {
 
         boolean debug = false;
 
@@ -137,7 +136,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
         // ShapeActor sa =
         // world.cActivity.CreateShapeEnemy(ShapelingsGameActivity.SHAPE_CIRCLE,
         // initPos, bodyWorldRadius);
-        MainActor mainActor = getWorld().getFactory().getLifePowerUpActor(initPos);
+        MainActor mainActor = getWorld().getFactory().getBombActor(initPos);
  
 
         // EnemyActor enemy = new SplitterEnemyActor(world,
@@ -149,9 +148,9 @@ public class TestWave extends Wave<JumplingsGameWorld> {
         // SquareEnemyActor ba = new SquareEnemyActor(world, bodyWorldRadius,
         // worldPos, color1);
 
-        if (!debug) {
+        //if (!debug) {
             mainActor.setLinearVelocity(initVel.x, initVel.y);
-        }
+        //}
         jgWorld.addActor(mainActor);
 
     }

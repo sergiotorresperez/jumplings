@@ -18,7 +18,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.garrapeta.gameengine.GameMessage;
 import com.garrapeta.gameengine.GameView;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;

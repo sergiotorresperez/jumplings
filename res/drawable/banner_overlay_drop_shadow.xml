@@ -5,7 +5,6 @@
     <gradient
         android:angle="270"
         android:endColor="@android:color/transparent"
-
         android:startColor="@color/banner_overlay" />
 
 </shape>

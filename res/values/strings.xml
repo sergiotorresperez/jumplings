@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Jumplings</string>
+    <string name="app_name">The Jumplings</string>
     
     <string name="game_over">Game Over</string>
     <string name="game_paused">Game Paused</string>  
@@ -17,4 +17,31 @@
     <string name="tip_blade_power_up_start">You\'ve got the blade! Swipe through the screen to use it&#8230; and be careful, it will only last for a few seconds!</string>
     <string name="tip_blade_power_up_end">The blade is over&#8230; now tap on them, us usual&#8230;</string>
     <!-- Tutorial tip ends  -->
+    
+    <!-- About Activity begins -->
+    <string name="about_subtitle">by Sergio Megaherzio</string>
+    <string name="about_howto_title">How to play</string>
+    <string name="about_howto_1">Tap the Jumplings before they fall from the bottom of the screen. Don\'t let them fall, or you\'ll lose one life.</string>
+    <string name="about_howto_2">Kill the Jumplings very quickly one after the other to score combos and gain extra points.</string>
+    <string name="about_howto_red">Red Jumplings are cute</string>
+    <string name="about_howto_orange">Orange ones last two taps</string>
+    <string name="about_howto_yellow">The yellow ones split when you tap on them</string>
+    <string name="about_howto_bomb">Do not explode the bombs!. Haven\'t you played Fruit Ninja?</string>
+    <string name="about_howto_lifeup">Extra life power up!</string>
+    <string name="about_howto_sable">Ninja sable powerup. When you got it you can swipe through the screen to kill them faster. Lasts only for some seconds.</string>
+    <string name="about_credits_title">Credits</string>
+    <string name="about_credits_1">Code and design by</string>
+    <string name="about_credits_2">Sergio GaRRaPeTa Megaherzio</string>
+    <string name="about_credits_3">2011 &#8211; 2013</string>
+    <string name="about_credits_4">Plymouth and London</string>
+    <string name="about_credits_linkedin_profile">http://uk.linkedin.com/in/sergiotorresperez</string>
+    <string name="about_ack_title">Acknowledgements</string>
+    <string name="about_ack_1">The game integrates the adaptation of Box2D for Android made by Badlogic</string>
+    <string name="about_ack_2">https://github.com/libgdx/libgdx</string>
+    <string name="about_ack_3">Some sound samples and bitmaps were taken from the free source game Teeworlds and heavily modified.</string>
+    <string name="about_ack_4">https://www.teeworlds.com</string>
+    <string name="about_copyright">© 2013 Sergio Torres Perez</string>
+    
+    
+    <!-- About Activity ends  -->
 </resources>
