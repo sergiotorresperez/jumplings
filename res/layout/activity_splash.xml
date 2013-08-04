@@ -8,27 +8,29 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true" >
 
         <com.garrapeta.jumplings.ui.CustomFontTextView
             android:id="@+id/splash_title"
-            style="@style/MainFont.CustomFontTextView"
+            style="@style/MainFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:text="Sergio Megaherzio"
-            android:textSize="65sp"
-            android:textStyle="bold"
-            android:layout_alignParentTop="true"  />
+            android:textColor="@color/secondary_text_colour"
+            android:textSize="70dp"
+            android:textStyle="bold" />
 
-           <com.garrapeta.jumplings.ui.CustomFontTextView
+        <com.garrapeta.jumplings.ui.CustomFontTextView
             android:id="@+id/splash_subtitle"
-            style="@style/MainFont.CustomFontTextView"
+            style="@style/MainFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="presents"
-            android:textSize="30sp"
+            android:layout_alignRight="@+id/splash_title"
             android:layout_below="@+id/splash_title"
-            android:layout_alignRight="@+id/splash_title" />
+            android:text="presents"
+            android:textColor="@color/secondary_text_colour"
+            android:textSize="35dp" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -11,7 +11,7 @@
 		    android:layout_height="wrap_content"
 		    android:layout_weight="0.05"
 		    android:text="#."
-		    style="@style/MainFont.CustomFontTextView.ScoreListHeaderText"/>
+		    style="@style/MainFont.ScoreListHeaderText"/>
 			          
 		<com.garrapeta.jumplings.ui.CustomFontTextView
 		    android:id="@+id/scoreHeader_playerName"
@@ -19,7 +19,7 @@
 		    android:layout_height="wrap_content"
 		    android:layout_weight="0.45"
 		    android:text="Player Name"
-		    style="@style/MainFont.CustomFontTextView.ScoreListHeaderText"/>
+		    style="@style/MainFont.ScoreListHeaderText"/>
 			
 		<com.garrapeta.jumplings.ui.CustomFontTextView
 		    android:id="@+id/scoreHeader_globalRank"
@@ -28,7 +28,7 @@
 		    android:layout_weight="0.20"
 		    android:text="Global Rank"
 		    android:gravity="right"
-		    style="@style/MainFont.CustomFontTextView.ScoreListHeaderText"/>
+		    style="@style/MainFont.ScoreListHeaderText"/>
 				
 		<com.garrapeta.jumplings.ui.CustomFontTextView 
 		    android:id="@+id/scoreHeader_level"
@@ -37,7 +37,7 @@
 		    android:layout_weight="0.10"
 		    android:text="Level"
 		    android:gravity="right"
-		    style="@style/MainFont.CustomFontTextView.ScoreListHeaderText"/>
+		    style="@style/MainFont.ScoreListHeaderText"/>
 		
 		<com.garrapeta.jumplings.ui.CustomFontTextView 
 		    android:id="@+id/scoreHeader_score"
@@ -46,6 +46,6 @@
 		    android:layout_weight="0.2"
 		    android:text="Score"
 		    android:gravity="right"
-		    style="@style/MainFont.CustomFontTextView.ScoreListHeaderText"/>
+		    style="@style/MainFont.ScoreListHeaderText"/>
 
 </LinearLayout>

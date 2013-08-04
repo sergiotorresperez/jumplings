@@ -12,12 +12,11 @@
         style="@android:style/Widget.ProgressBar.Horizontal" />
 
     <com.garrapeta.jumplings.ui.CustomFontTextView
-        style="@style/MainFont.CustomFontTextView"
+        style="@style/MainFont.h1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_above="@+id/loading_progressBar"
-        android:textSize="40sp"
         android:text="Loading..." />
 
 </RelativeLayout>

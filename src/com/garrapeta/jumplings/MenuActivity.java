@@ -245,8 +245,7 @@ public class MenuActivity extends FragmentActivity {
         Intent i = new Intent(this, GameActivity.class);
         i.putExtra(GameActivity.WAVE_BUNDLE_KEY, TestWave.WAVE_KEY);
         startActivity(i);
-        // Intent i = new Intent(this, GameOverActivity.class);
-        // startActivity(i);
+
     }
 
     private void showHighScores() {
@@ -260,7 +259,9 @@ public class MenuActivity extends FragmentActivity {
     }
 
     private void showAbout() {
-        Toast.makeText(this, "TODO: about/info Activity", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(this, AboutActivity.class);
+        startActivity(i);
+
     }
 
 }

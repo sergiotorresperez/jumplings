@@ -27,7 +27,7 @@
 
                 <com.garrapeta.jumplings.ui.CustomFontTextView
                     android:id="@+id/gameover_scoreTextView"
-                    style="@style/MainFont.CustomFontTextView.h1"
+                    style="@style/MainFont.h1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -35,7 +35,7 @@
 
                 <com.garrapeta.jumplings.ui.CustomFontTextView
                     android:id="@+id/gameover_messageTextView"
-                    style="@style/MainFont.CustomFontTextView.h2"
+                    style="@style/MainFont.h2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="invisible" />
@@ -61,7 +61,7 @@
                     android:visibility="invisible" >
 
                     <com.garrapeta.jumplings.ui.CustomFontTextView
-                        style="@style/MainFont.CustomFontTextView"
+                        style="@style/MainFont"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Your name: " />

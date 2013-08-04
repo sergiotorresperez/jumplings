@@ -1,77 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<!-- TEXTS -->
+    <!-- TEXTS -->
     <style name="MainFont" parent="@android:style/TextAppearance">
-        <item name="android:textColor">#FF0000</item>
-        <item name="android:textSize">22dip</item>
-    </style>
-    
-    <style name="MainFont.CustomFontTextView">
+        <item name="android:textColor">@color/primary_text_colour</item>
+        <item name="android:textSize">20sp</item>
         <item name="fontPath">fonts/rabiohead.otf</item>
     </style>
-    
-    <style name="MainFont.CustomFontTextView.h1">
-        <item name="android:textSize">35dip</item>
-    </style>
-    
-    <style name="MainFont.CustomFontTextView.h2">
-        <item name="android:textSize">25dip</item>
-    </style>
-    
-    <style name="MainFont.CustomFontTextView.GameScore">
-        <item name="android:textSize">25dip</item>
-    </style>
-    
 
-    
+    <style name="MainFont.h1">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/secondary_text_colour</item>
+        <item name="android:textSize">45sp</item>
+    </style>
+
+    <style name="MainFont.h2">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/secondary_text_colour</item>
+        <item name="android:textSize">35sp</item>
+    </style>
+
+    <style name="MainFont.h3">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="MainFont.h4">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="MainFont.About">
+        <item name="android:gravity">center</item>
+        <item name="android:autoLink">all</item>
+        <item name="android:linksClickable">true</item>
+    </style>
+
+    <style name="MainFont.GameScore">
+        <item name="android:textColor">@color/secondary_text_colour</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="MainFont.ScoreItem">
+        <item name="android:textColor">@color/secondary_text_colour</item>
+    </style>
+
     <!-- BUTTONS -->
     <style name="ColorfulButton" parent="@android:style/Widget.Button">
-    	<item name="fontPath">fonts/rabiohead.otf</item>
-        <item name="android:textSize">25dip</item>
+        <item name="android:textColor">@color/primary_text_colour</item>
+        <item name="fontPath">fonts/rabiohead.otf</item>
+        <item name="android:textSize">25sp</item>
         <item name="android:background">@drawable/colorful_button_background_selector</item>
         <item name="android:minWidth">18pt</item>
         <item name="android:minHeight">18pt</item>
         <item name="android:gravity">center_vertical|center_horizontal</item>
     </style>
-    
+
     <style name="TransparentButton" parent="@android:style/Widget.Button">
-    	<item name="fontPath">fonts/rabiohead.otf</item>
+        <item name="fontPath">fonts/rabiohead.otf</item>
         <item name="android:background">@drawable/transparent_button_background_selector</item>
         <item name="android:minWidth">16pt</item>
         <item name="android:minHeight">10pt</item>
         <item name="android:gravity">center_vertical|center_horizontal</item>
     </style>
-    
+
     <!-- SCORE LIST -->
     <style name="MainFont.ScoreListHeaderLayout">
-    	<item name="android:background">#0095FF</item>
+        <item name="android:background">#0095FF</item>
     </style>
-    
-    <style name="MainFont.CustomFontTextView.ScoreListHeaderText">
-    	<item name="android:textColor">#FFFFFF</item>
+
+    <style name="MainFont.ScoreListHeaderText">
+        <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">25dip</item>
     </style>
-    
+
     <!-- CUSTOM DIALOGS -->
-	<style name="CustomDialog" parent="android:style/Theme.Dialog">
+    <style name="CustomDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
-    
-   	<style name="CustomDialogContent">
+
+    <style name="CustomDialogContent">
         <item name="android:background">@drawable/colorful_button_enabled</item>
         <item name="android:padding">10dp</item>
         <item name="android:minWidth">280dip</item>
     </style>
-    
+
     <!-- CUSTOM TAB -->
     <style name="CustomTabWidgetStyle" parent="@android:attr/tabWidgetStyle">
         <item name="android:textColor">#FFFFFF</item>
         <item name="fontPath">fonts/rabiohead.otf</item>
         <item name="android:textSize">30dip</item>
     </style>
-    
-    
+
 </resources>
