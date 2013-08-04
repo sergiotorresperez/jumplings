@@ -107,7 +107,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
 
         initPos.x += 8;
         
-        mainActor = jgWorld.getFactory().getBombActor(initPos);
+        mainActor = jgWorld.getFactory().getLifePowerUpActor(initPos);
         jgWorld.addActor(mainActor);
 
     }

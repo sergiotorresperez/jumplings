@@ -18,7 +18,10 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.garrapeta.gameengine.GameMessage;
 import com.garrapeta.gameengine.GameView;
+import com.garrapeta.gameengine.GameWorld;
+import com.garrapeta.gameengine.SyncGameMessage;
 import com.garrapeta.jumplings.Tutorial.TipDialogFragment.TipDialogListener;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.AdDialogHelper;
@@ -239,8 +242,13 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     protected void onDestroy() {
         super.onDestroy();
         Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
-        mWorld.finish();
-        mWorld = null;
+        mWorld.post(new SyncGameMessage() {
+			@Override
+			public void doInGameLoop(GameWorld world) {
+		        mWorld.finish();
+		        mWorld = null;
+			}
+		});
         // If the user presses the on / off button of the phone and the activity
         // is destroyed, we want to show the menu activity when going to the task again.
         finish();
