@@ -1,13 +1,18 @@
-package com.garrapeta.jumplings;
+package com.garrapeta.jumplings.module;
 
 import android.graphics.Canvas;
 
-import com.garrapeta.gameengine.LevelBasedResourcesManager;
 import com.garrapeta.gameengine.Viewport;
+import com.garrapeta.gameengine.module.LeveledActionsModule;
+import com.garrapeta.jumplings.JumplingsGameWorld;
+import com.garrapeta.jumplings.PermData;
 
-public class ShakeManager {
-
-	private final CustomLevelBasedResourcesManager mCustomLevelBasedResourcesManager;
+public class ShakeModule {
+    
+	public final static short ENEMY_KILLED_SHAKE = 0;
+	public final static short PLAYER_FAIL_SHAKE = 1;
+    
+	private final ShakeModuleDelegate mDelegate;
 	
     /** Duranci�n en ms del shake actual */
     private float mShakeDuration = 0;
@@ -17,18 +22,15 @@ public class ShakeManager {
     private float mShakeIntensity = 0;
     
     private boolean mCanvasRestorePending;
-    
-    final static short ENEMY_KILLED_SHAKE = 0;
-    final static short PLAYER_FAIL_SHAKE = 1;
    
-	public ShakeManager(short minimumLevel, JumplingsGameWorld jumplingsGameWorld) {
-		mCustomLevelBasedResourcesManager = new CustomLevelBasedResourcesManager(minimumLevel);
-		mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_ALL, ENEMY_KILLED_SHAKE).add(new ShakeData(100f, 0.20f));
-		mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_SOME, PLAYER_FAIL_SHAKE).add(new ShakeData(425f, 0.75f));
+	public ShakeModule(short minimumLevel, JumplingsGameWorld jumplingsGameWorld) {
+		mDelegate = new ShakeModuleDelegate(minimumLevel);
+		mDelegate.create(PermData.CFG_LEVEL_ALL, ENEMY_KILLED_SHAKE).add(new ShakeData(100f, 0.20f));
+		mDelegate.create(PermData.CFG_LEVEL_SOME, PLAYER_FAIL_SHAKE).add(new ShakeData(425f, 0.75f));
 	}
 	
 	public boolean shake(short key) {
-		return mCustomLevelBasedResourcesManager.executeOverOneResourceForKey(key);
+		return mDelegate.executeOverOneResourceForKey(key);
 	}
 
 	public void processFrame(float gameTimeStep) {
@@ -82,25 +84,15 @@ public class ShakeManager {
 		}
 	}
 	
-	private class CustomLevelBasedResourcesManager extends LevelBasedResourcesManager<ShakeData, ShakeData, Void>  {
+	private class ShakeModuleDelegate extends LeveledActionsModule<ShakeData, Void>  {
 		
-		private CustomLevelBasedResourcesManager(short minimumLevel) {
+		private ShakeModuleDelegate(short minimumLevel) {
 			super(minimumLevel);
 		}
 
 		@Override
-		protected ShakeData load(ShakeData shakeData) {
-			return shakeData;
-		}
-
-		@Override
 		protected void onExecute(ShakeData shakeData, Void... params) {
-			ShakeManager.this.createShake(shakeData);
-		}
-
-		@Override
-		protected void onRelease(ShakeData shakeData) {
-			// nothing
+			ShakeModule.this.createShake(shakeData);
 		}
 	}
 

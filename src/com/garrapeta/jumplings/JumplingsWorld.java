@@ -20,7 +20,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.gameengine.Box2DWorld;
 import com.garrapeta.gameengine.GameView;
-import com.garrapeta.gameengine.SoundManager;
+import com.garrapeta.gameengine.module.SoundModule;
 import com.garrapeta.jumplings.actor.JumplingActor;
 import com.garrapeta.jumplings.actor.JumplingsFactory;
 import com.garrapeta.jumplings.actor.WallActor;
@@ -145,8 +145,8 @@ public class JumplingsWorld extends Box2DWorld {
 
     protected void loadCommonResources() {
         // Preparación samples sonido
-		SoundManager sm = getSoundManager();
-		sm.createAction(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_PAIN)
+		SoundModule sm = getSoundManager();
+		sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_PAIN)
 				.add(R.raw.pain01)
 				.add(R.raw.pain02)
 				.add(R.raw.pain03)

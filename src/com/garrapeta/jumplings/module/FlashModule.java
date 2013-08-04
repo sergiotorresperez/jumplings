@@ -1,14 +1,14 @@
-package com.garrapeta.jumplings;
+package com.garrapeta.jumplings.module;
 
 import android.graphics.Color;
 
-import com.garrapeta.gameengine.LevelBasedResourcesManager;
+import com.garrapeta.gameengine.module.LeveledActionsModule;
+import com.garrapeta.jumplings.JumplingsGameWorld;
+import com.garrapeta.jumplings.PermData;
 import com.garrapeta.jumplings.actor.FlashActor;
 import com.garrapeta.jumplings.actor.FlashActor.FlashData;
 
-public class FlashManager  {
-
-	private final CustomLevelBasedResourcesManager mCustomLevelBasedResourcesManager;
+public class FlashModule  {
 
 	private final static int FLASH_SHOT_DURATION = 100;
 	private final static int FLASH_SHOT_ALPHA = 200;
@@ -52,46 +52,37 @@ public class FlashManager  {
 	/** Flash actor used in flash effects */
     private final FlashActor mFlashActor;
     
-	public FlashManager(short minimumLevel, JumplingsGameWorld jumplingsGameWorld) {
-		mCustomLevelBasedResourcesManager = new CustomLevelBasedResourcesManager(minimumLevel);
+    private final FlashModuleDelegate mDelegate;
+    
+	public FlashModule(short minimumLevel, JumplingsGameWorld jumplingsGameWorld) {
+		mDelegate = new FlashModuleDelegate(minimumLevel);
         mFlashActor = new FlashActor(jumplingsGameWorld);
         mFlashActor.setInitted();
         jumplingsGameWorld.addActor(mFlashActor);
         
-        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_SOME, ENEMY_SCAPED_KEY).add(ENEMY_SCAPED_FLASH_DATA);
-        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_SOME, BOMB_EXPLODED_KEY).add(BOMB_EXPLODED_DATA);
-        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_SOME, LIFE_UP_KEY).add(LIFE_UP_DATA);
-        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_SOME, BLADE_DRAWN_KEY).add(BLADE_DRAWN_DATA);
-        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_ALL, TAP_KEY).add(TAP_DATA);
-        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_ALL, BLADE_SWING_KEY).add(BLADE_SWING_DATA);
+        mDelegate.create(PermData.CFG_LEVEL_SOME, ENEMY_SCAPED_KEY).add(ENEMY_SCAPED_FLASH_DATA);
+        mDelegate.create(PermData.CFG_LEVEL_SOME, BOMB_EXPLODED_KEY).add(BOMB_EXPLODED_DATA);
+        mDelegate.create(PermData.CFG_LEVEL_SOME, LIFE_UP_KEY).add(LIFE_UP_DATA);
+        mDelegate.create(PermData.CFG_LEVEL_SOME, BLADE_DRAWN_KEY).add(BLADE_DRAWN_DATA);
+        mDelegate.create(PermData.CFG_LEVEL_ALL, TAP_KEY).add(TAP_DATA);
+        mDelegate.create(PermData.CFG_LEVEL_ALL, BLADE_SWING_KEY).add(BLADE_SWING_DATA);
         
 	}
 	
 	public boolean flash(short key) {
-		return mCustomLevelBasedResourcesManager.executeOverOneResourceForKey(key);
+		return mDelegate.executeOverOneResourceForKey(key);
 	}
 
-	private class CustomLevelBasedResourcesManager extends LevelBasedResourcesManager<FlashData, FlashData, Void>  {
+	private class FlashModuleDelegate extends LeveledActionsModule<FlashData, Void>  {
 		
-		private CustomLevelBasedResourcesManager(short minimumLevel) {
+		private FlashModuleDelegate(short minimumLevel) {
 			super(minimumLevel);
-		}
-
-		@Override
-		protected FlashData load(FlashData flashData) {
-			return flashData;
 		}
 
 		@Override
 		protected void onExecute(FlashData flashData, Void... params) {
 			mFlashActor.init(flashData);
 		}
-
-		@Override
-		protected void onRelease(FlashData flashData) {
-			// nothing
-		}
 	}
-
 
 }
