@@ -37,13 +37,13 @@
             style="@style/MainFont.About"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tap the Jumplings before they fall from the bottom side of the screen. Don&apos;t let them fall, or you&apos;ll lose one life." />
+            android:text="Tap the Jumplings before they fall from the bottom of the screen. Don&apos;t let them fall, or you&apos;ll lose one life." />
 
         <com.garrapeta.jumplings.ui.CustomFontTextView
             style="@style/MainFont.About"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kill the Jumplings very quickly one after other to score combos and gain extra points." />
+            android:text="Kill the Jumplings very quickly one after the other to score combos and gain extra points." />
 
         <com.garrapeta.jumplings.ui.CustomFontTextView
             style="@style/MainFont.About"
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/icon"
-            android:text="Ninja sable powerup. When you got it you can swipe throught the screen to kill them faster. Lasts one some seconds." />
+            android:text="Ninja sable powerup. When you got it you can swipe throught the screen to kill them faster. Lasts only for some seconds." />
 
         <com.garrapeta.jumplings.ui.CustomFontTextView
             style="@style/MainFont.h3"
@@ -131,7 +131,7 @@
             style="@style/MainFont.About"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="The game uses the adaptation of Box2D to Android&lt;/a> made by Badlogic:" />
+            android:text="The game integrates the adaptation of Box2D for Android made by Badlogic:" />
 
         <com.garrapeta.jumplings.ui.CustomFontTextView
             style="@style/MainFont.About"

@@ -32,7 +32,7 @@
 
     <style name="MainFont.About">
         <item name="android:gravity">center</item>
-        <item name="android:autoLink">all</item>
+        <item name="android:autoLink">web</item>
         <item name="android:linksClickable">true</item>
     </style>
 
