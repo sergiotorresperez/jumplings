@@ -3,7 +3,8 @@
 
     <dimen name="dialog_width"> 350dp </dimen>
     <dimen name="about_activity_vertical_spacing"> 25dp </dimen>
-    <dimen name="about_activity_popup_vertical_padding"> 22dp </dimen>
-    <dimen name="about_activity_popup_horizontal_padding"> 55dp </dimen>
+    <dimen name="about_activity_popup_vertical_margin"> 22dp </dimen>
+    <dimen name="about_activity_popup_horizontal_margin"> 55dp </dimen>
+    <dimen name="about_activity_padding"> 20dp </dimen>
 
 </resources>

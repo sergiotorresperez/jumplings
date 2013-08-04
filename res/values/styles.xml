@@ -92,7 +92,15 @@
     <style name="CustomTabWidgetStyle" parent="@android:attr/tabWidgetStyle">
         <item name="android:textColor">#FFFFFF</item>
         <item name="fontPath">fonts/rabiohead.otf</item>
-        <item name="android:textSize">30dip</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="Theme.PopupActivity" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
 </resources>

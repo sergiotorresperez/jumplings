@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/about_activity_popup_vertical_padding"
-    android:paddingLeft="@dimen/about_activity_popup_horizontal_padding"
-    android:paddingRight="@dimen/about_activity_popup_horizontal_padding"
-    android:paddingTop="@dimen/about_activity_popup_vertical_padding"
-    android:background="@android:color/transparent" >
+    android:paddingBottom="@dimen/about_activity_popup_vertical_margin"
+    android:paddingLeft="@dimen/about_activity_popup_horizontal_margin"
+    android:paddingRight="@dimen/about_activity_popup_horizontal_margin"
+    android:paddingTop="@dimen/about_activity_popup_vertical_margin"
+    tools:ignore="UselessParent" >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/colorful_button_enabled" >
+        android:background="@drawable/colorful_button_enabled"
+        android:padding="@dimen/about_activity_padding" >
 
         <LinearLayout
             android:layout_width="match_parent"
