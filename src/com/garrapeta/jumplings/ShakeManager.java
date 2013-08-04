@@ -2,12 +2,12 @@ package com.garrapeta.jumplings;
 
 import android.graphics.Canvas;
 
-import com.garrapeta.gameengine.LevelBasedResourcesModule;
+import com.garrapeta.gameengine.LevelBasedResourcesManager;
 import com.garrapeta.gameengine.Viewport;
 
 public class ShakeManager {
 
-	private final CustomLevelBasedResourcesModule mCustomLevelBasedResourcesModule;
+	private final CustomLevelBasedResourcesManager mCustomLevelBasedResourcesManager;
 	
     /** Duranci�n en ms del shake actual */
     private float mShakeDuration = 0;
@@ -22,13 +22,13 @@ public class ShakeManager {
     final static short PLAYER_FAIL_SHAKE = 1;
    
 	public ShakeManager(short minimumLevel, JumplingsGameWorld jumplingsGameWorld) {
-		mCustomLevelBasedResourcesModule = new CustomLevelBasedResourcesModule(minimumLevel);
-		mCustomLevelBasedResourcesModule.create(PermData.CFG_LEVEL_ALL, ENEMY_KILLED_SHAKE).add(new ShakeData(100f, 0.20f));
-		mCustomLevelBasedResourcesModule.create(PermData.CFG_LEVEL_SOME, PLAYER_FAIL_SHAKE).add(new ShakeData(425f, 0.75f));
+		mCustomLevelBasedResourcesManager = new CustomLevelBasedResourcesManager(minimumLevel);
+		mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_ALL, ENEMY_KILLED_SHAKE).add(new ShakeData(100f, 0.20f));
+		mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_SOME, PLAYER_FAIL_SHAKE).add(new ShakeData(425f, 0.75f));
 	}
 	
 	public boolean shake(short key) {
-		return mCustomLevelBasedResourcesModule.executeOverOne(key);
+		return mCustomLevelBasedResourcesManager.executeOverOneResourceForKey(key);
 	}
 
 	public void processFrame(float gameTimeStep) {
@@ -82,9 +82,9 @@ public class ShakeManager {
 		}
 	}
 	
-	private class CustomLevelBasedResourcesModule extends LevelBasedResourcesModule<ShakeData, ShakeData, Void>  {
+	private class CustomLevelBasedResourcesManager extends LevelBasedResourcesManager<ShakeData, ShakeData, Void>  {
 		
-		private CustomLevelBasedResourcesModule(short minimumLevel) {
+		private CustomLevelBasedResourcesManager(short minimumLevel) {
 			super(minimumLevel);
 		}
 

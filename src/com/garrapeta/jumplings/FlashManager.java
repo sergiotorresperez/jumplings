@@ -2,13 +2,13 @@ package com.garrapeta.jumplings;
 
 import android.graphics.Color;
 
-import com.garrapeta.gameengine.LevelBasedResourcesModule;
+import com.garrapeta.gameengine.LevelBasedResourcesManager;
 import com.garrapeta.jumplings.actor.FlashActor;
 import com.garrapeta.jumplings.actor.FlashActor.FlashData;
 
 public class FlashManager  {
 
-	private final CustomLevelBasedResourcesModule mCustomLevelBasedResourcesModule;
+	private final CustomLevelBasedResourcesManager mCustomLevelBasedResourcesManager;
 
 	private final static int FLASH_SHOT_DURATION = 100;
 	private final static int FLASH_SHOT_ALPHA = 200;
@@ -53,27 +53,27 @@ public class FlashManager  {
     private final FlashActor mFlashActor;
     
 	public FlashManager(short minimumLevel, JumplingsGameWorld jumplingsGameWorld) {
-		mCustomLevelBasedResourcesModule = new CustomLevelBasedResourcesModule(minimumLevel);
+		mCustomLevelBasedResourcesManager = new CustomLevelBasedResourcesManager(minimumLevel);
         mFlashActor = new FlashActor(jumplingsGameWorld);
         mFlashActor.setInitted();
         jumplingsGameWorld.addActor(mFlashActor);
         
-        mCustomLevelBasedResourcesModule.create(PermData.CFG_LEVEL_SOME, ENEMY_SCAPED_KEY).add(ENEMY_SCAPED_FLASH_DATA);
-        mCustomLevelBasedResourcesModule.create(PermData.CFG_LEVEL_SOME, BOMB_EXPLODED_KEY).add(BOMB_EXPLODED_DATA);
-        mCustomLevelBasedResourcesModule.create(PermData.CFG_LEVEL_SOME, LIFE_UP_KEY).add(LIFE_UP_DATA);
-        mCustomLevelBasedResourcesModule.create(PermData.CFG_LEVEL_SOME, BLADE_DRAWN_KEY).add(BLADE_DRAWN_DATA);
-        mCustomLevelBasedResourcesModule.create(PermData.CFG_LEVEL_ALL, TAP_KEY).add(TAP_DATA);
-        mCustomLevelBasedResourcesModule.create(PermData.CFG_LEVEL_ALL, BLADE_SWING_KEY).add(BLADE_SWING_DATA);
+        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_SOME, ENEMY_SCAPED_KEY).add(ENEMY_SCAPED_FLASH_DATA);
+        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_SOME, BOMB_EXPLODED_KEY).add(BOMB_EXPLODED_DATA);
+        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_SOME, LIFE_UP_KEY).add(LIFE_UP_DATA);
+        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_SOME, BLADE_DRAWN_KEY).add(BLADE_DRAWN_DATA);
+        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_ALL, TAP_KEY).add(TAP_DATA);
+        mCustomLevelBasedResourcesManager.create(PermData.CFG_LEVEL_ALL, BLADE_SWING_KEY).add(BLADE_SWING_DATA);
         
 	}
 	
 	public boolean flash(short key) {
-		return mCustomLevelBasedResourcesModule.executeOverOne(key);
+		return mCustomLevelBasedResourcesManager.executeOverOneResourceForKey(key);
 	}
 
-	private class CustomLevelBasedResourcesModule extends LevelBasedResourcesModule<FlashData, FlashData, Void>  {
+	private class CustomLevelBasedResourcesManager extends LevelBasedResourcesManager<FlashData, FlashData, Void>  {
 		
-		private CustomLevelBasedResourcesModule(short minimumLevel) {
+		private CustomLevelBasedResourcesManager(short minimumLevel) {
 			super(minimumLevel);
 		}
 
