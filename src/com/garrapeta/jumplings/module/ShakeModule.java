@@ -3,7 +3,7 @@ package com.garrapeta.jumplings.module;
 import android.graphics.Canvas;
 
 import com.garrapeta.gameengine.Viewport;
-import com.garrapeta.gameengine.module.LeveledActionsModule;
+import com.garrapeta.gameengine.module.LevelActionsModule;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.PermData;
 
@@ -84,7 +84,11 @@ public class ShakeModule {
 		}
 	}
 	
-	private class ShakeModuleDelegate extends LeveledActionsModule<ShakeData, Void>  {
+	/**
+	 * Delegate used by the module
+	 * @author garrapeta
+	 */
+	private class ShakeModuleDelegate extends LevelActionsModule<ShakeData, Void>  {
 		
 		private ShakeModuleDelegate(short minimumLevel) {
 			super(minimumLevel);
@@ -95,5 +99,5 @@ public class ShakeModule {
 			ShakeModule.this.createShake(shakeData);
 		}
 	}
-
+	
 }

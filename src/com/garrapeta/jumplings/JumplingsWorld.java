@@ -36,7 +36,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     // -------------------------------------------------------- Constantes
 
-    public static final String LOG_SRC = JumplingsApplication.LOG_SRC_JUMPLINGS + ".world";
+    public static final String TAG = JumplingsApplication.LOG_SRC_JUMPLINGS + ".world";
 
     public static final int WORLD_HEIGHT = 14;
 
@@ -76,7 +76,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     @Override
     protected void onBeforeRunning() {
-        Log.i(LOG_SRC, "onBeforeRunning " + this);
+        Log.i(TAG, "onBeforeRunning " + this);
 
         // Paredes
         // -----------------------------------------------------------------
@@ -180,7 +180,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     @Override
     public void onGameViewSizeChanged(int width, int height) {
-        Log.i(LOG_SRC, "surfaceChanged " + this);
+        Log.i(TAG, "surfaceChanged " + this);
         mViewport.setWorldSizeGivenWorldUnitsPerInchX(7);
        
     }
@@ -220,7 +220,10 @@ public class JumplingsWorld extends Box2DWorld {
     
     @Override
     public void onError(Throwable error) {
-    	FlurryHelper.onGameEngineError(error);
+    	Log.e(TAG, "Game error!", error);
+ 		FlurryHelper.onGameEngineError(error);
+
+		// show error dialog
     	mActivity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {

@@ -2,7 +2,7 @@ package com.garrapeta.jumplings.module;
 
 import android.graphics.Color;
 
-import com.garrapeta.gameengine.module.LeveledActionsModule;
+import com.garrapeta.gameengine.module.LevelActionsModule;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.PermData;
 import com.garrapeta.jumplings.actor.FlashActor;
@@ -72,8 +72,12 @@ public class FlashModule  {
 	public boolean flash(short key) {
 		return mDelegate.executeOverOneResourceForKey(key);
 	}
-
-	private class FlashModuleDelegate extends LeveledActionsModule<FlashData, Void>  {
+	
+	/**
+	 * Delegate used by the module
+	 * @author garrapeta
+	 */
+	private class FlashModuleDelegate extends LevelActionsModule<FlashData, Void>  {
 		
 		private FlashModuleDelegate(short minimumLevel) {
 			super(minimumLevel);
