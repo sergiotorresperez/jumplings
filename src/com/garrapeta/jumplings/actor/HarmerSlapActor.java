@@ -14,9 +14,9 @@ public class HarmerSlapActor extends HarmerActor {
 
     // ----------------------------------------------------- Constantes
 
-    private final static float KILL_RADIUS = 0.7f;
-    private final static float BLAST_RADIUS = 3;
-    private final static float BLAST_FORCE = 20; // 35;
+    private final static float KILL_RADIUS = 1.2f;
+    private final static float BLAST_RADIUS = 2;
+    private final static float BLAST_FORCE = 20;
 
     // ----------------------------------------- Variables de instancia
 
