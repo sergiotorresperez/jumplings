@@ -15,7 +15,7 @@
 
     <!-- Draw the scenario -->
     <bool name="config_draw_scenario">@bool/default_config_draw_scenario</bool>
-    <bool name="default_config_draw_scenario">false</bool>
+    <bool name="default_config_draw_scenario">true</bool>
 
     <!-- Test buttons and other debug functions -->
     <bool name="config_debug_functions_enabled">@bool/default_config_debug_functions_enabled</bool>

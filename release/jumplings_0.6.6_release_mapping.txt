@@ -17985,6 +17985,8 @@ com.garrapeta.jumplings.actor.HarmerSlapActor -> com.garrapeta.jumplings.a.m:
     com.garrapeta.jumplings.JumplingsGameWorld mWorld -> g
     boolean mFirstFrame -> h
     boolean mAlreadyKilled -> i
+    android.graphics.RectF mIntersectionRectThis -> j
+    android.graphics.RectF mIntersectionRectOther -> k
     void processFrame(float) -> a
     void dispose() -> j
     void effectOver(com.garrapeta.jumplings.actor.MainActor) -> a

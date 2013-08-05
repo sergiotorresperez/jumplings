@@ -35,6 +35,10 @@ public class HarmerSlapActor extends HarmerActor {
     private boolean mFirstFrame = true;
 
     private boolean mAlreadyKilled = false;
+    
+    // Rectangles to compute the intersection with enemies
+    private final RectF mIntersectionRectThis;
+    private final RectF mIntersectionRectOther;
 
     // -------------------------------------------------- Constructores
 
@@ -49,8 +53,11 @@ public class HarmerSlapActor extends HarmerActor {
         mPaint = new Paint();
         mPaint.setColor(Color.YELLOW);
         mPaint.setTextAlign(Align.CENTER);
+        
+        mIntersectionRectThis = new RectF();
+        mIntersectionRectOther = new RectF();
 
-        this.mTimestamp = System.currentTimeMillis();
+        mTimestamp = System.currentTimeMillis();
 
     }
 
@@ -102,11 +109,11 @@ public class HarmerSlapActor extends HarmerActor {
     // --------------------------------------- M�todos propios
 
     private boolean hits(MainActor mainActor) {
-        PointF pos = mainActor.getWorldPos();
-
-        RectF otherRect = new RectF(pos.x - mainActor.mRadius, pos.y - mainActor.mRadius, pos.x + mainActor.mRadius, pos.y + mainActor.mRadius);
-        RectF thisRect = new RectF(mWorldPos.x - KILL_RADIUS, mWorldPos.y - KILL_RADIUS, mWorldPos.x + KILL_RADIUS, mWorldPos.y + KILL_RADIUS);
-        return RectF.intersects(otherRect, thisRect);
+        final PointF pos = mainActor.getWorldPos();
+        final float radius = mainActor.mRadius;
+        mIntersectionRectOther.set(pos.x - radius, pos.y - radius, pos.x + radius, pos.y + radius);
+        mIntersectionRectThis.set(mWorldPos.x - KILL_RADIUS, mWorldPos.y - KILL_RADIUS, mWorldPos.x + KILL_RADIUS, mWorldPos.y + KILL_RADIUS);
+        return RectF.intersects(mIntersectionRectOther, mIntersectionRectThis);
     }
 
     private boolean kills(MainActor mainActor) {
