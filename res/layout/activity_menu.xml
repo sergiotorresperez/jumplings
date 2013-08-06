@@ -16,10 +16,22 @@
 
     <!-- UI -->
 
+
+    <!-- MOBCLIX -->
+
+    <com.mobclix.android.sdk.MobclixMMABannerXLAdView
+        android:id="@+id/menu_advertising_banner_view"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:tag="adspace" />
+    <!-- /MOBCLIX -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/menu_advertising_banner_view"
         android:padding="15dp" >
 
         <LinearLayout
@@ -42,8 +54,8 @@
                 style="@style/ColorfulButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/play_button_background_selector"
-                android:layout_marginBottom="45dp" >
+                android:layout_marginBottom="45dp"
+                android:background="@drawable/play_button_background_selector" >
             </Button>
         </LinearLayout>
 
@@ -57,7 +69,7 @@
             android:src="@drawable/icon_preferences" >
         </ImageButton>
 
-         <ImageButton
+        <ImageButton
             android:id="@+id/menu_highScoresBtn"
             style="@style/ColorfulButton"
             android:layout_width="wrap_content"
@@ -67,15 +79,15 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/icon_score" >
         </ImageButton>
-        
+
         <ImageButton
             android:id="@+id/menu_premiumBtn"
             style="@style/ColorfulButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/menu_highScoresBtn"
             android:layout_alignParentTop="true"
             android:layout_alignWithParentIfMissing="true"
+            android:layout_toLeftOf="@+id/menu_highScoresBtn"
             android:src="@drawable/icon_premium" >
         </ImageButton>
 
@@ -105,7 +117,7 @@
             android:id="@+id/menu_debug_view_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:orientation="horizontal" >
 
@@ -126,19 +138,6 @@
         <!-- /DEBUG -->
 
     </RelativeLayout>
-
-    <!-- MOBCLIX -->
-
-    <com.mobclix.android.sdk.MobclixMMABannerXLAdView
-        android:id="@+id/menu_advertising_banner_view"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:tag="adspace"/>
-    <!-- /MOBCLIX -->
-
 
     <!-- /UI -->
 

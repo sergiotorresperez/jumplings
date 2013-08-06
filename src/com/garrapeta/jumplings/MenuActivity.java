@@ -14,9 +14,11 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.garrapeta.gameengine.GameView;
+import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
+import com.garrapeta.jumplings.actor.PremiumPurchaseHelper.PurchaseCallback;
+import com.garrapeta.jumplings.actor.PremiumPurchaseHelper.PurchaseStateQueryCallback;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.PurchaseDialogFactory;
 import com.garrapeta.jumplings.ui.PurchaseDialogFactory.PurchaseDialogFragment.PurchaseDialogListener;
@@ -30,6 +32,8 @@ import com.garrapeta.jumplings.wave.TestWave;
  */
 public class MenuActivity extends FragmentActivity implements PurchaseDialogListener {
 
+	private final static String TAG = MenuActivity.class.getSimpleName();
+	
     /**
      * Tag used to refer to the dialog fragment
      */
@@ -46,7 +50,11 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     
     private View mMobClixView;
     private View mDebugGroup;
-
+    
+    // used to resolve the state of the in app billing purchases
+    private PremiumPurchaseHelper mPremiumHelper;
+    
+    private boolean mShowNonPremiumComponents = false;
     
     /** World */
     JumplingsWorld mWorld;
@@ -58,7 +66,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // Preparación de la UI
+        // UI Setup
         setContentView(R.layout.activity_menu);
 
         mTitle = findViewById(R.id.menu_title);
@@ -137,7 +145,42 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         // Ads
         mMobClixView = findViewById(R.id.menu_advertising_banner_view);
  
-        onStartAnimationPhaseOne();
+        // The UI starts invisible and becomes visible with an animation
+        mTitle.setVisibility(View.INVISIBLE);
+        mStartBtn.setVisibility(View.INVISIBLE);
+        mPreferencesBtn.setVisibility(View.INVISIBLE);
+        mHighScoresBtn.setVisibility(View.INVISIBLE);
+        mAboutBtn.setVisibility(View.INVISIBLE);
+        mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.INVISIBLE : View.GONE);
+        mShareButton.setVisibility(View.INVISIBLE);
+        mMobClixView.setVisibility(View.INVISIBLE);
+        mPremiumBtn.setVisibility(View.INVISIBLE);
+        
+        // Query the state of the purchase
+		mPremiumHelper = new PremiumPurchaseHelper(this);
+		if (mPremiumHelper.isPremiumPurchaseStateKnown(this)) {
+			Log.d(TAG, "Premium purchase state known. No need to query.");
+			onPremiumStateUpdate(mPremiumHelper.isPremiumPurchased(this));
+			onStartAnimationPhaseOne();
+		} else {
+			Log.d(TAG, "Premium purchase state unknown. Querying for it.");
+			mPremiumHelper.queryIsPremiumPurchasedAsync(this, new PurchaseStateQueryCallback() {
+				@Override
+				public void onPurchaseStateQueryFinished(boolean purchased) {
+					onPremiumStateUpdate(purchased);
+					onStartAnimationPhaseOne();
+				}
+				
+				@Override
+				public void onPurchaseStateQueryError(String message) {
+					Log.i(TAG, "Error querying purchase state " + message);
+					// we assume it is purchased
+					onPremiumStateUpdate(true);
+					onStartAnimationPhaseOne();
+				}
+			});
+		}
+        
     }
 
     @Override
@@ -150,8 +193,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mWorld = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface), this);
         mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED);
 
-        // Preparaci�n de la wave
-
+        // Wave setup
         mWorld.mWave = new MenuWave(mWorld, null);
     }
 
@@ -183,29 +225,31 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
-    }
+	@Override
+	protected void onDestroy() {
+		Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
+		super.onDestroy();
+		if (mPremiumHelper != null) {
+			mPremiumHelper.dispose();
+		}
+	}
+	
+	@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+    	if (mPremiumHelper != null && mPremiumHelper.onActivityResult(requestCode, resultCode, data)) {
+    		return;
+    	}
+    	super.onActivityResult(requestCode, resultCode, data);
+	}
 
-    private void onStartAnimationPhaseOne() {
-        
-        mTitle.setVisibility(View.INVISIBLE);
-        mStartBtn.setVisibility(View.INVISIBLE);
-        mPreferencesBtn.setVisibility(View.INVISIBLE);
-        mHighScoresBtn.setVisibility(View.INVISIBLE);
-        mAboutBtn.setVisibility(View.INVISIBLE);
-        mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.INVISIBLE : View.GONE);
-        mMobClixView.setVisibility(JumplingsApplication.ADS_ENABLED ? View.INVISIBLE : View.GONE);
-        mShareButton.setVisibility(View.INVISIBLE);
-        mPremiumBtn.setVisibility(View.INVISIBLE);
-
+	private void onStartAnimationPhaseOne() {
+		
+		
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.menu_screen_scale_in);
         fadeInAnimation.setAnimationListener(new AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                mTitle.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -217,24 +261,17 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
                 onStartAnimationPhaseTwo(); 
             }
         });
-
+        
+		// doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
+        mTitle.setVisibility(View.VISIBLE);
         mTitle.startAnimation(fadeInAnimation);
     }
 
     private void onStartAnimationPhaseTwo() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
         fadeInAnimation.setAnimationListener(new AnimationListener() {
-            @Override
+			@Override
             public void onAnimationStart(Animation animation) {
-                mStartBtn.setVisibility(View.VISIBLE);
-                mStartBtn.setVisibility(View.VISIBLE);
-                mPreferencesBtn.setVisibility(View.VISIBLE);
-                mHighScoresBtn.setVisibility(View.VISIBLE);
-                mAboutBtn.setVisibility(View.VISIBLE);
-                mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.VISIBLE : View.GONE);
-                mMobClixView.setVisibility(JumplingsApplication.ADS_ENABLED ? View.VISIBLE : View.GONE);
-                mShareButton.setVisibility(View.VISIBLE);
-                mPremiumBtn.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -246,6 +283,17 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
             }
         });
 
+        // doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
+        mStartBtn.setVisibility(View.VISIBLE);
+        mStartBtn.setVisibility(View.VISIBLE);
+        mPreferencesBtn.setVisibility(View.VISIBLE);
+        mHighScoresBtn.setVisibility(View.VISIBLE);
+        mAboutBtn.setVisibility(View.VISIBLE);
+        mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.VISIBLE : View.GONE);
+        mShareButton.setVisibility(View.VISIBLE);
+        mMobClixView.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
+        mPremiumBtn.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
+        
         mStartBtn.startAnimation(fadeInAnimation);
         mPreferencesBtn.startAnimation(fadeInAnimation);
         mHighScoresBtn.startAnimation(fadeInAnimation);
@@ -283,10 +331,32 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         Intent i = new Intent(this, AboutActivity.class);
         startActivity(i);
     }
+    
+    private void onPremiumStateUpdate(boolean purchased) {
+    	Log.i(TAG, "Premium upgrade purchaed: " + purchased);
+    	mShowNonPremiumComponents = JumplingsApplication.ADS_ENABLED && !purchased;
+    	if (!mShowNonPremiumComponents) {
+    		// this will prevent the animations to start, and the views will never become visible
+    		mMobClixView.setVisibility(View.GONE);
+    		mPremiumBtn.setVisibility(View.GONE);
+    	}
+    }
 
 	@Override
 	public void onPurchaseBtnClicked() {
-		Toast.makeText(this, "buy!", Toast.LENGTH_SHORT).show();
+		FlurryHelper.logBuyBtnClickedFromHome();
+		mPremiumHelper.purchasePremiumAsync(this, new PurchaseCallback() {
+			@Override
+			public void onPurchaseFinished(boolean purchased) {
+				FlurryHelper.logPurchasedFromHome();
+				onPremiumStateUpdate(purchased);
+			}
+			
+			@Override
+			public void onPurchaseError(String message) {
+				Log.i(TAG, "Error querying purchase state " + message);
+			}
+		});
 	}
 
 }

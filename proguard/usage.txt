@@ -1,0 +1,916 @@
+android.annotation.SuppressLint
+android.annotation.TargetApi
+com.android.vending.billing.IInAppBillingService$Stub:
+    private static final java.lang.String DESCRIPTOR
+    static final int TRANSACTION_isBillingSupported
+    static final int TRANSACTION_getSkuDetails
+    static final int TRANSACTION_getBuyIntent
+    static final int TRANSACTION_getPurchases
+    static final int TRANSACTION_consumePurchase
+    37:40:public IInAppBillingService$Stub()
+    58:58:public android.os.IBinder asBinder()
+com.android.vending.billing.IInAppBillingService$Stub$Proxy:
+    186:186:public java.lang.String getInterfaceDescriptor()
+com.garrapeta.MathUtils:
+    12:12:public MathUtils()
+    22:22:public static float getDistance(float,float,float,float)
+    31:31:public static float getDistance(float,float)
+    45:45:public static boolean isPointInCicle(float,float,float,float,float)
+    52:64:public static boolean isPointInRectangle(float,float,float,float,float,float)
+    88:131:public static android.graphics.PointF segmentsIntersection(float,float,float,float,float,float,float,float)
+    165:178:public static boolean circleIntersectsRectagle(float,float,float,float,float,float,float)
+    197:206:public static boolean circleIntersectsLine(float,float,float,float,float,float,float,float)
+    226:257:public static boolean isPointInsidePolygon(java.util.Vector,int,int,float,float)
+com.garrapeta.gameengine.Actor:
+    36:37:public Actor(com.garrapeta.gameengine.GameWorld)
+com.garrapeta.gameengine.BitmapManager:
+    public static final java.lang.String LOG_SRC
+com.garrapeta.gameengine.Box2DActor:
+    43:44:public Box2DActor(com.garrapeta.gameengine.Box2DWorld)
+    182:182:public java.util.ArrayList getBodies()
+    186:200:public java.util.ArrayList getShapes()
+com.garrapeta.gameengine.Box2DWorld:
+    public static final java.lang.String LOG_SRC
+    private static final float DEFAULT_PHYSICAL_PERIOD
+    private static final int MAX_PHYSICAL_TIMESTEPS_PER_FRAME
+    172:172:public float getGravityX()
+com.garrapeta.gameengine.GameMessage:
+    protected static final int MESSAGE_PRIORITY_DEFAULT
+    protected static final int MESSAGE_PRIORITY_MAX
+com.garrapeta.gameengine.GameView:
+    public static final java.lang.String LOG_SRC
+com.garrapeta.gameengine.GameWorld:
+    private static final float DEFAULT_FPS
+    public static final java.lang.String LOG_SRC_GAME_ENGINE
+    public static final java.lang.String LOG_SRC
+    public static final java.lang.String LOOP_THREAD_NAME
+    164:164:public float getFPS()
+    171:171:public float getMspf()
+    185:185:public boolean isDrawDebugInfo()
+    390:393:public void removeAllActors()
+com.garrapeta.gameengine.ShapeDrawer:
+    private static final int DEFAULT_CIRCLE_LINE_COLOR
+    private static final int DEFAULT_EDGE_STROKE_COLOR
+    private static final int DEFAULT_EDGE_FILL_COLOR
+    private static final int DEFAULT_EDGE_LINE_COLOR
+    private static final int DEFAULT_POLYGON_LINE_COLOR
+    private static final int DEFAULT_CHAIN_STROKE_COLOR
+    private static final int DEFAULT_CHAIN_FILL_COLOR
+    private static final int DEFAULT_CHAIN_LINE_COLOR
+    17:17:public ShapeDrawer()
+com.garrapeta.gameengine.Viewport:
+    public static final java.lang.String LOG_SRC
+    62:68:public static com.badlogic.gdx.math.Vector2[] pointFToVector2(android.graphics.PointF[])
+    76:82:public static android.graphics.PointF[] vector2ToPointF(com.badlogic.gdx.math.Vector2[])
+    106:107:public void setWorldSize(float,float,float)
+    110:111:public void setWorldSizeAndFitWidth(float,float)
+    114:115:public void setWorldSizeAndFitHeight(float,float)
+    118:119:public void setWorldWidth(float,float)
+    122:123:public void setWorldHeight(float,float)
+    130:131:public void setWorldHeight(float)
+    229:229:public android.graphics.PointF screenToWorld(android.graphics.PointF)
+com.garrapeta.gameengine.Viewport$ProjectionMode:
+    1:1:public static com.garrapeta.gameengine.Viewport$ProjectionMode valueOf(java.lang.String)
+com.garrapeta.gameengine.actor.Box2DAtomicActor:
+    46:47:public android.graphics.PointF getWorldPos()
+    52:53:public void setWorldPos(float,float)
+    58:58:public android.graphics.PointF getLinearVelocity()
+com.garrapeta.gameengine.actor.Box2DCircleActor
+com.garrapeta.gameengine.actor.Box2DLoopActor
+com.garrapeta.gameengine.actor.Box2DOpenChainActor
+com.garrapeta.gameengine.actor.Box2DPolygonActor
+com.garrapeta.gameengine.actor.IAtomicActor
+com.garrapeta.gameengine.actor.SimpleActor
+com.garrapeta.gameengine.module.LoadedLevelActionsModule:
+    36:40:protected final int getCount(short)
+    58:58:public final boolean executeOverAllResourcesForKey(short)
+    70:71:public final void executeOverAllResources()
+com.garrapeta.gameengine.module.LoadedLevelActionsModule$ResourceData:
+    144:149:public final int getCount()
+com.garrapeta.gameengine.module.SoundModule:
+    private static final short ACTION_PLAY
+    private static final short ACTION_PAUSE
+    private static final short ACTION_RESUME
+    private static final short ACTION_STOP
+com.garrapeta.gameengine.utils.BitmapUtils
+com.garrapeta.gameengine.utils.IOUtils:
+    8:8:public IOUtils()
+    30:32:public static void writeToOutputStream(java.io.OutputStream,byte[])
+    35:36:public static void writeToOutputStream(java.io.OutputStream,java.lang.String)
+com.garrapeta.gameengine.utils.PhysicsUtils:
+    7:7:public PhysicsUtils()
+    27:27:public static final double getDistance(double,double,double)
+    54:64:public static final double getUpAndDownTime(float,double,double)
+com.garrapeta.gameengine.utils.Pool:
+    24:26:public Pool()
+    33:35:public Pool(int)
+    74:75:public void free(com.badlogic.gdx.utils.Array)
+com.garrapeta.gameengine.utils.Pool$PoolWrapper:
+    110:112:public Pool$PoolWrapper(com.garrapeta.gameengine.utils.Pool)
+    118:120:public Pool$PoolWrapper(com.garrapeta.gameengine.utils.Pool,int)
+com.garrapeta.jumplings.BuildConfig
+com.garrapeta.jumplings.GameActivity:
+    public static final java.lang.String WAVE_BUNDLE_KEY
+    private static final int LIFEBAR_BLINKING_LAPSE
+    static final java.lang.String DIALOG_FRAGMENT_TAG
+    273:273:public com.garrapeta.jumplings.JumplingsGameWorld getWorld()
+com.garrapeta.jumplings.GameEventsListener
+com.garrapeta.jumplings.GameOverActivity:
+    private static final int MINIMUM_NAME_LENGTH
+com.garrapeta.jumplings.HighScoreListingActivity:
+    public static final java.lang.String TAB_LOCALSCORES_ID
+    public static final java.lang.String TAB_GLOBALSCORES_ID
+com.garrapeta.jumplings.JumplingsApplication:
+    public static final java.lang.String LOG_SRC_JUMPLINGS
+    public static final java.lang.String LOG_SRC
+com.garrapeta.jumplings.JumplingsGameWorld:
+    public static final float LIFE_LOSS_FACTOR
+    public static final int WEAPON_GUN
+    public static final int WEAPON_SHOTGUN
+    public static final int WEAPON_BLADE
+    public static final short SAMPLE_ENEMY_BOING
+    public static final short SAMPLE_ENEMY_THROW
+    public static final short SAMPLE_ENEMY_KILLED
+    public static final short SAMPLE_FAIL
+    public static final short SAMPLE_SLAP
+    public static final short SAMPLE_SWORD_SWING
+    public static final short SAMPLE_FUSE
+    public static final short SAMPLE_BOMB_BOOM
+    public static final short SAMPLE_BOMB_LAUNCH
+    public static final short SAMPLE_SWORD_SHEATH
+    public static final short SAMPLE_SWORD_UNSHEATH
+    public static final short SAMPLE_LIFE_UP
+    public static final short VIBRATION_ENEMY_KILLED_KEY
+    public static final short VIBRATION_FAIL_KEY
+com.garrapeta.jumplings.JumplingsWorld:
+    public static final java.lang.String TAG
+    public static final int WORLD_HEIGHT
+    public static final short SAMPLE_ENEMY_PAIN
+    private static final java.lang.String ERROR_FRAGMENT_TAG
+    float centerX
+    float centerY
+com.garrapeta.jumplings.MenuActivity:
+    static final java.lang.String DIALOG_FRAGMENT_TAG
+com.garrapeta.jumplings.PermData:
+    public static final java.lang.String LAST_PLAYER_NAME_KEY
+    public static final java.lang.String LOCAL_HIGHSCORE_KEY_PREFIX
+    public static final java.lang.String GLOBAL_HIGHSCORE_KEY_PREFIX
+    public static final java.lang.String TWITTER_ACCESS_TOKEN_KEY
+    public static final java.lang.String TWITTER_ACCESS_TOKEN_SECRET_KEY
+    public static final java.lang.String LOCAL_SCORES_SUBMISSION_PENDING_KEY
+    public static final java.lang.String TUTORIAL_TIP_PREFIX
+    public static final short CFG_LEVEL_ALL
+    public static final short CFG_LEVEL_SOME
+    public static final short CFG_LEVEL_NONE
+    281:282:public java.lang.String getTwitterToken()
+    286:291:public void saveTwitterToken(java.lang.String)
+    294:295:public java.lang.String getTwitterTokenSecret()
+    299:304:public void saveTwitterTokenSecret(java.lang.String)
+com.garrapeta.jumplings.Player:
+    public static final int DEFAUL_MAX_LIFES
+    public static final int DEFAUL_INIT_LIFES
+    public static final int DEFAUL_INIT_SCORE
+    public static final int COMBO_MAX_SPACING_TIME
+    public static final int BASE_POINTS
+    public static final float INVULNERABLE_TIME
+    65:66:public void topUpLife()
+com.garrapeta.jumplings.R:
+    10:10:public R()
+com.garrapeta.jumplings.R$anim
+com.garrapeta.jumplings.R$array
+com.garrapeta.jumplings.R$attr
+com.garrapeta.jumplings.R$bool
+com.garrapeta.jumplings.R$color
+com.garrapeta.jumplings.R$dimen
+com.garrapeta.jumplings.R$drawable
+com.garrapeta.jumplings.R$id
+com.garrapeta.jumplings.R$integer
+com.garrapeta.jumplings.R$layout
+com.garrapeta.jumplings.R$raw
+com.garrapeta.jumplings.R$string
+com.garrapeta.jumplings.R$style
+com.garrapeta.jumplings.R$styleable:
+    public static final int CustomFontView_customFontViewAppearance
+    public static final int CustomFontView_fontPath
+    446:446:public R$styleable()
+com.garrapeta.jumplings.R$xml
+com.garrapeta.jumplings.Tutorial:
+    private static final java.lang.String MESSAGE_ID_KEY
+com.garrapeta.jumplings.Tutorial$TipId:
+    1:1:public static com.garrapeta.jumplings.Tutorial$TipId[] values()
+    1:1:public static com.garrapeta.jumplings.Tutorial$TipId valueOf(java.lang.String)
+com.garrapeta.jumplings.Wave:
+    public static final java.lang.String LOG_SRC
+    78:78:public boolean isPlaying()
+com.garrapeta.jumplings.WeaponSlap:
+    public static final short WEAPON_CODE_GUN
+    38:38:public void doLogic(float)
+com.garrapeta.jumplings.WeaponSword:
+    public static final short WEAPON_CODE_BLADE
+com.garrapeta.jumplings.actor.AnthropomorphicDelegate:
+    public static final int EYE_STROKE_COLOR
+    public static final int EYE_FILL_COLOR
+    public static final int EYE_LINE_COLOR
+    protected static final float LIMBS_DENSITY
+    com.badlogic.gdx.physics.box2d.Body mouthBody
+com.garrapeta.jumplings.actor.BladePowerUpActor:
+    public static final short JUMPER_CODE_POWER_UP_BLADE
+    protected static final int BMP_SWORD_ID
+    protected static final int BMP_DEBRIS_SWORD_ID
+com.garrapeta.jumplings.actor.BombActor:
+    public static final short JUMPER_CODE_BOMB
+    public static final float DEFAULT_RADIUS
+    private static final int SPARKS_LAPSE
+    private static final int SPARKS_PER_LAPSE
+    private static final int SPARKLE_LONGEVITY_FUSE
+    private static final int SPARKLE_LONGEVITY_EXPLOSION
+    private static final int SPARKS_AT_EXPLOSION
+    private static final int EXPLOSION_SPARKLE_FORCE
+com.garrapeta.jumplings.actor.BumpDelegate:
+    private static final float BUMP_TIME
+com.garrapeta.jumplings.actor.ComboTextActor:
+    public static final float DEFAULT_Y_VELOCITY
+    public static final int DEFAULT_LONGEVITY
+    public static final int BASE_FONTSIZE
+com.garrapeta.jumplings.actor.DebrisActor:
+    public static final int Z_INDEX
+    public static final int DEBRIS_FILTER_BIT
+    private static final int DEFAULT_LONGEVITY
+com.garrapeta.jumplings.actor.DoubleEnemyActor:
+    public static final float DEFAULT_RADIUS
+    public static final float HEIGHT_RESTORATION_FACTOR
+    public static final short JUMPER_CODE_DOUBLE
+    protected static final int BMP_ORANGE_BODY_ID
+    protected static final int BMP_ORANGE_FOOT_RIGHT_ID
+    protected static final int BMP_ORANGE_FOOT_LEFT_ID
+    protected static final int BMP_ORANGE_HAND_RIGHT_ID
+    protected static final int BMP_ORANGE_HAND_LEFT_ID
+    protected static final int BMP_DEBRIS_ORANGE_BODY_ID
+    protected static final int BMP_DEBRIS_ORANGE_FOOT_RIGHT_ID
+    protected static final int BMP_DEBRIS_ORANGE_FOOT_LEFT_ID
+    protected static final int BMP_DEBRIS_ORANGE_HAND_RIGHT_ID
+    protected static final int BMP_DEBRIS_ORANGE_HAND_LEFT_ID
+com.garrapeta.jumplings.actor.DoubleSonEnemyActor:
+    public static final float DEFAULT_RADIUS
+    public static final short JUMPER_CODE_DOUBLE_SON
+    protected static final int BMP_ORANGE_SIMPLE_BODY_ID
+    protected static final int BMP_DEBRIS_ORANGE_SIMPLE_BODY_ID
+com.garrapeta.jumplings.actor.EnemyActor:
+    protected static final int BMP_EYE_2_RIGHT_OPENED_ID
+    protected static final int BMP_EYE_2_LEFT_OPENED_ID
+    protected static final int BMP_EYE_0_RIGHT_OPENED_ID
+    protected static final int BMP_EYE_0_LEFT_OPENED_ID
+    protected static final int BMP_EYE_2_RIGHT_CLOSED_ID
+    protected static final int BMP_EYE_2_LEFT_CLOSED_ID
+    protected static final int BMP_EYE_0_RIGHT_CLOSED_ID
+    protected static final int BMP_EYE_0_LEFT_CLOSED_ID
+    protected static final int BMP_DEBRIS_EYE_2_RIGHT_ID
+    protected static final int BMP_DEBRIS_EYE_2_LEFT_ID
+    protected static final int BMP_DEBRIS_EYE_0_RIGHT_ID
+    protected static final int BMP_DEBRIS_EYE_0_LEFT_ID
+com.garrapeta.jumplings.actor.FlashActor:
+    public static final int Z_INDEX
+com.garrapeta.jumplings.actor.HarmerActor:
+    public static final int Z_INDEX
+com.garrapeta.jumplings.actor.HarmerSlapActor:
+    private static final float KILL_RADIUS
+    private static final float BLAST_RADIUS
+    private static final float BLAST_FORCE
+com.garrapeta.jumplings.actor.IntroActor:
+    public static final float DEFAULT_RADIUS
+    public static final int Z_INDEX
+    protected static final int BMP_INTRO_BODY_ID
+    protected static final int BMP_INTRO_FOOT_RIGHT_ID
+    protected static final int BMP_INTRO_FOOT_LEFT_ID
+    protected static final int BMP_INTRO_HAND_RIGHT_ID
+    protected static final int BMP_INTRO_HAND_LEFT_ID
+    protected static final int BMP_INTRO_EYE_RIGHT_OPENED_ID
+    protected static final int BMP_INTRO_EYE_LEFT_OPENED_ID
+    protected static final int BMP_INTRO_EYE_RIGHT_CLOSED_ID
+    protected static final int BMP_INTRO_EYE_LEFT_CLOSED_ID
+com.garrapeta.jumplings.actor.JumplingActor:
+    public static final float BASE_RADIUS
+    private static final float OVERALL_ACTOR_RESTITUTION
+    protected static final float AUX_BODIES_RESTITUTION
+    private static final float BOUNCING_VEL
+    public static final int CONTACT_FILTER_BIT
+    291:302:public final android.graphics.PointF getLinearVelocity()
+com.garrapeta.jumplings.actor.JumplingsFactory:
+    public static final java.lang.String LOG_SRC
+    private static final int MAX_INSTANCES
+com.garrapeta.jumplings.actor.LifePowerUpActor:
+    public static final short JUMPER_CODE_POWER_UP_LIFE
+    protected static final int BMP_HEART_ID
+    protected static final int BMP_DEBRIS_HEART_ID
+com.garrapeta.jumplings.actor.MainActor:
+    public static final int Z_INDEX
+    public static final float DESINTEGRATION_FORCE
+    142:142:public boolean onTouchEvent(android.view.MotionEvent)
+com.garrapeta.jumplings.actor.PowerUpActor:
+    public static final float DEFAULT_RADIUS
+    protected static final int BMP_POWERUP_BG
+    protected static final int BMP_DEBRIS_POWERUP_BG
+com.garrapeta.jumplings.actor.PremiumPurchaseHelper:
+    private static final java.lang.String PREMIUM_PURCHASED_SHARED_PREF_KEY
+    static final int RC_REQUEST
+com.garrapeta.jumplings.actor.RoundEnemyActor:
+    public static final float DEFAULT_RADIUS
+    public static final short JUMPER_CODE_SIMPLE
+    protected static final int BMP_RED_BODY_ID
+    protected static final int BMP_RED_FOOT_RIGHT_ID
+    protected static final int BMP_RED_FOOT_LEFT_ID
+    protected static final int BMP_RED_HAND_RIGHT_ID
+    protected static final int BMP_RED_HAND_LEFT_ID
+    protected static final int BMP_DEBRIS_RED_BODY_ID
+    protected static final int BMP_DEBRIS_RED_FOOT_RIGHT_ID
+    protected static final int BMP_DEBRIS_RED_FOOT_LEFT_ID
+    protected static final int BMP_DEBRIS_RED_HAND_RIGHT_ID
+    protected static final int BMP_DEBRIS_RED_HAND_LEFT_ID
+com.garrapeta.jumplings.actor.ScoreTextActor:
+    public static final float DEFAULT_Y_VELOCITY
+    public static final int DEFAULT_LONGEVITY
+    public static final int BASE_FONTSIZE
+com.garrapeta.jumplings.actor.SparksActor:
+    public static final float DEFAULT_RADIUS
+    public static final int Z_INDEX
+    public static final int SPARKS_FILTER_BIT
+com.garrapeta.jumplings.actor.SplitterEnemyActor:
+    public static final float DEFAULT_BASE_RADIUS
+    private static final float RADIUS_FACTOR
+    public static final float HEIGHT_RESTORATION_FACTOR
+    public static final short JUMPER_CODE_SPLITTER_SIMPLE
+    public static final short JUMPER_CODE_SPLITTER_DOUBLE
+    public static final short JUMPER_CODE_SPLITTER_TRIPLE
+    protected static final int BMP_YELLOW_2_BODY_ID
+    protected static final int BMP_YELLOW_1_BODY_ID
+    protected static final int BMP_YELLOW_0_BODY_ID
+    protected static final int BMP_YELLOW_2_FOOT_RIGHT_ID
+    protected static final int BMP_YELLOW_2_FOOT_LEFT_ID
+    protected static final int BMP_YELLOW_0_FOOT_RIGHT_ID
+    protected static final int BMP_YELLOW_0_FOOT_LEFT_ID
+    protected static final int BMP_YELLOW_2_HAND_RIGHT_ID
+    protected static final int BMP_YELLOW_2_HAND_LEFT_ID
+    protected static final int BMP_YELLOW_0_HAND_RIGHT_ID
+    protected static final int BMP_YELLOW_0_HAND_LEFT_ID
+    protected static final int BMP_DEBRIS_YELLOW_2_BODY_ID
+    protected static final int BMP_DEBRIS_YELLOW_1_BODY_ID
+    protected static final int BMP_DEBRIS_YELLOW_0_BODY_ID
+    protected static final int BMP_DEBRIS_YELLOW_2_FOOT_RIGHT_ID
+    protected static final int BMP_DEBRIS_YELLOW_2_FOOT_LEFT_ID
+    protected static final int BMP_DEBRIS_YELLOW_0_FOOT_RIGHT_ID
+    protected static final int BMP_DEBRIS_YELLOW_0_FOOT_LEFT_ID
+    protected static final int BMP_DEBRIS_YELLOW_2_HAND_RIGHT_ID
+    protected static final int BMP_DEBRIS_YELLOW_2_HAND_LEFT_ID
+    protected static final int BMP_DEBRIS_YELLOW_0_HAND_RIGHT_ID
+    protected static final int BMP_DEBRIS_YELLOW_0_HAND_LEFT_ID
+com.garrapeta.jumplings.actor.TextActor:
+    public static final int Z_INDEX
+com.garrapeta.jumplings.actor.WallActor:
+    public static final int WALL_FILTER_BIT
+    public static final int FLOOR_FILTER_BIT
+    public static final float WALL_RESTITUTION
+com.garrapeta.jumplings.billing.util.Base64:
+    public static final boolean ENCODE
+    public static final boolean DECODE
+    private static final byte EQUALS_SIGN
+    private static final byte NEW_LINE
+    private static final byte WHITE_SPACE_ENC
+    private static final byte EQUALS_SIGN_ENC
+    210:234:private static byte[] encode3to4(byte[],int,int,byte[],int,byte[])
+    247:247:public static java.lang.String encode(byte[])
+    258:258:public static java.lang.String encodeWebSafe(byte[],boolean)
+    274:286:public static java.lang.String encode(byte[],int,int,byte[],boolean)
+    301:345:public static byte[] encode(byte[],int,int,byte[],int)
+    431:432:public static byte[] decodeWebSafe(java.lang.String)
+    445:445:public static byte[] decode(byte[])
+    458:458:public static byte[] decodeWebSafe(byte[])
+    489:489:public static byte[] decodeWebSafe(byte[],int,int)
+com.garrapeta.jumplings.billing.util.Base64DecoderException:
+    private static final long serialVersionUID
+com.garrapeta.jumplings.billing.util.IabException:
+    private static final long serialVersionUID
+com.garrapeta.jumplings.billing.util.IabHelper:
+    public static final int BILLING_RESPONSE_RESULT_OK
+    public static final int BILLING_RESPONSE_RESULT_USER_CANCELED
+    public static final int BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE
+    public static final int BILLING_RESPONSE_RESULT_ITEM_UNAVAILABLE
+    public static final int BILLING_RESPONSE_RESULT_DEVELOPER_ERROR
+    public static final int BILLING_RESPONSE_RESULT_ERROR
+    public static final int BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED
+    public static final int BILLING_RESPONSE_RESULT_ITEM_NOT_OWNED
+    public static final int IABHELPER_ERROR_BASE
+    public static final int IABHELPER_REMOTE_EXCEPTION
+    public static final int IABHELPER_BAD_RESPONSE
+    public static final int IABHELPER_VERIFICATION_FAILED
+    public static final int IABHELPER_SEND_INTENT_FAILED
+    public static final int IABHELPER_USER_CANCELLED
+    public static final int IABHELPER_UNKNOWN_PURCHASE_RESPONSE
+    public static final int IABHELPER_MISSING_TOKEN
+    public static final int IABHELPER_UNKNOWN_ERROR
+    public static final int IABHELPER_SUBSCRIPTIONS_NOT_AVAILABLE
+    public static final int IABHELPER_INVALID_CONSUMPTION
+    public static final java.lang.String RESPONSE_CODE
+    public static final java.lang.String RESPONSE_GET_SKU_DETAILS_LIST
+    public static final java.lang.String RESPONSE_BUY_INTENT
+    public static final java.lang.String RESPONSE_INAPP_PURCHASE_DATA
+    public static final java.lang.String RESPONSE_INAPP_SIGNATURE
+    public static final java.lang.String RESPONSE_INAPP_ITEM_LIST
+    public static final java.lang.String RESPONSE_INAPP_PURCHASE_DATA_LIST
+    public static final java.lang.String RESPONSE_INAPP_SIGNATURE_LIST
+    public static final java.lang.String INAPP_CONTINUATION_TOKEN
+    public static final java.lang.String ITEM_TYPE_INAPP
+    public static final java.lang.String ITEM_TYPE_SUBS
+    public static final java.lang.String GET_SKU_DETAILS_ITEM_LIST
+    public static final java.lang.String GET_SKU_DETAILS_ITEM_TYPE_LIST
+    170:172:public void enableDebugLogging(boolean,java.lang.String)
+    295:295:public boolean subscriptionsSupported()
+    330:331:public void launchSubscriptionPurchaseFlow(android.app.Activity,java.lang.String,int,com.garrapeta.jumplings.billing.util.IabHelper$OnIabPurchaseFinishedListener)
+    335:336:public void launchSubscriptionPurchaseFlow(android.app.Activity,java.lang.String,int,com.garrapeta.jumplings.billing.util.IabHelper$OnIabPurchaseFinishedListener,java.lang.String)
+    621:622:public void queryInventoryAsync(boolean,com.garrapeta.jumplings.billing.util.IabHelper$QueryInventoryFinishedListener)
+    635:664:void consume(com.garrapeta.jumplings.billing.util.Purchase)
+    702:706:public void consumeAsync(com.garrapeta.jumplings.billing.util.Purchase,com.garrapeta.jumplings.billing.util.IabHelper$OnConsumeFinishedListener)
+    714:716:public void consumeAsync(java.util.List,com.garrapeta.jumplings.billing.util.IabHelper$OnConsumeMultiFinishedListener)
+    915:949:void consumeAsyncInternal(java.util.List,com.garrapeta.jumplings.billing.util.IabHelper$OnConsumeFinishedListener,com.garrapeta.jumplings.billing.util.IabHelper$OnConsumeMultiFinishedListener)
+com.garrapeta.jumplings.billing.util.IabHelper$3
+com.garrapeta.jumplings.billing.util.IabHelper$3$1
+com.garrapeta.jumplings.billing.util.IabHelper$3$2
+com.garrapeta.jumplings.billing.util.IabHelper$OnConsumeFinishedListener
+com.garrapeta.jumplings.billing.util.IabHelper$OnConsumeMultiFinishedListener
+com.garrapeta.jumplings.billing.util.IabResult:
+    39:39:public int getResponse()
+    42:42:public boolean isFailure()
+com.garrapeta.jumplings.billing.util.Inventory:
+    35:35:public com.garrapeta.jumplings.billing.util.SkuDetails getSkuDetails(java.lang.String)
+    45:45:public boolean hasPurchase(java.lang.String)
+    50:50:public boolean hasDetails(java.lang.String)
+    62:63:public void erasePurchase(java.lang.String)
+    67:67:java.util.List getAllOwnedSkus()
+    81:81:java.util.List getAllPurchases()
+com.garrapeta.jumplings.billing.util.Purchase:
+    51:51:public java.lang.String getOrderId()
+    52:52:public java.lang.String getPackageName()
+    54:54:public long getPurchaseTime()
+    56:56:public java.lang.String getDeveloperPayload()
+    58:58:public java.lang.String getOriginalJson()
+    59:59:public java.lang.String getSignature()
+com.garrapeta.jumplings.billing.util.Security:
+    private static final java.lang.String TAG
+    private static final java.lang.String KEY_FACTORY_ALGORITHM
+    private static final java.lang.String SIGNATURE_ALGORITHM
+    39:39:public Security()
+com.garrapeta.jumplings.billing.util.SkuDetails:
+    34:35:public SkuDetails(java.lang.String)
+    49:49:public java.lang.String getType()
+    50:50:public java.lang.String getPrice()
+    51:51:public java.lang.String getTitle()
+    52:52:public java.lang.String getDescription()
+com.garrapeta.jumplings.comms.BackendConnectionException:
+    private static final long serialVersionUID
+    18:20:public BackendConnectionException(com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType)
+    46:48:public BackendConnectionException(com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType,java.lang.Throwable)
+    54:54:public com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType getErrorType()
+com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType:
+    1:1:public static com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType[] values()
+    1:1:public static com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType valueOf(java.lang.String)
+com.garrapeta.jumplings.comms.BackendConnector:
+    private static final java.lang.String PARAM_DATA
+    private static final java.lang.String PARAM_AUTH_TOKEN
+    private static final java.lang.String SECRET_MD5_PREFIX
+    29:29:public BackendConnector()
+com.garrapeta.jumplings.comms.RequestFactory:
+    10:10:public RequestFactory()
+com.garrapeta.jumplings.comms.RequestModel:
+    public static final java.lang.String JSON_ACTION_KEY
+    public static final java.lang.String JSON_ACTION_DOWNLOAD_SCORES_VALUE
+    public static final java.lang.String JSON_ACTION_SUBMIT_SCORES_VALUE
+com.garrapeta.jumplings.flurry.FlurryHelper:
+    private static final java.lang.String EVENT_GAME_OVER
+    private static final java.lang.String EVENT_SCORES_SUBMITTED
+    private static final java.lang.String EVENT_SHARE_BTN_CLICKED
+    private static final java.lang.String EVENT_AD_DIALOG_SHOWN
+    private static final java.lang.String EVENT_BUY_BTN_CLICKED
+    private static final java.lang.String ERROR_GAME_ENGINE
+    private static final java.lang.String ERROR_ID_SCORE_SUBMISSION
+    private static final java.lang.String ERROR_ID_SCORE_DOWNLOAD
+    private static final java.lang.String EVENT_GAME_OVER_PARAM_GAME_DURATION
+    private static final java.lang.String EVENT_GAME_OVER_PARAM_LEVEL
+    private static final java.lang.String EVENT_GAME_OVER_PARAM_SCORE
+    14:14:public FlurryHelper()
+    110:114:public static void logBuyBtnClicked()
+com.garrapeta.jumplings.module.FlashModule:
+    private static final int FLASH_SHOT_DURATION
+    private static final int FLASH_SHOT_ALPHA
+    private static final int FLASH_SHOT_COLOR
+    private static final int FLASH_SHOT_PRIORITY
+    private static final int FLASH_FAIL_DURATION
+    private static final int FLASH_FAIL_ALPHA
+    private static final int FLASH_FAIL_COLOR
+    private static final int FLASH_FAIL_PRIORITY
+    private static final int FLASH_LIFEUP_DURATION
+    private static final int FLASH_LIFEUP_ALPHA
+    private static final int FLASH_LIFEUP_PRIORITY
+    private static final int FLASH_BLADE_DRAWN_DURATION
+    private static final int FLASH_BLADE_DRAWN_ALPHA
+    private static final int FLASH_BLADE_DRAWN_COLOR
+    private static final int FLASH_BLADE_DRAWN_PRIORITY
+    private static final int BLADE_SWING_DURATION
+    private static final int BLADE_SWING_ALPHA
+    private static final int BLADE_SWING_COLOR
+    private static final int BLADE_SWING_PRIORITY
+    public static final short ENEMY_SCAPED_KEY
+    public static final short BOMB_EXPLODED_KEY
+    public static final short LIFE_UP_KEY
+    public static final short BLADE_DRAWN_KEY
+    public static final short TAP_KEY
+    public static final short BLADE_SWING_KEY
+com.garrapeta.jumplings.module.ShakeModule:
+    public static final short ENEMY_KILLED_SHAKE
+    public static final short PLAYER_FAIL_SHAKE
+com.garrapeta.jumplings.scenario.DesertScenario:
+    private static final int LAYER1_ID
+    private static final int LAYER2_ID
+    private static final int LAYER3_ID
+    private static final int LAYER4_ID
+com.garrapeta.jumplings.scenario.JungleScenario:
+    private static final int LAYER1_ID
+    private static final int LAYER2_ID
+    private static final int LAYER3_ID
+    private static final int LAYER4_ID
+com.garrapeta.jumplings.scenario.NatureScenario:
+    private static final int LAYER1_ID
+    private static final int LAYER2_ID
+    private static final int LAYER3_ID
+    private static final int LAYER4_ID
+com.garrapeta.jumplings.scenario.RollingScenario:
+    public static final int FADE_IN_TIME
+com.garrapeta.jumplings.scenario.ScenarioFactory:
+    8:8:public ScenarioFactory()
+com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds:
+    1:1:public static com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds valueOf(java.lang.String)
+com.garrapeta.jumplings.scenario.WinterScenario:
+    private static final int LAYER1_ID
+    private static final int LAYER2_ID
+    private static final int LAYER3_ID
+    private static final int LAYER4_ID
+com.garrapeta.jumplings.ui.AdDialogHelper$AdDialogFragment:
+    private static final java.lang.String CONTINUE_BUTTON_STR
+    private static final int MSG_CONTINUE_BTN_STEP
+com.garrapeta.jumplings.ui.CustomDialogBuilder:
+    159:159:public android.widget.Button getLeftButton()
+com.garrapeta.jumplings.ui.ErrorDialogFactory:
+    14:14:public ErrorDialogFactory()
+com.garrapeta.jumplings.ui.GameOverDialogFactory:
+    15:15:public GameOverDialogFactory()
+com.garrapeta.jumplings.ui.PauseDialogFactory:
+    15:15:public PauseDialogFactory()
+com.garrapeta.jumplings.ui.PurchaseDialogFactory:
+    15:15:public PurchaseDialogFactory()
+com.garrapeta.jumplings.util.Utils:
+    14:14:public Utils()
+com.garrapeta.jumplings.wave.CampaignSurvivalWave:
+    private static final int INIT_LEVEL
+    public static final int FIRST_WAVE_DELAY
+    public static final int INTER_WAVE_DELAY
+    private static final int NEXT_SCENARIO_DELAY
+    private static final int RESUME_DELAY
+    public static final int NEW_LEVEL_EXTRA_LIFES
+com.garrapeta.jumplings.wave.MenuWave:
+    private static final int JUMPLING_CREATION_REALTIME
+    private static final float WORLD_WIDTH_JUMPLINGS_RATIO
+com.garrapeta.jumplings.wave.TestWave:
+    97:112:public void createPowerUp()
+com.mobclix.android.sdk.Base64:
+    public static final int NO_OPTIONS
+    public static final int ENCODE
+    public static final int DECODE
+    public static final int GZIP
+    public static final int DONT_GUNZIP
+    public static final int DO_BREAK_LINES
+    public static final int URL_SAFE
+    public static final int ORDERED
+    private static final int MAX_LINE_LENGTH
+    private static final byte EQUALS_SIGN
+    private static final byte NEW_LINE
+    private static final java.lang.String PREFERRED_ENCODING
+    private static final byte WHITE_SPACE_ENC
+    private static final byte EQUALS_SIGN_ENC
+    558:567:public static void encode(java.nio.ByteBuffer,java.nio.ByteBuffer)
+    582:593:public static void encode(java.nio.ByteBuffer,java.nio.CharBuffer)
+    618:618:public static java.lang.String encodeObject(java.io.Serializable)
+    655:698:public static java.lang.String encodeObject(java.io.Serializable,int)
+    760:760:public static java.lang.String encodeBytes(byte[],int)
+    786:793:public static java.lang.String encodeBytes(byte[],int,int)
+    858:864:public static byte[] encodeBytesToBytes(byte[])
+    1120:1126:public static byte[] decode(byte[])
+    1316:1316:public static java.lang.Object decodeToObject(java.lang.String)
+    1341:1385:public static java.lang.Object decodeToObject(java.lang.String,int,java.lang.ClassLoader)
+    1407:1424:public static void encodeToFile(byte[],java.lang.String)
+    1443:1456:public static void decodeToFile(java.lang.String,java.lang.String)
+    1478:1517:public static byte[] decodeFromFile(java.lang.String)
+    1539:1570:public static java.lang.String encodeFromFile(java.lang.String)
+    1584:1598:public static void encodeFileToFile(java.lang.String,java.lang.String)
+    1612:1626:public static void decodeFileToFile(java.lang.String,java.lang.String)
+com.mobclix.android.sdk.Base64$1
+com.mobclix.android.sdk.Base64$InputStream:
+    1661:1662:public Base64$InputStream(java.io.InputStream)
+    1687:1696:public Base64$InputStream(java.io.InputStream,int)
+com.mobclix.android.sdk.Base64$OutputStream:
+    1874:1875:public Base64$OutputStream(java.io.OutputStream)
+    2044:2046:public void suspendEncoding()
+    2057:2058:public void resumeEncoding()
+com.mobclix.android.sdk.FetchRemoteConfig:
+    606:638:private void downloadCustomImages()
+com.mobclix.android.sdk.Mobclix:
+    static final boolean DEBUG
+    static final boolean DEBUG_AUSTIN
+    static final boolean USE_DEBUG_CONFIG
+    public static final int LOG_LEVEL_DEBUG
+    public static final int LOG_LEVEL_INFO
+    public static final int LOG_LEVEL_WARN
+    public static final int LOG_LEVEL_ERROR
+    public static final int LOG_LEVEL_FATAL
+    public static final java.lang.String VERSION
+    static final java.lang.String MC_KEY_CONNECTION_TYPE
+    static final java.lang.String MC_KEY_LATITUDE_LONGITUDE
+    static final java.lang.String MC_KEY_SESSION_ID
+    private static final java.lang.String MC_KEY_TIMESTAMP
+    private static final java.lang.String MC_KEY_EVENT_PROCESS_NAME
+    private static final java.lang.String MC_KEY_EVENT_NAME
+    private static final java.lang.String MC_KEY_EVENT_DESCRIPTION
+    private static final java.lang.String MC_KEY_EVENT_LOG_LEVEL
+    private static final java.lang.String MC_KEY_EVENT_THREAD_ID
+    private static final java.lang.String MC_KEY_EVENT_STOP
+    private static final java.lang.String TAG
+    private static final java.lang.String FACEBOOK_ATTRIBUTION_ID_COLUMN_NAME
+    static final java.lang.String PREFS_CONFIG
+    static final java.lang.String MC_CUSTOM_AD_PREF
+    static final java.lang.String MC_CUSTOM_AD_FILENAME
+    199:199:void setContext(android.app.Activity)
+    210:210:java.lang.String getAndroidId()
+    232:232:int getLogLevel()
+    233:233:boolean hasLocationPermission()
+    253:253:java.lang.String getCustomAdUrl(java.lang.String)
+    273:273:boolean isRemoteConfigSetFromServer()
+    327:328:static java.util.HashMap getAllPref()
+    428:434:static void clearPref()
+    886:887:public static final synchronized void onStop(android.app.Activity)
+    894:934:public static final void logEvent(int,java.lang.String,java.lang.String,java.lang.String,boolean)
+    937:946:public static final void sync()
+com.mobclix.android.sdk.Mobclix$BitmapHandler:
+    1133:1134:public void setState(java.lang.Object)
+com.mobclix.android.sdk.Mobclix$MobclixPermissionException:
+    private static final long serialVersionUID
+com.mobclix.android.sdk.Mobclix$ObjectOnClickListener:
+    java.lang.Object obj3
+    1275:1279:public Mobclix$ObjectOnClickListener(java.lang.Object,java.lang.Object,java.lang.Object)
+com.mobclix.android.sdk.MobclixAdRequest:
+    private static final java.lang.String TAG
+    31:31:java.lang.String getSize()
+    38:38:void setCreativeId(java.lang.String)
+    39:39:java.lang.String getCreativeId()
+    42:42:void setAdCode(java.lang.String)
+    43:43:java.lang.String getAdCode()
+    46:46:void setRequestedAdUrlForAdView(java.lang.String)
+    47:47:java.lang.String getRequestedAdUrlForAdView()
+    54:54:void setIp(java.lang.String)
+    58:58:void setTestMode(boolean)
+    59:59:boolean isTestMode()
+com.mobclix.android.sdk.MobclixAdUnitSettings:
+    39:39:void setCustomAdSet(boolean)
+    40:40:boolean isCustomAdSet()
+    46:46:java.lang.String generatePreferenceString()
+com.mobclix.android.sdk.MobclixAdView:
+    private static final long MINIMUM_REFRESH_TIME
+    private static final long MINIMUM_FORCED_REFRESH_TIME
+    static final java.lang.String ADSIZE_320x50
+    static final java.lang.String ADSIZE_300x250
+    static final java.lang.String OPEN_ALLOCATION_CONFIG
+    static final java.lang.String OPEN_ALLOCATION_MOBCLIX
+    static final java.lang.String OPEN_ALLOCATION_ADMOB
+    static final java.lang.String OPEN_ALLOCATION_OTHER
+    static final java.lang.String OPEN_ALLOCATION_MILLENNIAL
+    static final java.lang.String OPEN_ALLOCATION_METHOD_PRIORITY
+    static final java.lang.String OPEN_ALLOCATION_METHOD_ALLOCATION
+    static final int STATE_NO_AD
+    static final int STATE_LOADING_AD
+    static final int STATE_LOADED_AD
+    static final int STATE_DISPLAYED_AD
+    79:79:int getBackgroundColor()
+    92:92:public void setShouldRotate(boolean)
+    96:96:public void setTestMode(boolean)
+    97:97:public boolean getTestMode()
+    107:107:public void setRichMediaRequiresUserInteraction(boolean)
+    119:119:public boolean removeMobclixAdViewListener(com.mobclix.android.sdk.MobclixAdViewListener)
+    121:121:public void setAdSpace(java.lang.String)
+    124:124:void setAdCode(java.lang.String)
+    125:125:public java.lang.String getAdCode()
+    127:127:public void setCreativeId(java.lang.String)
+    128:128:public java.lang.String getCreativeId()
+    130:130:public void setRequestedAdUrlForAdView(java.lang.String)
+    131:131:public java.lang.String getRequestedAdUrlForAdView()
+    135:135:void setOverrideAdUrlForAdView(java.lang.String)
+    138:138:void setIp(java.lang.String)
+    554:558:public void cancelAd()
+    562:600:public void destroy()
+    1219:1222:public boolean addDebugListener(com.mobclix.android.sdk.MobclixAdView$Debug)
+    1226:1226:public boolean removeDebugListener(com.mobclix.android.sdk.MobclixAdView$Debug)
+com.mobclix.android.sdk.MobclixAdViewListener:
+    public static final int UNKNOWN_ERROR
+    public static final int ADS_SERVER_ERROR
+    public static final int UNAVAILABLE
+    public static final int AD_REQUEST_CANCELED
+    public static final int APP_NOT_IN_FOREGROUND
+    public static final int ADS_NOT_STARTED
+    public static final int ADSIZE_DISABLED
+    public static final int SUBALLOCATION_ADMOB
+    public static final int SUBALLOCATION_GOOGLE
+    public static final int SUBALLOCATION_OTHER
+    public static final int SUBALLOCATION_MILLENNIAL
+com.mobclix.android.sdk.MobclixAnalytics:
+    private static final java.lang.String TAG
+    private static final java.lang.String MC_KEY_APPLICATION_ID
+    private static final java.lang.String MC_KEY_PLATFORM_ID
+    private static final java.lang.String MC_KEY_MOBCLIX_LIBRARY_VERSION
+    private static final java.lang.String MC_KEY_APPLICATION_VERSION
+    private static final java.lang.String MC_KEY_DEVICE_ID
+    private static final java.lang.String MC_KEY_DEVICE_MODEL
+    private static final java.lang.String MC_KEY_DEVICE_SYSTEM_VERSION
+    private static final java.lang.String MC_KEY_DEVICE_HARDWARE_MODEL
+    private static final java.lang.String MC_KEY_USER_LANGUAGE_PREFERENCE
+    private static final java.lang.String MC_KEY_USER_LOCALE_PREFERENCE
+    55:55:static int getSyncStatus()
+    97:139:private static boolean OpenAnalyticsFile()
+    45:45:static synthetic boolean access$0()
+    49:49:static synthetic int access$1()
+    45:45:static synthetic void access$2(boolean)
+    44:44:static synthetic boolean access$3()
+    96:96:static synthetic boolean access$4()
+    22:22:static synthetic com.mobclix.android.sdk.Mobclix access$5()
+    43:43:static synthetic java.io.File access$6()
+    46:46:static synthetic int access$7()
+    46:46:static synthetic void access$8(int)
+    40:40:static synthetic int access$9()
+    44:44:static synthetic void access$10(boolean)
+    49:49:static synthetic void access$11(int)
+    37:37:static synthetic java.lang.String access$12()
+    38:38:static synthetic java.lang.String access$13()
+    48:48:static synthetic void access$14(java.lang.String)
+    48:48:static synthetic java.lang.String access$15()
+com.mobclix.android.sdk.MobclixAnalytics$LogEvent
+com.mobclix.android.sdk.MobclixAnalytics$Sync
+com.mobclix.android.sdk.MobclixAssets:
+    private static final java.lang.String closeBoxImage2xString
+    private static final java.lang.String closeBlankImage2XString
+    private static final java.lang.String closeIconImage2XString
+    19:30:static synchronized android.graphics.Bitmap closeBoxImage()
+com.mobclix.android.sdk.MobclixBrowserActivity:
+    private static final int TYPE_VIDEO
+    private static final int TYPE_BROWSER
+    private static final int TYPE_EXPANDER
+    private static final int TYPE_CAMERA
+    private static final int TYPE_FULLSCREEN
+    private static final int TYPE_HTML5_VIDEO
+    static final java.lang.String ORIENTATION_PORTRAIT
+    static final java.lang.String ORIENTATION_PORTRAIT_UPSIDE_DOWN
+    static final java.lang.String ORIENTATION_LANDSCAPE_LEFT
+    static final java.lang.String ORIENTATION_LANDSCAPE_RIGHT
+    static final java.lang.String ORIENTATION_FACE_UP
+    356:366:public java.lang.String getPath(android.net.Uri)
+com.mobclix.android.sdk.MobclixBrowserActivity$FullscreenHolder:
+    static final java.lang.String TAG
+com.mobclix.android.sdk.MobclixBrowserActivity$MobclixCloseButton:
+    static final int DEFAULT_BACKGROUND_WIDTH
+    static final int DEFAULT_MARGIN
+    static final int MINIMAL_WIDTH
+    static final int MINIMAL_HEIGHT
+com.mobclix.android.sdk.MobclixBrowserActivity$MobclixFullScreen:
+    static final int DEFAULT_DURATION
+com.mobclix.android.sdk.MobclixBrowserActivity$MobclixUI:
+    static final java.lang.String TAG
+com.mobclix.android.sdk.MobclixCreative:
+    private static final java.lang.String TAG
+    244:244:public java.lang.String getType()
+    247:247:public boolean getHasAutoplayed()
+com.mobclix.android.sdk.MobclixCreative$Action:
+    int cachedImageWidth
+    int cachedImageHeight
+com.mobclix.android.sdk.MobclixCreative$HTMLPage:
+    1017:1026:void destroy()
+com.mobclix.android.sdk.MobclixCreative$HTMLPagePool:
+    896:899:void destroy()
+com.mobclix.android.sdk.MobclixCreative$Page:
+    protected int resourceId
+    protected int layer
+    protected java.lang.String type
+    603:603:public void setResourceId(int)
+    604:604:public void setLayer(int)
+    605:605:public void setType(java.lang.String)
+    606:606:public int getResourceId()
+    607:607:public int getLayer()
+    608:608:public java.lang.String getType()
+com.mobclix.android.sdk.MobclixCreativeManager:
+    static final java.lang.String TAG
+    33:40:java.lang.String getAdNetwork(int)
+com.mobclix.android.sdk.MobclixDemographics:
+    public static final java.lang.String Birthdate
+    public static final java.lang.String Education
+    public static final java.lang.String Ethnicity
+    public static final java.lang.String Gender
+    public static final java.lang.String DatingGender
+    public static final java.lang.String Income
+    public static final java.lang.String MaritalStatus
+    public static final java.lang.String Religion
+    public static final java.lang.String AreaCode
+    public static final java.lang.String City
+    public static final java.lang.String Country
+    public static final java.lang.String DMACode
+    public static final java.lang.String MetroCode
+    public static final java.lang.String PostalCode
+    public static final java.lang.String Region
+    public static final int EducationUnknown
+    public static final int EducationHighSchool
+    public static final int EducationSomeCollege
+    public static final int EducationInCollege
+    public static final int EducationBachelorsDegree
+    public static final int EducationMastersDegree
+    public static final int EducationDoctoralDegree
+    public static final int EthnicityUnknown
+    public static final int EthnicityMixed
+    public static final int EthnicityAsian
+    public static final int EthnicityBlack
+    public static final int EthnicityHispanic
+    public static final int EthnicityNativeAmerican
+    public static final int EthnicityWhite
+    public static final int ReligionUnknown
+    public static final int ReligionBuddhism
+    public static final int ReligionChristianity
+    public static final int ReligionHinduism
+    public static final int ReligionIslam
+    public static final int ReligionJudaism
+    public static final int ReligionUnaffiliated
+    public static final int ReligionOther
+    public static final int GenderUnknown
+    public static final int GenderMale
+    public static final int GenderFemale
+    public static final int GenderBoth
+    public static final int MaritalUnknown
+    public static final int MaritalSingleAvailable
+    public static final int MaritalSingleUnavailable
+    public static final int MaritalMarried
+    74:75:public static void sendDemographics(android.app.Activity,java.util.Map)
+    78:209:public static void sendDemographics(android.app.Activity,java.util.Map,com.mobclix.android.sdk.MobclixFeedback$Listener)
+com.mobclix.android.sdk.MobclixFeedback:
+    15:15:public static void sendComment(android.app.Activity,java.lang.String)
+    17:41:public static void sendComment(android.app.Activity,java.lang.String,com.mobclix.android.sdk.MobclixFeedback$Listener)
+    43:43:public static void sendRatings(android.app.Activity,com.mobclix.android.sdk.MobclixFeedback$Ratings)
+    45:73:public static void sendRatings(android.app.Activity,com.mobclix.android.sdk.MobclixFeedback$Ratings,com.mobclix.android.sdk.MobclixFeedback$Listener)
+com.mobclix.android.sdk.MobclixFeedback$Ratings:
+    81:81:public void setCategoryA(int)
+    82:82:public void setCategoryB(int)
+    83:83:public void setCategoryC(int)
+    84:84:public void setCategoryD(int)
+    85:85:public void setCategoryE(int)
+com.mobclix.android.sdk.MobclixFullScreenAdView:
+    static final java.lang.String ADSIZE_FULL_SCREEN
+    37:37:public boolean hasAd()
+    45:51:public void requestAd()
+    136:136:android.os.Handler getAdResponseHandler()
+    150:150:int getBackgroundColor()
+    156:156:float getScale()
+    169:169:public void setAdSpace(java.lang.String)
+    170:170:public java.lang.String getAdSpace()
+    172:172:void setAdCode(java.lang.String)
+    173:173:public java.lang.String getAdCode()
+    175:175:public void setCreativeId(java.lang.String)
+    176:176:public java.lang.String getCreativeId()
+    178:178:public void setRequestedAdUrlForAdView(java.lang.String)
+    179:179:public java.lang.String getRequestedAdUrlForAdView()
+    183:183:void setOverrideAdUrlForAdView(java.lang.String)
+    186:186:void setIp(java.lang.String)
+    187:187:java.lang.String getIp()
+    197:197:public boolean removeMobclixAdViewListener(com.mobclix.android.sdk.MobclixFullScreenAdViewListener)
+com.mobclix.android.sdk.MobclixFullScreenAdView$AdResponseHandler:
+    private static final java.lang.String TAG
+com.mobclix.android.sdk.MobclixFullScreenAdViewListener:
+    public static final int UNKNOWN_ERROR
+    public static final int UNAVAILABLE
+    public static final int ADSIZE_DISABLED
+com.mobclix.android.sdk.MobclixIABRectangleMAdView:
+    13:14:public MobclixIABRectangleMAdView(android.content.Context,android.util.AttributeSet)
+com.mobclix.android.sdk.MobclixUtility:
+    15:15:MobclixUtility()
+com.mobclix.android.sdk.MobclixWebChromeClient:
+    static final java.lang.String TAG
+com.mobclix.android.sdk.MobclixWebChromeClientSdk5:
+    static final java.lang.String TAG
+com.mobclix.android.sdk.MobclixWebChromeClientSdk7:
+    static final java.lang.String TAG
+com.mobclix.android.sdk.MobclixWebView:
+    private static final java.lang.String TAG
+    270:271:public void setJavascriptInterface(com.mobclix.android.sdk.MobclixJavascriptInterface)
+    577:580:void setLastAutoplayTime()
+com.mobclix.android.sdk.MobclixWebViewClient:
+    private static final java.lang.String TAG
+com.mobclix.android.sdk.MobclixWebViewClientSdk11:
+    static final java.lang.String TAG
+    18:22:public android.webkit.WebResourceResponse shouldInterceptRequest(android.webkit.WebView,java.lang.String)

@@ -22,14 +22,18 @@ public class FlurryHelper {
 	private final static String EVENT_SCORES_SUBMITTED = "scores_submitted";
 	private final static String EVENT_SHARE_BTN_CLICKED = "share_btn_clicked";
 	private final static String EVENT_AD_DIALOG_SHOWN = "ad_dialog_shown";
-	private final static String EVENT_BUY_BTN_CLICKED = "buy_btn_clicked";
-
+	private final static String EVENT_BUY_BTN_CLICKED_FROM_HOME = "buy_btn_clicked_from_home";
+	private final static String EVENT_BUY_BTN_CLICKED_FROM_GAME = "buy_btn_clicked_from_game";
+	private final static String EVENT_PURCHASED_FROM_HOME = "buy_purchased_from_home";
+	private final static String EVENT_PURCHASED_FROM_GAME = "buy_purchased_from_game";
+	
 	private final static String ERROR_GAME_ENGINE = "game_engine";
 	private final static String ERROR_ID_SCORE_SUBMISSION = "score_submission";
 	private final static String ERROR_ID_SCORE_DOWNLOAD = "score_download";
 	private static final String EVENT_GAME_OVER_PARAM_GAME_DURATION = "duration_in_game_millis";
 	private static final String EVENT_GAME_OVER_PARAM_LEVEL = "level";
 	private static final String EVENT_GAME_OVER_PARAM_SCORE = "score";
+	
 
 	/**
 	 * Initializes the module. Cano be called only once.
@@ -106,12 +110,34 @@ public class FlurryHelper {
 		}
 	}
 	
-	public static void logBuyBtnClicked() {
+	public static void logBuyBtnClickedFromHome() {
 		checkInitialized();
 		if (sIsEnabled) {
-			FlurryAgent.onEvent(EVENT_BUY_BTN_CLICKED);
+			FlurryAgent.onEvent(EVENT_BUY_BTN_CLICKED_FROM_HOME);
 		}
 	}
+	
+	public static void logBuyBtnClickedFromGame() {
+		checkInitialized();
+		if (sIsEnabled) {
+			FlurryAgent.onEvent(EVENT_BUY_BTN_CLICKED_FROM_GAME);
+		}
+	}
+	
+	public static void logPurchasedFromHome() {
+		checkInitialized();
+		if (sIsEnabled) {
+			FlurryAgent.onEvent(EVENT_PURCHASED_FROM_HOME);
+		}
+	}
+	
+	public static void logPurchasedFromGame() {
+		checkInitialized();
+		if (sIsEnabled) {
+			FlurryAgent.onEvent(EVENT_PURCHASED_FROM_GAME);
+		}
+	}
+	
 	/**
 	 * Should be called in onStop of every Activity
 	 * 

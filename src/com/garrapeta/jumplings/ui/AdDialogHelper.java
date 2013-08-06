@@ -10,9 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.mobclix.android.sdk.MobclixAdView;
 import com.mobclix.android.sdk.MobclixAdViewListener;
@@ -73,6 +71,7 @@ public class AdDialogHelper implements MobclixAdViewListener {
         public void onAdDialogShown();
         public void onAdDialogClosed();            
         public AdDialogHelper getAdDialogFactory();
+        public void onPurchaseBtnClicked();
     }
 
     /**
@@ -128,16 +127,14 @@ public class AdDialogHelper implements MobclixAdViewListener {
                     getDialog().dismiss();
                     mClient.getAdDialogFactory().mAdView.getAd();
                 }
-            });
-            
-            if (JumplingsApplication.ADS_BUY_DIALOG_BUTTON_ENABLED ) {
-                builder.setLeftButton("Get rid of ads", new View.OnClickListener() {
+            }).setLeftButton("Get rid of ads", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();
+                    	getDialog().dismiss();
+                    	mClient.onPurchaseBtnClicked();
                     }
                 });
-            }
+            
 
             
             Dialog dialog = builder.create();
@@ -213,5 +210,6 @@ public class AdDialogHelper implements MobclixAdViewListener {
     public String query() {
         return null;
     }
+
 
 }

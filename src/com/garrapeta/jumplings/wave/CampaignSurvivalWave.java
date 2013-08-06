@@ -5,7 +5,6 @@ import android.util.Log;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
 import com.garrapeta.jumplings.GameActivity;
-import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.Player;
 import com.garrapeta.jumplings.Wave;
@@ -139,7 +138,7 @@ public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IW
     // ------------------------------------------------ M�todos propios
 
     private void switchWave() {
-        if (JumplingsApplication.ADS_ENABLED && mWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
+        if (mWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
             // Se muestra anuncio
             mWorld.mActivity.runOnUiThread(new Runnable() {
                 @Override

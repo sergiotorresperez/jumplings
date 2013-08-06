@@ -3981,6 +3981,23 @@ android.support.v4.widget.ViewDragHelper$Callback -> android.support.v4.widget.V
     boolean tryCaptureView(android.view.View,int) -> tryCaptureView
     int clampViewPositionHorizontal(android.view.View,int,int) -> clampViewPositionHorizontal
     int clampViewPositionVertical(android.view.View,int,int) -> clampViewPositionVertical
+com.android.vending.billing.IInAppBillingService -> com.a.a.a.a:
+    int isBillingSupported(int,java.lang.String,java.lang.String) -> a
+    android.os.Bundle getSkuDetails(int,java.lang.String,java.lang.String,android.os.Bundle) -> a
+    android.os.Bundle getBuyIntent(int,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
+    android.os.Bundle getPurchases(int,java.lang.String,java.lang.String,java.lang.String) -> a
+    int consumePurchase(int,java.lang.String,java.lang.String) -> b
+com.android.vending.billing.IInAppBillingService$Stub -> com.a.a.a.b:
+    com.android.vending.billing.IInAppBillingService asInterface(android.os.IBinder) -> a
+    boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
+com.android.vending.billing.IInAppBillingService$Stub$Proxy -> com.a.a.a.c:
+    android.os.IBinder mRemote -> a
+    android.os.IBinder asBinder() -> asBinder
+    int isBillingSupported(int,java.lang.String,java.lang.String) -> a
+    android.os.Bundle getSkuDetails(int,java.lang.String,java.lang.String,android.os.Bundle) -> a
+    android.os.Bundle getBuyIntent(int,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
+    android.os.Bundle getPurchases(int,java.lang.String,java.lang.String,java.lang.String) -> a
+    int consumePurchase(int,java.lang.String,java.lang.String) -> b
 com.badlogic.gdx.math.MathUtils -> com.badlogic.gdx.math.MathUtils:
     float PI -> PI
     int SIN_BITS -> SIN_BITS
@@ -17575,72 +17592,82 @@ com.garrapeta.jumplings.JumplingsWorld$1 -> com.garrapeta.jumplings.c$1:
     com.garrapeta.jumplings.JumplingsWorld this$0 -> a
     void run() -> run
 com.garrapeta.jumplings.MenuActivity -> com.garrapeta.jumplings.MenuActivity:
-    android.view.View mTitle -> a
-    android.widget.Button mStartBtn -> b
-    android.widget.ImageButton mPreferencesBtn -> c
-    android.widget.ImageButton mHighScoresBtn -> d
-    android.widget.ImageButton mAboutBtn -> e
-    android.widget.ImageButton mShareButton -> f
-    android.widget.ImageButton mPremiumBtn -> g
-    android.view.View mMobClixView -> h
-    android.view.View mDebugGroup -> i
-    com.garrapeta.jumplings.JumplingsWorld mWorld -> j
+    java.lang.String TAG -> a
+    android.view.View mTitle -> b
+    android.widget.Button mStartBtn -> c
+    android.widget.ImageButton mPreferencesBtn -> d
+    android.widget.ImageButton mHighScoresBtn -> e
+    android.widget.ImageButton mAboutBtn -> f
+    android.widget.ImageButton mShareButton -> g
+    android.widget.ImageButton mPremiumBtn -> h
+    android.view.View mMobClixView -> i
+    android.view.View mDebugGroup -> j
+    com.garrapeta.jumplings.actor.InAppBillingHelper mInAppBillingHelper -> k
+    com.garrapeta.jumplings.JumplingsWorld mWorld -> l
     void onCreate(android.os.Bundle) -> onCreate
     void onStart() -> onStart
     void onPause() -> onPause
     void onResume() -> onResume
     void onStop() -> onStop
     void onDestroy() -> onDestroy
+    void onActivityResult(int,int,android.content.Intent) -> onActivityResult
     void onPurchaseBtnClicked() -> a
-    void access$000(com.garrapeta.jumplings.MenuActivity) -> a
-    void access$100(com.garrapeta.jumplings.MenuActivity) -> b
-    void access$200(com.garrapeta.jumplings.MenuActivity) -> c
-    void access$300(com.garrapeta.jumplings.MenuActivity) -> d
-    void access$400(com.garrapeta.jumplings.MenuActivity) -> e
-    android.view.View access$500(com.garrapeta.jumplings.MenuActivity) -> f
-    void access$600(com.garrapeta.jumplings.MenuActivity) -> g
-    android.widget.Button access$700(com.garrapeta.jumplings.MenuActivity) -> h
-    android.widget.ImageButton access$800(com.garrapeta.jumplings.MenuActivity) -> i
-    android.widget.ImageButton access$900(com.garrapeta.jumplings.MenuActivity) -> j
-    android.widget.ImageButton access$1000(com.garrapeta.jumplings.MenuActivity) -> k
-    android.view.View access$1100(com.garrapeta.jumplings.MenuActivity) -> l
-    android.view.View access$1200(com.garrapeta.jumplings.MenuActivity) -> m
-    android.widget.ImageButton access$1300(com.garrapeta.jumplings.MenuActivity) -> n
-    android.widget.ImageButton access$1400(com.garrapeta.jumplings.MenuActivity) -> o
+    java.lang.String access$000() -> b
+    void access$100(com.garrapeta.jumplings.MenuActivity) -> a
+    void access$200(com.garrapeta.jumplings.MenuActivity) -> b
+    void access$300(com.garrapeta.jumplings.MenuActivity) -> c
+    void access$400(com.garrapeta.jumplings.MenuActivity) -> d
+    void access$500(com.garrapeta.jumplings.MenuActivity) -> e
+    android.view.View access$600(com.garrapeta.jumplings.MenuActivity) -> f
+    void access$700(com.garrapeta.jumplings.MenuActivity) -> g
+    android.widget.Button access$800(com.garrapeta.jumplings.MenuActivity) -> h
+    android.widget.ImageButton access$900(com.garrapeta.jumplings.MenuActivity) -> i
+    android.widget.ImageButton access$1000(com.garrapeta.jumplings.MenuActivity) -> j
+    android.widget.ImageButton access$1100(com.garrapeta.jumplings.MenuActivity) -> k
+    android.view.View access$1200(com.garrapeta.jumplings.MenuActivity) -> l
+    android.view.View access$1300(com.garrapeta.jumplings.MenuActivity) -> m
+    android.widget.ImageButton access$1400(com.garrapeta.jumplings.MenuActivity) -> n
+    android.widget.ImageButton access$1500(com.garrapeta.jumplings.MenuActivity) -> o
 com.garrapeta.jumplings.MenuActivity$1 -> com.garrapeta.jumplings.MenuActivity$1:
-    com.garrapeta.jumplings.MenuActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
+    void onPurchaseStateQueryFinished(boolean) -> a
+    void onPurchaseStateQueryError(java.lang.String) -> a
 com.garrapeta.jumplings.MenuActivity$10 -> com.garrapeta.jumplings.MenuActivity$2:
     com.garrapeta.jumplings.MenuActivity this$0 -> a
     void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
     void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-com.garrapeta.jumplings.MenuActivity$2 -> com.garrapeta.jumplings.MenuActivity$3:
-    com.garrapeta.jumplings.MenuActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.garrapeta.jumplings.MenuActivity$3 -> com.garrapeta.jumplings.MenuActivity$4:
-    com.garrapeta.jumplings.MenuActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.garrapeta.jumplings.MenuActivity$4 -> com.garrapeta.jumplings.MenuActivity$5:
-    com.garrapeta.jumplings.MenuActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.garrapeta.jumplings.MenuActivity$5 -> com.garrapeta.jumplings.MenuActivity$6:
-    com.garrapeta.jumplings.MenuActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.garrapeta.jumplings.MenuActivity$6 -> com.garrapeta.jumplings.MenuActivity$7:
-    com.garrapeta.jumplings.MenuActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.garrapeta.jumplings.MenuActivity$7 -> com.garrapeta.jumplings.MenuActivity$8:
-    com.garrapeta.jumplings.MenuActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.garrapeta.jumplings.MenuActivity$8 -> com.garrapeta.jumplings.MenuActivity$9:
-    com.garrapeta.jumplings.MenuActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.garrapeta.jumplings.MenuActivity$9 -> com.garrapeta.jumplings.MenuActivity$10:
+com.garrapeta.jumplings.MenuActivity$11 -> com.garrapeta.jumplings.MenuActivity$3:
     com.garrapeta.jumplings.MenuActivity this$0 -> a
     void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
     void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+com.garrapeta.jumplings.MenuActivity$12 -> com.garrapeta.jumplings.MenuActivity$4:
+    void onPurchaseFinished(boolean) -> a
+    void onPurchaseError(java.lang.String) -> a
+com.garrapeta.jumplings.MenuActivity$2 -> com.garrapeta.jumplings.MenuActivity$5:
+    com.garrapeta.jumplings.MenuActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.garrapeta.jumplings.MenuActivity$3 -> com.garrapeta.jumplings.MenuActivity$6:
+    com.garrapeta.jumplings.MenuActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.garrapeta.jumplings.MenuActivity$4 -> com.garrapeta.jumplings.MenuActivity$7:
+    com.garrapeta.jumplings.MenuActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.garrapeta.jumplings.MenuActivity$5 -> com.garrapeta.jumplings.MenuActivity$8:
+    com.garrapeta.jumplings.MenuActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.garrapeta.jumplings.MenuActivity$6 -> com.garrapeta.jumplings.MenuActivity$9:
+    com.garrapeta.jumplings.MenuActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.garrapeta.jumplings.MenuActivity$7 -> com.garrapeta.jumplings.MenuActivity$10:
+    com.garrapeta.jumplings.MenuActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.garrapeta.jumplings.MenuActivity$8 -> com.garrapeta.jumplings.MenuActivity$11:
+    com.garrapeta.jumplings.MenuActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.garrapeta.jumplings.MenuActivity$9 -> com.garrapeta.jumplings.MenuActivity$12:
+    com.garrapeta.jumplings.MenuActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
 com.garrapeta.jumplings.PermData -> com.garrapeta.jumplings.d:
     com.garrapeta.jumplings.PermData instance -> a
     com.garrapeta.jumplings.PermData getInstance() -> a
@@ -18012,7 +18039,41 @@ com.garrapeta.jumplings.actor.HarmerSwipeActor -> com.garrapeta.jumplings.a.n:
     void onTouchEvent(double[]) -> a
 com.garrapeta.jumplings.actor.IBumpable -> com.garrapeta.jumplings.a.o:
     void onBumpedChanged(boolean) -> a
-com.garrapeta.jumplings.actor.IntroActor -> com.garrapeta.jumplings.a.p:
+com.garrapeta.jumplings.actor.InAppBillingHelper -> com.garrapeta.jumplings.a.p:
+    java.lang.String TAG -> a
+    com.garrapeta.jumplings.billing.util.IabHelper mHelper -> b
+    boolean mIsSetUp -> c
+    java.lang.String mNoAdsSKU -> d
+    void isPurchased(android.content.Context,com.garrapeta.jumplings.actor.InAppBillingHelper$PurchaseStateQueryCallback) -> a
+    void purchase(android.app.Activity,com.garrapeta.jumplings.actor.InAppBillingHelper$PurchaseCallback) -> a
+    boolean onActivityResult(int,int,android.content.Intent) -> a
+    void dispose() -> a
+    boolean access$002(com.garrapeta.jumplings.actor.InAppBillingHelper,boolean) -> a
+    java.lang.String access$100(com.garrapeta.jumplings.actor.InAppBillingHelper) -> a
+com.garrapeta.jumplings.actor.InAppBillingHelper$1 -> com.garrapeta.jumplings.a.p$1:
+    com.garrapeta.jumplings.actor.InAppBillingHelper$PurchaseStateQueryCallback val$listener -> a
+    android.content.Context val$context -> b
+    com.garrapeta.jumplings.actor.InAppBillingHelper this$0 -> c
+    void onIabSetupFinished(com.garrapeta.jumplings.billing.util.IabResult) -> a
+com.garrapeta.jumplings.actor.InAppBillingHelper$2 -> com.garrapeta.jumplings.a.p$2:
+    com.garrapeta.jumplings.actor.InAppBillingHelper$PurchaseStateQueryCallback val$listener -> a
+    com.garrapeta.jumplings.actor.InAppBillingHelper this$0 -> b
+    void onQueryInventoryFinished(com.garrapeta.jumplings.billing.util.IabResult,com.garrapeta.jumplings.billing.util.Inventory) -> a
+com.garrapeta.jumplings.actor.InAppBillingHelper$3 -> com.garrapeta.jumplings.a.p$3:
+    com.garrapeta.jumplings.actor.InAppBillingHelper$PurchaseCallback val$listener -> a
+    android.app.Activity val$activity -> b
+    com.garrapeta.jumplings.actor.InAppBillingHelper this$0 -> c
+    void onIabSetupFinished(com.garrapeta.jumplings.billing.util.IabResult) -> a
+com.garrapeta.jumplings.actor.InAppBillingHelper$4 -> com.garrapeta.jumplings.a.p$4:
+    com.garrapeta.jumplings.actor.InAppBillingHelper$PurchaseCallback val$listener -> a
+    void onIabPurchaseFinished(com.garrapeta.jumplings.billing.util.IabResult,com.garrapeta.jumplings.billing.util.Purchase) -> a
+com.garrapeta.jumplings.actor.InAppBillingHelper$PurchaseCallback -> com.garrapeta.jumplings.a.q:
+    void onPurchaseFinished(boolean) -> a
+    void onPurchaseError(java.lang.String) -> a
+com.garrapeta.jumplings.actor.InAppBillingHelper$PurchaseStateQueryCallback -> com.garrapeta.jumplings.a.r:
+    void onPurchaseStateQueryFinished(boolean) -> a
+    void onPurchaseStateQueryError(java.lang.String) -> a
+com.garrapeta.jumplings.actor.IntroActor -> com.garrapeta.jumplings.a.s:
     com.garrapeta.jumplings.actor.AnthropomorphicDelegate mAnthtopoDelegate -> c
     com.garrapeta.jumplings.actor.BumpDelegate mBumpDelegate -> d
     void initBodies(android.graphics.PointF) -> a
@@ -18023,7 +18084,7 @@ com.garrapeta.jumplings.actor.IntroActor -> com.garrapeta.jumplings.a.p:
     void onBeginContact(com.badlogic.gdx.physics.box2d.Body,com.garrapeta.gameengine.Box2DActor,com.badlogic.gdx.physics.box2d.Body,com.badlogic.gdx.physics.box2d.Contact) -> a
     void free$59fa07e5() -> n
     void dispose() -> j
-com.garrapeta.jumplings.actor.JumplingActor -> com.garrapeta.jumplings.a.q:
+com.garrapeta.jumplings.actor.JumplingActor -> com.garrapeta.jumplings.a.t:
     com.badlogic.gdx.physics.box2d.Filter NO_CONTACT_FILTER -> k
     com.badlogic.gdx.physics.box2d.Filter CONTACT_FILTER -> l
     com.badlogic.gdx.physics.box2d.Body mMainBody -> m
@@ -18049,7 +18110,7 @@ com.garrapeta.jumplings.actor.JumplingActor -> com.garrapeta.jumplings.a.q:
     double getInitialYVelocity(double) -> a
     void drawBitmaps(android.graphics.Canvas) -> c
     void free$59fa07e5() -> n
-com.garrapeta.jumplings.actor.JumplingsFactory -> com.garrapeta.jumplings.a.r:
+com.garrapeta.jumplings.actor.JumplingsFactory -> com.garrapeta.jumplings.a.u:
     com.garrapeta.jumplings.JumplingsWorld mJumplingsWorld -> a
     com.garrapeta.gameengine.utils.Pool mDebrisActorPool -> b
     com.garrapeta.gameengine.utils.Pool mSparksActor -> c
@@ -18083,41 +18144,41 @@ com.garrapeta.jumplings.actor.JumplingsFactory -> com.garrapeta.jumplings.a.r:
     void free(com.garrapeta.jumplings.actor.LifePowerUpActor) -> a
     void clear() -> a
     com.garrapeta.jumplings.JumplingsWorld access$000(com.garrapeta.jumplings.actor.JumplingsFactory) -> a
-com.garrapeta.jumplings.actor.JumplingsFactory$1 -> com.garrapeta.jumplings.a.r$1:
+com.garrapeta.jumplings.actor.JumplingsFactory$1 -> com.garrapeta.jumplings.a.u$1:
     com.garrapeta.jumplings.actor.JumplingsFactory this$0 -> a
     com.badlogic.gdx.utils.Pool$Poolable newObject() -> a
-com.garrapeta.jumplings.actor.JumplingsFactory$10 -> com.garrapeta.jumplings.a.r$2:
+com.garrapeta.jumplings.actor.JumplingsFactory$10 -> com.garrapeta.jumplings.a.u$2:
     com.garrapeta.jumplings.JumplingsGameWorld val$jumplingsGameWorld -> a
     com.badlogic.gdx.utils.Pool$Poolable newObject() -> a
-com.garrapeta.jumplings.actor.JumplingsFactory$2 -> com.garrapeta.jumplings.a.r$3:
+com.garrapeta.jumplings.actor.JumplingsFactory$2 -> com.garrapeta.jumplings.a.u$3:
     com.garrapeta.jumplings.actor.JumplingsFactory this$0 -> a
     com.badlogic.gdx.utils.Pool$Poolable newObject() -> a
-com.garrapeta.jumplings.actor.JumplingsFactory$3 -> com.garrapeta.jumplings.a.r$4:
+com.garrapeta.jumplings.actor.JumplingsFactory$3 -> com.garrapeta.jumplings.a.u$4:
     com.garrapeta.jumplings.actor.JumplingsFactory this$0 -> a
     com.badlogic.gdx.utils.Pool$Poolable newObject() -> a
-com.garrapeta.jumplings.actor.JumplingsFactory$4 -> com.garrapeta.jumplings.a.r$5:
+com.garrapeta.jumplings.actor.JumplingsFactory$4 -> com.garrapeta.jumplings.a.u$5:
     com.garrapeta.jumplings.JumplingsGameWorld val$jumplingsGameWorld -> a
     com.badlogic.gdx.utils.Pool$Poolable newObject() -> a
-com.garrapeta.jumplings.actor.JumplingsFactory$5 -> com.garrapeta.jumplings.a.r$6:
+com.garrapeta.jumplings.actor.JumplingsFactory$5 -> com.garrapeta.jumplings.a.u$6:
     com.garrapeta.jumplings.JumplingsGameWorld val$jumplingsGameWorld -> a
     com.badlogic.gdx.utils.Pool$Poolable newObject() -> a
-com.garrapeta.jumplings.actor.JumplingsFactory$6 -> com.garrapeta.jumplings.a.r$7:
+com.garrapeta.jumplings.actor.JumplingsFactory$6 -> com.garrapeta.jumplings.a.u$7:
     com.garrapeta.jumplings.JumplingsGameWorld val$jumplingsGameWorld -> a
     com.badlogic.gdx.utils.Pool$Poolable newObject() -> a
-com.garrapeta.jumplings.actor.JumplingsFactory$7 -> com.garrapeta.jumplings.a.r$8:
+com.garrapeta.jumplings.actor.JumplingsFactory$7 -> com.garrapeta.jumplings.a.u$8:
     com.garrapeta.jumplings.JumplingsGameWorld val$jumplingsGameWorld -> a
     com.badlogic.gdx.utils.Pool$Poolable newObject() -> a
-com.garrapeta.jumplings.actor.JumplingsFactory$8 -> com.garrapeta.jumplings.a.r$9:
+com.garrapeta.jumplings.actor.JumplingsFactory$8 -> com.garrapeta.jumplings.a.u$9:
     com.garrapeta.jumplings.JumplingsGameWorld val$jumplingsGameWorld -> a
     com.badlogic.gdx.utils.Pool$Poolable newObject() -> a
-com.garrapeta.jumplings.actor.JumplingsFactory$9 -> com.garrapeta.jumplings.a.r$10:
+com.garrapeta.jumplings.actor.JumplingsFactory$9 -> com.garrapeta.jumplings.a.u$10:
     com.garrapeta.jumplings.JumplingsGameWorld val$jumplingsGameWorld -> a
     com.badlogic.gdx.utils.Pool$Poolable newObject() -> a
-com.garrapeta.jumplings.actor.LifePowerUpActor -> com.garrapeta.jumplings.a.s:
+com.garrapeta.jumplings.actor.LifePowerUpActor -> com.garrapeta.jumplings.a.v:
     void initBitmaps() -> l
     void onHitted() -> m
     void free$59fa07e5() -> n
-com.garrapeta.jumplings.actor.MainActor -> com.garrapeta.jumplings.a.t:
+com.garrapeta.jumplings.actor.MainActor -> com.garrapeta.jumplings.a.w:
     short mCode -> p
     long timestamp -> q
     double getBaseThread(short) -> a
@@ -18127,7 +18188,7 @@ com.garrapeta.jumplings.actor.MainActor -> com.garrapeta.jumplings.a.t:
     void applyBlast(java.util.ArrayList,float) -> a
     java.util.ArrayList getDebrisBodies() -> o
     void onHitted() -> m
-com.garrapeta.jumplings.actor.PowerUpActor -> com.garrapeta.jumplings.a.u:
+com.garrapeta.jumplings.actor.PowerUpActor -> com.garrapeta.jumplings.a.x:
     com.badlogic.gdx.physics.box2d.Body mIconBody -> e
     android.graphics.Bitmap mBmpBg -> f
     android.graphics.Bitmap mBmpIcon -> c
@@ -18137,15 +18198,15 @@ com.garrapeta.jumplings.actor.PowerUpActor -> com.garrapeta.jumplings.a.u:
     java.util.ArrayList getDebrisBodies() -> o
     void drawBitmaps(android.graphics.Canvas) -> c
     void dispose() -> j
-com.garrapeta.jumplings.actor.RoundEnemyActor -> com.garrapeta.jumplings.a.v:
+com.garrapeta.jumplings.actor.RoundEnemyActor -> com.garrapeta.jumplings.a.y:
     int sCount -> r
     void initBodies(android.graphics.PointF) -> a
     void initBitmaps() -> l
     void free$59fa07e5() -> n
-com.garrapeta.jumplings.actor.ScoreTextActor -> com.garrapeta.jumplings.a.w:
+com.garrapeta.jumplings.actor.ScoreTextActor -> com.garrapeta.jumplings.a.z:
     void onAddedToWorld() -> e
     void onRemovedFromWorld() -> g
-com.garrapeta.jumplings.actor.SparksActor -> com.garrapeta.jumplings.a.x:
+com.garrapeta.jumplings.actor.SparksActor -> com.garrapeta.jumplings.a.A:
     com.badlogic.gdx.physics.box2d.Filter SPARKS_FILTER -> c
     int[] bmpsSparkles -> d
     float mLongevity -> e
@@ -18160,7 +18221,7 @@ com.garrapeta.jumplings.actor.SparksActor -> com.garrapeta.jumplings.a.x:
     void drawBitmaps(android.graphics.Canvas) -> c
     void free$59fa07e5() -> n
     void dispose() -> j
-com.garrapeta.jumplings.actor.SplitterEnemyActor -> com.garrapeta.jumplings.a.y:
+com.garrapeta.jumplings.actor.SplitterEnemyActor -> com.garrapeta.jumplings.a.B:
     int mLevel -> r
     void init(android.graphics.PointF,int) -> a
     double getSplitterBaseThread(int) -> a
@@ -18168,7 +18229,7 @@ com.garrapeta.jumplings.actor.SplitterEnemyActor -> com.garrapeta.jumplings.a.y:
     void initBitmaps() -> l
     void onHitted() -> m
     void free$59fa07e5() -> n
-com.garrapeta.jumplings.actor.TextActor -> com.garrapeta.jumplings.a.z:
+com.garrapeta.jumplings.actor.TextActor -> com.garrapeta.jumplings.a.C:
     com.garrapeta.jumplings.JumplingsGameWorld cWorld -> f
     java.lang.String mText -> a
     android.graphics.Paint mPaint -> b
@@ -18180,33 +18241,118 @@ com.garrapeta.jumplings.actor.TextActor -> com.garrapeta.jumplings.a.z:
     void draw(android.graphics.Canvas) -> a
     void dispose() -> j
     void forceDisappear() -> k
-com.garrapeta.jumplings.actor.WallActor -> com.garrapeta.jumplings.a.A:
+com.garrapeta.jumplings.actor.WallActor -> com.garrapeta.jumplings.a.D:
     com.badlogic.gdx.physics.box2d.Filter WALL_FILTER -> e
     com.badlogic.gdx.physics.box2d.Filter FLOOR_FILTER -> f
     boolean floor -> c
     boolean security -> d
     void draw(android.graphics.Canvas) -> a
-com.garrapeta.jumplings.comms.BackendConnectionException -> com.garrapeta.jumplings.b.a:
-com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType -> com.garrapeta.jumplings.b.b:
+com.garrapeta.jumplings.billing.util.Base64 -> com.garrapeta.jumplings.b.a.a:
+    byte[] DECODABET -> a
+    int decode4to3(byte[],int,byte[],int,byte[]) -> a
+    byte[] decode(java.lang.String) -> a
+com.garrapeta.jumplings.billing.util.Base64DecoderException -> com.garrapeta.jumplings.b.a.b:
+com.garrapeta.jumplings.billing.util.IabException -> com.garrapeta.jumplings.b.a.c:
+    com.garrapeta.jumplings.billing.util.IabResult mResult -> a
+    com.garrapeta.jumplings.billing.util.IabResult getResult() -> a
+com.garrapeta.jumplings.billing.util.IabHelper -> com.garrapeta.jumplings.b.a.d:
+    boolean mDebugLog -> e
+    java.lang.String mDebugTag -> f
+    boolean mSetupDone -> a
+    boolean mSubscriptionsSupported -> b
+    boolean mAsyncInProgress -> g
+    java.lang.String mAsyncOperation -> h
+    android.content.Context mContext -> c
+    com.android.vending.billing.IInAppBillingService mService -> d
+    android.content.ServiceConnection mServiceConn -> i
+    int mRequestCode -> j
+    java.lang.String mPurchasingItemType -> k
+    java.lang.String mSignatureBase64 -> l
+    com.garrapeta.jumplings.billing.util.IabHelper$OnIabPurchaseFinishedListener mPurchaseListener -> m
+    void enableDebugLogging(boolean) -> a
+    void startSetup(com.garrapeta.jumplings.billing.util.IabHelper$OnIabSetupFinishedListener) -> a
+    void dispose() -> a
+    void launchPurchaseFlow(android.app.Activity,java.lang.String,java.lang.String,int,com.garrapeta.jumplings.billing.util.IabHelper$OnIabPurchaseFinishedListener,java.lang.String) -> a
+    boolean handleActivityResult(int,int,android.content.Intent) -> a
+    com.garrapeta.jumplings.billing.util.Inventory queryInventory$68c02cad(boolean,java.util.List) -> a
+    void queryInventoryAsync(boolean,java.util.List,com.garrapeta.jumplings.billing.util.IabHelper$QueryInventoryFinishedListener) -> a
+    java.lang.String getResponseDesc(int) -> a
+    void checkSetupDone(java.lang.String) -> b
+    int getResponseCodeFromBundle(android.os.Bundle) -> a
+    void flagStartAsync(java.lang.String) -> c
+    void flagEndAsync() -> b
+    int queryPurchases(com.garrapeta.jumplings.billing.util.Inventory,java.lang.String) -> a
+    int querySkuDetails(java.lang.String,com.garrapeta.jumplings.billing.util.Inventory,java.util.List) -> a
+    void logDebug(java.lang.String) -> a
+    void logError(java.lang.String) -> d
+    void logWarn(java.lang.String) -> e
+com.garrapeta.jumplings.billing.util.IabHelper$1 -> com.garrapeta.jumplings.b.a.d$1:
+    com.garrapeta.jumplings.billing.util.IabHelper$OnIabSetupFinishedListener val$listener -> a
+    com.garrapeta.jumplings.billing.util.IabHelper this$0 -> b
+    void onServiceDisconnected(android.content.ComponentName) -> onServiceDisconnected
+    void onServiceConnected(android.content.ComponentName,android.os.IBinder) -> onServiceConnected
+com.garrapeta.jumplings.billing.util.IabHelper$2 -> com.garrapeta.jumplings.b.a.d$2:
+    boolean val$querySkuDetails -> b
+    java.util.List val$moreSkus -> c
+    android.os.Handler val$handler -> d
+    com.garrapeta.jumplings.billing.util.IabHelper$QueryInventoryFinishedListener val$listener -> a
+    com.garrapeta.jumplings.billing.util.IabHelper this$0 -> e
+    void run() -> run
+com.garrapeta.jumplings.billing.util.IabHelper$2$1 -> com.garrapeta.jumplings.b.a.d$2$1:
+    com.garrapeta.jumplings.billing.util.IabResult val$result_f -> a
+    com.garrapeta.jumplings.billing.util.Inventory val$inv_f -> b
+    com.garrapeta.jumplings.billing.util.IabHelper$2 this$1 -> c
+    void run() -> run
+com.garrapeta.jumplings.billing.util.IabHelper$OnIabPurchaseFinishedListener -> com.garrapeta.jumplings.b.a.e:
+    void onIabPurchaseFinished(com.garrapeta.jumplings.billing.util.IabResult,com.garrapeta.jumplings.billing.util.Purchase) -> a
+com.garrapeta.jumplings.billing.util.IabHelper$OnIabSetupFinishedListener -> com.garrapeta.jumplings.b.a.f:
+    void onIabSetupFinished(com.garrapeta.jumplings.billing.util.IabResult) -> a
+com.garrapeta.jumplings.billing.util.IabHelper$QueryInventoryFinishedListener -> com.garrapeta.jumplings.b.a.g:
+    void onQueryInventoryFinished(com.garrapeta.jumplings.billing.util.IabResult,com.garrapeta.jumplings.billing.util.Inventory) -> a
+com.garrapeta.jumplings.billing.util.IabResult -> com.garrapeta.jumplings.b.a.h:
+    int mResponse -> b
+    java.lang.String mMessage -> a
+    java.lang.String getMessage() -> a
+    boolean isSuccess() -> b
+    java.lang.String toString() -> toString
+com.garrapeta.jumplings.billing.util.Inventory -> com.garrapeta.jumplings.b.a.i:
+    java.util.Map mSkuMap -> a
+    java.util.Map mPurchaseMap -> b
+    com.garrapeta.jumplings.billing.util.Purchase getPurchase(java.lang.String) -> a
+    java.util.List getAllOwnedSkus(java.lang.String) -> b
+com.garrapeta.jumplings.billing.util.Purchase -> com.garrapeta.jumplings.b.a.j:
+    java.lang.String mItemType -> a
+    java.lang.String mSku -> b
+    int mPurchaseState -> d
+    java.lang.String mToken -> c
+    java.lang.String mOriginalJson -> e
+    int getPurchaseState() -> a
+    java.lang.String toString() -> toString
+com.garrapeta.jumplings.billing.util.SkuDetails -> com.garrapeta.jumplings.b.a.k:
+    java.lang.String mSku -> a
+    java.lang.String mJson -> b
+    java.lang.String toString() -> toString
+com.garrapeta.jumplings.comms.BackendConnectionException -> com.garrapeta.jumplings.c.a:
+com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType -> com.garrapeta.jumplings.c.b:
     com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType CLIENT_ERROR -> a
     com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType IO_ERROR -> b
     com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType HTTP_ERROR -> c
     com.garrapeta.jumplings.comms.BackendConnectionException$ErrorType PARSING_ERROR -> d
-com.garrapeta.jumplings.comms.BackendConnector -> com.garrapeta.jumplings.b.c:
+com.garrapeta.jumplings.comms.BackendConnector -> com.garrapeta.jumplings.c.c:
     com.google.gson.Gson sGson -> a
     com.garrapeta.jumplings.comms.ResponseModel postRequestSync(com.garrapeta.jumplings.comms.RequestModel) -> a
     void postRequestAsync(com.garrapeta.jumplings.comms.RequestModel,com.garrapeta.jumplings.comms.BackendConnectorCallback) -> a
     com.garrapeta.jumplings.comms.ResponseModel manageResponse(org.apache.http.HttpResponse) -> a
-com.garrapeta.jumplings.comms.BackendConnector$ServerRequestAsyncTask -> com.garrapeta.jumplings.b.d:
+com.garrapeta.jumplings.comms.BackendConnector$ServerRequestAsyncTask -> com.garrapeta.jumplings.c.d:
     com.garrapeta.jumplings.comms.BackendConnectorCallback mCallback -> a
     com.garrapeta.jumplings.comms.BackendConnectionException mError -> b
     com.garrapeta.jumplings.comms.ResponseModel doInBackground(com.garrapeta.jumplings.comms.RequestModel[]) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.garrapeta.jumplings.comms.BackendConnectorCallback -> com.garrapeta.jumplings.b.e:
+com.garrapeta.jumplings.comms.BackendConnectorCallback -> com.garrapeta.jumplings.c.e:
     void onBackendRequestSuccess(com.garrapeta.jumplings.comms.ResponseModel) -> a
     void onBackendRequestError(com.garrapeta.jumplings.comms.BackendConnectionException) -> a
-com.garrapeta.jumplings.comms.RequestFactory -> com.garrapeta.jumplings.b.f:
+com.garrapeta.jumplings.comms.RequestFactory -> com.garrapeta.jumplings.c.f:
     android.util.SparseArray mBitmaps -> a
     com.garrapeta.jumplings.comms.RequestModel createDownloadScoresRequestModel(java.util.List) -> a
     com.garrapeta.jumplings.comms.RequestModel createSubmitScoresRequestModel(java.util.List) -> b
@@ -18216,12 +18362,15 @@ com.garrapeta.jumplings.comms.RequestFactory -> com.garrapeta.jumplings.b.f:
     void releaseAll() -> a
     byte[] getBytesFromInputStream(java.io.InputStream) -> a
     double getInitialVelocity(double,double,double) -> a
+    boolean verifyPurchase(java.lang.String,java.lang.String,java.lang.String) -> a
+    java.security.PublicKey generatePublicKey(java.lang.String) -> a
+    boolean verify(java.security.PublicKey,java.lang.String,java.lang.String) -> a
     boolean isNetworkAvailable(android.content.Context) -> a
     void share(android.content.Context,java.lang.String) -> a
-    java.lang.String md5(java.lang.String) -> a
-com.garrapeta.jumplings.comms.RequestModel -> com.garrapeta.jumplings.b.g:
-com.garrapeta.jumplings.comms.ResponseModel -> com.garrapeta.jumplings.b.h:
-com.garrapeta.jumplings.flurry.FlurryHelper -> com.garrapeta.jumplings.c.a:
+    java.lang.String md5(java.lang.String) -> b
+com.garrapeta.jumplings.comms.RequestModel -> com.garrapeta.jumplings.c.g:
+com.garrapeta.jumplings.comms.ResponseModel -> com.garrapeta.jumplings.c.h:
+com.garrapeta.jumplings.flurry.FlurryHelper -> com.garrapeta.jumplings.d.a:
     boolean sInitialized -> a
     java.lang.String sApiKey -> b
     boolean sIsEnabled -> c
@@ -18237,7 +18386,7 @@ com.garrapeta.jumplings.flurry.FlurryHelper -> com.garrapeta.jumplings.c.a:
     void onGameEngineError(java.lang.Throwable) -> a
     void onErrorScoreDownloadError(java.lang.Throwable) -> b
     void onErrorScoreSubmissionError(java.lang.Throwable) -> c
-com.garrapeta.jumplings.module.FlashModule -> com.garrapeta.jumplings.d.a:
+com.garrapeta.jumplings.module.FlashModule -> com.garrapeta.jumplings.e.a:
     int FLASH_LIFEUP_COLOR -> a
     com.garrapeta.jumplings.actor.FlashActor$FlashData ENEMY_SCAPED_FLASH_DATA -> b
     com.garrapeta.jumplings.actor.FlashActor$FlashData BOMB_EXPLODED_DATA -> c
@@ -18249,7 +18398,7 @@ com.garrapeta.jumplings.module.FlashModule -> com.garrapeta.jumplings.d.a:
     com.garrapeta.jumplings.module.FlashModule$FlashModuleDelegate mDelegate -> i
     boolean flash(short) -> a
     com.garrapeta.jumplings.actor.FlashActor access$100(com.garrapeta.jumplings.module.FlashModule) -> a
-com.garrapeta.jumplings.module.FlashModule$1 -> com.garrapeta.jumplings.d.b:
+com.garrapeta.jumplings.module.FlashModule$1 -> com.garrapeta.jumplings.e.b:
     com.garrapeta.jumplings.module.ShakeModule$ShakeModuleDelegate mDelegate -> a
     float mShakeDuration -> b
     float mShakeRemaining -> c
@@ -18260,21 +18409,21 @@ com.garrapeta.jumplings.module.FlashModule$1 -> com.garrapeta.jumplings.d.b:
     void preDraw(android.graphics.Canvas,com.garrapeta.gameengine.Viewport) -> a
     void postDraw(android.graphics.Canvas) -> a
     void access$400$463d9b41(com.garrapeta.jumplings.module.FlashModule$1,com.garrapeta.jumplings.module.ShakeModule$ShakeData) -> a
-com.garrapeta.jumplings.module.FlashModule$FlashModuleDelegate -> com.garrapeta.jumplings.d.c:
+com.garrapeta.jumplings.module.FlashModule$FlashModuleDelegate -> com.garrapeta.jumplings.e.c:
     com.garrapeta.jumplings.module.FlashModule this$0 -> a
     void onExecute(java.lang.Object,java.lang.Object[]) -> a
-com.garrapeta.jumplings.module.ShakeModule$ShakeData -> com.garrapeta.jumplings.d.d:
+com.garrapeta.jumplings.module.ShakeModule$ShakeData -> com.garrapeta.jumplings.e.d:
     float mShakeDuration -> a
     float mShakeIntensity -> b
     float access$200(com.garrapeta.jumplings.module.ShakeModule$ShakeData) -> a
     float access$300(com.garrapeta.jumplings.module.ShakeModule$ShakeData) -> b
-com.garrapeta.jumplings.module.ShakeModule$ShakeModuleDelegate -> com.garrapeta.jumplings.d.e:
+com.garrapeta.jumplings.module.ShakeModule$ShakeModuleDelegate -> com.garrapeta.jumplings.e.e:
     com.garrapeta.jumplings.module.FlashModule$1 this$0$116a32cc -> a
     void onExecute(java.lang.Object,java.lang.Object[]) -> a
-com.garrapeta.jumplings.scenario.DesertScenario -> com.garrapeta.jumplings.e.a:
+com.garrapeta.jumplings.scenario.DesertScenario -> com.garrapeta.jumplings.f.a:
     void initLayers$5aaa4e73(com.garrapeta.jumplings.comms.RequestFactory) -> a
     void dispose() -> a
-com.garrapeta.jumplings.scenario.IScenario -> com.garrapeta.jumplings.e.b:
+com.garrapeta.jumplings.scenario.IScenario -> com.garrapeta.jumplings.f.b:
     void init() -> b
     void end() -> c
     void setProgress(float) -> a
@@ -18282,10 +18431,10 @@ com.garrapeta.jumplings.scenario.IScenario -> com.garrapeta.jumplings.e.b:
     void processFrame(float) -> b
     void draw(android.graphics.Canvas,android.graphics.Paint) -> a
     void dispose() -> a
-com.garrapeta.jumplings.scenario.JungleScenario -> com.garrapeta.jumplings.e.c:
+com.garrapeta.jumplings.scenario.JungleScenario -> com.garrapeta.jumplings.f.c:
     void initLayers$5aaa4e73(com.garrapeta.jumplings.comms.RequestFactory) -> a
     void dispose() -> a
-com.garrapeta.jumplings.scenario.Layer -> com.garrapeta.jumplings.e.d:
+com.garrapeta.jumplings.scenario.Layer -> com.garrapeta.jumplings.f.d:
     float PROGRESS_UPDATE_CICLES -> a
     float GAMEOVER_FALL_CICLES -> b
     float mScenarioXOffset -> c
@@ -18320,7 +18469,7 @@ com.garrapeta.jumplings.scenario.Layer -> com.garrapeta.jumplings.e.d:
     void onGameOver() -> c
     void draw(android.graphics.Canvas,android.graphics.Paint) -> a
     com.garrapeta.jumplings.scenario.IScenario getScenario(com.garrapeta.jumplings.JumplingsWorld,com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds) -> a
-com.garrapeta.jumplings.scenario.LayerScenario -> com.garrapeta.jumplings.e.e:
+com.garrapeta.jumplings.scenario.LayerScenario -> com.garrapeta.jumplings.f.e:
     java.util.List mLayers -> b
     com.garrapeta.jumplings.JumplingsWorld mWorld -> a
     void init() -> b
@@ -18331,10 +18480,10 @@ com.garrapeta.jumplings.scenario.LayerScenario -> com.garrapeta.jumplings.e.e:
     void draw(android.graphics.Canvas,android.graphics.Paint) -> a
     void initLayers$5aaa4e73(com.garrapeta.jumplings.comms.RequestFactory) -> a
     void addLayer(com.garrapeta.jumplings.scenario.Layer) -> a
-com.garrapeta.jumplings.scenario.NatureScenario -> com.garrapeta.jumplings.e.f:
+com.garrapeta.jumplings.scenario.NatureScenario -> com.garrapeta.jumplings.f.f:
     void initLayers$5aaa4e73(com.garrapeta.jumplings.comms.RequestFactory) -> a
     void dispose() -> a
-com.garrapeta.jumplings.scenario.RollingScenario -> com.garrapeta.jumplings.e.g:
+com.garrapeta.jumplings.scenario.RollingScenario -> com.garrapeta.jumplings.f.g:
     com.garrapeta.jumplings.JumplingsWorld mWorld -> b
     int mScenarioAlpha -> c
     com.garrapeta.jumplings.scenario.IScenario mCurrentScenario -> d
@@ -18351,15 +18500,15 @@ com.garrapeta.jumplings.scenario.RollingScenario -> com.garrapeta.jumplings.e.g:
     void dispose() -> a
     com.garrapeta.jumplings.scenario.IScenario access$002(com.garrapeta.jumplings.scenario.RollingScenario,com.garrapeta.jumplings.scenario.IScenario) -> a
     com.garrapeta.jumplings.scenario.IScenario access$102(com.garrapeta.jumplings.scenario.RollingScenario,com.garrapeta.jumplings.scenario.IScenario) -> b
-com.garrapeta.jumplings.scenario.RollingScenario$1 -> com.garrapeta.jumplings.e.g$1:
+com.garrapeta.jumplings.scenario.RollingScenario$1 -> com.garrapeta.jumplings.f.g$1:
     com.garrapeta.jumplings.scenario.IScenario val$newScenario -> b
     com.garrapeta.jumplings.scenario.IScenario val$prevScenario -> c
     com.garrapeta.jumplings.scenario.RollingScenario this$0 -> d
     void doInBackground() -> a
     void doInGameLoop$46c3e775() -> b
-com.garrapeta.jumplings.scenario.ScenarioFactory$1 -> com.garrapeta.jumplings.e.h:
+com.garrapeta.jumplings.scenario.ScenarioFactory$1 -> com.garrapeta.jumplings.f.h:
     int[] $SwitchMap$com$garrapeta$jumplings$scenario$ScenarioFactory$ScenariosIds -> a
-com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds -> com.garrapeta.jumplings.e.i:
+com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds -> com.garrapeta.jumplings.f.i:
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds ROLLING -> a
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds NATURE -> b
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds DESERT -> c
@@ -18367,7 +18516,7 @@ com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds -> com.garrapeta.j
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds WINTER -> e
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds[] $VALUES -> f
     com.garrapeta.jumplings.scenario.ScenarioFactory$ScenariosIds[] values() -> a
-com.garrapeta.jumplings.scenario.WinterScenario -> com.garrapeta.jumplings.e.j:
+com.garrapeta.jumplings.scenario.WinterScenario -> com.garrapeta.jumplings.f.j:
     void initLayers$5aaa4e73(com.garrapeta.jumplings.comms.RequestFactory) -> a
     void dispose() -> a
 com.garrapeta.jumplings.ui.AdDialogHelper -> com.garrapeta.jumplings.ui.a:
@@ -18478,7 +18627,7 @@ com.garrapeta.jumplings.ui.PurchaseDialogFactory$PurchaseDialogFragment$2 -> com
     void onClick(android.view.View) -> onClick
 com.garrapeta.jumplings.ui.PurchaseDialogFactory$PurchaseDialogFragment$PurchaseDialogListener -> com.garrapeta.jumplings.ui.k:
     void onPurchaseBtnClicked() -> a
-com.garrapeta.jumplings.wave.AllowanceGameWave -> com.garrapeta.jumplings.f.a:
+com.garrapeta.jumplings.wave.AllowanceGameWave -> com.garrapeta.jumplings.g.a:
     float POWERUP_BASE_LAPSE -> j
     short JUMPER_CODE_NULL -> k
     short nextJumperCode -> l
@@ -18503,10 +18652,10 @@ com.garrapeta.jumplings.wave.AllowanceGameWave -> com.garrapeta.jumplings.f.a:
     void access$100(com.garrapeta.jumplings.wave.AllowanceGameWave) -> b
     float access$200(com.garrapeta.jumplings.wave.AllowanceGameWave) -> c
     void access$300(com.garrapeta.jumplings.wave.AllowanceGameWave,float) -> a
-com.garrapeta.jumplings.wave.AllowanceGameWave$1 -> com.garrapeta.jumplings.f.a$1:
+com.garrapeta.jumplings.wave.AllowanceGameWave$1 -> com.garrapeta.jumplings.g.a$1:
     com.garrapeta.jumplings.wave.AllowanceGameWave this$0 -> b
     void doInGameLoop$46c3e775() -> b
-com.garrapeta.jumplings.wave.AllowanceWave -> com.garrapeta.jumplings.f.b:
+com.garrapeta.jumplings.wave.AllowanceWave -> com.garrapeta.jumplings.g.b:
     float FACTOR -> j
     double maxThreat -> k
     double allowedThreadGeneration -> e
@@ -18524,19 +18673,19 @@ com.garrapeta.jumplings.wave.AllowanceWave -> com.garrapeta.jumplings.f.b:
     double generateThreat(double) -> a
     com.garrapeta.jumplings.JumplingsWorld access$000(com.garrapeta.jumplings.wave.AllowanceWave) -> a
     double access$100(com.garrapeta.jumplings.wave.AllowanceWave) -> b
-com.garrapeta.jumplings.wave.AllowanceWave$1 -> com.garrapeta.jumplings.f.b$1:
+com.garrapeta.jumplings.wave.AllowanceWave$1 -> com.garrapeta.jumplings.g.b$1:
     com.garrapeta.jumplings.wave.AllowanceWave this$0 -> a
     void run() -> run
-com.garrapeta.jumplings.wave.AllowanceWave$2 -> com.garrapeta.jumplings.f.b$2:
+com.garrapeta.jumplings.wave.AllowanceWave$2 -> com.garrapeta.jumplings.g.b$2:
     com.garrapeta.jumplings.wave.AllowanceWave this$0 -> a
     void run() -> run
-com.garrapeta.jumplings.wave.AllowanceWave$3 -> com.garrapeta.jumplings.f.b$3:
+com.garrapeta.jumplings.wave.AllowanceWave$3 -> com.garrapeta.jumplings.g.b$3:
     com.garrapeta.jumplings.wave.AllowanceWave this$0 -> a
     void run() -> run
-com.garrapeta.jumplings.wave.AllowanceWave$4 -> com.garrapeta.jumplings.f.b$4:
+com.garrapeta.jumplings.wave.AllowanceWave$4 -> com.garrapeta.jumplings.g.b$4:
     com.garrapeta.jumplings.wave.AllowanceWave this$0 -> a
     void run() -> run
-com.garrapeta.jumplings.wave.CampaignSurvivalWave -> com.garrapeta.jumplings.f.c:
+com.garrapeta.jumplings.wave.CampaignSurvivalWave -> com.garrapeta.jumplings.g.c:
     java.lang.String WAVE_KEY -> e
     int ADS_MIN_TIME_LAPSE -> h
     com.garrapeta.jumplings.JumplingsGameWorld mWorld -> f
@@ -18557,22 +18706,22 @@ com.garrapeta.jumplings.wave.CampaignSurvivalWave -> com.garrapeta.jumplings.f.c
     void access$200(com.garrapeta.jumplings.wave.CampaignSurvivalWave,float) -> a
     void access$300(com.garrapeta.jumplings.wave.CampaignSurvivalWave,float) -> b
     com.garrapeta.jumplings.wave.AllowanceGameWave access$400(com.garrapeta.jumplings.wave.CampaignSurvivalWave) -> c
-com.garrapeta.jumplings.wave.CampaignSurvivalWave$1 -> com.garrapeta.jumplings.f.c$1:
+com.garrapeta.jumplings.wave.CampaignSurvivalWave$1 -> com.garrapeta.jumplings.g.c$1:
     com.garrapeta.jumplings.wave.CampaignSurvivalWave this$0 -> a
     void run() -> run
-com.garrapeta.jumplings.wave.CampaignSurvivalWave$2 -> com.garrapeta.jumplings.f.c$2:
+com.garrapeta.jumplings.wave.CampaignSurvivalWave$2 -> com.garrapeta.jumplings.g.c$2:
     com.garrapeta.jumplings.wave.CampaignSurvivalWave this$0 -> b
     void doInGameLoop$46c3e775() -> b
-com.garrapeta.jumplings.wave.CampaignSurvivalWave$3 -> com.garrapeta.jumplings.f.c$3:
+com.garrapeta.jumplings.wave.CampaignSurvivalWave$3 -> com.garrapeta.jumplings.g.c$3:
     com.garrapeta.jumplings.wave.CampaignSurvivalWave this$0 -> b
     void doInGameLoop$46c3e775() -> b
-com.garrapeta.jumplings.wave.CampaignSurvivalWave$4 -> com.garrapeta.jumplings.f.c$4:
+com.garrapeta.jumplings.wave.CampaignSurvivalWave$4 -> com.garrapeta.jumplings.g.c$4:
     com.garrapeta.jumplings.wave.CampaignSurvivalWave this$0 -> b
     void doInGameLoop$46c3e775() -> b
-com.garrapeta.jumplings.wave.IWaveEndListener -> com.garrapeta.jumplings.f.d:
+com.garrapeta.jumplings.wave.IWaveEndListener -> com.garrapeta.jumplings.g.d:
     void onWaveStarted() -> u
     void onWaveEnded() -> v
-com.garrapeta.jumplings.wave.MenuWave -> com.garrapeta.jumplings.f.e:
+com.garrapeta.jumplings.wave.MenuWave -> com.garrapeta.jumplings.g.e:
     void start() -> a
     void onProcessFrame(float) -> b
     void scheduleIntroActorCreation() -> u
@@ -18580,10 +18729,10 @@ com.garrapeta.jumplings.wave.MenuWave -> com.garrapeta.jumplings.f.e:
     int access$100(com.garrapeta.jumplings.wave.MenuWave) -> b
     void access$200(com.garrapeta.jumplings.wave.MenuWave) -> c
     void access$300(com.garrapeta.jumplings.wave.MenuWave) -> d
-com.garrapeta.jumplings.wave.MenuWave$1 -> com.garrapeta.jumplings.f.e$1:
+com.garrapeta.jumplings.wave.MenuWave$1 -> com.garrapeta.jumplings.g.e$1:
     com.garrapeta.jumplings.wave.MenuWave this$0 -> b
     void doInGameLoop$46c3e775() -> b
-com.garrapeta.jumplings.wave.TestWave -> com.garrapeta.jumplings.f.f:
+com.garrapeta.jumplings.wave.TestWave -> com.garrapeta.jumplings.g.f:
     java.lang.String WAVE_KEY -> e
     com.garrapeta.jumplings.JumplingsGameWorld jgWorld -> f
     com.garrapeta.jumplings.scenario.IScenario mScenario -> g
@@ -18591,7 +18740,7 @@ com.garrapeta.jumplings.wave.TestWave -> com.garrapeta.jumplings.f.f:
     void onTestButtonClicked$2a4380ef() -> s
     boolean onFail() -> k
     void createEnemy() -> u
-com.garrapeta.jumplings.wave.TestWave$1 -> com.garrapeta.jumplings.f.f$1:
+com.garrapeta.jumplings.wave.TestWave$1 -> com.garrapeta.jumplings.g.f$1:
     com.garrapeta.jumplings.wave.TestWave this$0 -> b
     void doInGameLoop$46c3e775() -> b
 com.google.gson.DefaultDateTypeAdapter -> com.google.gson.DefaultDateTypeAdapter:

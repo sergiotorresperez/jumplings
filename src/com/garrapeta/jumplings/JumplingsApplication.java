@@ -33,7 +33,6 @@ public class JumplingsApplication extends Application {
     public static boolean DEBUG_AUTOPLAY;
     
     public static boolean ADS_ENABLED;
-    public static boolean ADS_BUY_DIALOG_BUTTON_ENABLED;
 
     public static String SCORE_SERVICES_URL;
     
@@ -81,7 +80,6 @@ public class JumplingsApplication extends Application {
     	DEBUG_AUTOPLAY = getInstance().getResources().getBoolean(R.bool.config_debug_autoplay);
     	
     	ADS_ENABLED = getInstance().getResources().getBoolean(R.bool.config_ads_enabled);
-    	ADS_BUY_DIALOG_BUTTON_ENABLED = getInstance().getResources().getBoolean(R.bool.config_ads_buy_dialog_button_enabled);
     	
     	SCORE_SERVICES_URL = getInstance().getResources().getString(R.string.config_score_server_url);
     }

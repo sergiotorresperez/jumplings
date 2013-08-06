@@ -1,0 +1,5 @@
+Google Play App Base64-encoded RSA public key to include in your binary.
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmDZ93iKODV+8FBhS7w3fjdtngK9mQMIYeb00S1pRWDh99bRhR4aqrs1CfCruGb73/z/p2+nTZLdTHG1I0k5AS2nlmcdtJuGq88ptKKKtPCOcb89dHhhN5pCeI+lRG4fvIZnwvhnM7OQAaLN6R1mvoF/IEwXwCl5H2zOCbbBHQVYRV5qxB9euByztD/vGSPazg5ZPtvIcNVWretffhqEd7qbcFz5+i/ejQ0qHX/jRG5MzviJltL/Bv0dRBvTAGwX/rmGfjwKss2tzTDKbRRfU+Q1Qnihg52A3DjOE7htOWXFjPI3sLQjeAnvD6/HxgPL+mvCBGx7iKe+rePmgq+TKfwIDAQAB
+
+No ads SKU
+com.garrapeta.jumplings.noads

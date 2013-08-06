@@ -21,11 +21,12 @@ public class SplashActivity extends Activity {
 
 	private View mTitleView;
 	private View mSubtitleView;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -103,6 +104,7 @@ public class SplashActivity extends Activity {
 				onAnimationPhaseThree(); 
 			}
 		});
+		// doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
 		mSubtitleView.setVisibility(View.VISIBLE);
 		mSubtitleView.startAnimation(animation);
 	}
@@ -125,6 +127,7 @@ public class SplashActivity extends Activity {
 				openMenuActivity(true); 
 			}
 		});
+		// doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
 		mTitleView.startAnimation(animation);
 		mSubtitleView.startAnimation(animation);
 	}

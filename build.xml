@@ -142,7 +142,6 @@
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_debug_thread_bars_enabled" value="false"/>
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_debug_autoplay" value="false"/>
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_ads_enabled" value="true"/>
-				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_ads_buy_dialog_button_enabled" value="false"/>
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_flurry_enabled" value="true"/>
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@string/default_config_score_server_url" value="@string/config_score_server_url_production"/>
 			</then>
@@ -160,7 +159,6 @@
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_debug_thread_bars_enabled" value="false"/>
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_debug_autoplay" value="false"/>
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_ads_enabled" value="true"/>
-				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_ads_buy_dialog_button_enabled" value="false"/>
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@string/default_config_score_server_url" value="@string/config_score_server_url_production"/>
 			</then>
 		</if>
@@ -176,7 +174,6 @@
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_debug_thread_bars_enabled" value="false"/>
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_debug_autoplay" value="false"/>
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_ads_enabled" value="true"/>
-				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_ads_buy_dialog_button_enabled" value="false"/>
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/default_config_flurry_enabled" value="true"/>
 				<replace file="${resource.absolute.dir}/values/config.xml" token="@string/default_config_score_server_url" value="@string/config_score_server_url_production"/>
 			</then>

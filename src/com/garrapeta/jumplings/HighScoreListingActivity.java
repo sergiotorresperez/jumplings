@@ -24,6 +24,7 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.comms.BackendConnectionException;
 import com.garrapeta.jumplings.comms.BackendConnector;
 import com.garrapeta.jumplings.comms.BackendConnectorCallback;
@@ -167,11 +168,15 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         });
         updateSubmitScoresBtnVisibility();
 
-        // Ads
-        if (JumplingsApplication.ADS_ENABLED) {
-            findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(View.VISIBLE);
-        }
-
+		// Ads
+		if (JumplingsApplication.ADS_ENABLED) {
+			final PremiumPurchaseHelper premiumHelper  = new PremiumPurchaseHelper(this);
+			if (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this)) {
+				findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(View.VISIBLE);
+			}
+			premiumHelper.dispose();
+		}
+		
         if (Utils.isNetworkAvailable(this)) {
         	downloadScores();
         }

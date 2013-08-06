@@ -31,11 +31,7 @@
 
     <!-- Ads enabled if user has not paid the premium version -->
     <bool name="config_ads_enabled">@bool/default_config_ads_enabled</bool>
-    <bool name="default_config_ads_enabled">false</bool>
-
-    <!-- Ads dialog has a buy button -->
-    <bool name="config_ads_buy_dialog_button_enabled">@bool/default_config_ads_buy_dialog_button_enabled</bool>
-    <bool name="default_config_ads_buy_dialog_button_enabled">false</bool>
+    <bool name="default_config_ads_enabled">true</bool>
 
     <!-- If Flurry is enabled -->
     <bool name="config_flurry_enabled">@bool/default_config_flurry_enabled</bool>
@@ -60,4 +56,11 @@
     <string name="config_value_none">CFGLEVELNONE</string>
     <string name="config_value_default">@string/config_value_all</string>
     <string name="confing_sound_enabled_default">true</string>
+    
+    <!-- Google Play BASE64 RSA App Id -->
+    <string name="google_play_base64_rsa_app_id">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmDZ93iKODV+8FBhS7w3fjdtngK9mQMIYeb00S1pRWDh99bRhR4aqrs1CfCruGb73/z/p2+nTZLdTHG1I0k5AS2nlmcdtJuGq88ptKKKtPCOcb89dHhhN5pCeI+lRG4fvIZnwvhnM7OQAaLN6R1mvoF/IEwXwCl5H2zOCbbBHQVYRV5qxB9euByztD/vGSPazg5ZPtvIcNVWretffhqEd7qbcFz5+i/ejQ0qHX/jRG5MzviJltL/Bv0dRBvTAGwX/rmGfjwKss2tzTDKbRRfU+Q1Qnihg52A3DjOE7htOWXFjPI3sLQjeAnvD6/HxgPL+mvCBGx7iKe+rePmgq+TKfwIDAQAB</string>
+
+	<!-- Google Play no-ads in-app billin item SKS -->
+	<string name="inapp_sku_noads">com.garrapeta.jumplings.noads</string>
+
 </resources>

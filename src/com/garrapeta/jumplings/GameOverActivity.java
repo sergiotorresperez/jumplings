@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.util.Utils;
 
@@ -240,8 +241,11 @@ public class GameOverActivity extends Activity {
 
 		// Ads
 		if (JumplingsApplication.ADS_ENABLED) {
-			findViewById(R.id.gameover_advertising_banner_view).setVisibility(
-					View.VISIBLE);
+			final PremiumPurchaseHelper premiumHelper  = new PremiumPurchaseHelper(this);
+			if (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this)) {
+				findViewById(R.id.gameover_advertising_banner_view).setVisibility(View.VISIBLE);
+			}
+			premiumHelper.dispose();
 		}
 	}
 
