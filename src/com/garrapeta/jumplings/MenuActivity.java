@@ -2,6 +2,7 @@ package com.garrapeta.jumplings;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import com.garrapeta.gameengine.GameView;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
+import com.garrapeta.jumplings.ui.PurchaseDialogFactory;
+import com.garrapeta.jumplings.ui.PurchaseDialogFactory.PurchaseDialogFragment.PurchaseDialogListener;
 import com.garrapeta.jumplings.util.Utils;
 import com.garrapeta.jumplings.wave.CampaignSurvivalWave;
 import com.garrapeta.jumplings.wave.MenuWave;
@@ -25,8 +28,13 @@ import com.garrapeta.jumplings.wave.TestWave;
 /**
  * Activity implementing the menu screen
  */
-public class MenuActivity extends FragmentActivity {
+public class MenuActivity extends FragmentActivity implements PurchaseDialogListener {
 
+    /**
+     * Tag used to refer to the dialog fragment
+     */
+    static final String DIALOG_FRAGMENT_TAG = "dialog_fragment_tag";
+    
     private View mTitle;
     
     private Button mStartBtn;
@@ -104,7 +112,8 @@ public class MenuActivity extends FragmentActivity {
         mPremiumBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            	Toast.makeText(MenuActivity.this, "BUY", Toast.LENGTH_SHORT).show();
+            	DialogFragment dialog = PurchaseDialogFactory.create();
+                dialog.show(getSupportFragmentManager(),  DIALOG_FRAGMENT_TAG);
             }
         });
         
@@ -273,7 +282,11 @@ public class MenuActivity extends FragmentActivity {
     private void showAbout() {
         Intent i = new Intent(this, AboutActivity.class);
         startActivity(i);
-
     }
+
+	@Override
+	public void onPurchaseBtnClicked() {
+		Toast.makeText(this, "buy!", Toast.LENGTH_SHORT).show();
+	}
 
 }

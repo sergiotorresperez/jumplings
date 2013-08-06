@@ -2,23 +2,11 @@
 <resources>
     <string name="app_name">The Jumplings</string>
     
-    <string name="game_over">Game Over</string>
-    <string name="game_paused">Game Paused</string>  
-    <string name="error">Sorry, something wrong has happened :-(</string>    
+    <!-- Menu Activity -->
+    <string name="purchaseDlg_message_big">Go premium!</string>
+    <string name="purchaseDlg_message_small">Do you want to buy the game and get rid of the ads?</string>
     
-    <!-- Tutorial tip begins -->
-    <string name="tip_enemy_scaped">If you let the Jumplings scape from the lower edge of the screen you\'ll lose a life! As this was the first time we let it pass&#8230;</string>
-    <string name="tip_combo">If you kill Jumplings very quickly you score a  combo!</string>
-    <string name="tip_round_enemy_killed">That\'s it, tap on the Jumplings before they fall from the lower bottom of the screen.</string>
-    <string name="tip_double_enemy_killed">Careful with the orange ones, they need two taps to be killed.</string>
-    <string name="tip_splitter_enemy_killed">The yellow ones split when you tap on them!</string>
-    <string name="tip_bomb_exploded">Bombs are not meant to be tapped! Not this time, but next you\'ll lose a life.</string>
-    <string name="tip_life_power_up">Extra life!</string>
-    <string name="tip_blade_power_up_start">You\'ve got the blade! Swipe through the screen to use it&#8230; and be careful, it will only last for a few seconds!</string>
-    <string name="tip_blade_power_up_end">The blade is over&#8230; now tap on them, us usual&#8230;</string>
-    <!-- Tutorial tip ends  -->
-    
-    <!-- About Activity begins -->
+	<!-- About Activity -->
     <string name="about_subtitle">by Sergio Megaherzio</string>
     <string name="about_howto_title">How to play</string>
     <string name="about_howto_1">Tap the Jumplings before they fall from the bottom of the screen. Don\'t let them fall, or you\'ll lose one life.</string>
@@ -41,7 +29,23 @@
     <string name="about_ack_3">Some sound samples and bitmaps were taken from the free source game Teeworlds and heavily modified.</string>
     <string name="about_ack_4">https://www.teeworlds.com</string>
     <string name="about_copyright">© 2013 Sergio Torres Perez</string>
-    
-    
     <!-- About Activity ends  -->
+    
+    <!-- In game text -->
+    <string name="game_over">Game Over</string>
+    <string name="game_paused">Game Paused</string>  
+    <string name="error">Sorry, something wrong has happened :-(</string> 
+    
+    <!-- Tutorial tips -->
+    <string name="tip_enemy_scaped">If you let the Jumplings scape from the lower edge of the screen you\'ll lose a life! As this was the first time we let it pass&#8230;</string>
+    <string name="tip_combo">If you kill Jumplings very quickly you score a  combo!</string>
+    <string name="tip_round_enemy_killed">That\'s it, tap on the Jumplings before they fall from the lower bottom of the screen.</string>
+    <string name="tip_double_enemy_killed">Careful with the orange ones, they need two taps to be killed.</string>
+    <string name="tip_splitter_enemy_killed">The yellow ones split when you tap on them!</string>
+    <string name="tip_bomb_exploded">Bombs are not meant to be tapped! Not this time, but next you\'ll lose a life.</string>
+    <string name="tip_life_power_up">Extra life!</string>
+    <string name="tip_blade_power_up_start">You\'ve got the blade! Swipe through the screen to use it&#8230; and be careful, it will only last for a few seconds!</string>
+    <string name="tip_blade_power_up_end">The blade is over&#8230; now tap on them, us usual&#8230;</string>
+    
+
 </resources>
