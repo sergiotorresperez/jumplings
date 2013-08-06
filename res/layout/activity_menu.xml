@@ -57,14 +57,26 @@
             android:src="@drawable/icon_preferences" >
         </ImageButton>
 
-        <ImageButton
+         <ImageButton
             android:id="@+id/menu_highScoresBtn"
             style="@style/ColorfulButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/icon_score" >
+        </ImageButton>
+        
+        <ImageButton
+            android:id="@+id/menu_premiumBtn"
+            style="@style/ColorfulButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/menu_highScoresBtn"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:src="@drawable/icon_premium" >
         </ImageButton>
 
         <ImageButton

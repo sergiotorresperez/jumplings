@@ -34,6 +34,7 @@ public class MenuActivity extends FragmentActivity {
     private ImageButton mHighScoresBtn;
     private ImageButton mAboutBtn;
     private ImageButton mShareButton;
+    private ImageButton mPremiumBtn;
     
     private View mMobClixView;
     private View mDebugGroup;
@@ -99,6 +100,14 @@ public class MenuActivity extends FragmentActivity {
             }
         });
 
+        mPremiumBtn = (ImageButton) findViewById(R.id.menu_premiumBtn);
+        mPremiumBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            	Toast.makeText(MenuActivity.this, "BUY", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
         mPreferencesBtn = (ImageButton) findViewById(R.id.menu_preferencesBtn);
         mPreferencesBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -181,6 +190,7 @@ public class MenuActivity extends FragmentActivity {
         mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.INVISIBLE : View.GONE);
         mMobClixView.setVisibility(JumplingsApplication.ADS_ENABLED ? View.INVISIBLE : View.GONE);
         mShareButton.setVisibility(View.INVISIBLE);
+        mPremiumBtn.setVisibility(View.INVISIBLE);
 
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.menu_screen_scale_in);
         fadeInAnimation.setAnimationListener(new AnimationListener() {
@@ -215,6 +225,7 @@ public class MenuActivity extends FragmentActivity {
                 mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.VISIBLE : View.GONE);
                 mMobClixView.setVisibility(JumplingsApplication.ADS_ENABLED ? View.VISIBLE : View.GONE);
                 mShareButton.setVisibility(View.VISIBLE);
+                mPremiumBtn.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -233,6 +244,7 @@ public class MenuActivity extends FragmentActivity {
         mDebugGroup.startAnimation(fadeInAnimation);
         mMobClixView.startAnimation(fadeInAnimation);
         mShareButton.startAnimation(fadeInAnimation);
+        mPremiumBtn.startAnimation(fadeInAnimation);
     }
 
     private void startNewGame() {
