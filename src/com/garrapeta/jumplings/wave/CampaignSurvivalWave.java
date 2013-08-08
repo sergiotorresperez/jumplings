@@ -42,7 +42,7 @@ public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IW
      * Tiempo m�nimo entre di�logos de anuncios. Se mostrar�n al acabar la wave.
      * En ms.
      */
-    private int ADS_MIN_TIME_LAPSE = 60 * 2 * 1000;
+    private int ADS_MIN_TIME_LAPSE = (int) (60 * 2.4 * 1000);
 
     /** Vidas que se ganan al pasar de nivel */
     public static final int NEW_LEVEL_EXTRA_LIFES = 0;

@@ -3,11 +3,11 @@ package com.garrapeta.jumplings;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.telephony.TelephonyManager;
 
+
+import com.garrapeta.jumplings.util.Utils;
 import com.google.gson.Gson;
 
 /**
@@ -112,9 +112,7 @@ public class Score implements Parcelable {
 	 * @return this client id
 	 */
 	public String getLocalId(Activity activity) {
-		TelephonyManager tManager = (TelephonyManager)activity.getSystemService(Context.TELEPHONY_SERVICE);
-		String uid = tManager.getDeviceId();
-		String userId = "android_" + uid + "_" + System.currentTimeMillis() ;
+		String userId = "android_" + Utils.getUniquePsuedoID(activity);
 		return userId;
 	}
 	

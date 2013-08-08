@@ -50,9 +50,9 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
         nextJumperCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
 
         // Inicializaci�n de probabilidades y riesgos
-        setMaxThreat(2 + (level * 1.3));
+        setMaxThreat(-0.5 + (level * 1.5));
 
-        bombProbability = Math.min(0.30f, level * 0.1f);
+        bombProbability = Math.min(0.30f, level * 0.03f);
 
         specialEnemyProbability = Math.min(0.65f, level * 0.07f);
 
@@ -62,7 +62,7 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 
         maxBombs = (int) (level * 0.334);
 
-        totalKills = 30 + level * 10;
+        totalKills = 3 + level * 7;
 
         if (schedulePowerUpAtStart) {
             scheduleGeneratePowerUp(getPowerUpCreationLapse());
