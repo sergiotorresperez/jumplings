@@ -48,7 +48,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     private ImageButton mShareButton;
     private ImageButton mPremiumBtn;
     
-    private View mMobClixView;
+    private View mAdView;
     private View mDebugGroup;
     
     // used to resolve the state of the in app billing purchases
@@ -143,7 +143,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         
 
         // Ads
-        mMobClixView = findViewById(R.id.menu_advertising_banner_view);
+        mAdView = findViewById(R.id.menu_advertising_banner_view);
  
         // The UI starts invisible and becomes visible with an animation
         mTitle.setVisibility(View.INVISIBLE);
@@ -153,7 +153,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mAboutBtn.setVisibility(View.INVISIBLE);
         mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.INVISIBLE : View.GONE);
         mShareButton.setVisibility(View.INVISIBLE);
-        mMobClixView.setVisibility(View.INVISIBLE);
+        mAdView.setVisibility(View.INVISIBLE);
         mPremiumBtn.setVisibility(View.INVISIBLE);
         
         // Query the state of the purchase
@@ -291,7 +291,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mAboutBtn.setVisibility(View.VISIBLE);
         mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.VISIBLE : View.GONE);
         mShareButton.setVisibility(View.VISIBLE);
-        mMobClixView.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
+        mAdView.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
         mPremiumBtn.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
         
         mStartBtn.startAnimation(fadeInAnimation);
@@ -299,7 +299,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mHighScoresBtn.startAnimation(fadeInAnimation);
         mAboutBtn.startAnimation(fadeInAnimation);
         mDebugGroup.startAnimation(fadeInAnimation);
-        mMobClixView.startAnimation(fadeInAnimation);
+        mAdView.startAnimation(fadeInAnimation);
         mShareButton.startAnimation(fadeInAnimation);
         mPremiumBtn.startAnimation(fadeInAnimation);
     }
@@ -333,11 +333,11 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     }
     
     private void onPremiumStateUpdate(boolean purchased) {
-    	Log.i(TAG, "Premium upgrade purchaed: " + purchased);
+    	Log.i(TAG, "Premium upgrade purchased: " + purchased);
     	mShowNonPremiumComponents = JumplingsApplication.ADS_ENABLED && !purchased;
     	if (!mShowNonPremiumComponents) {
     		// this will prevent the animations to start, and the views will never become visible
-    		mMobClixView.setVisibility(View.GONE);
+    		mAdView.setVisibility(View.GONE);
     		mPremiumBtn.setVisibility(View.GONE);
     	}
     }

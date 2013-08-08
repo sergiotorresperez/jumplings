@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.garrapeta.jumplings"
     android:installLocation="preferExternal"
-    android:versionCode="12"
-    android:versionName="0.6.9" >
+    android:versionCode="13"
+    android:versionName="0.6.10" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -13,10 +13,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.vending.BILLING" />
-
-    <!-- MOBCLIX -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- /MOBCLIX -->
 
     <application
         android:name="com.garrapeta.jumplings.JumplingsApplication"
@@ -84,15 +80,12 @@
             </intent-filter>
         </activity>
 
-        <!-- MOBCLIX -->
-        <meta-data
-            android:name="com.mobclix.APPLICATION_ID"
-            android:value="insert-your-application-key" />
-
+        <!-- ADMOB -->
         <activity
-            android:name="com.mobclix.android.sdk.MobclixBrowserActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!-- /MOBCLIX -->
+            android:name="com.google.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <!-- /ADMOB -->
+
     </application>
 
 </manifest>

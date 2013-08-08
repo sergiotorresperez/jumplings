@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        android:layout_centerHorizontal="true"
          />
 
     <LinearLayout
@@ -39,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dialog_body_frame"
+        android:layout_centerHorizontal="true"
         android:orientation="horizontal" >
 
         <com.garrapeta.jumplings.ui.CustomFontButton

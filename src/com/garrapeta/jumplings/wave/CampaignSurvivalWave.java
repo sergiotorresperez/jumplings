@@ -138,7 +138,7 @@ public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IW
     // ------------------------------------------------ M�todos propios
 
     private void switchWave() {
-        if (mWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
+    	if (mWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
             // Se muestra anuncio
             mWorld.mActivity.runOnUiThread(new Runnable() {
                 @Override

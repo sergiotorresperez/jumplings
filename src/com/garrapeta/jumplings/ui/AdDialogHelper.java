@@ -11,15 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
-import com.mobclix.android.sdk.MobclixAdView;
-import com.mobclix.android.sdk.MobclixAdViewListener;
-import com.mobclix.android.sdk.MobclixIABRectangleMAdView;
+import com.google.ads.Ad;
+import com.google.ads.AdRequest;
+import com.google.ads.AdRequest.ErrorCode;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
+import com.google.ads.AdListener;
+
 
 /**
  * Helper class to manage the ad dialog
  */
-public class AdDialogHelper implements MobclixAdViewListener {
+public class AdDialogHelper implements AdListener {
 
     private FragmentActivity mActivity;
     
@@ -31,7 +36,7 @@ public class AdDialogHelper implements MobclixAdViewListener {
      * Ad view. This has to be created before it is displayed, as we need to instantiate it
      * to request an ad. When the dialog is show this view it attached to it.
      */
-    private final MobclixAdView mAdView;
+    private AdView mAdView;
 
     /**
      * Constructor
@@ -43,10 +48,11 @@ public class AdDialogHelper implements MobclixAdViewListener {
         mActivity = activity;
         mFragmentTag = fragmentTag;
 
-        mAdView = new MobclixIABRectangleMAdView(mActivity);
-        mAdView.addMobclixAdViewListener(this);
-        mAdView.setAllowAutoplay(false);
-        mAdView.pause();
+        // Create the adView
+        mAdView = new AdView(activity, AdSize.BANNER, activity.getString(R.string.admob_in_game_ad_unit));
+        mAdView.setAdListener(this);
+        
+        requestAd();
     }
 
     /**
@@ -125,7 +131,7 @@ public class AdDialogHelper implements MobclixAdViewListener {
                 @Override
                 public void onClick(View v) {
                     getDialog().dismiss();
-                    mClient.getAdDialogFactory().mAdView.getAd();
+                    mClient.getAdDialogFactory().requestAd();
                 }
             }).setLeftButton("Get rid of ads", new View.OnClickListener() {
                     @Override
@@ -146,7 +152,15 @@ public class AdDialogHelper implements MobclixAdViewListener {
             return dialog;
         }
 
+        
         @Override
+		public void onDestroy() {
+			super.onDestroy();
+			mClient.getAdDialogFactory().mAdView.destroy();
+		}
+
+
+		@Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
             FlurryHelper.logAdDialogShown();
@@ -178,38 +192,36 @@ public class AdDialogHelper implements MobclixAdViewListener {
 
     }
 
-    @Override
-    public void onSuccessfulLoad(MobclixAdView ad) {
-        mAvailable = true;
+    private void requestAd() {
+        // Initiate a generic request to load it with an ad
+        AdRequest request = new AdRequest();
+        mAdView.loadAd(request);
     }
+ 
+	@Override
+	public void onDismissScreen(Ad arg0) {
 
-    @Override
-    public void onFailedLoad(MobclixAdView ad, int error) {
-        mAvailable = false;
-    }
+	}
 
-    @Override
-    public String keywords() {
-        return null;
-    }
+	@Override
+	public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
+		mAvailable = false;
+	}
 
-    @Override
-    public void onAdClick(MobclixAdView arg0) {
-    }
+	@Override
+	public void onLeaveApplication(Ad arg0) {
 
-    @Override
-    public void onCustomAdTouchThrough(MobclixAdView arg0, String arg1) {
-    }
+	}
 
-    @Override
-    public boolean onOpenAllocationLoad(MobclixAdView arg0, int arg1) {
-        return false;
-    }
+	@Override
+	public void onPresentScreen(Ad arg0) {
+	
+	}
 
-    @Override
-    public String query() {
-        return null;
-    }
+	@Override
+	public void onReceiveAd(Ad arg0) {
+		mAvailable = true;
+	}
 
 
 }

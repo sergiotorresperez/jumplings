@@ -62,5 +62,9 @@
 
 	<!-- Google Play no-ads in-app billin item SKS -->
 	<string name="inapp_sku_noads">com.garrapeta.jumplings.noads</string>
+	
+	<!-- Admob unit if in navigation screens -->
+	<string name="admob_off_game_ad_unit">ca-app-pub-8378898433438706/2606141872</string>
+	<string name="admob_in_game_ad_unit">ca-app-pub-8378898433438706/3384871073</string>
 
 </resources>

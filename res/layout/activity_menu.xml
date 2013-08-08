@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@android:color/white" >
@@ -17,17 +18,18 @@
     <!-- UI -->
 
 
-    <!-- MOBCLIX -->
-
-    <com.mobclix.android.sdk.MobclixMMABannerXLAdView
+    <!-- ADMOB -->
+    <com.google.ads.AdView
         android:id="@+id/menu_advertising_banner_view"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:tag="adspace" />
-    <!-- /MOBCLIX -->
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_off_game_ad_unit"
+        ads:loadAdOnCreate="true"
+        ads:testDevices="" />
+    <!-- /ADMOB -->
 
     <RelativeLayout
         android:layout_width="match_parent"

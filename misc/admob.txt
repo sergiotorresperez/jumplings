@@ -1,0 +1,10 @@
+https://apps.admob.com/#home
+
+
+App name: The Jumplings
+
+Ad unit name: off-game
+Ad unit ID: ca-app-pub-8378898433438706/2606141872
+
+Ad unit name: in-game
+Ad unit ID: ca-app-pub-8378898433438706/3384871073
