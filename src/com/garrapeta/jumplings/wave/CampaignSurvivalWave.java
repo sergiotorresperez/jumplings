@@ -131,7 +131,7 @@ public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IW
     public void onWaveEnded() {
         Log.i(LOG_SRC, "Wave ended");
         mCurrentWave.pause();
-        level++;
+        mLevel++;
         scheduleNextWave(INTER_WAVE_DELAY);
     }
 
@@ -153,12 +153,12 @@ public class CampaignSurvivalWave extends Wave<JumplingsGameWorld> implements IW
 
         Player player = mWorld.getPlayer();
         player.addLifes(NEW_LEVEL_EXTRA_LIFES);
-        mCurrentWave = new AllowanceGameWave(mWorld, this, level, level == INIT_LEVEL);
+        mCurrentWave = new AllowanceGameWave(mWorld, this, mLevel, mLevel == INIT_LEVEL);
     }
 
     private void showLevel() {
         // FIXME: avoid this cast
-        ((GameActivity)mWorld.mActivity).onLevelChanged(level);
+        ((GameActivity)mWorld.mActivity).onLevelChanged(mLevel);
     }
 
     private void scheduleNextWave(float delay) {

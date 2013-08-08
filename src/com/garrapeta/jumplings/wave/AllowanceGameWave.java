@@ -28,41 +28,41 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
     
     // ---------------------------------------- Variables de instancia
 
-    private short nextJumperCode;
+    private short mNextJumperCode;
 
-    private float bombProbability;
-    private float specialEnemyProbability;
-    private float doubleEnemyProbability;
-    private float tripleSplitterEnemyProbability;
+    private float mBombProbability;
+    private float mSpecialEnemyProbability;
+    private float mDoubleEnemyProbability;
+    private float mTripleSplitterEnemyProbability;
 
-    private int maxBombs;
+    private int mMaxBombs;
 
     /** N�mero de enemigos que hay que matar */
-    private int totalKills;
+    private int mTotalKills;
     /** N�mero de enemigos muertos */
-    private int kills;
+    private int mKills;
 
     // -------------------------------------------------------- Constructor
 
     public AllowanceGameWave(JumplingsGameWorld world, IWaveEndListener listener, int level, boolean schedulePowerUpAtStart) {
         super(world, listener, level);
 
-        nextJumperCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
+        mNextJumperCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
 
         // Inicializaci�n de probabilidades y riesgos
         setMaxThreat(-0.5 + (level * 1.5));
 
-        bombProbability = Math.min(0.30f, level * 0.03f);
+        mBombProbability = Math.min(0.30f, level * 0.03f);
 
-        specialEnemyProbability = Math.min(0.65f, level * 0.07f);
+        mSpecialEnemyProbability = Math.min(0.65f, level * 0.07f);
 
-        doubleEnemyProbability = 0.4f;
+        mDoubleEnemyProbability = 0.4f;
 
-        tripleSplitterEnemyProbability = Math.min(0.5f, 0.0f + (level * 0.05f));
+        mTripleSplitterEnemyProbability = Math.min(0.5f, 0.0f + (level * 0.05f));
 
-        maxBombs = (int) (level * 0.334);
+        mMaxBombs = (int) (level * 0.334);
 
-        totalKills = 3 + level * 7;
+        mTotalKills = 0 + level * 7;
 
         if (schedulePowerUpAtStart) {
             scheduleGeneratePowerUp(getPowerUpCreationLapse());
@@ -83,8 +83,8 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 
         createInitPosAndVel(initPos, initVel);
 
-        if (nextJumperCode == JUMPER_CODE_NULL) {
-            nextJumperCode = generateJumperCode();
+        if (mNextJumperCode == JUMPER_CODE_NULL) {
+            mNextJumperCode = generateJumperCode();
         }
         double threat = tryToCreateJumper(threatNeeded, initPos, initVel);
 
@@ -107,7 +107,7 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 
     @Override
     public boolean onEnemyKilled(EnemyActor enemy) {
-        kills++;
+        mKills++;
         return false;
     }
 
@@ -115,7 +115,7 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
      * @return progreso, del 0 - 100
      */
     public float getProgress() {
-        return kills * 100 / totalKills;
+        return mKills * 100 / mTotalKills;
     }
     
     public boolean isCompleted() {
@@ -129,22 +129,22 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
 
         do {
             while (true) {
-                if (Math.random() < bombProbability && getWorld().mBombActors.size()  < maxBombs) {
+                if (Math.random() < mBombProbability && getWorld().mBombActors.size()  < mMaxBombs) {
                     code = BombActor.JUMPER_CODE_BOMB;
                     break;
                 }
 
-                if (Math.random() > specialEnemyProbability) {
+                if (Math.random() > mSpecialEnemyProbability) {
                     code = RoundEnemyActor.JUMPER_CODE_SIMPLE;
                     break;
                 }
 
-                if (Math.random() < doubleEnemyProbability) {
+                if (Math.random() < mDoubleEnemyProbability) {
                     code = DoubleEnemyActor.JUMPER_CODE_DOUBLE;
                     break;
                 }
 
-                if (Math.random() < tripleSplitterEnemyProbability) {
+                if (Math.random() < mTripleSplitterEnemyProbability) {
                     code = SplitterEnemyActor.JUMPER_CODE_SPLITTER_TRIPLE;
                     break;
                 }
@@ -161,12 +161,12 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
     }
 
     private double tryToCreateJumper(double threatNeeded, PointF initPos, Vector2 initVel) {
-        double threat = MainActor.getBaseThread(nextJumperCode);
+        double threat = MainActor.getBaseThread(mNextJumperCode);
         MainActor mainActor = null;
 
         if (threat <= threatNeeded) {
 
-            switch (nextJumperCode) {
+            switch (mNextJumperCode) {
             case RoundEnemyActor.JUMPER_CODE_SIMPLE:
                 // simple
                 mainActor = getWorld().getFactory().getRoundEnemyActor(initPos);
@@ -193,8 +193,8 @@ public class AllowanceGameWave extends AllowanceWave<JumplingsGameWorld> {
         if (mainActor != null) {
             mainActor.setLinearVelocity(initVel.x, initVel.y);
             getWorld().addActor(mainActor);
-            Log.i(LOG_SRC, "Added mainActor: " + nextJumperCode);
-            nextJumperCode = JUMPER_CODE_NULL;
+            Log.i(LOG_SRC, "Added mainActor: " + mNextJumperCode);
+            mNextJumperCode = JUMPER_CODE_NULL;
             return threat;
 
         } else {

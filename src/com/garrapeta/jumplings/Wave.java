@@ -34,7 +34,7 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
     private boolean mPlaying = false;
 
     /** nivel */
-    protected int level;
+    protected int mLevel;
     
     // FIXME avoid this field and use the one in the world
     /** If game is over */
@@ -46,7 +46,7 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
     public Wave(T world, IWaveEndListener listener, int level) {
         this.mWorld = world;
         this.mListener = listener;
-        this.level = level;
+        this.mLevel = level;
 
         // Se resetean defaults
         mWorld.setGravityX(0);
@@ -89,7 +89,7 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
      * @return nivel
      */
     public int getLevel() {
-        return level;
+        return mLevel;
     }
 
     @Override

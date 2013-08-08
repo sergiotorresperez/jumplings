@@ -58,6 +58,8 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     
     /** World */
     JumplingsWorld mWorld;
+    
+    private boolean mFirstStart = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,13 +157,21 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mShareButton.setVisibility(View.INVISIBLE);
         mAdView.setVisibility(View.INVISIBLE);
         mPremiumBtn.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(JumplingsApplication.LOG_SRC, "onStart " + this);
         
         // Query the state of the purchase
 		mPremiumHelper = new PremiumPurchaseHelper(this);
 		if (mPremiumHelper.isPremiumPurchaseStateKnown(this)) {
 			Log.d(TAG, "Premium purchase state known. No need to query.");
 			onPremiumStateUpdate(mPremiumHelper.isPremiumPurchased(this));
-			onStartAnimationPhaseOne();
+			if (mFirstStart) {
+				onStartAnimationPhaseOne();
+			}
 		} else {
 			Log.d(TAG, "Premium purchase state unknown. Querying for it.");
 			mPremiumHelper.queryIsPremiumPurchasedAsync(this, new PurchaseStateQueryCallback() {
@@ -180,14 +190,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
 				}
 			});
 		}
-        
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(JumplingsApplication.LOG_SRC, "onStart " + this);
-        
+		
         FlurryHelper.onStartSession(this);
 
         mWorld = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface), this);
@@ -216,6 +219,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     @Override
     protected void onStop() {
         super.onStop();
+        mFirstStart = false;
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
         FlurryHelper.onEndSession(this);
         
