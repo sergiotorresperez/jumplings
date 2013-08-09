@@ -225,7 +225,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         
         
         SoundModule sm = getSoundManager();
-        sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_BOING).add(R.raw.boing1).add(R.raw.boing1).add(R.raw.boing3);
+        sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_BOING).add(R.raw.boing1).add(R.raw.boing2).add(R.raw.boing3);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_THROW).add(R.raw.whip);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_KILLED).add(R.raw.crush);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_FAIL).add(R.raw.wrong);

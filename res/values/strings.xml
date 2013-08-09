@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <!-- Global -->
     <string name="app_name">The Jumplings</string>
+    <string name="lorem">Lorem ipsum</string>
+    
+    <!-- Navigation -->
+    <string name="nav_exit">Exit</string>
+    <string name="nav_test">Test</string>
+    <string name="nav_ok">OK</string>
+    <string name="nav_share">Share</string>
+    <string name="nav_play_again">Play again</string>
+    <string name="nav_menu">Menu</string>
+    <string name="nav_back">Back</string>
+    
+    <!-- Splash Activity -->
+    <string name="splash_developer">Sergio Megaherzio</string>
+    <string name="splash_presents">presents</string>
     
     <!-- Menu Activity -->
     <string name="purchaseDlg_message_big">Go premium!</string>
@@ -29,12 +45,28 @@
     <string name="about_ack_3">Some sound samples and bitmaps were taken from the free source game Teeworlds and heavily modified.</string>
     <string name="about_ack_4">https://www.teeworlds.com</string>
     <string name="about_copyright">© 2013 Sergio Torres Perez</string>
-    <!-- About Activity ends  -->
+    
+
+    <!-- Game Over activity -->
+    <string name="gameover_name">Your name: </string>
+    <string name="gameover_view_high_scores">View high scores</string>
+
+    <!-- High scores activity -->
+    <string name="highscores_submit">Submit</string>
+    <string name="highscores_clear">Clear</string>
+    <string name="highscores_header_number">#.</string>
+    <string name="highscores_header_player_name">Player Name</string>
+    <string name="highscores_header_global_rank">Global Rank</string>
+    <string name="highscores_header_level">Level</string>
+    <string name="highscores_header_score">Score</string>
     
     <!-- In game text -->
     <string name="game_over">Game Over</string>
     <string name="game_paused">Game Paused</string>  
-    <string name="error">Sorry, something wrong has happened :-(</string> 
+    <string name="game_error">Sorry, something wrong has happened :-(</string> 
+    <string name="game_ad_dlg_continue">Play</string> 
+    <string name="game_ad_dlg_continue_in_secs">Play (%1$d)</string> 
+    <string name="game_loading">Loading&#8230;</string>
     
     <!-- Tutorial tips -->
     <string name="tip_enemy_scaped">If you let the Jumplings scape from the lower edge of the screen you\'ll lose a life! As this was the first time we let it pass&#8230;</string>

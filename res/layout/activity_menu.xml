@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@android:color/white" >
@@ -19,6 +20,7 @@
 
 
     <!-- ADMOB -->
+
     <com.google.ads.AdView
         android:id="@+id/menu_advertising_banner_view"
         android:layout_width="wrap_content"
@@ -68,7 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/icon_preferences" >
+            android:src="@drawable/icon_preferences"
+            tools:ignore="ContentDescription" >
         </ImageButton>
 
         <ImageButton
@@ -128,14 +131,14 @@
                 style="@style/ColorfulButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Test" />
+                android:text="@string/nav_test" />
 
             <com.garrapeta.jumplings.ui.CustomFontButton
                 android:id="@+id/menu_exitBtn"
                 style="@style/ColorfulButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Exit" />
+                android:text="@string/nav_exit" />
         </LinearLayout>
         <!-- /DEBUG -->
 

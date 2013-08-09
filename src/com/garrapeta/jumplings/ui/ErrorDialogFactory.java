@@ -32,7 +32,7 @@ public class ErrorDialogFactory {
             
             CustomDialogBuilder builder = new CustomDialogBuilder(getActivity());
 
-            builder.setMessageBig(R.string.error).setLeftButton("Quit", new OnClickListener() {
+            builder.setMessageBig(R.string.game_error).setLeftButton(getActivity().getString(R.string.game_error), new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                 	dismiss();

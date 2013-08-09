@@ -57,7 +57,7 @@
                     style="@style/MainFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your name: " />
+                    android:text="@string/gameover_name" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                         style="@style/ColorfulButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="OK" />
+                        android:text="@string/nav_ok" />
                 </LinearLayout>
             </LinearLayout>
             <!-- /NAME INTRODUCTION -->
@@ -107,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/icon_share"
-                        android:text="Share" />
+                        android:text="@string/nav_share" />
 
                     <com.garrapeta.jumplings.ui.CustomFontButton
                         android:id="@+id/gameover_viewHighScoresBtn"
@@ -115,7 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/icon_score"
-                        android:text="View high scores" />
+                        android:text="@string/gameover_view_high_scores" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -129,14 +129,14 @@
                         style="@style/ColorfulButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Play again" />
+                        android:text="@string/nav_play_again" />
 
                     <com.garrapeta.jumplings.ui.CustomFontButton
                         android:id="@+id/gameover_menuBtn"
                         style="@style/ColorfulButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Menu" />
+                        android:text="@string/nav_menu" />
                 </LinearLayout>
             </LinearLayout>
             <!-- BOTONES -->

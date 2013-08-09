@@ -17,6 +17,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_above="@+id/loading_progressBar"
-        android:text="Loading..." />
+        android:text="@string/game_loading" />
 
 </RelativeLayout>

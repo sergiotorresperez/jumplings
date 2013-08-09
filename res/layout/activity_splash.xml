@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/splash_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white" >
+    android:background="@android:color/white"
+    tools:ignore="SpUsage,UselessParent" >
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -16,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:text="Sergio Megaherzio"
+            android:text="@string/splash_developer"
             android:textColor="@color/secondary_text_colour"
             android:textSize="70dp"
             android:textStyle="bold" />
@@ -28,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_alignRight="@+id/splash_title"
             android:layout_below="@+id/splash_title"
-            android:text="presents"
+            android:text="@string/splash_presents"
             android:textColor="@color/secondary_text_colour"
             android:textSize="35dp" />
     </RelativeLayout>

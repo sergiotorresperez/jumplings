@@ -9,7 +9,7 @@
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="0.05"
-		    android:text="#."
+		    android:text="@string/lorem"
 		    style="@style/MainFont.ScoreItem"/>
 
 			          
@@ -18,7 +18,7 @@
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="0.45"
-		    android:text="playername"
+		    android:text="@string/lorem"
 			style="@style/MainFont.ScoreItem"/>
 			
 		<com.garrapeta.jumplings.ui.CustomFontTextView  
@@ -26,7 +26,7 @@
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="0.20"
-		    android:text="rank"
+		    android:text="@string/lorem"
 		    android:gravity="right"
 			style="@style/MainFont.ScoreItem"/>
 				
@@ -35,7 +35,7 @@
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="0.10"
-		    android:text="level"
+		    android:text="@string/lorem"
 		    android:gravity="right"
 			style="@style/MainFont.ScoreItem"/>
 		
@@ -44,7 +44,7 @@
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="0.20"
-		    android:text="score"
+		    android:text="@string/lorem"
 		    android:gravity="right"
 			style="@style/MainFont.ScoreItem"/>
 

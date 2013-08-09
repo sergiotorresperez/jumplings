@@ -86,7 +86,6 @@ public class AdDialogHelper implements AdListener {
     public static class AdDialogFragment extends DialogFragment {
 
         private int NEGATIVE_BUTTON_DISABLED_TIME = 5;
-        private static final String CONTINUE_BUTTON_STR = "Play";
         
         private final static int MSG_CONTINUE_BTN_STEP = 0;
         
@@ -107,10 +106,10 @@ public class AdDialogHelper implements AdListener {
                         int n = msg.arg1;
 
                         if (n == 0) {
-                            mContinueBtn.setText(CONTINUE_BUTTON_STR);
+                            mContinueBtn.setText(getActivity().getString(R.string.game_ad_dlg_continue));
                             mContinueBtn.setEnabled(true);
                         } else {
-                            mContinueBtn.setText(CONTINUE_BUTTON_STR + " (" + n + ")");
+                            mContinueBtn.setText(getActivity().getString(R.string.game_ad_dlg_continue_in_secs, n));
                             continueButtonStep(1000, --n);
                         }
                     }
@@ -127,7 +126,7 @@ public class AdDialogHelper implements AdListener {
 
             builder.setBody(mClient.getAdDialogFactory().mAdView);
             
-            builder.setRightButton(CONTINUE_BUTTON_STR, new View.OnClickListener() {
+            builder.setRightButton(getActivity().getString(R.string.game_ad_dlg_continue), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     getDialog().dismiss();
