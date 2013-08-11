@@ -123,7 +123,8 @@ public class GameOverActivity extends Activity {
 				&& Score.getLocalHighScoresPosition(mPlayerScore.score) < Score.MAX_LOCAL_HIGHSCORE_COUNT;
 
 		TextView scoreTextView = (TextView) findViewById(R.id.gameover_scoreTextView);
-		scoreTextView.setText("Your score: " + mPlayerScore.score);
+		final String yourScoreStr = getString(R.string.gameover_your_score, mPlayerScore.score);
+		scoreTextView.setText(yourScoreStr);
 
 		Score highest = PermData.getInstance().getLocalGetHighScore();
 		if (highest != null) {
@@ -131,9 +132,10 @@ public class GameOverActivity extends Activity {
 			messageTextView.setVisibility(View.VISIBLE);
 			long prevHighScore = PermData.getInstance().getLocalGetHighScore().score;
 			if (mPlayerScore.score > prevHighScore) {
-				messageTextView.setText("You've beaten the local highscore!");
+				messageTextView.setText(R.string.gameover_beaten);
 			} else {
-				messageTextView.setText("HighScore is " + prevHighScore);
+				final String highscoreStr = getString(R.string.gameover_highscore_is, prevHighScore);
+				messageTextView.setText(highscoreStr);
 			}
 		}
 
@@ -266,7 +268,7 @@ public class GameOverActivity extends Activity {
 	}
 
 	private String getShareScoreMessage() {
-		return "I've achieved " + mPlayerScore.score + " points in Jumplings!";
+		return getString(R.string.gameover_share, mPlayerScore.score);
 	}
 
 }

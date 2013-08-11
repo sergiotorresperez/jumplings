@@ -27,12 +27,12 @@ public class ScoreTextActor extends TextActor {
 
         int level = (score / Player.BASE_POINTS);
 
-        this.mText = "+" + score;
+        mText = "+" + score;
 
-        this.mYVel = DEFAULT_Y_VELOCITY;
+        mYVel = DEFAULT_Y_VELOCITY;
 
-        this.mLongevity = DEFAULT_LONGEVITY + (level * 150);
-        this.mLifeTime = mLongevity;
+        mLongevity = DEFAULT_LONGEVITY + (level * 150);
+        mLifeTime = mLongevity;
 
         float textSize = BASE_FONTSIZE + (level * 3);
         mPaint.setTextSize(textSize);

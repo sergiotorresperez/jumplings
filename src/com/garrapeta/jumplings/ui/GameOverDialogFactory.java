@@ -35,7 +35,7 @@ public class GameOverDialogFactory {
             
             CustomDialogBuilder builder = new CustomDialogBuilder(getActivity());
 
-            builder.setMessageBig(R.string.game_over).setLeftButton("Proceed", new OnClickListener() {
+            builder.setMessageBig(R.string.game_over).setLeftButton(getActivity().getString(R.string.nav_proceed), new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mListener.onGameOverDialogClosed();

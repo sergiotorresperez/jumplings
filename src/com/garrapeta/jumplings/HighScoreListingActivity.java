@@ -90,7 +90,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         {
             View tabIndicator = LayoutInflater.from(this).inflate(R.layout.tab_indicator, getTabWidget(), false);
             TextView indicatorTextView = (TextView) tabIndicator.findViewById(R.id.custom_tab_indicator_text);
-            indicatorTextView.setText("Local scores");
+            indicatorTextView.setText(R.string.highscores_local_scores);
 
             TabSpec spec = mTabHost.newTabSpec(TAB_LOCALSCORES_ID);
             spec.setContent(R.id.highscoresListing_localScoresTabContent);
@@ -101,7 +101,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         {
             View tabIndicator = LayoutInflater.from(this).inflate(R.layout.tab_indicator, getTabWidget(), false);
             TextView indicatorTextView = (TextView) tabIndicator.findViewById(R.id.custom_tab_indicator_text);
-            indicatorTextView.setText("Global scores");
+            indicatorTextView.setText(R.string.highscores_global_scores);
 
             TabSpec spec = mTabHost.newTabSpec(TAB_GLOBALSCORES_ID);
             spec.setContent(R.id.highscoresListing_globalScoresTabContent);
@@ -162,7 +162,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
                 if (Utils.isNetworkAvailable(HighScoreListingActivity.this)) {
                     submitScores();
                 } else {
-                    Toast.makeText(HighScoreListingActivity.this, "You need to be connected to the Internet to upload your scores", Toast.LENGTH_LONG).show();
+                    Toast.makeText(HighScoreListingActivity.this, R.string.highscores_error_connection, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -241,14 +241,14 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     	            onScoresSubmitted();
     	            onRankingUpdated(response.localScores);
     	        } catch (JSONException e) {
-    	        	notifyError("JSON error when managing succesful scores submission response", e);
+    	        	notifyError(R.string.highscores_error_submit_score_parse, e);
     	        }
     		}
 
     		@Override
     		public void onBackendRequestError(BackendConnectionException error) {
     			FlurryHelper.onErrorScoreSubmissionError(error);
-    			notifyError("Error processing server response", error);
+    			notifyError(R.string.highscores_error_submit_score_server, error);
     		}});
     }
 
@@ -259,7 +259,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     private void onScoresSubmitted() {
         // Los scores se han mandado al servidor
 
-        Toast toast = Toast.makeText(HighScoreListingActivity.this, "Scores submitted", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(HighScoreListingActivity.this, R.string.highscores_submit_score_ok, Toast.LENGTH_LONG);
         toast.show();
         
         PermData.getInstance().setLocalScoresSubmissionPending(false);
@@ -293,14 +293,14 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
  	                onScoresUpdated(response.globalScores);
  	                onRankingUpdated(response.localScores);
     	        } catch (JSONException e) {
-    	        	notifyError("JSON error when managing succesful scores download response", e);
+    	        	notifyError(R.string.highscores_error_download_score_parse, e);
     	        }
     		}
 
     		@Override
     		public void onBackendRequestError(BackendConnectionException error) {
     			FlurryHelper.onErrorScoreDownloadError(error);
-    			notifyError("Error processing server response", error);
+    			notifyError(R.string.highscores_error_download_score_server, error);
     		}});
     }
 
@@ -364,9 +364,9 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 
  
     // FIXME: externalize and localize error message
-    private void notifyError(String errorMessage, Exception error) {
+    private void notifyError(int errorMessageResId, Exception error) {
     	setHttpRequestProgressBarVisible(false);
-    	Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+    	Toast.makeText(this, errorMessageResId, Toast.LENGTH_LONG).show();
     }
     
     // -------------------------------------------------OnTabChangeListener methods

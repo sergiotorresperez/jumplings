@@ -13,6 +13,8 @@
     <string name="nav_play_again">Play again</string>
     <string name="nav_menu">Menu</string>
     <string name="nav_back">Back</string>
+    <string name="nav_proceed">Proceed</string>
+    
     
     <!-- Splash Activity -->
     <string name="splash_developer">Sergio Megaherzio</string>
@@ -21,6 +23,9 @@
     <!-- Menu Activity -->
     <string name="purchaseDlg_message_big">Go premium!</string>
     <string name="purchaseDlg_message_small">Do you want to buy the game and get rid of the ads?</string>
+    <string name="purchaseDlg_no">No</string>
+    <string name="purchaseDlg_yes">Yes :-)</string>
+    <string name="menu_share">"I'm playing The Jumplings and it's fun!. Download it for free at http://play.google.com/store/apps/details?id=com.garrapeta.jumplings"</string>
     
 	<!-- About Activity -->
     <string name="about_subtitle">by Sergio Megaherzio</string>
@@ -44,12 +49,15 @@
     <string name="about_ack_2">https://github.com/libgdx/libgdx</string>
     <string name="about_ack_3">Some sound samples and bitmaps were taken from the free source game Teeworlds and heavily modified.</string>
     <string name="about_ack_4">https://www.teeworlds.com</string>
-    <string name="about_copyright">© 2013 Sergio Torres Perez</string>
-    
+    <string name="about_copyright">© 2013 Sergio Torres Pérez</string>
 
     <!-- Game Over activity -->
     <string name="gameover_name">Your name: </string>
     <string name="gameover_view_high_scores">View high scores</string>
+    <string name="gameover_your_score">Your score: %1$d</string>
+    <string name="gameover_beaten">You\'ve beaten the high score!</string>
+    <string name="gameover_highscore_is">"High score is %1$d"</string>
+    <string name="gameover_share">"I've achieved %1$d points in The Jumplings!. Download it for free at http://play.google.com/store/apps/details?id=com.garrapeta.jumplings"</string>
 
     <!-- High scores activity -->
     <string name="highscores_submit">Submit</string>
@@ -59,18 +67,42 @@
     <string name="highscores_header_global_rank">Global Rank</string>
     <string name="highscores_header_level">Level</string>
     <string name="highscores_header_score">Score</string>
+    <string name="highscores_local_scores">Local scores</string>
+    <string name="highscores_global_scores">Global scores</string>
+    <string name="highscores_error_connection">You need to be connected to the Internet to upload your scores</string>
+    <string name="highscores_error_submit_score_parse">Error reading response from server when submiting your scores</string>
+    <string name="highscores_error_submit_score_server">Error processing response from server when submiting your scores</string>
+    <string name="highscores_submit_score_ok">Scores submitted</string>
+    <string name="highscores_error_download_score_parse">Error reading response from server when downloading scores</string>
+    <string name="highscores_error_download_score_server">Error processing response from server when downloading scores</string>    
     
+    <!-- Preferences activity -->
+    <string name="prefs_sound_summary">Enable or disable sound</string>
+    <string name="prefs_sound_title">Enable sound</string>
+    <string name="prefs_vibration_summary">Define the level of the vibration effects</string>
+    <string name="prefs_vibration_title">Vibration level</string>    
+    <string name="prefs_flash_summary">Define the level of the flash effect</string>
+    <string name="prefs_flash_title">Flash effect level</string>  
+    <string name="prefs_shake_summary">Define the level of the screen shake effect</string>
+    <string name="prefs_shake_title">Screen shake effect level</string>
+                
     <!-- In game text -->
     <string name="game_over">Game Over</string>
-    <string name="game_paused">Game Paused</string>  
+    <string name="game_paused">Game Paused</string>
+    <string name="game_menu">Main Menu</string>
+    <string name="game_resume">Resume</string>
     <string name="game_error">Sorry, something wrong has happened :-(</string> 
     <string name="game_ad_dlg_continue">Play</string> 
     <string name="game_ad_dlg_continue_in_secs">Play (%1$d)</string> 
+    <string name="game_ad_dlg_buy">Get rid of ads</string> 
     <string name="game_loading">Loading&#8230;</string>
+    <string name="game_highscore">Highscore: %1$d</string>
+    <string name="game_level">Level %1$d</string>
+    <string name="game_combo">%1$d x combo!</string>
     
     <!-- Tutorial tips -->
     <string name="tip_enemy_scaped">If you let the Jumplings scape from the lower edge of the screen you\'ll lose a life! As this was the first time we let it pass&#8230;</string>
-    <string name="tip_combo">If you kill Jumplings very quickly you score a  combo!</string>
+    <string name="tip_combo">If you kill Jumplings very quickly you score a combo!</string>
     <string name="tip_round_enemy_killed">That\'s it, tap on the Jumplings before they fall from the lower bottom of the screen.</string>
     <string name="tip_double_enemy_killed">Careful with the orange ones, they need two taps to be killed.</string>
     <string name="tip_splitter_enemy_killed">The yellow ones split when you tap on them!</string>

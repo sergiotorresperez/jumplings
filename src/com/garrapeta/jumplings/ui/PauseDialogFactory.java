@@ -37,7 +37,7 @@ public class PauseDialogFactory {
 
             builder.setMessageBig(R.string.game_paused);
 
-            builder.setRightButton("Main Menu", new OnClickListener() {
+            builder.setRightButton(getString(R.string.game_menu), new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mListener.onMainMenuButtonClicked();
@@ -45,7 +45,7 @@ public class PauseDialogFactory {
                 }
             });
 
-            builder.setLeftButton("Resume", new OnClickListener() {
+            builder.setLeftButton(getString(R.string.game_resume), new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mListener.onResumeButtonClicked();

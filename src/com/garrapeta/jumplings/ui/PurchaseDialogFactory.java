@@ -37,12 +37,12 @@ public class PurchaseDialogFactory {
 
 			builder.setMessageBig(R.string.purchaseDlg_message_big)
 					.setMessageSmall(R.string.purchaseDlg_message_small)
-					.setLeftButton("No", new OnClickListener() {
+					.setLeftButton(getActivity().getString(R.string.purchaseDlg_no), new OnClickListener() {
 						@Override
 						public void onClick(View v) {
 							dismiss();
 						}
-					}).setRightButton("Yes! :-)", new OnClickListener() {
+					}).setRightButton(getActivity().getString(R.string.purchaseDlg_yes), new OnClickListener() {
 						@Override
 						public void onClick(View v) {
 							mListener.onPurchaseBtnClicked();

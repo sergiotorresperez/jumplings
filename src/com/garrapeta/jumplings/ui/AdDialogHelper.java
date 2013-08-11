@@ -132,7 +132,7 @@ public class AdDialogHelper implements AdListener {
                     getDialog().dismiss();
                     mClient.getAdDialogFactory().requestAd();
                 }
-            }).setLeftButton("Get rid of ads", new View.OnClickListener() {
+            }).setLeftButton(getActivity().getString(R.string.game_ad_dlg_buy), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                     	getDialog().dismiss();

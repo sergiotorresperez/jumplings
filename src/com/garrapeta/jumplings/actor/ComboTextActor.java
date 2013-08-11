@@ -3,6 +3,7 @@ package com.garrapeta.jumplings.actor;
 import android.graphics.PointF;
 
 import com.garrapeta.jumplings.JumplingsGameWorld;
+import com.garrapeta.jumplings.R;
 
 public class ComboTextActor extends TextActor {
 
@@ -24,7 +25,7 @@ public class ComboTextActor extends TextActor {
     public ComboTextActor(JumplingsGameWorld cWorld, PointF worldPos, int comboLevel) {
         super(cWorld, worldPos);
 
-        mText = comboLevel + "x combo!";
+        mText = cWorld.mActivity.getString(R.string.game_combo, comboLevel);
         mYVel = DEFAULT_Y_VELOCITY;
 
         mLongevity = DEFAULT_LONGEVITY + ((comboLevel - 1) * 75);

@@ -113,8 +113,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
             @Override
             public void onClick(View v) {
             	FlurryHelper.logShareButtonClicked();
-            	// TODO: externalize share string
-                Utils.share(MenuActivity.this, "I'm playing Jumplings!");
+                Utils.share(MenuActivity.this, getString(R.string.menu_share));
             }
         });
 

@@ -123,7 +123,8 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
             long localHighScore = hs.score;
             if (localHighScore > 0) {
                 TextView highScoreTextView = mLocalHighScoreTextView;
-                highScoreTextView.setText(" Highscore: " + localHighScore);
+                final String highScoreStr =  getString(R.string.game_highscore, localHighScore);
+                highScoreTextView.setText(highScoreStr);
             }
         }
 
@@ -563,7 +564,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         mWorld.mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                String message =  "Level " + level;
+                String message =  getString(R.string.game_level, level);
                 TextView levelTextView = (TextView) findViewById(R.id.game_levelTextView);
                 levelTextView.setText(message);
                 Toast.makeText(GameActivity.this, message, Toast.LENGTH_SHORT).show();

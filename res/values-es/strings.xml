@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- Global -->
+    <string name="app_name">Los Jumplings</string>
+    <string name="lorem">Lorem ipsum</string>
+    
+    <!-- Navigation -->
+    <string name="nav_exit">Salir</string>
+    <string name="nav_test">Prueba</string>
+    <string name="nav_ok">OK</string>
+    <string name="nav_share">Compartir</string>
+    <string name="nav_play_again">Jugar otra vez</string>
+    <string name="nav_menu">Menu</string>
+    <string name="nav_back">Atrás</string>
+    <string name="nav_proceed">Adelante</string>
+    
+    <!-- Splash Activity -->
+    <string name="splash_developer">Sergio Megaherzio</string>
+    <string name="splash_presents">presenta</string>
+    
+    <!-- Menu Activity -->
+    <string name="purchaseDlg_message_big">¡Hazte premium!</string>
+    <string name="purchaseDlg_message_small">¿Quieres comprar el juego y quitar los anuncios?</string>
+    <string name="purchaseDlg_no">Noor!</string>
+    <string name="purchaseDlg_yes">Sí :-)</string>
+    <string name="menu_share">"¡Estoy jugando a Los Jumplings y mola mogollón!. Bájatelo gratis de http://play.google.com/store/apps/details?id=com.garrapeta.jumplings"</string>
+    
+	<!-- About Activity -->
+    <string name="about_subtitle">por Sergio Megaherzio</string>
+    <string name="about_howto_title">Cómo jugar</string>
+    <string name="about_howto_1">Toca sobre los Jumplings antes de que se caigan por el borde inferior de la pantalla. No dejes que se caigan o perderás una vida.</string>
+    <string name="about_howto_2">Mata a los Jumplings uno detrás de otro muy rápido para hacer combos y conseguir muchos puntos.</string>
+    <string name="about_howto_red">Los Jumplings rojos son muy monos</string>
+    <string name="about_howto_orange">Los naranjas duran dos toques</string>
+    <string name="about_howto_yellow">Los amarillos se dividen cuando les das.</string>
+    <string name="about_howto_bomb">No explotes las bombas. Eso debería ser obvio&#8230;</string>
+    <string name="about_howto_lifeup">¡Vida extra!</string>
+    <string name="about_howto_sable">Sable ninja. Cuando lo tengas desliza el dedo sobre la pantalla para matar Jumplings más rápido. Dura sólo unos pocos segundos.</string>
+    <string name="about_credits_title">Créditos</string>
+    <string name="about_credits_1">Diseño y programación por</string>
+    <string name="about_credits_2">Sergio GaRRaPeTa Megaherzio</string>
+    <string name="about_credits_3">2011 &#8211; 2013</string>
+    <string name="about_credits_4">Plymouth y Londres</string>
+    <string name="about_credits_linkedin_profile">http://uk.linkedin.com/in/sergiotorresperez</string>
+    <string name="about_ack_title">Reconocimientos</string>
+    <string name="about_ack_1">El juego usa la adaptación de Box2D para Android hecha por Badlogic</string>
+    <string name="about_ack_2">https://github.com/libgdx/libgdx</string>
+    <string name="about_ack_3">Algunos sonidos y bitmaps han sido tomados prestados y muy modificados del juego Teeworlds</string>
+    <string name="about_ack_4">https://www.teeworlds.com</string>
+    <string name="about_copyright">© 2013 Sergio Torres Pérez</string>
+
+    <!-- Game Over activity -->
+    <string name="gameover_name">Tu nombre: </string>
+    <string name="gameover_view_high_scores">Ver puntuaciones máximas</string>
+    <string name="gameover_your_score">Tu puntuación: %1$d</string>
+    <string name="gameover_beaten">¡Has batido la puntuación máxima!</string>
+    <string name="gameover_highscore_is">"La puntuación máxima es %1$d"</string>
+    <string name="gameover_share">"He conseguido %1$d puntos en Los Jumplings!. Bájatelo gratis de http://play.google.com/store/apps/details?id=com.garrapeta.jumplings"</string>
+
+    <!-- High scores activity -->
+    <string name="highscores_submit">Mandar</string>
+    <string name="highscores_clear">Borrar</string>
+    <string name="highscores_header_number">#.</string>
+    <string name="highscores_header_player_name">Jugador</string>
+    <string name="highscores_header_global_rank">Posición global</string>
+    <string name="highscores_header_level">Nivel</string>
+    <string name="highscores_header_score">Puntuación</string>
+    <string name="highscores_local_scores">Puntuaciones locales</string>
+    <string name="highscores_global_scores">Puntuaciones globales</string>
+    <string name="highscores_error_connection">¡Necesitas estar conectado a interneeeeeeeeé para subir tus puntuaciones!</string>
+    <string name="highscores_error_submit_score_parse">Error leyendo la respuesta del servidor al subir tus puntuaciones</string>
+    <string name="highscores_error_submit_score_server">Error procesando la respuesta del servidor al subir tus puntuaciones</string>
+    <string name="highscores_submit_score_ok">Puntuaciones manadadas al servidor</string>
+    <string name="highscores_error_download_score_parse">Error leyendo la respuesta del servidor al bajar las puntuaciones globales</string>
+    <string name="highscores_error_download_score_server">Error procesando la respuesta del servidor al bajar las puntuaciones globales</string>    
+    
+    <!-- Preferences activity -->
+    <string name="prefs_sound_summary">Activar o desactivar efectos de sonidos</string>
+    <string name="prefs_sound_title">Activar sonido</string>
+    <string name="prefs_vibration_summary">Establecer el nivel de los efectos de vibraciones</string>
+    <string name="prefs_vibration_title">Nivel de vibraciones</string>    
+    <string name="prefs_flash_summary">Establecer el nivel de los efectos de flash</string>
+    <string name="prefs_flash_title">Nivel de los efectos flash</string>  
+    <string name="prefs_shake_summary">Establecer el nivel de los efectos de terremoto</string>
+    <string name="prefs_shake_title">Nivel de los efectos de terremoto</string>
+                
+    <!-- In game text -->
+    <string name="game_over">Game Over</string>
+    <string name="game_paused">Juego pausado</string>
+    <string name="game_menu">Menú principal</string>
+    <string name="game_resume">Reanudar</string>
+    <string name="game_error">Lo siento, algo se ha fastididado&#8230; fallo técnico :-(</string> 
+    <string name="game_ad_dlg_continue">Jugar</string> 
+    <string name="game_ad_dlg_continue_in_secs">Jugar (%1$d)</string>
+    <string name="game_ad_dlg_buy">Quitar anuncios</string> 
+    <string name="game_loading">Cargando&#8230;</string>
+    <string name="game_highscore">Puntuación máxima: %1$d</string>
+    <string name="game_level">Nivel %1$d</string>
+    <string name="game_combo">¡combo x %1$d!</string>
+    
+    <!-- Tutorial tips -->
+    <string name="tip_enemy_scaped">¡Si dejas que los Jumplings se caigan de la pantalla pierdes una vida! Como es la primera vez lo dejaremos pasar&#8230;</string>
+    <string name="tip_combo">¡Mata Jumplings muy rápido para hacer combos!</string>
+    <string name="tip_round_enemy_killed">Eso eso, mata a los Jumplings antes de que caigan por el borde inferior de la pantalla.</string>
+    <string name="tip_double_enemy_killed">Cuidado con los naranjas, necesitas tos toques para matarlos del todo.</string>
+    <string name="tip_splitter_enemy_killed">¡Los amarillos se dividen cuando les das!</string>
+    <string name="tip_bomb_exploded">¡Las bombas las tines que esquivas! Esta vez no, pero la próxima perderás una vida.</string>
+    <string name="tip_life_power_up">¡Vida extra!</string>
+    <string name="tip_blade_power_up_start">¡Has pillado la espada! Desliza el dedo por la pantalla para blandirla&#8230; y ten cuidado, sólo dura unos pocos segundos!</string>
+    <string name="tip_blade_power_up_end">La espada ha terminado&#8230; ahora vuelve a tocar sobre los Jumplings para matarlos, como antes&#8230;</string>
+    
+
+</resources>

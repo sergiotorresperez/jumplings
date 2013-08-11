@@ -4,31 +4,31 @@
     <CheckBoxPreference
         android:defaultValue="@string/confing_sound_enabled_default"
         android:key="@string/config_sound_key"
-        android:summary="Enable or disable sound"
-        android:title="Enable sound" />
+        android:summary="@string/prefs_sound_summary"
+        android:title="@string/prefs_sound_title" />
 
     <ListPreference
         android:defaultValue="@string/config_value_default"
         android:entries="@array/effectsLevelEntries"
         android:entryValues="@array/effectsLevelValues"
         android:key="@string/config_vibrator_key"
-        android:summary="Define the level of the vibration effects"
-        android:title="Vibration level" />
+        android:summary="@string/prefs_vibration_summary"
+        android:title="@string/prefs_vibration_title" />
     
     <ListPreference
         android:defaultValue="@string/config_value_default"
         android:entries="@array/effectsLevelEntries"
         android:entryValues="@array/effectsLevelValues"
         android:key="@string/config_shake_key"
-        android:summary="Define the level of the screen shake effect"
-        android:title="Screen shake effect level" />
+        android:summary="@string/prefs_shake_summary"
+        android:title="@string/prefs_shake_title" />
     
     <ListPreference
         android:defaultValue="@string/config_value_default"
         android:entries="@array/effectsLevelEntries"
         android:entryValues="@array/effectsLevelValues"
         android:key="@string/config_flash_key"
-        android:summary="Define the level of the flash effect"
-        android:title="Flash effect level" />
+        android:summary="@string/prefs_flash_summary"
+        android:title="@string/prefs_flash_title" />
 
 </PreferenceScreen>
