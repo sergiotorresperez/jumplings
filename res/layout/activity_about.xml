@@ -100,6 +100,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/about_activity_vertical_spacing"
+                android:text="@string/about_scores_title" />
+
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_scores_1" />
+
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/about_activity_vertical_spacing"
                 android:text="@string/about_credits_title" />
 
             <com.garrapeta.jumplings.ui.CustomFontTextView

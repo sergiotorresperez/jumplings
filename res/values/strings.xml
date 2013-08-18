@@ -38,10 +38,12 @@
     <string name="about_howto_bomb">Do not explode the bombs. That is obvious&#8230;</string>
     <string name="about_howto_lifeup">Extra life power up!</string>
     <string name="about_howto_sable">Ninja sable powerup. When you got it you can swipe through the screen to kill them faster. Lasts only for some seconds.</string>
+    <string name="about_scores_title">About High Scores</string>
+    <string name="about_scores_1">As the difficulty level of the game varies depending on the size of the screen, there are different score tables to reflect that. Thus, you may experience that the highscore that you submitted from your tablet is not seen in the high scores screen of your phone.</string>
     <string name="about_credits_title">Credits</string>
     <string name="about_credits_1">Code and design by</string>
     <string name="about_credits_2">Sergio GaRRaPeTa Megaherzio</string>
-    <string name="about_credits_3">2011 &#8211; 2013</string>
+    <string name="about_credits_3">2011 - 2013</string>
     <string name="about_credits_4">Plymouth and London</string>
     <string name="about_credits_linkedin_profile">http://uk.linkedin.com/in/sergiotorresperez</string>
     <string name="about_ack_title">Acknowledgements</string>
