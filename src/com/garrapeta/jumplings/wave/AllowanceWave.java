@@ -16,13 +16,13 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
     // --------------------------------------------------- Variables
 
     /** Thread m�ximo de la wave */
-    private double maxThreat;
+    private double mMaxThreat;
 
     /** Thread que se permite crear en este ciclo */
-    protected double allowedThreadGeneration;
+    protected double mAllowedThreadGeneration;
 
     /** Thread creado desde la �ltima vez que fue 0 */
-    double acumulated = 0;
+    double mAccumulated = 0;
 
     ProgressBar mThreadRatioBar;
     ProgressBar mAllowedThreadGenerationBar;
@@ -33,15 +33,11 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
     /**
      * @param jWorld
      */
-    public AllowanceWave(T world, IWaveEndListener listener, int level) {
-        super(world, listener, level);
+    public AllowanceWave(T world, int level) {
+        super(world, level);
     }
 
     // ------------------------------------------------------- M�todos heredados
-    @Override
-    public void start() {
-        super.start();
-    }
 
     @Override
     public void onProcessFrame(float stepTime) {
@@ -54,23 +50,23 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
     
             float existant = getCurrentThreat();
     
-            double lackRatio = (maxThreat - existant) / maxThreat;
-            allowedThreadGeneration += (stepTime / 200) * lackRatio;
-            allowedThreadGeneration = Math.min(allowedThreadGeneration, maxThreat);
+            double lackRatio = (mMaxThreat - existant) / mMaxThreat;
+            mAllowedThreadGeneration += (stepTime / 200) * lackRatio;
+            mAllowedThreadGeneration = Math.min(mAllowedThreadGeneration, mMaxThreat);
     
             double generated = 0;
             // Log.i(LOG_SRC, "maxThreat: " + maxThreat + ", existant: " +
             // existant + ", allowedThreadGeneration: " +
             // allowedThreadGeneration + ", acumulated: " + acumulated);
-            if (acumulated < (maxThreat * FACTOR)) {
-                generated = generateThreat(allowedThreadGeneration);
+            if (mAccumulated < (mMaxThreat * FACTOR)) {
+                generated = generateThreat(mAllowedThreadGeneration);
     
                 if (generated > 0) {
-                    acumulated += generated;
-                    allowedThreadGeneration = 0;
+                    mAccumulated += generated;
+                    mAllowedThreadGeneration = 0;
                 }
             } else if (existant == 0) {
-                acumulated = 0;
+                mAccumulated = 0;
             }
         }
     }
@@ -90,7 +86,7 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
      * @param threat
      */
     protected void setMaxThreat(double threat) {
-        this.maxThreat = this.allowedThreadGeneration = threat;
+        this.mMaxThreat = this.mAllowedThreadGeneration = threat;
 
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         if (JumplingsApplication.DEBUG_THREAD_BARS_ENABLED) {
@@ -107,8 +103,8 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
             mAccumulatedThreatBar = (ProgressBar) getWorld().mActivity.findViewById(id.game_acumulatedThreat);
 
             mThreadRatioBar.setMax(100);
-            mAllowedThreadGenerationBar.setMax((int) (maxThreat * 100));
-            mAccumulatedThreatBar.setMax((int) (maxThreat * 100));
+            mAllowedThreadGenerationBar.setMax((int) (mMaxThreat * 100));
+            mAccumulatedThreatBar.setMax((int) (mMaxThreat * 100));
             updateAllowedThreadGenerationBar();
         }
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
@@ -117,10 +113,10 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
     /**
      * Devuelve maxThreat
      * 
-     * @param maxThreat
+     * @param mMaxThreat
      */
     protected double getMaxThreat() {
-        return maxThreat;
+        return mMaxThreat;
     }
 
     // M�todos de debug
@@ -130,7 +126,7 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
 
             @Override
             public void run() {
-                mThreadRatioBar.setProgress((int) ((getCurrentThreat() / maxThreat) * 100));
+                mThreadRatioBar.setProgress((int) ((getCurrentThreat() / mMaxThreat) * 100));
 
             }
         });
@@ -142,7 +138,7 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
 
             @Override
             public void run() {
-                mAllowedThreadGenerationBar.setProgress((int) (allowedThreadGeneration * 100));
+                mAllowedThreadGenerationBar.setProgress((int) (mAllowedThreadGeneration * 100));
 
             }
         });
@@ -154,7 +150,7 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
 
             @Override
             public void run() {
-                mAccumulatedThreatBar.setProgress((int) (acumulated * 100));
+                mAccumulatedThreatBar.setProgress((int) (mAccumulated * 100));
 
             }
         });

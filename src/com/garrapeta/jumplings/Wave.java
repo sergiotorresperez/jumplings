@@ -11,7 +11,6 @@ import com.garrapeta.jumplings.actor.BombActor;
 import com.garrapeta.jumplings.actor.EnemyActor;
 import com.garrapeta.jumplings.actor.JumplingActor;
 import com.garrapeta.jumplings.actor.LifePowerUpActor;
-import com.garrapeta.jumplings.wave.IWaveEndListener;
 
 public abstract class Wave<T extends JumplingsWorld> implements GameEventsListener {
 
@@ -25,10 +24,7 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
     // ------------------------------------ Variables de instancia
 
     /** mundo dueño de la wave */
-    private T mWorld;
-
-    /** listener de la wave */
-    protected IWaveEndListener mListener;
+    private final T mWorld;
 
     /** Si la wave est� en ejecuci�n */
     private boolean mPlaying = false;
@@ -36,16 +32,14 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
     /** nivel */
     protected int mLevel;
     
-    // FIXME avoid this field and use the one in the world
     /** If game is over */
     protected boolean mIsGameOver = false;
 
 
     // ------------------------------------------------ Constructor
 
-    public Wave(T world, IWaveEndListener listener, int level) {
+    public Wave(T world, int level) {
         this.mWorld = world;
-        this.mListener = listener;
         this.mLevel = level;
 
         // Se resetean defaults
@@ -59,9 +53,6 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
      */
     public void start() {
         play();
-        if (mListener != null) {
-            mListener.onWaveStarted();
-        }
     }
 
     /**
@@ -233,8 +224,6 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
      * Frees resources
      */
     public void dispose() {
-        mWorld = null;
-        mListener = null;
     }
 
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG

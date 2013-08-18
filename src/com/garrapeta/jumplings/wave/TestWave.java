@@ -32,10 +32,9 @@ public class TestWave extends Wave<JumplingsGameWorld> {
     /**
      * @param jgWorld
      * @param level
-     * @param listener
      */
-    public TestWave(JumplingsGameWorld jgWorld, IWaveEndListener listener) {
-        super(jgWorld, listener, 0);
+    public TestWave(JumplingsGameWorld jgWorld) {
+        super(jgWorld, 0);
         this.jgWorld = jgWorld;
         if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
             this.jgWorld.mGameActivity.testBtn.setVisibility(View.VISIBLE);

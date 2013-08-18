@@ -31,8 +31,8 @@ public class MenuWave extends Wave<JumplingsWorld> {
     /**
      * @param jWorld
      */
-    public MenuWave(JumplingsWorld jWorld, IWaveEndListener listener) {
-        super(jWorld, listener, 0);
+    public MenuWave(JumplingsWorld jWorld) {
+        super(jWorld, 0);
     }
 
     // ------------------------------------------------------- M�todos heredados

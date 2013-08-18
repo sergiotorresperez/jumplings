@@ -24,7 +24,7 @@ import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.PurchaseDialogFactory;
 import com.garrapeta.jumplings.ui.PurchaseDialogFactory.PurchaseDialogFragment.PurchaseDialogListener;
 import com.garrapeta.jumplings.util.Utils;
-import com.garrapeta.jumplings.wave.CampaignSurvivalWave;
+import com.garrapeta.jumplings.wave.CampaignWave;
 import com.garrapeta.jumplings.wave.MenuWave;
 import com.garrapeta.jumplings.wave.TestWave;
 
@@ -197,7 +197,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED);
 
         // Wave setup
-        mWorld.mWave = new MenuWave(mWorld, null);
+        mWorld.mWave = new MenuWave(mWorld);
     }
 
     @Override
@@ -310,7 +310,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
 
     private void startNewGame() {
         Intent i = new Intent(this, GameActivity.class);
-        i.putExtra(GameActivity.WAVE_BUNDLE_KEY, CampaignSurvivalWave.WAVE_KEY);
+        i.putExtra(GameActivity.WAVE_BUNDLE_KEY, CampaignWave.WAVE_KEY);
         startActivity(i);
     }
 

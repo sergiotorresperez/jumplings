@@ -32,7 +32,7 @@ import com.garrapeta.jumplings.ui.GameOverDialogFactory;
 import com.garrapeta.jumplings.ui.GameOverDialogFactory.GameOverDialogFragment.GameOverDialogListener;
 import com.garrapeta.jumplings.ui.PauseDialogFactory;
 import com.garrapeta.jumplings.ui.PauseDialogFactory.PauseDialogFragment.PauseDialogListener;
-import com.garrapeta.jumplings.wave.CampaignSurvivalWave;
+import com.garrapeta.jumplings.wave.CampaignWave;
 import com.garrapeta.jumplings.wave.TestWave;
 
 public class GameActivity extends FragmentActivity implements TipDialogListener, AdDialogListener, PauseDialogListener, GameOverDialogListener {
@@ -188,12 +188,12 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
         // Preparaci�n de la wave
 
-        if (waveKey.equals(CampaignSurvivalWave.WAVE_KEY)) {
-            mWorld.mWave = new CampaignSurvivalWave(mWorld, null);
+        if (waveKey.equals(CampaignWave.WAVE_KEY)) {
+            mWorld.mWave = new CampaignWave(mWorld);
             // } else if (waveKey.equals(CampaignTutorialWave.WAVE_KEY)) {
             // world.wave = new CampaignTutorialWave(world, null, 1);
         } else if (waveKey.equals(TestWave.WAVE_KEY)) {
-            mWorld.mWave = new TestWave(mWorld, null);
+            mWorld.mWave = new TestWave(mWorld);
             // jgWorld.wave = new CampaignSurvivalWave(jgWorld, null);
         } else {
             throw new IllegalArgumentException("Cannot create wave: " + waveKey);
