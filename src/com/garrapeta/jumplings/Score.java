@@ -21,9 +21,6 @@ public class Score implements Parcelable {
 	
 	// ------------------------------------------------------------ Constantes
 	
-	public final String SEPARATOR   = "\n"; 
-	public final String NULL_STRING = "\t";
-	
 	public static final int MAX_LOCAL_HIGHSCORE_COUNT  = 25;
 	public static final int MAX_GLOBAL_HIGHSCORE_COUNT = 50;
 	
@@ -50,13 +47,11 @@ public class Score implements Parcelable {
 	
 	// ------------------------------------------------ Variables de instancia
 	
-	public String clientId;
+	public final String clientId;
 	
-	public long score;
+	public final long score;
 	
-	public long kills;
-	
-	public int level;
+	public final int level;
 	
 	public String playerName;
 	
@@ -92,18 +87,10 @@ public class Score implements Parcelable {
 	
 	// ------------------------------------------------------------ Constructor
 	
-	private Score() {
-		this.clientId 	= "";
-		this.score 		= 0;
-		this.kills 		= 0;
-		this.level 		= 0;
-		this.playerName = "";
-		this.globalRank = 0;
-	}
-	
-	public Score(Activity activity) {
-		this();
+	public Score(Activity activity, long score, int level) {
 		this.clientId    =  getLocalId(activity);
+		this.score 		= score;
+		this.level 		= level;
 	}
 	
 	// ---------------------------------------------------------- M�todos
@@ -112,7 +99,7 @@ public class Score implements Parcelable {
 	 * @return this client id
 	 */
 	public String getLocalId(Activity activity) {
-		String userId = "android_" + Utils.getUniquePsuedoID(activity);
+		String userId = "and_" + System.currentTimeMillis() + "_" + Utils.getUniquePseudoID(activity);
 		return userId;
 	}
 	

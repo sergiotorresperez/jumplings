@@ -75,7 +75,7 @@ public class Utils {
 	 *            Context
 	 * @return ID
 	 */
-	public static String getUniquePsuedoID(Context context) {
+	public static String getUniquePseudoID(Context context) {
 		// IF all else fails, if the user does is lower than API 9(lower
 		// than Gingerbread), has reset their phone or 'Secure.ANDROID_ID'
 		// returns 'null', then simply the ID returned will be soley based

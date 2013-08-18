@@ -17,11 +17,15 @@ public class RequestModel {
 	public static final String JSON_ACTION_SUBMIT_SCORES_VALUE 	= "submit_scores";
 
 	
-	public String action;
-	public List<Score> localScores;
+	public final String action;
+	public final List<Score> localScores;
+	public final float worldWidth;
+	public final float worldHeight;
 
-	RequestModel(String action, List<Score> localScores) {
+	RequestModel(String action, List<Score> localScores, float worldWidth, float worldHeight) {
 		this.action = action;
 		this.localScores = localScores;
+		this.worldWidth = worldWidth;
+		this.worldHeight = worldHeight;
 	}
 }

@@ -32,8 +32,7 @@ public class GameOverActivity extends Activity {
 	// Constantes
 
 	/** Clave para pasar highScore entre actividades */
-	public static final String NEW_HIGHSCORE_KEY = Score.class
-			.getCanonicalName();
+	public static final String NEW_HIGHSCORE_KEY = Score.class.getCanonicalName();
 
 	/** Minimum length of the username */
 	private static final int MINIMUM_NAME_LENGTH = 4;
@@ -81,15 +80,12 @@ public class GameOverActivity extends Activity {
 		// DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG
 		// - DEBUG
 		if (mPlayerScore == null) {
-			mPlayerScore = new Score(this);
-			mPlayerScore.score = 999999;
-			mPlayerScore.level = 99;
+			mPlayerScore = new Score(this, 999999, 99);
 		}
 		// DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG
 		// - DEBUG
 
 		initGui();
-
 	}
 
     @Override
@@ -235,9 +231,9 @@ public class GameOverActivity extends Activity {
 		viewHighScoresButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(GameOverActivity.this,
-						HighScoreListingActivity.class);
-				startActivity(i);
+				Intent intent = new Intent(GameOverActivity.this, HighScoreListingActivity.class);
+				HighScoreListingActivity.putScreenSizeExtras(intent, HighScoreListingActivity.getWorldWidth(GameOverActivity.this), HighScoreListingActivity.getWorldHeight(GameOverActivity.this));
+				startActivity(intent);
 			}
 		});
 

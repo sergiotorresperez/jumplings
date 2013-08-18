@@ -38,7 +38,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     public static final String TAG = JumplingsApplication.LOG_SRC_JUMPLINGS + ".world";
 
-    public static final int WORLD_HEIGHT = 14;
+    public static final int WORLD_HEIGHT = 7;
 
     // ------------------------------------ Consantes de sonidos y vibraciones
 
@@ -181,14 +181,13 @@ public class JumplingsWorld extends Box2DWorld {
     @Override
     public void onGameViewSizeChanged(int width, int height) {
         Log.i(TAG, "surfaceChanged " + this);
-        mViewport.setWorldSizeGivenWorldUnitsPerInchX(7);
-       
+        mViewport.setWorldSizeGivenWorldUnitsPerInchX(WORLD_HEIGHT);
     }
 
     @Override
-    public void onGameWorldSizeChanged() {
+    public void onGameWorldSizeChanged(RectF worldBoundaries) {
         if (!isRunning()) {
-            Log.i(JumplingsApplication.LOG_SRC, "startNewGame " + this);
+            Log.i(JumplingsApplication.LOG_SRC, "onGameWorldSizeChanged: " + worldBoundaries.width() + " x " + worldBoundaries.height() + ". Staring Game" + this);
 
             // Se arranca el game loop
             start();

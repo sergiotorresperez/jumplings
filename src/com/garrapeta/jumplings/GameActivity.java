@@ -1,6 +1,7 @@
 package com.garrapeta.jumplings;
 
 import android.content.Intent;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -279,16 +280,16 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
      */
     private void gotoGameOverActivity() {
         finish();
-        Intent i = new Intent(this, GameOverActivity.class);
+        Intent intent = new Intent(this, GameOverActivity.class);
 
-        Score highScore = new Score(this);
-        highScore.score = mWorld.getPlayer().getScore();
-        highScore.level = mWorld.mWave.getLevel();
+        Score highScore = new Score(this, mWorld.getPlayer().getScore(), mWorld.mWave.getLevel());
 
-        i.putExtra(GameOverActivity.NEW_HIGHSCORE_KEY, highScore);
-        i.putExtra(GameActivity.WAVE_BUNDLE_KEY, waveKey);
+        final RectF worldBoundaries = mWorld.mViewport.getWorldBoundaries();
+        HighScoreListingActivity.putScreenSizeExtras(intent, worldBoundaries.width(), worldBoundaries.height());
+        intent.putExtra(GameOverActivity.NEW_HIGHSCORE_KEY, highScore);
+        intent.putExtra(GameActivity.WAVE_BUNDLE_KEY, waveKey);
 
-        startActivity(i);
+        startActivity(intent);
     }
 
     /**

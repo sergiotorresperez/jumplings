@@ -1,6 +1,7 @@
 package com.garrapeta.jumplings;
 
 import android.content.Intent;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -321,8 +322,10 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     }
 
     private void showHighScores() {
-        Intent i = new Intent(this, HighScoreListingActivity.class);
-        startActivity(i);
+        Intent intent = new Intent(this, HighScoreListingActivity.class);
+        RectF worldBoundaries = mWorld.mViewport.getWorldBoundaries();
+        HighScoreListingActivity.putScreenSizeExtras(intent, worldBoundaries.width(), worldBoundaries.height());
+        startActivity(intent);
     }
 
     private void showPreferences() {

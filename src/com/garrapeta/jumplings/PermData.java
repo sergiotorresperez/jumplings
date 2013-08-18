@@ -22,9 +22,6 @@ public class PermData {
     public static final String LOCAL_HIGHSCORE_KEY_PREFIX = "localHighscore_";
     public static final String GLOBAL_HIGHSCORE_KEY_PREFIX = "globalHighscore_";
 
-    public static final String TWITTER_ACCESS_TOKEN_KEY = "twitterToken";
-    public static final String TWITTER_ACCESS_TOKEN_SECRET_KEY = "twitterTokenSecret";
-
     public static final String LOCAL_SCORES_SUBMISSION_PENDING_KEY = "localScoresSubmissionPending";
 
     public static final String TUTORIAL_TIP_PREFIX = "tip_";
@@ -275,32 +272,6 @@ public class PermData {
             Log.w(JumplingsApplication.LOG_SRC, "Invalid configuration level string: " + str);
             throw new IllegalArgumentException("Illegal configuration value: " + str);
         }
-    }
-
-    public String getTwitterToken() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
-        return sharedPref.getString(TWITTER_ACCESS_TOKEN_KEY, null);
-    }
-
-    public void saveTwitterToken(String token) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
-
-        Editor editor = sharedPref.edit();
-        editor.putString(TWITTER_ACCESS_TOKEN_KEY, token);
-        editor.commit();
-    }
-
-    public String getTwitterTokenSecret() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
-        return sharedPref.getString(TWITTER_ACCESS_TOKEN_SECRET_KEY, null);
-    }
-
-    public void saveTwitterTokenSecret(String secret) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
-
-        Editor editor = sharedPref.edit();
-        editor.putString(TWITTER_ACCESS_TOKEN_SECRET_KEY, secret);
-        editor.commit();
     }
 
 }

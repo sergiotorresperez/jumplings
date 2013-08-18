@@ -44,7 +44,7 @@
     <string name="config_score_server_url">@string/default_config_score_server_url</string>
     <string name="default_config_score_server_url">@string/config_score_server_url_development</string>
     <string name="config_score_server_url_production">http://garrapeta.eu.pn/jumplings/index.php</string>
-    <string name="config_score_server_url_development">http://192.168.0.2/jumplings/index.php</string>
+    <string name="config_score_server_url_development">http://192.168.0.4/jumplings/index.php</string>
 
     <!-- Preferences activity string -->
     <string name="config_sound_key">CFGSOUND</string>
