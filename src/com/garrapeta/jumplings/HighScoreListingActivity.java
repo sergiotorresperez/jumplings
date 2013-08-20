@@ -14,8 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -82,10 +80,6 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         // Lectura de datos persistentes
         mLocalScoreList = PermData.getInstance().getLocalScoresList();
         mGlobalScoreList = PermData.getInstance().getGlobalScoresList();
-
-        // Preparaci�n de la UI
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_highscores);
 

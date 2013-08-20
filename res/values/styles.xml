@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- MAIN THEME -->
+    <style name="ThemeJumplings" parent="android:style/Theme.NoTitleBar.Fullscreen">
+        <!-- TODO: declare here the default text strings -->
+    </style>
+    
     <!-- TEXTS -->
     <style name="MainFont" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/primary_text_colour</item>
@@ -95,7 +100,7 @@
         <item name="android:textSize">30sp</item>
     </style>
 
-    <style name="Theme.PopupActivity" parent="android:Theme">
+    <style name="ThemeJumplings.PopupActivity">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>

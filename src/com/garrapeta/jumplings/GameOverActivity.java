@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -101,9 +99,6 @@ public class GameOverActivity extends Activity {
     }
     
 	private void initGui() {
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
 		setContentView(R.layout.activity_gameover);
 
 		Button shareButton = (Button) findViewById(R.id.gameover_shareBtn);

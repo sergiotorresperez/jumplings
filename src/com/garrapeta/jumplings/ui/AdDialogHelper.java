@@ -14,11 +14,11 @@ import android.widget.Button;
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.google.ads.Ad;
+import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
 import com.google.ads.AdRequest.ErrorCode;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
-import com.google.ads.AdListener;
 
 
 /**

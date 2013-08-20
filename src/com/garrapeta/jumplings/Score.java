@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
 import com.garrapeta.jumplings.util.Utils;
 import com.google.gson.Gson;
 
