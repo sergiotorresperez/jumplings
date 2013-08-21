@@ -1,6 +1,7 @@
 package com.garrapeta.jumplings;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -141,6 +142,8 @@ public class GameOverActivity extends Activity {
 			mSaveScoreButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(mPlayerNameEditText.getWindowToken(), 0);
 					saveHighScore();
 				}
 			});
