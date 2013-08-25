@@ -31,7 +31,7 @@ public class SplashActivity extends Activity {
 		root.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				openMenuActivity(false);
+				openMenuActivity();
 			}
 		});
 
@@ -46,7 +46,7 @@ public class SplashActivity extends Activity {
 			public void run() {
 				onAnimationPhaseOne();
 			}
-		}, 400);
+		}, 300);
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class SplashActivity extends Activity {
 			public void onAnimationEnd(Animation animation) {
 				mTitleView.setVisibility(View.INVISIBLE);
 				mSubtitleView.setVisibility(View.INVISIBLE);
-				openMenuActivity(true); 
+				openMenuActivity(); 
 			}
 		});
 		// doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
@@ -127,11 +127,9 @@ public class SplashActivity extends Activity {
 		mSubtitleView.startAnimation(animation);
 	}
 
-	private void openMenuActivity(boolean disableTransition) {
+	private void openMenuActivity() {
 		finish();
-		if (disableTransition) { 
-			overridePendingTransition(0, 0);
-		}
+		overridePendingTransition(0, 0);
 		Intent intent = new Intent(this, MenuActivity.class);
 		startActivity(intent);
 	}
