@@ -107,6 +107,7 @@
     <string name="game_paused">Game Paused</string>
     <string name="game_menu">Main Menu</string>
     <string name="game_resume">Resume</string>
+    <string name="game_error_title">Kataboom!</string> 
     <string name="game_error">Sorry, something wrong has happened :-(</string> 
     <string name="game_ad_dlg_continue">Play</string> 
     <string name="game_ad_dlg_continue_in_secs">Play (%1$d)</string> 

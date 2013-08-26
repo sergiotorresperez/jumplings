@@ -92,6 +92,7 @@
     <string name="game_paused">Juego pausado</string>
     <string name="game_menu">Menú principal</string>
     <string name="game_resume">Reanudar</string>
+    <string name="game_error_title">¡Patachóf!</string> 
     <string name="game_error">Lo siento, algo se ha fastididado&#8230; fallo técnico :-(</string>
     <string name="game_ad_dlg_continue">Jugar</string>
     <string name="game_ad_dlg_continue_in_secs">Jugar (%1$d)</string>

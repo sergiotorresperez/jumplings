@@ -11,7 +11,7 @@
 	    android:layout_centerHorizontal="true"
 	    android:gravity="center_horizontal"
 	    android:visibility="gone"
-	    style="@style/MainFont.h1"
+	    style="@style/MainFont.h2"
     />
        	
      <com.garrapeta.jumplings.ui.CustomFontTextView   
