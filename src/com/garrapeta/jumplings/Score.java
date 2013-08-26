@@ -99,7 +99,7 @@ public class Score implements Parcelable {
 	 * @return this client id
 	 */
 	public String getLocalId(Activity activity) {
-		String userId = "and_" + System.currentTimeMillis() + "_" + Utils.getUniquePseudoID(activity);
+		String userId = System.currentTimeMillis() + "_" + Utils.getUniquePseudoID(activity);
 		return userId;
 	}
 	

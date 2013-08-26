@@ -2,7 +2,11 @@ package com.garrapeta.jumplings.comms;
 
 import java.util.List;
 
+import android.content.Context;
+import android.content.pm.PackageManager.NameNotFoundException;
+
 import com.garrapeta.jumplings.Score;
+import com.garrapeta.jumplings.util.Utils;
 
 /**
  * Request model of the data sent to the backend
@@ -21,11 +25,28 @@ public class RequestModel {
 	public final List<Score> localScores;
 	public final float worldWidth;
 	public final float worldHeight;
+	public final String versionName;
+	public final String platform;
+	public final int platformSdk;
+	public final String device;
+	
 
-	RequestModel(String action, List<Score> localScores, float worldWidth, float worldHeight) {
+	RequestModel(Context context, String action, List<Score> localScores, float worldWidth, float worldHeight) {
 		this.action = action;
 		this.localScores = localScores;
 		this.worldWidth = worldWidth;
 		this.worldHeight = worldHeight;
+		
+		this.platform = "android";
+		
+		String auxVersionName = "unknown";
+		try {
+			auxVersionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+		} catch (NameNotFoundException e) {
+		}
+		this.versionName = auxVersionName;
+		
+		this.platformSdk = android.os.Build.VERSION.SDK_INT;
+		this.device = Utils.getDeviceName();
 	}
 }

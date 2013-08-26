@@ -246,7 +246,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	    	}
 	    	
 	    	// Send
-	    	RequestModel request = RequestFactory.createSubmitScoresRequestModel(mLocalScoreList, worldWidth, worldHeight);
+	    	RequestModel request = RequestFactory.createSubmitScoresRequestModel(this, mLocalScoreList, worldWidth, worldHeight);
 	    	BackendConnector.postRequestAsync(this, request, new BackendConnectorCallback() {
 	    	 	@Override
 	    		public void onBackendRequestSuccess(ResponseModel response) {
@@ -311,7 +311,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	    	}
 	    	
 	    	// Send
-	    	RequestModel request = RequestFactory.createDownloadScoresRequestModel(mLocalScoreList, worldWidth, worldHeight);
+	    	RequestModel request = RequestFactory.createDownloadScoresRequestModel(this, mLocalScoreList, worldWidth, worldHeight);
 	    	BackendConnector.postRequestAsync(this, request, new BackendConnectorCallback() {
 	    	 	@Override
 	    		public void onBackendRequestSuccess(ResponseModel response) {

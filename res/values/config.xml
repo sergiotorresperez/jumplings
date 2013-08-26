@@ -10,7 +10,7 @@
     
     <!-- URL of the score backend -->
     <string name="config_score_server_url_production">http://garrapeta.eu.pn/jumplings/index.php</string>
-    <string name="config_score_server_url_development">http://192.168.0.4/jumplings/index.php</string>
+    <string name="config_score_server_url_development">http://2.126.174.142/jumplings/index.php</string>
 
     <!-- Preferences and configuration -->
     <!-- keys -->
