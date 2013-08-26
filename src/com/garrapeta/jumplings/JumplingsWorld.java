@@ -203,6 +203,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     @Override
     public void onGameWorldSizeChanged(RectF worldBoundaries) {
+    	// FIXME: if this comes from a screen orientation change to portrait the size of the world will be wrong
         if (!isRunning()) {
             Log.i(JumplingsApplication.LOG_SRC, "onGameWorldSizeChanged: " + worldBoundaries.width() + " x " + worldBoundaries.height() + ". Staring Game" + this);
 
