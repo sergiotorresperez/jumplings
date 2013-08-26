@@ -54,7 +54,7 @@
 
             <Button
                 android:id="@+id/menu_playBtn"
-                style="@style/ColorfulButton"
+                style="@style/ColorfulButton.Menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="45dp"
@@ -64,7 +64,7 @@
 
         <ImageButton
             android:id="@+id/menu_preferencesBtn"
-            style="@style/ColorfulButton"
+            style="@style/ColorfulButton.Menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -75,7 +75,7 @@
 
         <ImageButton
             android:id="@+id/menu_highScoresBtn"
-            style="@style/ColorfulButton"
+            style="@style/ColorfulButton.Menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -86,7 +86,7 @@
 
         <ImageButton
             android:id="@+id/menu_premiumBtn"
-            style="@style/ColorfulButton"
+            style="@style/ColorfulButton.Menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -97,7 +97,7 @@
 
         <ImageButton
             android:id="@+id/menu_aboutBtn"
-            style="@style/ColorfulButton"
+            style="@style/ColorfulButton.Menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -107,7 +107,7 @@
 
         <ImageButton
             android:id="@+id/menu_shareBtn"
-            style="@style/ColorfulButton"
+            style="@style/ColorfulButton.Menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -127,14 +127,14 @@
 
             <com.garrapeta.jumplings.ui.CustomFontButton
                 android:id="@+id/menu_testBtn"
-                style="@style/ColorfulButton"
+                style="@style/ColorfulButton.Menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_test" />
 
             <com.garrapeta.jumplings.ui.CustomFontButton
                 android:id="@+id/menu_exitBtn"
-                style="@style/ColorfulButton"
+                style="@style/ColorfulButton.Menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_exit" />

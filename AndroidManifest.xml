@@ -61,6 +61,7 @@
         </activity>
         <activity
             android:name=".GameOverActivity"
+            android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" >
             <intent-filter>
