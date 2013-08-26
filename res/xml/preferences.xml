@@ -2,13 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <CheckBoxPreference
-        android:defaultValue="@string/confing_sound_enabled_default"
+        android:defaultValue="@string/config_value_default_sound"
         android:key="@string/config_sound_key"
         android:summary="@string/prefs_sound_summary"
         android:title="@string/prefs_sound_title" />
 
     <ListPreference
-        android:defaultValue="@string/config_value_default"
+        android:defaultValue="@string/config_value_default_vibrator_level"
         android:entries="@array/effectsLevelEntries"
         android:entryValues="@array/effectsLevelValues"
         android:key="@string/config_vibrator_key"
@@ -16,7 +16,7 @@
         android:title="@string/prefs_vibration_title" />
     
     <ListPreference
-        android:defaultValue="@string/config_value_default"
+        android:defaultValue="@string/config_value_default_shake_level"
         android:entries="@array/effectsLevelEntries"
         android:entryValues="@array/effectsLevelValues"
         android:key="@string/config_shake_key"
@@ -24,7 +24,7 @@
         android:title="@string/prefs_shake_title" />
     
     <ListPreference
-        android:defaultValue="@string/config_value_default"
+        android:defaultValue="@string/config_value_default_flash_level"
         android:entries="@array/effectsLevelEntries"
         android:entryValues="@array/effectsLevelValues"
         android:key="@string/config_flash_key"

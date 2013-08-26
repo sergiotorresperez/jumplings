@@ -41,16 +41,24 @@
     <string name="config_score_server_url_production">http://garrapeta.eu.pn/jumplings/index.php</string>
     <string name="config_score_server_url_development">http://192.168.0.4/jumplings/index.php</string>
 
-    <!-- Preferences activity string -->
+    <!-- Preferences and configuration -->
+    <!-- keys -->
     <string name="config_sound_key">CFGSOUND</string>
     <string name="config_vibrator_key">CFGVIBRATOR</string>
     <string name="config_flash_key">CFGFLASH</string>
     <string name="config_shake_key">CFGSHAKE</string>
+    <!-- values -->
     <string name="config_value_all">CFGLEVELALL</string>
     <string name="config_value_some">CFGLEVELSOME</string>
     <string name="config_value_none">CFGLEVELNONE</string>
-    <string name="config_value_default">@string/config_value_all</string>
-    <string name="confing_sound_enabled_default">true</string>
+    <string name="config_value_true">true</string>
+    <string name="config_value_false">false</string>
+	<!-- default values -->
+	<string name="config_value_default_sound">@string/config_value_true</string>
+	<string name="config_value_default_vibrator_level">@string/config_value_all</string>
+	<string name="config_value_default_shake_level">@string/config_value_all</string>
+	<string name="config_value_default_flash_level">@string/config_value_all</string>
+	
     
     <!-- Google Play BASE64 RSA App Id -->
     <string name="google_play_base64_rsa_app_id">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmDZ93iKODV+8FBhS7w3fjdtngK9mQMIYeb00S1pRWDh99bRhR4aqrs1CfCruGb73/z/p2+nTZLdTHG1I0k5AS2nlmcdtJuGq88ptKKKtPCOcb89dHhhN5pCeI+lRG4fvIZnwvhnM7OQAaLN6R1mvoF/IEwXwCl5H2zOCbbBHQVYRV5qxB9euByztD/vGSPazg5ZPtvIcNVWretffhqEd7qbcFz5+i/ejQ0qHX/jRG5MzviJltL/Bv0dRBvTAGwX/rmGfjwKss2tzTDKbRRfU+Q1Qnihg52A3DjOE7htOWXFjPI3sLQjeAnvD6/HxgPL+mvCBGx7iKe+rePmgq+TKfwIDAQAB</string>

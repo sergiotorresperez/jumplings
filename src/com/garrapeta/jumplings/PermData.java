@@ -212,36 +212,36 @@ public class PermData {
     }
 
     public static boolean getSoundConfig(Context context) {
-        return getLevelPreference(context, R.string.config_sound_key);
+        return getBooleanPreference(context, R.string.config_sound_key, R.string.config_value_default_sound);
     }
 
     public static short getVibratorLevel(Context context) {
-        return getBooleanPreference(context, R.string.config_vibrator_key);
+        return getLevelPreference(context, R.string.config_vibrator_key, R.string.config_value_default_vibrator_level);
     }
 
     public static short getShakeConfig(Context context) {
-        return getBooleanPreference(context, R.string.config_shake_key);
+        return getLevelPreference(context, R.string.config_shake_key, R.string.config_value_default_shake_level);
     }
 
     public static short getFlashConfig(Context context) {
-        return getBooleanPreference(context, R.string.config_flash_key);
+        return getLevelPreference(context, R.string.config_flash_key, R.string.config_value_default_flash_level);
     }
 
-    private static short getBooleanPreference(Context context, int key) {
+    private static boolean getBooleanPreference(Context context, int key, int defaultResId) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         Resources r = context.getResources();
-        String defaultValue = r.getString(R.string.config_value_default);
+        boolean defaultValue = Boolean.parseBoolean(r.getString(defaultResId));
+        String keyStr = r.getString(key);
+        return sharedPref.getBoolean(keyStr, defaultValue);
+    }
+    
+    private static short getLevelPreference(Context context, int key, int defaultResId) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        Resources r = context.getResources();
+        String defaultValue = r.getString(defaultResId, CFG_LEVEL_ALL );
         String keyStr = r.getString(key);
         String valueStr = sharedPref.getString(keyStr, defaultValue);
         return parseConfigLevel(context, valueStr);
-    }
-    
-    private static boolean getLevelPreference(Context context, int key) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        Resources r = context.getResources();
-        boolean defaultValue = Boolean.parseBoolean(r.getString(R.string.confing_sound_enabled_default));
-        String keyStr = r.getString(key);
-        return sharedPref.getBoolean(keyStr, defaultValue);
     }
     
     private static short parseConfigLevel(Context context, String str) {
