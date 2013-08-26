@@ -17063,6 +17063,8 @@ com.garrapeta.MathUtils -> com.garrapeta.a:
     void share(android.content.Context,java.lang.String) -> a
     java.lang.String md5(java.lang.String) -> b
     java.lang.String getUniquePseudoID$1afe14f3() -> b
+    java.lang.String getDeviceName() -> c
+    java.lang.String capitalize(java.lang.String) -> c
 com.garrapeta.gameengine.Actor -> com.garrapeta.gameengine.a:
     com.garrapeta.gameengine.GameWorld mWorld -> a
     int mZIndex -> b
@@ -17961,6 +17963,7 @@ com.garrapeta.jumplings.actor.BumpDelegate -> com.garrapeta.jumplings.a.d:
     void onBeginContact$6219234a(boolean,com.garrapeta.gameengine.Box2DActor) -> a
     void onBumped(boolean,com.garrapeta.jumplings.actor.JumplingActor,com.garrapeta.jumplings.actor.AnthropomorphicDelegate) -> a
 com.garrapeta.jumplings.actor.ComboTextActor -> com.garrapeta.jumplings.a.e:
+    float sBaseTextSize -> f
     void onAddedToWorld() -> e
     void onRemovedFromWorld() -> g
 com.garrapeta.jumplings.actor.DebrisActor -> com.garrapeta.jumplings.a.f:
@@ -18231,6 +18234,7 @@ com.garrapeta.jumplings.actor.RoundEnemyActor -> com.garrapeta.jumplings.a.y:
     void initBitmaps() -> l
     void free$59fa07e5() -> n
 com.garrapeta.jumplings.actor.ScoreTextActor -> com.garrapeta.jumplings.a.z:
+    float sBaseTextSize -> f
     void onAddedToWorld() -> e
     void onRemovedFromWorld() -> g
 com.garrapeta.jumplings.actor.SparksActor -> com.garrapeta.jumplings.a.A:
@@ -18394,8 +18398,8 @@ com.garrapeta.jumplings.comms.BackendConnectorCallback -> com.garrapeta.jumpling
     void onBackendRequestSuccess(com.garrapeta.jumplings.comms.ResponseModel) -> onBackendRequestSuccess
     void onBackendRequestError(com.garrapeta.jumplings.comms.BackendConnectionException) -> onBackendRequestError
 com.garrapeta.jumplings.comms.RequestFactory -> com.garrapeta.jumplings.comms.RequestFactory:
-    com.garrapeta.jumplings.comms.RequestModel createDownloadScoresRequestModel(java.util.List,float,float) -> createDownloadScoresRequestModel
-    com.garrapeta.jumplings.comms.RequestModel createSubmitScoresRequestModel(java.util.List,float,float) -> createSubmitScoresRequestModel
+    com.garrapeta.jumplings.comms.RequestModel createDownloadScoresRequestModel(android.content.Context,java.util.List,float,float) -> createDownloadScoresRequestModel
+    com.garrapeta.jumplings.comms.RequestModel createSubmitScoresRequestModel(android.content.Context,java.util.List,float,float) -> createSubmitScoresRequestModel
 com.garrapeta.jumplings.comms.RequestModel -> com.garrapeta.jumplings.comms.RequestModel:
     java.lang.String JSON_ACTION_KEY -> JSON_ACTION_KEY
     java.lang.String JSON_ACTION_DOWNLOAD_SCORES_VALUE -> JSON_ACTION_DOWNLOAD_SCORES_VALUE
@@ -18404,6 +18408,10 @@ com.garrapeta.jumplings.comms.RequestModel -> com.garrapeta.jumplings.comms.Requ
     java.util.List localScores -> localScores
     float worldWidth -> worldWidth
     float worldHeight -> worldHeight
+    java.lang.String versionName -> versionName
+    java.lang.String platform -> platform
+    int platformSdk -> platformSdk
+    java.lang.String device -> device
 com.garrapeta.jumplings.comms.ResponseModel -> com.garrapeta.jumplings.comms.ResponseModel:
     java.util.List localScores -> localScores
     java.util.List globalScores -> globalScores
