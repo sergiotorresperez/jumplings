@@ -35,7 +35,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="15dp" >
+        android:padding="@dimen/menu_activity_padding" >
 
         <LinearLayout
             android:layout_width="match_parent"

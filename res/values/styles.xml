@@ -5,7 +5,7 @@
     <style name="ThemeJumplings" parent="android:style/Theme.NoTitleBar.Fullscreen">
         <!-- TODO: declare here the default text strings -->
     </style>
-    
+
     <!-- TEXTS -->
     <style name="MainFont" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/primary_text_colour</item>
@@ -57,9 +57,9 @@
         <item name="fontPath">fonts/AHundredMiles.ttf</item>
         <item name="android:textSize">25sp</item>
         <item name="android:background">@drawable/colorful_button_background_selector</item>
-        <item name="android:minWidth">18pt</item>
-        <item name="android:minHeight">18pt</item>
         <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:minWidth">@dimen/menu_activity_button_min_size</item>
+        <item name="android:minHeight">@dimen/menu_activity_button_min_size</item>
     </style>
 
     <style name="TransparentButton" parent="@android:style/Widget.Button">
@@ -108,5 +108,4 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    
 </resources>

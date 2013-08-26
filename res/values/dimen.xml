@@ -6,5 +6,7 @@
     <dimen name="about_activity_popup_vertical_margin"> 22dp </dimen>
     <dimen name="about_activity_popup_horizontal_margin"> 55dp </dimen>
     <dimen name="about_activity_padding"> 20dp </dimen>
+    <dimen name="menu_activity_padding"> 15dp </dimen>
+     <dimen name="menu_activity_button_min_size"> 50dp </dimen>
 
 </resources>

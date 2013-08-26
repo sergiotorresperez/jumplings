@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="dialog_width"> 400dp </dimen>
+    <dimen name="menu_activity_padding"> 40dp </dimen>
+    <dimen name="menu_activity_button_min_size"> 65dp </dimen>
+
+</resources>
