@@ -16,6 +16,9 @@ public class PreferencesActivity extends PreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);       
     	addPreferencesFromResource(R.xml.preferences);
+    	if (JumplingsApplication.isDebugBuild(this)) {
+    		addPreferencesFromResource(R.xml.preferences_debug);
+    	}
     }
     
     @Override

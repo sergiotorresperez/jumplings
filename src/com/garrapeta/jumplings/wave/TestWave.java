@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
 import com.garrapeta.jumplings.JumplingsGameWorld;
-import com.garrapeta.jumplings.R;
+import com.garrapeta.jumplings.PermData;
 import com.garrapeta.jumplings.Wave;
 import com.garrapeta.jumplings.actor.MainActor;
 import com.garrapeta.jumplings.scenario.IScenario;
@@ -36,7 +36,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
     public TestWave(JumplingsGameWorld jgWorld) {
         super(jgWorld, 0);
         mJgWorld = jgWorld;
-        if (mJgWorld.mGameActivity.getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
+        if (PermData.areDebugFeaturesEnabled(mJgWorld.mGameActivity)) {
             mJgWorld.mGameActivity.testBtn.setVisibility(View.VISIBLE);
             mJgWorld.mGameActivity.weaponsRadioGroup.setVisibility(View.VISIBLE);
             mJgWorld.setGravityY(-1);

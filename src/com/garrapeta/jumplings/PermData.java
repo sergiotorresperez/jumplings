@@ -211,7 +211,7 @@ public class PermData {
         editor.commit();
     }
 
-    public static boolean getSoundConfig(Context context) {
+    public static boolean isSoundEnabled(Context context) {
         return getBooleanPreference(context, R.string.config_sound_key, R.string.config_value_default_sound);
     }
 
@@ -227,6 +227,34 @@ public class PermData {
         return getLevelPreference(context, R.string.config_flash_key, R.string.config_value_default_flash_level);
     }
 
+    public static boolean areAdsEnabled(Context context) {
+        return getBooleanPreference(context, R.string.config_ads_key, R.string.config_value_default_ads);
+    }
+    
+    public static boolean paintActorBitmaps(Context context) {
+        return getBooleanPreference(context, R.string.config_paint_bitmaps_key, R.string.config_value_default_paint_bitmaps);
+    }
+
+    public static boolean isWireframeMode(Context context) {
+        return getBooleanPreference(context, R.string.config_wireframe_mode_key, R.string.config_value_default_wireframe_mode);
+    }
+
+    public static boolean areDebugFeaturesEnabled(Context context) {
+        return getBooleanPreference(context, R.string.config_debug_features_key, R.string.config_value_default_debug_features);
+    }
+
+    public static boolean showThreadBars(Context context) {
+        return getBooleanPreference(context, R.string.config_thread_bars_key, R.string.config_value_default_thread_bars);
+    }
+    
+    public static boolean isAutoplayEnabled(Context context) {
+        return getBooleanPreference(context, R.string.config_autoplay_key, R.string.config_value_default_autoplay);
+    }
+    
+    public static String getScoresServerUrl(Context context) {
+        return getStringPreference(context, R.string.config_scores_server_url_key, R.string.config_value_default_scores_server_url);
+    }
+    
     private static boolean getBooleanPreference(Context context, int key, int defaultResId) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         Resources r = context.getResources();
@@ -242,6 +270,14 @@ public class PermData {
         String keyStr = r.getString(key);
         String valueStr = sharedPref.getString(keyStr, defaultValue);
         return parseConfigLevel(context, valueStr);
+    }
+    
+    private static String getStringPreference(Context context, int key, int defaultResId) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        Resources r = context.getResources();
+        String defaultValue = r.getString(defaultResId);
+        String keyStr = r.getString(key);
+        return sharedPref.getString(keyStr, defaultValue);
     }
     
     private static short parseConfigLevel(Context context, String str) {

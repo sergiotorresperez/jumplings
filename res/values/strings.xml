@@ -87,7 +87,21 @@
     <string name="prefs_flash_title">Flash effect level</string>  
     <string name="prefs_shake_summary">Define the level of the screen shake effect</string>
     <string name="prefs_shake_title">Screen shake effect level</string>
-                
+    <string name="prefs_ads_summary">Enable or disable ads (if not premium)</string>
+    <string name="prefs_ads_title">Enable ads</string>
+    <string name="prefs_paint_bitmaps_summary">Paint ot not the bitmaps of the Jumplings</string>
+    <string name="prefs_paint_bitmaps_title">Paint bitmaps</string>
+    <string name="prefs_wireframe_mode_summary">Paint the shapes of the actors and the grid of world</string>
+    <string name="prefs_wireframe_mode_title">Wireframe mode</string>
+    <string name="prefs_debug_features_summary">Enable debug buttons and other debug features</string>
+    <string name="prefs_debug_features_title">Debug features</string>
+    <string name="prefs_thread_bars_summary">Show the thread bars</string>
+    <string name="prefs_thread_bars_title">Thread bars</string>
+    <string name="prefs_autoplay_summary">Automatically kill the jumplings</string>
+    <string name="prefs_autoplay_title">AutoPlay</string>
+    <string name="prefs_server_url_summary">Sets the url of the scores server</string>
+    <string name="prefs_server_url_title">Scores server url</string>
+                          
     <!-- In game text -->
     <string name="game_over">Game Over</string>
     <string name="game_paused">Game Paused</string>

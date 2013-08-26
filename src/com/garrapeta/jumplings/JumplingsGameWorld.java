@@ -115,7 +115,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mTutorial = new Tutorial(gameActivity, GameActivity.DIALOG_FRAGMENT_TAG);
         mGameView.setOnTouchListener(this);
         mShakeModule = new ShakeModule(PermData.getShakeConfig(mGameActivity), this);
-        mAutoplay = mGameActivity.getResources().getBoolean(R.bool.config_debug_autoplay);
+        mAutoplay = PermData.isAutoplayEnabled(mGameActivity);
      }
 
     // ----------------------------------------------------- M�todos de World
@@ -522,7 +522,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mGameActivity.activateSpecialWeaponBar(active);
 
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-        if (mActivity.getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
+        if (PermData.areDebugFeaturesEnabled(mActivity)) {
             mGameActivity.updateWeaponsRadioGroup(weaponId);
         }
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG

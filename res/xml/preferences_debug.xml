@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ListPreference
+        android:defaultValue="@string/config_value_default_scores_server_url"
+        android:entries="@array/scores_server_url_Entries"
+        android:entryValues="@array/scores_server_url_Values"
+        android:key="@string/config_scores_server_url_key"
+        android:summary="@string/prefs_server_url_summary"
+        android:title="@string/prefs_server_url_title" />
+        
+    <CheckBoxPreference
+        android:defaultValue="@string/config_value_default_wireframe_mode"
+        android:key="@string/config_wireframe_mode_key"
+        android:summary="@string/prefs_wireframe_mode_summary"
+        android:title="@string/prefs_wireframe_mode_title" />
+
+     <CheckBoxPreference
+        android:defaultValue="@string/config_value_default_paint_bitmaps"
+        android:key="@string/config_paint_bitmaps_key"
+        android:summary="@string/prefs_paint_bitmaps_summary"
+        android:title="@string/prefs_paint_bitmaps_title" />
+     
+     <CheckBoxPreference
+        android:defaultValue="@string/config_value_default_debug_features"
+        android:key="@string/config_debug_features_key"
+        android:summary="@string/prefs_debug_features_summary"
+        android:title="@string/prefs_debug_features_title" />
+     
+     <CheckBoxPreference
+        android:defaultValue="@string/config_value_default_thread_bars"
+        android:key="@string/config_thread_bars_key"
+        android:summary="@string/prefs_thread_bars_summary"
+        android:title="@string/prefs_thread_bars_title" />
+     
+     <CheckBoxPreference
+        android:defaultValue="@string/config_value_default_autoplay"
+        android:key="@string/config_autoplay_key"
+        android:summary="@string/prefs_autoplay_summary"
+        android:title="@string/prefs_autoplay_title" />
+</PreferenceScreen>

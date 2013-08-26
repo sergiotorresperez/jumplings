@@ -235,13 +235,16 @@ public class GameOverActivity extends Activity {
 		});
 
 		// Ads
-		if (getResources().getBoolean(R.bool.config_ads_enabled)) {
+		final boolean showAds;
+		if (PermData.areAdsEnabled(this)) {
 			final PremiumPurchaseHelper premiumHelper  = new PremiumPurchaseHelper(this);
-			if (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this)) {
-				findViewById(R.id.gameover_advertising_banner_view).setVisibility(View.VISIBLE);
-			}
+			showAds = (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this));
 			premiumHelper.dispose();
+		} else {
+			showAds = false;
 		}
+		findViewById(R.id.gameover_advertising_banner_view).setVisibility(showAds ? View.VISIBLE : View.GONE);
+
 	}
 
 	// -------------------------------------------------------- M�todos

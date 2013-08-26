@@ -3,9 +3,9 @@ package com.garrapeta.jumplings.actor;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.Paint.Align;
 import android.graphics.PointF;
+import android.graphics.Typeface;
 
 import com.garrapeta.gameengine.Actor;
 import com.garrapeta.jumplings.JumplingsGameWorld;

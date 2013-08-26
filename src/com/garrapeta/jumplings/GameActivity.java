@@ -141,13 +141,13 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
 
         mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface), this);
-        mWorld.setDrawDebugInfo(getResources().getBoolean(R.bool.config_debug_functions_enabled));
+        mWorld.setDrawDebugInfo(PermData.areDebugFeaturesEnabled(this));
         
         
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
 
-        if (getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
+        if (PermData.areDebugFeaturesEnabled(this)) {
             testBtn = (Button) findViewById(R.id.game_testBtn);
             testBtn.setOnClickListener(new OnClickListener() {
                 @Override
@@ -470,7 +470,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
      * @return if the dialog has been shown.
      */
     public void showAdDialogIfAvailable() {
-    	if (getResources().getBoolean(R.bool.config_ads_enabled) && mPremiumHelper.isPremiumPurchaseStateKnown(this) && !mPremiumHelper.isPremiumPurchased(this)) {
+    	if (PermData.areAdsEnabled(this) && mPremiumHelper.isPremiumPurchaseStateKnown(this) && !mPremiumHelper.isPremiumPurchased(this)) {
     		mAdDialogHelper.showIfAvailable();	
     	}
     }

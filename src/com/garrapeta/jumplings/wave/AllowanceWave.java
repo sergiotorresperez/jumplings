@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.garrapeta.jumplings.JumplingsWorld;
-import com.garrapeta.jumplings.R;
+import com.garrapeta.jumplings.PermData;
 import com.garrapeta.jumplings.R.id;
 import com.garrapeta.jumplings.Wave;
 
@@ -37,7 +37,7 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
      */
     public AllowanceWave(T world, int level) {
         super(world, level);
-        mThreadBarsEnabled = world.mActivity.getResources().getBoolean(R.bool.config_debug_thread_bars_enabled);
+        mThreadBarsEnabled = PermData.showThreadBars(world.mActivity);
     }
 
     // ------------------------------------------------------- M�todos heredados

@@ -74,11 +74,11 @@ public class JumplingsWorld extends Box2DWorld {
     // ----------------------------------------------------------- Constructor
 
     public JumplingsWorld(FragmentActivity activity, GameView gameView, Context context) {
-        super(gameView, context, (short) (PermData.getSoundConfig(context) ? PermData.CFG_LEVEL_ALL : PermData.CFG_LEVEL_NONE) , PermData.getVibratorLevel(context));
+        super(gameView, context, (short) (PermData.isSoundEnabled(context) ? PermData.CFG_LEVEL_ALL : PermData.CFG_LEVEL_NONE) , PermData.getVibratorLevel(context));
         mActivity = activity;
         mFactory = new JumplingsFactory(this);
-        mWireframeMode = mActivity.getResources().getBoolean(R.bool.config_wireframe_mode);
-        mDrawActorBitmaps = mActivity.getResources().getBoolean(R.bool.config_draw_actor_bitmaps);
+        mDrawActorBitmaps = PermData.paintActorBitmaps(mActivity);
+        mWireframeMode = PermData.isWireframeMode(mActivity);
     }
 
     // ----------------------------------------------------- M�todos de World

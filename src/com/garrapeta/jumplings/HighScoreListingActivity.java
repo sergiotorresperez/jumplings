@@ -34,6 +34,7 @@ import com.garrapeta.jumplings.comms.ResponseModel;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.util.Utils;
 
+@SuppressWarnings("deprecation")
 public class HighScoreListingActivity extends TabActivity implements OnTabChangeListener {
 
     // ----------------------------------------------------------------
@@ -145,7 +146,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
             }
         });
 
-        if (getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
+        if (PermData.areDebugFeaturesEnabled(this)) {
             mClearScoresBtn = (Button) findViewById(R.id.highscoresListing_clearLocalScoresBtn);
             mClearScoresBtn.setOnClickListener(new OnClickListener() {
                 @Override
@@ -172,16 +173,19 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         });
         updateSubmitScoresBtnVisibility();
 
+        
 		// Ads
-		if (getResources().getBoolean(R.bool.config_ads_enabled)) {
+        final boolean showAds;
+		if (PermData.areAdsEnabled(this)) {
 			final PremiumPurchaseHelper premiumHelper  = new PremiumPurchaseHelper(this);
-			if (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this)) {
-				findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(View.VISIBLE);
-			}
+			showAds = (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this));
 			premiumHelper.dispose();
+		} else {
+			showAds = false;
 		}
-		
-        if (Utils.isNetworkAvailable(this)) {
+		findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(showAds ? View.VISIBLE : View.GONE);
+        
+		if (Utils.isNetworkAvailable(this)) {
         	downloadScores();
         }
     }
@@ -404,12 +408,12 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         updateSubmitScoresBtnVisibility();
         
         if (TAB_LOCALSCORES_ID.equals(tabId)) {
-            if (getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
+            if (PermData.areDebugFeaturesEnabled(this)) {
                 mClearScoresBtn.setVisibility(View.VISIBLE);
             }
 
         } else if (TAB_GLOBALSCORES_ID.equals(tabId)) {
-            if (getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
+            if (PermData.areDebugFeaturesEnabled(this)) {
                 mClearScoresBtn.setVisibility(View.GONE);
             }
         }

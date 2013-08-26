@@ -157,7 +157,7 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
         if (getWorld().mDrawActorBitmaps) {
             drawBitmaps(canvas);
         }
-        if (getWorld().mWireframeMode) {
+        if (getWorld().mWireframeMode || !getWorld().mDrawActorBitmaps) {
             super.drawBodiesShapes(canvas);
         }
     }

@@ -1,43 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Configuration values -->
-    <!-- Some of these may be modified in the ant build process -->
-
-
-    <bool name="config_wireframe_mode">@bool/default_config_wireframe_mode</bool>
-    <bool name="default_config_wireframe_mode">false</bool>
-
-    <!-- Draw the bitmaps of the actors -->
-    <bool name="config_draw_actor_bitmaps">@bool/default_config_draw_actor_bitmaps</bool>
-    <bool name="default_config_draw_actor_bitmaps">true</bool>
-
-    <!-- Test buttons and other debug functions -->
-    <bool name="config_debug_functions_enabled">@bool/default_config_debug_functions_enabled</bool>
-    <bool name="default_config_debug_functions_enabled">true</bool>
-
-    <!-- Thread wave shows the thread bars -->
-    <bool name="config_debug_thread_bars_enabled">@bool/default_config_debug_thread_bars_enabled</bool>
-    <bool name="default_config_debug_thread_bars_enabled">false</bool>
-
-    <!-- Automatically kill the enemies -->
-    <bool name="config_debug_autoplay">@bool/default_config_debug_autoplay</bool>
-    <bool name="default_config_debug_autoplay">false</bool>
-
-    <!-- Ads enabled if user has not paid the premium version -->
-    <bool name="config_ads_enabled">@bool/default_config_ads_enabled</bool>
-    <bool name="default_config_ads_enabled">true</bool>
-
     <!-- If Flurry is enabled -->
-    <bool name="config_flurry_enabled">@bool/default_config_flurry_enabled</bool>
-    <bool name="default_config_flurry_enabled">false</bool>
+    <bool name="config_flurry_enabled">@bool/config_value_default_flurry_enabled</bool>
+    <bool name="config_value_default_flurry_enabled">false</bool>
     
     <!-- Flurry API Key -->
     <string name="config_flurry_api_key">TFRC6DJ8GSJD6D8X7S2K</string>
     
     <!-- URL of the score backend -->
-    <string name="config_score_server_url">@string/default_config_score_server_url</string>
-    <string name="default_config_score_server_url">@string/config_score_server_url_development</string>
     <string name="config_score_server_url_production">http://garrapeta.eu.pn/jumplings/index.php</string>
     <string name="config_score_server_url_development">http://192.168.0.4/jumplings/index.php</string>
 
@@ -47,6 +18,13 @@
     <string name="config_vibrator_key">CFGVIBRATOR</string>
     <string name="config_flash_key">CFGFLASH</string>
     <string name="config_shake_key">CFGSHAKE</string>
+    <string name="config_ads_key">CFGADS</string>
+    <string name="config_paint_bitmaps_key">CFGPAINTBITMAPS</string>
+    <string name="config_wireframe_mode_key">CFGWIREFRAME</string>
+    <string name="config_debug_features_key">CFGDEBUG</string>
+    <string name="config_thread_bars_key">CFGTHREADBARS</string>
+    <string name="config_autoplay_key">CFGAUTOPLAY</string>
+    <string name="config_scores_server_url_key">CFGSCORESSERVERURL</string>
     <!-- values -->
     <string name="config_value_all">CFGLEVELALL</string>
     <string name="config_value_some">CFGLEVELSOME</string>
@@ -58,6 +36,13 @@
 	<string name="config_value_default_vibrator_level">@string/config_value_all</string>
 	<string name="config_value_default_shake_level">@string/config_value_all</string>
 	<string name="config_value_default_flash_level">@string/config_value_all</string>
+	<string name="config_value_default_ads">@string/config_value_true</string>
+	<string name="config_value_default_paint_bitmaps">@string/config_value_true</string>
+	<string name="config_value_default_wireframe_mode">@string/config_value_false</string>
+	<string name="config_value_default_debug_features">@string/config_value_false</string>
+	<string name="config_value_default_thread_bars">@string/config_value_false</string>
+	<string name="config_value_default_autoplay">@string/config_value_false</string>
+	<string name="config_value_default_scores_server_url">@string/config_score_server_url_development</string>
 	
     
     <!-- Google Play BASE64 RSA App Id -->

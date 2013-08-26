@@ -20,7 +20,7 @@ import android.util.Log;
 
 import com.garrapeta.gameengine.utils.IOUtils;
 import com.garrapeta.jumplings.JumplingsApplication;
-import com.garrapeta.jumplings.R;
+import com.garrapeta.jumplings.PermData;
 import com.garrapeta.jumplings.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -46,8 +46,8 @@ public class BackendConnector {
 	 * @throws BackendConnectionException
 	 */
 	public static ResponseModel postRequestSync(Context context, final RequestModel request) throws BackendConnectionException {
+		final String url = PermData.getScoresServerUrl(context);
 		try {
-			final String url = context.getResources().getString(R.string.config_score_server_url);
 			HttpPost httpPost = new HttpPost(url);
 			String data = sGson.toJson(request);
 			
@@ -61,7 +61,7 @@ public class BackendConnector {
 			HttpResponse response = client.execute(httpPost);
 			return manageResponse(response);
 		} catch (Exception e) {
-			throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not send request", e);
+			throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not send request to " + url + ": " + e.getMessage() , e);
 		}
 	}
 

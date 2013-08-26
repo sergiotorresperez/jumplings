@@ -1,6 +1,8 @@
 package com.garrapeta.jumplings;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.util.Log;
 
@@ -46,6 +48,13 @@ public class JumplingsApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
         Log.i(LOG_SRC, "onTerminate " + this);
+    }
+    
+    /**
+     * @return if this a debug/development build
+     */
+    public static boolean isDebugBuild(Context context) { 
+    	return ( 0 != ( context.getApplicationInfo().flags &= ApplicationInfo.FLAG_DEBUGGABLE ) );
     }
 
 }
