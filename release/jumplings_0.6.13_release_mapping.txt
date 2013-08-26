@@ -17513,17 +17513,16 @@ com.garrapeta.jumplings.HighScoreListingActivity$CustomAdapter -> com.garrapeta.
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
 com.garrapeta.jumplings.JumplingsApplication -> com.garrapeta.jumplings.JumplingsApplication:
-    boolean DRAW_ACTOR_SHAPES -> a
+    boolean WIREFRAME_MODE -> a
     boolean DRAW_ACTOR_BITMAPS -> b
-    boolean DRAW_SCENARIO -> c
-    boolean DEBUG_FUNCTIONS_ENABLED -> d
-    boolean DEBUG_THREAD_BARS_ENABLED -> e
-    boolean DEBUG_AUTOPLAY -> f
-    boolean ADS_ENABLED -> g
-    java.lang.String SCORE_SERVICES_URL -> h
-    java.lang.String GAME_FONT_PATH -> j
-    com.garrapeta.jumplings.JumplingsApplication instance -> k
-    android.graphics.Typeface game_font -> i
+    boolean DEBUG_FUNCTIONS_ENABLED -> c
+    boolean DEBUG_THREAD_BARS_ENABLED -> d
+    boolean DEBUG_AUTOPLAY -> e
+    boolean ADS_ENABLED -> f
+    java.lang.String SCORE_SERVICES_URL -> g
+    java.lang.String GAME_FONT_PATH -> i
+    com.garrapeta.jumplings.JumplingsApplication instance -> j
+    android.graphics.Typeface game_font -> h
     com.garrapeta.jumplings.JumplingsApplication getInstance() -> a
     void onCreate() -> onCreate
     void onConfigurationChanged(android.content.res.Configuration) -> onConfigurationChanged
@@ -17550,7 +17549,7 @@ com.garrapeta.jumplings.JumplingsGameWorld -> com.garrapeta.jumplings.b:
     void loadResources() -> n
     boolean processFrame(float) -> d
     void drawActors(android.graphics.Canvas) -> c
-    void drawBackground(android.graphics.Canvas) -> b
+    void drawScenario(android.graphics.Canvas) -> d
     void setScenario(com.garrapeta.jumplings.scenario.IScenario) -> a
     void onScoreTextActorAdded(com.garrapeta.jumplings.actor.ScoreTextActor) -> a
     void onScoreTextActorRemoved(com.garrapeta.jumplings.actor.ScoreTextActor) -> b
@@ -17590,6 +17589,8 @@ com.garrapeta.jumplings.JumplingsWorld -> com.garrapeta.jumplings.c:
     void loadResources() -> n
     void loadCommonResources() -> v
     boolean processFrame(float) -> d
+    void drawBackground(android.graphics.Canvas) -> b
+    void drawScenario(android.graphics.Canvas) -> d
     void onGameViewSizeChanged$255f295() -> p
     void onGameWorldSizeChanged(android.graphics.RectF) -> a
     void onJumplingActorAdded(com.garrapeta.jumplings.actor.JumplingActor) -> a

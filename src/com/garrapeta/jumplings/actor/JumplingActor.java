@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 import com.garrapeta.MathUtils;
 import com.garrapeta.gameengine.Box2DActor;
 import com.garrapeta.gameengine.utils.PhysicsUtils;
-import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.JumplingsWorld;
 
 /**
@@ -155,10 +154,10 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
 
     @Override
     public final void draw(Canvas canvas) {
-        if (JumplingsApplication.DRAW_ACTOR_BITMAPS) {
+        if (getWorld().mDrawActorBitmaps) {
             drawBitmaps(canvas);
         }
-        if (JumplingsApplication.WIREFRAME_MODE) {
+        if (getWorld().mWireframeMode) {
             super.drawBodiesShapes(canvas);
         }
     }

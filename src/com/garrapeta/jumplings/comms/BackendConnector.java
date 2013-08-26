@@ -14,11 +14,13 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.garrapeta.gameengine.utils.IOUtils;
 import com.garrapeta.jumplings.JumplingsApplication;
+import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -39,12 +41,14 @@ public class BackendConnector {
 	
 	/**
 	 * Sends a request to the request using POST synchronously
+	 * @param context
 	 * @param request
 	 * @throws BackendConnectionException
 	 */
-	public static ResponseModel postRequestSync(final RequestModel request) throws BackendConnectionException {
+	public static ResponseModel postRequestSync(Context context, final RequestModel request) throws BackendConnectionException {
 		try {
-			HttpPost httpPost = new HttpPost(JumplingsApplication.SCORE_SERVICES_URL);
+			final String url = context.getResources().getString(R.string.config_score_server_url);
+			HttpPost httpPost = new HttpPost(url);
 			String data = sGson.toJson(request);
 			
 			List <NameValuePair> nvps = new ArrayList <NameValuePair>();
@@ -63,10 +67,11 @@ public class BackendConnector {
 
 	/**
 	 * Sends a request to the backend using POST asynchronously
+	 * @param context
 	 * @param request
 	 */
-	public static void postRequestAsync(final RequestModel request, BackendConnectorCallback callback) {
-		new ServerRequestAsyncTask(callback).execute(request);
+	public static void postRequestAsync(Context context, final RequestModel request, BackendConnectorCallback callback) {
+		new ServerRequestAsyncTask(context, callback).execute(request);
 	}
 
 	private static ResponseModel manageResponse(HttpResponse response) throws BackendConnectionException{
@@ -124,19 +129,22 @@ public class BackendConnector {
 		
 		private final BackendConnectorCallback mCallback;
 		private BackendConnectionException mError;
-
+		private final Context mContext;
+		
 		/**
+		 * @param context
 		 * @param callback
 		 */
-		public ServerRequestAsyncTask(BackendConnectorCallback callback) {
+		public ServerRequestAsyncTask(Context context, BackendConnectorCallback callback) {
 			super();
 			mCallback = callback;
+			mContext = context;
 		}
 
 		@Override
 		protected ResponseModel doInBackground(RequestModel... args) {
 			try {
-				return BackendConnector.postRequestSync(args[0]);
+				return BackendConnector.postRequestSync(mContext, args[0]);
 			} catch (BackendConnectionException e) {
 				Log.e(JumplingsApplication.LOG_SRC, "Error preparing http request: " + e.toString(), e);
 				mError = e;

@@ -118,11 +118,11 @@ public class GameOverActivity extends Activity {
 		final String yourScoreStr = getString(R.string.gameover_your_score, mPlayerScore.score);
 		scoreTextView.setText(yourScoreStr);
 
-		Score highest = PermData.getInstance().getLocalGetHighScore();
+		Score highest = PermData.getLocalGetHighScore();
 		if (highest != null) {
 			TextView messageTextView = (TextView) findViewById(R.id.gameover_messageTextView);
 			messageTextView.setVisibility(View.VISIBLE);
-			long prevHighScore = PermData.getInstance().getLocalGetHighScore().score;
+			long prevHighScore = PermData.getLocalGetHighScore().score;
 			if (mPlayerScore.score > prevHighScore) {
 				messageTextView.setText(R.string.gameover_beaten);
 			} else {
@@ -193,8 +193,7 @@ public class GameOverActivity extends Activity {
 						}
 					});
 
-			mPlayerNameEditText.setText(PermData.getInstance()
-					.getLastPlayerName());
+			mPlayerNameEditText.setText(PermData.getLastPlayerName());
 		} else {
 			scoreIntroductionView.setVisibility(View.INVISIBLE);
 			nextActionView.setVisibility(View.VISIBLE);
@@ -236,7 +235,7 @@ public class GameOverActivity extends Activity {
 		});
 
 		// Ads
-		if (JumplingsApplication.ADS_ENABLED) {
+		if (getResources().getBoolean(R.bool.config_ads_enabled)) {
 			final PremiumPurchaseHelper premiumHelper  = new PremiumPurchaseHelper(this);
 			if (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this)) {
 				findViewById(R.id.gameover_advertising_banner_view).setVisibility(View.VISIBLE);
@@ -253,9 +252,9 @@ public class GameOverActivity extends Activity {
 	 */
 	private void saveHighScore() {
 		mPlayerScore.playerName = mPlayerNameEditText.getText().toString();
-		PermData.getInstance().saveLastPlayerName(mPlayerScore.playerName);
-		PermData.getInstance().addNewLocalScore(mPlayerScore);
-		PermData.getInstance().setLocalScoresSubmissionPending(true);
+		PermData.saveLastPlayerName(mPlayerScore.playerName);
+		PermData.addNewLocalScore(mPlayerScore);
+		PermData.setLocalScoresSubmissionPending(true);
 
 		scoreIntroductionView.setVisibility(View.INVISIBLE);
 		nextActionView.setVisibility(View.VISIBLE);

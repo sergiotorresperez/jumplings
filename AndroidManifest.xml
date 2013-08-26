@@ -5,8 +5,9 @@
     android:versionCode="16"
     android:versionName="0.6.13" >
 
+    <!-- TODO: if it wasn't fot the TabActivity this could be reduced -->
     <uses-sdk
-        android:minSdkVersion="7"
+        android:minSdkVersion="8"
         android:targetSdkVersion="18" />
 
     <supports-screens

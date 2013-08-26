@@ -69,11 +69,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     private static final long[] VIBRATION_ENEMY_KILLED_PATTERN = { 0, 90 };
     private static final long[] VIBRATION_FAIL_PATTERN = { 0, 100, 50, 400 };
 
-    /** Flash module used for flash effects */
-    public FlashModule mFlashModule;
-    /** Flash module used for flash effects */
-    private ShakeModule mShakeModule;
-    
+
     // ------------------------------------------------------------ Variables
 
     public GameActivity mGameActivity;
@@ -87,6 +83,13 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public ArrayList<ComboTextActor> mComboTextActors = new ArrayList<ComboTextActor>();
     
     public ArrayList<ScoreTextActor> mScoreTextActors = new ArrayList<ScoreTextActor>();
+    
+    /** Flash module used for flash effects */
+    public FlashModule mFlashModule;
+    /** Flash module used for flash effects */
+    private ShakeModule mShakeModule;
+    
+    private boolean mAutoplay;
     
     /** Jugador */
     Player mPlayer;
@@ -111,7 +114,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mPlayer = new Player(this);
         mTutorial = new Tutorial(gameActivity, GameActivity.DIALOG_FRAGMENT_TAG);
         mGameView.setOnTouchListener(this);
-        mShakeModule = new ShakeModule(PermData.getInstance().getShakeConfig(), this);
+        mShakeModule = new ShakeModule(PermData.getShakeConfig(), this);
+        mAutoplay = mGameActivity.getResources().getBoolean(R.bool.config_debug_autoplay);
      }
 
     // ----------------------------------------------------- M�todos de World
@@ -124,7 +128,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public void onBeforeRunning() {
         super.onBeforeRunning();
         // TODO: if I put this in the constructor flashes are not shown
-        mFlashModule = new FlashModule(PermData.getInstance().getFlashConfig(), this);
+        mFlashModule = new FlashModule(PermData.getFlashConfig(), this);
         
         // Inicializaci�n del arma
         setWeapon(WeaponSlap.WEAPON_CODE_GUN);
@@ -263,7 +267,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             mScenario.processFrame(gameTimeStep);
         }
 
-        if (JumplingsApplication.DEBUG_AUTOPLAY) {
+        if (mAutoplay) {
             autoPlay();
         }
 
@@ -518,7 +522,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mGameActivity.activateSpecialWeaponBar(active);
 
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-        if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
+        if (mActivity.getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
             mGameActivity.updateWeaponsRadioGroup(weaponId);
         }
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG

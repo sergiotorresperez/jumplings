@@ -71,7 +71,7 @@ public class Score implements Parcelable {
 	 * @return la posici�n obtenida por el player dentro de los highscores localles
 	 */
 	static int getLocalHighScoresPosition(long newScore) {
-		List<Score> list = PermData.getInstance().getLocalScoresList();
+		List<Score> list = PermData.getLocalScoresList();
 		
 		int index = 0;
 		for (index = 0; index < list.size(); index++) {

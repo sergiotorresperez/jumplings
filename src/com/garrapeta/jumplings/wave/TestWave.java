@@ -7,8 +7,8 @@ import android.widget.Button;
 import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
-import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.JumplingsGameWorld;
+import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.Wave;
 import com.garrapeta.jumplings.actor.MainActor;
 import com.garrapeta.jumplings.scenario.IScenario;
@@ -23,7 +23,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
 
     // --------------------------------------------------- Variables
 
-    JumplingsGameWorld jgWorld;
+    JumplingsGameWorld mJgWorld;
 
     IScenario mScenario;
 
@@ -35,11 +35,11 @@ public class TestWave extends Wave<JumplingsGameWorld> {
      */
     public TestWave(JumplingsGameWorld jgWorld) {
         super(jgWorld, 0);
-        this.jgWorld = jgWorld;
-        if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
-            this.jgWorld.mGameActivity.testBtn.setVisibility(View.VISIBLE);
-            this.jgWorld.mGameActivity.weaponsRadioGroup.setVisibility(View.VISIBLE);
-            this.jgWorld.setGravityY(-1);
+        mJgWorld = jgWorld;
+        if (mJgWorld.mGameActivity.getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
+            mJgWorld.mGameActivity.testBtn.setVisibility(View.VISIBLE);
+            mJgWorld.mGameActivity.weaponsRadioGroup.setVisibility(View.VISIBLE);
+            mJgWorld.setGravityY(-1);
         }
 
     }
@@ -51,7 +51,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
     public void onProcessFrame(float gameTimeStep) {
         if (mScenario == null) {
             mScenario = ScenarioFactory.getScenario(getWorld(), ScenarioFactory.ScenariosIds.NATURE);
-            jgWorld.setScenario(mScenario);
+            mJgWorld.setScenario(mScenario);
             mScenario.init();
         }
     }
@@ -69,7 +69,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
         // }
         // });
         //
-        jgWorld.post(new SyncGameMessage() {
+        mJgWorld.post(new SyncGameMessage() {
 
             @Override
             public void doInGameLoop(GameWorld world) {
@@ -93,7 +93,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
     // ---------------------------------------------------- M�todos propios
 
     public void createPowerUp() {
-        this.jgWorld.setGravityY(0);
+        this.mJgWorld.setGravityY(0);
 
         PointF initPos = new PointF(5, 12);
 //        Vector2 initVel = getInitialVelocity(initPos);
@@ -105,8 +105,8 @@ public class TestWave extends Wave<JumplingsGameWorld> {
 
         initPos.x += 8;
         
-        mainActor = jgWorld.getFactory().getLifePowerUpActor(initPos);
-        jgWorld.addActor(mainActor);
+        mainActor = mJgWorld.getFactory().getLifePowerUpActor(initPos);
+        mJgWorld.addActor(mainActor);
 
     }
 
@@ -118,9 +118,9 @@ public class TestWave extends Wave<JumplingsGameWorld> {
         float worldYPos;
 
         if (debug) {
-            jgWorld.setGravityY(0);
-            worldXPos = (jgWorld.mViewport.getWorldBoundaries().right - jgWorld.mViewport.getWorldBoundaries().left) / 2;
-            worldYPos = (jgWorld.mViewport.getWorldBoundaries().top - jgWorld.mViewport.getWorldBoundaries().bottom) / 2;
+            mJgWorld.setGravityY(0);
+            worldXPos = (mJgWorld.mViewport.getWorldBoundaries().right - mJgWorld.mViewport.getWorldBoundaries().left) / 2;
+            worldYPos = (mJgWorld.mViewport.getWorldBoundaries().top - mJgWorld.mViewport.getWorldBoundaries().bottom) / 2;
         } else {
             worldXPos = getRandomPosX();
             worldYPos = getBottomPos();
@@ -150,7 +150,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
         //if (!debug) {
             mainActor.setLinearVelocity(initVel.x, initVel.y);
         //}
-        jgWorld.addActor(mainActor);
+        mJgWorld.addActor(mainActor);
 
     }
 

@@ -19,26 +19,7 @@ public class JumplingsApplication extends Application {
     /** Source trazas de log */
     public static final String LOG_SRC_JUMPLINGS = "jumplings";
     public static final String LOG_SRC = LOG_SRC_JUMPLINGS + ".misc";
-
-    // ------------------------------------------ Constantes de configuraci�n
-
-    // Enabled features
-
-    public static boolean WIREFRAME_MODE;
-    public static boolean DRAW_ACTOR_BITMAPS;
-
-    public static boolean DEBUG_FUNCTIONS_ENABLED;
-    public static boolean DEBUG_THREAD_BARS_ENABLED;
-    public static boolean DEBUG_AUTOPLAY;
-    
-    public static boolean ADS_ENABLED;
-
-    public static String SCORE_SERVICES_URL;
-    
-
-    private static String GAME_FONT_PATH = "fonts/AnuDaw.ttf";
-
-    // ---------------------------------------------- Variables est�ticas
+    private static final String GAME_FONT_PATH = "fonts/AnuDaw.ttf";
 
     // Instancia singleton
     private static JumplingsApplication instance;
@@ -69,18 +50,6 @@ public class JumplingsApplication extends Application {
     	FlurryHelper.initialize(flurryEnabled, flurryApiKey, false);
     	
         game_font = Typeface.createFromAsset(getAssets(), GAME_FONT_PATH);
-        
-        WIREFRAME_MODE = getInstance().getResources().getBoolean(R.bool.config_wireframe_mode);
-    	DRAW_ACTOR_BITMAPS = getInstance().getResources().getBoolean(R.bool.config_draw_actor_bitmaps);
-
-    	
-    	DEBUG_FUNCTIONS_ENABLED = getInstance().getResources().getBoolean(R.bool.config_debug_functions_enabled);
-    	DEBUG_THREAD_BARS_ENABLED = getInstance().getResources().getBoolean(R.bool.config_debug_thread_bars_enabled);
-    	DEBUG_AUTOPLAY = getInstance().getResources().getBoolean(R.bool.config_debug_autoplay);
-    	
-    	ADS_ENABLED = getInstance().getResources().getBoolean(R.bool.config_ads_enabled);
-    	
-    	SCORE_SERVICES_URL = getInstance().getResources().getString(R.string.config_score_server_url);
     }
 
     @Override

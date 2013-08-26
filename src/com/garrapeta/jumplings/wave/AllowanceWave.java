@@ -3,8 +3,8 @@ package com.garrapeta.jumplings.wave;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.JumplingsWorld;
+import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.R.id;
 import com.garrapeta.jumplings.Wave;
 
@@ -23,10 +23,12 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
 
     /** Thread creado desde la �ltima vez que fue 0 */
     double mAccumulated = 0;
+    
+    private final boolean mThreadBarsEnabled;
 
-    ProgressBar mThreadRatioBar;
-    ProgressBar mAllowedThreadGenerationBar;
-    ProgressBar mAccumulatedThreatBar;
+    private ProgressBar mThreadRatioBar;
+    private ProgressBar mAllowedThreadGenerationBar;
+    private ProgressBar mAccumulatedThreatBar;
 
     // ------------------------------------------------------------- Constructor
 
@@ -35,6 +37,7 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
      */
     public AllowanceWave(T world, int level) {
         super(world, level);
+        mThreadBarsEnabled = world.mActivity.getResources().getBoolean(R.bool.config_debug_thread_bars_enabled);
     }
 
     // ------------------------------------------------------- M�todos heredados
@@ -42,7 +45,7 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
     @Override
     public void onProcessFrame(float stepTime) {
         if (!mIsGameOver) {
-            if (JumplingsApplication.DEBUG_THREAD_BARS_ENABLED) {
+            if (mThreadBarsEnabled) {
                 updateThreadRatioBar();
                 updateAllowedThreadGenerationBar();
                 updateAccumulatedThreatBar();
@@ -89,7 +92,7 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
         this.mMaxThreat = this.mAllowedThreadGeneration = threat;
 
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-        if (JumplingsApplication.DEBUG_THREAD_BARS_ENABLED) {
+        if (mThreadBarsEnabled) {
 
             this.getWorld().mActivity.runOnUiThread(new Runnable() {
                 @Override

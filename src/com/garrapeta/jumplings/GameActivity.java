@@ -113,7 +113,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         mSpecialWeaponBar = (ProgressBar) findViewById(R.id.game_specialWeaponBar);
         mScoreTextView = (TextView) findViewById(R.id.game_scoreTextView);
         mLocalHighScoreTextView = (TextView) findViewById(R.id.game_localHightscoreTextView);
-        Score hs = PermData.getInstance().getLocalGetHighScore();
+        Score hs = PermData.getLocalGetHighScore();
         if (hs != null) {
             long localHighScore = hs.score;
             if (localHighScore > 0) {
@@ -141,13 +141,13 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
 
         mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface), this);
-        mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED);
+        mWorld.setDrawDebugInfo(getResources().getBoolean(R.bool.config_debug_functions_enabled));
         
         
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
 
-        if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
+        if (getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
             testBtn = (Button) findViewById(R.id.game_testBtn);
             testBtn.setOnClickListener(new OnClickListener() {
                 @Override
@@ -470,7 +470,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
      * @return if the dialog has been shown.
      */
     public void showAdDialogIfAvailable() {
-    	if (JumplingsApplication.ADS_ENABLED && mPremiumHelper.isPremiumPurchaseStateKnown(this) && !mPremiumHelper.isPremiumPurchased(this)) {
+    	if (getResources().getBoolean(R.bool.config_ads_enabled) && mPremiumHelper.isPremiumPurchaseStateKnown(this) && !mPremiumHelper.isPremiumPurchased(this)) {
     		mAdDialogHelper.showIfAvailable();	
     	}
     }

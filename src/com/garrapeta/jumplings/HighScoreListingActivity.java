@@ -78,8 +78,8 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         Log.i(JumplingsApplication.LOG_SRC, "onCreate " + this);
 
         // Lectura de datos persistentes
-        mLocalScoreList = PermData.getInstance().getLocalScoresList();
-        mGlobalScoreList = PermData.getInstance().getGlobalScoresList();
+        mLocalScoreList = PermData.getLocalScoresList();
+        mGlobalScoreList = PermData.getGlobalScoresList();
 
         setContentView(R.layout.activity_highscores);
 
@@ -145,14 +145,14 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
             }
         });
 
-        if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
+        if (getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
             mClearScoresBtn = (Button) findViewById(R.id.highscoresListing_clearLocalScoresBtn);
             mClearScoresBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PermData.getInstance().clearAll();
+                    PermData.clearAll();
                     updateSubmitScoresBtnVisibility();
-                    mLocalScoreList = PermData.getInstance().getLocalScoresList();
+                    mLocalScoreList = PermData.getLocalScoresList();
                     feedLocalHighScoresView();
                 }
             });
@@ -173,7 +173,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         updateSubmitScoresBtnVisibility();
 
 		// Ads
-		if (JumplingsApplication.ADS_ENABLED) {
+		if (getResources().getBoolean(R.bool.config_ads_enabled)) {
 			final PremiumPurchaseHelper premiumHelper  = new PremiumPurchaseHelper(this);
 			if (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this)) {
 				findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(View.VISIBLE);
@@ -243,7 +243,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	    	
 	    	// Send
 	    	RequestModel request = RequestFactory.createSubmitScoresRequestModel(mLocalScoreList, worldWidth, worldHeight);
-	    	BackendConnector.postRequestAsync(request, new BackendConnectorCallback() {
+	    	BackendConnector.postRequestAsync(this, request, new BackendConnectorCallback() {
 	    	 	@Override
 	    		public void onBackendRequestSuccess(ResponseModel response) {
 	    	        try {
@@ -278,7 +278,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         Toast toast = Toast.makeText(HighScoreListingActivity.this, R.string.highscores_submit_score_ok, Toast.LENGTH_LONG);
         toast.show();
         
-        PermData.getInstance().setLocalScoresSubmissionPending(false);
+        PermData.setLocalScoresSubmissionPending(false);
         updateSubmitScoresBtnVisibility();
 
         // we update the global table, to see our new scores in it
@@ -308,7 +308,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	    	
 	    	// Send
 	    	RequestModel request = RequestFactory.createDownloadScoresRequestModel(mLocalScoreList, worldWidth, worldHeight);
-	    	BackendConnector.postRequestAsync(request, new BackendConnectorCallback() {
+	    	BackendConnector.postRequestAsync(this, request, new BackendConnectorCallback() {
 	    	 	@Override
 	    		public void onBackendRequestSuccess(ResponseModel response) {
 	    	        try {
@@ -342,7 +342,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         // copiamos la lista de scores goblales
         mGlobalScoreList = globalScores;
         // la salvamos
-        PermData.getInstance().saveGlobalScoresList(mGlobalScoreList);
+        PermData.saveGlobalScoresList(mGlobalScoreList);
         // rellenamos la tabla de scores globales
         feedGlobalHighScoresView();
     }
@@ -368,13 +368,13 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         }
 
         // salvamos la lista local
-        PermData.getInstance().saveLocalScoresList(mLocalScoreList);
+        PermData.saveLocalScoresList(mLocalScoreList);
         // rellenamos la tabla de scores locales
         feedLocalHighScoresView();
     }
 
     private void updateSubmitScoresBtnVisibility() {
-        if (mTabHost.getCurrentTabTag() == TAB_LOCALSCORES_ID && PermData.getInstance().isLocalScoresSubmissionPending()) {
+        if (mTabHost.getCurrentTabTag() == TAB_LOCALSCORES_ID && PermData.isLocalScoresSubmissionPending()) {
             mSubmitScoresBtn.setVisibility(View.VISIBLE);
         } else {
             mSubmitScoresBtn.setVisibility(View.GONE);
@@ -404,12 +404,12 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         updateSubmitScoresBtnVisibility();
         
         if (TAB_LOCALSCORES_ID.equals(tabId)) {
-            if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
+            if (getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
                 mClearScoresBtn.setVisibility(View.VISIBLE);
             }
 
         } else if (TAB_GLOBALSCORES_ID.equals(tabId)) {
-            if (JumplingsApplication.DEBUG_FUNCTIONS_ENABLED) {
+            if (getResources().getBoolean(R.bool.config_debug_functions_enabled)) {
                 mClearScoresBtn.setVisibility(View.GONE);
             }
         }

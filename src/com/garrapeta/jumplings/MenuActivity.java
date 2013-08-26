@@ -148,7 +148,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mPreferencesBtn.setVisibility(View.INVISIBLE);
         mHighScoresBtn.setVisibility(View.INVISIBLE);
         mAboutBtn.setVisibility(View.INVISIBLE);
-        mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.INVISIBLE : View.GONE);
+        mDebugGroup.setVisibility(getResources().getBoolean(R.bool.config_debug_functions_enabled) ? View.INVISIBLE : View.GONE);
         mShareButton.setVisibility(View.INVISIBLE);
         mAdView.setVisibility(View.INVISIBLE);
         mPremiumBtn.setVisibility(View.INVISIBLE);
@@ -189,7 +189,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         FlurryHelper.onStartSession(this);
 
         mWorld = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface), this);
-        mWorld.setDrawDebugInfo(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED);
+        mWorld.setDrawDebugInfo(getResources().getBoolean(R.bool.config_debug_functions_enabled));
 
         // Wave setup
         mWorld.mWave = new MenuWave(mWorld);
@@ -288,7 +288,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mPreferencesBtn.setVisibility(View.VISIBLE);
         mHighScoresBtn.setVisibility(View.VISIBLE);
         mAboutBtn.setVisibility(View.VISIBLE);
-        mDebugGroup.setVisibility(JumplingsApplication.DEBUG_FUNCTIONS_ENABLED ? View.VISIBLE : View.GONE);
+        mDebugGroup.setVisibility(getResources().getBoolean(R.bool.config_debug_functions_enabled) ? View.VISIBLE : View.GONE);
         mShareButton.setVisibility(View.VISIBLE);
         mAdView.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
         mPremiumBtn.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
@@ -335,7 +335,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     
     private void onPremiumStateUpdate(boolean purchased) {
     	Log.i(TAG, "Premium upgrade purchased: " + purchased);
-    	mShowNonPremiumComponents = JumplingsApplication.ADS_ENABLED && !purchased;
+    	mShowNonPremiumComponents = getResources().getBoolean(R.bool.config_ads_enabled) && !purchased;
     	if (!mShowNonPremiumComponents) {
     		// this will prevent the animations to start, and the views will never become visible
     		mAdView.setVisibility(View.GONE);
