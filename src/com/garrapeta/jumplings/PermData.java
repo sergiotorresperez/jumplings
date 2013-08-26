@@ -3,6 +3,7 @@ package com.garrapeta.jumplings;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
@@ -34,8 +35,8 @@ public class PermData {
     /**
      * @return
      */
-    public static Score getLocalGetHighScore() {
-        ArrayList<Score> localScoreList = getLocalScoresList();
+    public static Score getLocalGetHighScore(Context context) {
+        ArrayList<Score> localScoreList = getLocalScoresList(context);
         if (localScoreList.size() > 0) {
             return localScoreList.get(0);
         } else {
@@ -48,25 +49,26 @@ public class PermData {
      * 
      * @return
      */
-    public static void addNewLocalScore(Score highScore) {
-        ArrayList<Score> list = getLocalScoresList();
+    public static void addNewLocalScore(Context context, Score highScore) {
+        ArrayList<Score> list = getLocalScoresList(context);
 
-        int index = Score.getLocalHighScoresPosition(highScore.score);
+        int index = Score.getLocalHighScoresPosition(context, highScore.score);
 
         if (index < Score.MAX_LOCAL_HIGHSCORE_COUNT) {
             list.add(index, highScore);
         }
 
-        saveLocalScoresList(list);
+        saveLocalScoresList(context, list);
     }
 
     /**
-     * @return lista con scores m�s altos
+     * @param context
+     * @return lista con scores altos
      */
-    public static ArrayList<Score> getLocalScoresList() {
+    public static ArrayList<Score> getLocalScoresList(Context context) {
         ArrayList<Score> localScoreList = new ArrayList<Score>();
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 
         for (int i = 0; i < Score.MAX_LOCAL_HIGHSCORE_COUNT; i++) {
             String str = sharedPref.getString(LOCAL_HIGHSCORE_KEY_PREFIX + i, null);
@@ -85,9 +87,9 @@ public class PermData {
      * 
      * @return
      */
-    public static void saveLocalScoresList(List<Score> localScoreList) {
+    public static void saveLocalScoresList(Context context, List<Score> localScoreList) {
         // Salvado
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 
         Editor editor = sharedPref.edit();
 
@@ -100,25 +102,27 @@ public class PermData {
 
     /**
      * Lo borra todo
+     * @param context
      */
-    public static void clearAll() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+    public static void clearAll(Context context) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 
         Editor editor = sharedPref.edit();
         editor.clear();
         editor.commit();
 
-        getLocalScoresList().clear();
+        getLocalScoresList(context).clear();
     }
 
     /**
-     * @return lista con scores m�s altos
+     * @param context
+     * @return lista con scores altos
      */
-    public static ArrayList<Score> getGlobalScoresList() {
+    public static ArrayList<Score> getGlobalScoresList(Context context) {
 
         ArrayList<Score> globalScoreList = new ArrayList<Score>();
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 
         for (int i = 0; i < Score.MAX_GLOBAL_HIGHSCORE_COUNT; i++) {
             String str = sharedPref.getString(GLOBAL_HIGHSCORE_KEY_PREFIX + i, null);
@@ -137,9 +141,9 @@ public class PermData {
      * 
      * @return
      */
-    public static void saveGlobalScoresList(List<Score> globalScoreList) {
+    public static void saveGlobalScoresList(Context context, List<Score> globalScoreList) {
         // Salvado
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 
         Editor editor = sharedPref.edit();
 
@@ -153,16 +157,16 @@ public class PermData {
     /**
      * @return el nombre del �ltimo jugador que introdujo un score
      */
-    public static String getLastPlayerName() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+    public static String getLastPlayerName(Context context) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPref.getString(LAST_PLAYER_NAME_KEY, "");
     }
 
     /**
      * salva el nombre del �ltimo jugador que introdujo un score
      */
-    public static void saveLastPlayerName(String name) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+    public static void saveLastPlayerName(Context context, String name) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         Editor editor = sharedPref.edit();
         editor.putString(LAST_PLAYER_NAME_KEY, name);
         editor.commit();
@@ -171,8 +175,8 @@ public class PermData {
     /**
      * @return if there are local scores pending to submit
      */
-    public static boolean isLocalScoresSubmissionPending() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+    public static boolean isLocalScoresSubmissionPending(Context context) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPref.getBoolean(LOCAL_SCORES_SUBMISSION_PENDING_KEY, false);
     }
 
@@ -180,8 +184,8 @@ public class PermData {
      * Sets if there are local scores pending to be submitted
      * @param pending
      */
-    public static void setLocalScoresSubmissionPending(boolean pending) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+    public static void setLocalScoresSubmissionPending(Context context, boolean pending) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         Editor editor = sharedPref.edit();
         editor.putBoolean(LOCAL_SCORES_SUBMISSION_PENDING_KEY, pending);
         editor.commit();
@@ -191,8 +195,8 @@ public class PermData {
      * @param tipId
      * @return if the tip with the supplied id has been shown
      */
-    public static boolean isTipShown(TipId tipId) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+    public static boolean isTipShown(Context context, TipId tipId) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPref.getBoolean(TUTORIAL_TIP_PREFIX + tipId.name(), false);
     }
 
@@ -200,48 +204,48 @@ public class PermData {
      * Sets the tip with the supplied id as shown
      * @param pending
      */
-    public static void setTipShown(TipId tipId) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
+    public static void setTipShown(Context context, TipId tipId) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         Editor editor = sharedPref.edit();
         editor.putBoolean(TUTORIAL_TIP_PREFIX + tipId.name(), true);
         editor.commit();
     }
 
-    public static boolean getSoundConfig() {
-        return getLevelPreference(R.string.config_sound_key);
+    public static boolean getSoundConfig(Context context) {
+        return getLevelPreference(context, R.string.config_sound_key);
     }
 
-    public static short getVibratorLevel() {
-        return getBooleanPreference(R.string.config_vibrator_key);
+    public static short getVibratorLevel(Context context) {
+        return getBooleanPreference(context, R.string.config_vibrator_key);
     }
 
-    public static short getShakeConfig() {
-        return getBooleanPreference(R.string.config_shake_key);
+    public static short getShakeConfig(Context context) {
+        return getBooleanPreference(context, R.string.config_shake_key);
     }
 
-    public static short getFlashConfig() {
-        return getBooleanPreference(R.string.config_flash_key);
+    public static short getFlashConfig(Context context) {
+        return getBooleanPreference(context, R.string.config_flash_key);
     }
 
-    private static short getBooleanPreference(int key) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
-        Resources r = JumplingsApplication.getInstance().getResources();
+    private static short getBooleanPreference(Context context, int key) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        Resources r = context.getResources();
         String defaultValue = r.getString(R.string.config_value_default);
         String keyStr = r.getString(key);
         String valueStr = sharedPref.getString(keyStr, defaultValue);
-        return parseConfigLevel(valueStr);
+        return parseConfigLevel(context, valueStr);
     }
     
-    private static boolean getLevelPreference(int key) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(JumplingsApplication.getInstance());
-        Resources r = JumplingsApplication.getInstance().getResources();
+    private static boolean getLevelPreference(Context context, int key) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        Resources r = context.getResources();
         boolean defaultValue = Boolean.parseBoolean(r.getString(R.string.confing_sound_enabled_default));
         String keyStr = r.getString(key);
         return sharedPref.getBoolean(keyStr, defaultValue);
     }
     
-    private static short parseConfigLevel(String str) {
-        Resources r = JumplingsApplication.getInstance().getResources();
+    private static short parseConfigLevel(Context context, String str) {
+        Resources r = context.getResources();
         if (str.equals(r.getString(R.string.config_value_all))) {
             return CFG_LEVEL_ALL;
         } else if (str.equals(r.getString(R.string.config_value_some))) {

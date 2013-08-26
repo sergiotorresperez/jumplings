@@ -3,30 +3,33 @@ package com.garrapeta.jumplings.actor;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.Paint.Align;
 import android.graphics.PointF;
 
 import com.garrapeta.gameengine.Actor;
-import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 
 public abstract class TextActor extends Actor<JumplingsGameWorld> {
 
     // ----------------------------------------------------- Constantes
 
+    private static final String GAME_FONT_PATH = "fonts/AnuDaw.ttf";
+    
     /**
      * Z-Index del actor
      */
     public final static int Z_INDEX = 20;
+    public final Typeface mGameFont;
 
     // ----------------------------------------- Variables de instancia
 
-    private JumplingsGameWorld cWorld;
+    private JumplingsGameWorld mJgWorld;
 
     protected String mText;
     protected Paint mPaint;
 
-    PointF worldPos;
+    PointF mWorldPos;
 
     float mLongevity;
 
@@ -36,22 +39,23 @@ public abstract class TextActor extends Actor<JumplingsGameWorld> {
 
     // -------------------------------------------------- Constructores
 
-    public TextActor(JumplingsGameWorld cWorld, PointF worldPos) {
-        super(cWorld, Z_INDEX);
-        this.cWorld = cWorld;
-        this.worldPos = worldPos;
-
+    public TextActor(JumplingsGameWorld jgWorld, PointF worldPos) {
+        super(jgWorld, Z_INDEX);
+        mJgWorld = jgWorld;
+        mWorldPos = worldPos;
+        mGameFont = Typeface.createFromAsset(mJgWorld.mActivity.getAssets(), GAME_FONT_PATH);
+        
         mPaint = new Paint();
         mPaint.setColor(Color.RED);
         mPaint.setTextAlign(Align.CENTER);
-        mPaint.setTypeface(JumplingsApplication.game_font);
+        mPaint.setTypeface(mGameFont);
     }
 
     // -------------------------------------------------------- M�todos
 
     @Override
     public void processFrame(float gameTimeStep) {
-        worldPos.y += mYVel * (gameTimeStep / 1000);
+        mWorldPos.y += mYVel * (gameTimeStep / 1000);
 
         mLifeTime = Math.max(0, mLifeTime - gameTimeStep);
         if (mLifeTime <= 0) {
@@ -63,7 +67,7 @@ public abstract class TextActor extends Actor<JumplingsGameWorld> {
     public void draw(Canvas canvas) {
         int a = (int) ((mLifeTime / mLongevity) * 255);
         mPaint.setAlpha(a);
-        PointF screenPos = cWorld.mViewport.worldToScreen(worldPos);
+        PointF screenPos = mJgWorld.mViewport.worldToScreen(mWorldPos);
         canvas.drawText(mText, screenPos.x, screenPos.y, mPaint);
     }
 

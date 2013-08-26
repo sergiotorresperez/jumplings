@@ -78,8 +78,8 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         Log.i(JumplingsApplication.LOG_SRC, "onCreate " + this);
 
         // Lectura de datos persistentes
-        mLocalScoreList = PermData.getLocalScoresList();
-        mGlobalScoreList = PermData.getGlobalScoresList();
+        mLocalScoreList = PermData.getLocalScoresList(this);
+        mGlobalScoreList = PermData.getGlobalScoresList(this);
 
         setContentView(R.layout.activity_highscores);
 
@@ -150,9 +150,9 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
             mClearScoresBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PermData.clearAll();
+                    PermData.clearAll(HighScoreListingActivity.this);
                     updateSubmitScoresBtnVisibility();
-                    mLocalScoreList = PermData.getLocalScoresList();
+                    mLocalScoreList = PermData.getLocalScoresList(HighScoreListingActivity.this);
                     feedLocalHighScoresView();
                 }
             });
@@ -278,7 +278,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         Toast toast = Toast.makeText(HighScoreListingActivity.this, R.string.highscores_submit_score_ok, Toast.LENGTH_LONG);
         toast.show();
         
-        PermData.setLocalScoresSubmissionPending(false);
+        PermData.setLocalScoresSubmissionPending(this, false);
         updateSubmitScoresBtnVisibility();
 
         // we update the global table, to see our new scores in it
@@ -342,7 +342,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         // copiamos la lista de scores goblales
         mGlobalScoreList = globalScores;
         // la salvamos
-        PermData.saveGlobalScoresList(mGlobalScoreList);
+        PermData.saveGlobalScoresList(this, mGlobalScoreList);
         // rellenamos la tabla de scores globales
         feedGlobalHighScoresView();
     }
@@ -368,13 +368,13 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         }
 
         // salvamos la lista local
-        PermData.saveLocalScoresList(mLocalScoreList);
+        PermData.saveLocalScoresList(this, mLocalScoreList);
         // rellenamos la tabla de scores locales
         feedLocalHighScoresView();
     }
 
     private void updateSubmitScoresBtnVisibility() {
-        if (mTabHost.getCurrentTabTag() == TAB_LOCALSCORES_ID && PermData.isLocalScoresSubmissionPending()) {
+        if (mTabHost.getCurrentTabTag() == TAB_LOCALSCORES_ID && PermData.isLocalScoresSubmissionPending(this)) {
             mSubmitScoresBtn.setVisibility(View.VISIBLE);
         } else {
             mSubmitScoresBtn.setVisibility(View.GONE);

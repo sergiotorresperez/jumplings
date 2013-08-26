@@ -3,6 +3,7 @@ package com.garrapeta.jumplings;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -70,8 +71,8 @@ public class Score implements Parcelable {
     /**
 	 * @return la posici�n obtenida por el player dentro de los highscores localles
 	 */
-	static int getLocalHighScoresPosition(long newScore) {
-		List<Score> list = PermData.getLocalScoresList();
+	static int getLocalHighScoresPosition(Context context, long newScore) {
+		List<Score> list = PermData.getLocalScoresList(context);
 		
 		int index = 0;
 		for (index = 0; index < list.size(); index++) {

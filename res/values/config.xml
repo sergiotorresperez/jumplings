@@ -6,7 +6,7 @@
 
 
     <bool name="config_wireframe_mode">@bool/default_config_wireframe_mode</bool>
-    <bool name="default_config_wireframe_mode">true</bool>
+    <bool name="default_config_wireframe_mode">false</bool>
 
     <!-- Draw the bitmaps of the actors -->
     <bool name="config_draw_actor_bitmaps">@bool/default_config_draw_actor_bitmaps</bool>

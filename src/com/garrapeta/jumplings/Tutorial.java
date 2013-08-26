@@ -78,15 +78,15 @@ public class Tutorial implements GameEventsListener {
      * Should be run in background.
      */
     public void init() {
-        mTipData.put(TipId.TIP_ON_ENEMY_SCAPED, new TipData(R.string.tip_enemy_scaped, PermData.isTipShown(TipId.TIP_ON_ENEMY_SCAPED)));
-        mTipData.put(TipId.TIP_ON_COMBO, new TipData(R.string.tip_combo, PermData.isTipShown(TipId.TIP_ON_COMBO)));
-        mTipData.put(TipId.TIP_ON_ROUND_ENEMY_KILLED, new TipData(R.string.tip_round_enemy_killed, PermData.isTipShown(TipId.TIP_ON_ROUND_ENEMY_KILLED)));
-        mTipData.put(TipId.TIP_ON_DOUBLE_ENEMY_KILLED, new TipData(R.string.tip_double_enemy_killed, PermData.isTipShown(TipId.TIP_ON_DOUBLE_ENEMY_KILLED)));
-        mTipData.put(TipId.TIP_ON_SPLITTER_ENEMY_KILLED, new TipData(R.string.tip_splitter_enemy_killed, PermData.isTipShown(TipId.TIP_ON_SPLITTER_ENEMY_KILLED)));
-        mTipData.put(TipId.TIP_ON_BOMB_EXPLODED, new TipData(R.string.tip_bomb_exploded, PermData.isTipShown(TipId.TIP_ON_BOMB_EXPLODED)));
-        mTipData.put(TipId.TIP_ON_LIFE_POWER_UP, new TipData(R.string.tip_life_power_up, PermData.isTipShown(TipId.TIP_ON_LIFE_POWER_UP)));
-        mTipData.put(TipId.TIP_ON_BLADE_POWER_UP_START, new TipData(R.string.tip_blade_power_up_start, PermData.isTipShown(TipId.TIP_ON_BLADE_POWER_UP_START)));
-        mTipData.put(TipId.TIP_ON_BLADE_POWER_UP_END, new TipData(R.string.tip_blade_power_up_end, PermData.isTipShown(TipId.TIP_ON_BLADE_POWER_UP_END)));
+        mTipData.put(TipId.TIP_ON_ENEMY_SCAPED, new TipData(R.string.tip_enemy_scaped, PermData.isTipShown(mActivity, TipId.TIP_ON_ENEMY_SCAPED)));
+        mTipData.put(TipId.TIP_ON_COMBO, new TipData(R.string.tip_combo, PermData.isTipShown(mActivity, TipId.TIP_ON_COMBO)));
+        mTipData.put(TipId.TIP_ON_ROUND_ENEMY_KILLED, new TipData(R.string.tip_round_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_ROUND_ENEMY_KILLED)));
+        mTipData.put(TipId.TIP_ON_DOUBLE_ENEMY_KILLED, new TipData(R.string.tip_double_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_DOUBLE_ENEMY_KILLED)));
+        mTipData.put(TipId.TIP_ON_SPLITTER_ENEMY_KILLED, new TipData(R.string.tip_splitter_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_SPLITTER_ENEMY_KILLED)));
+        mTipData.put(TipId.TIP_ON_BOMB_EXPLODED, new TipData(R.string.tip_bomb_exploded, PermData.isTipShown(mActivity, TipId.TIP_ON_BOMB_EXPLODED)));
+        mTipData.put(TipId.TIP_ON_LIFE_POWER_UP, new TipData(R.string.tip_life_power_up, PermData.isTipShown(mActivity, TipId.TIP_ON_LIFE_POWER_UP)));
+        mTipData.put(TipId.TIP_ON_BLADE_POWER_UP_START, new TipData(R.string.tip_blade_power_up_start, PermData.isTipShown(mActivity, TipId.TIP_ON_BLADE_POWER_UP_START)));
+        mTipData.put(TipId.TIP_ON_BLADE_POWER_UP_END, new TipData(R.string.tip_blade_power_up_end, PermData.isTipShown(mActivity, TipId.TIP_ON_BLADE_POWER_UP_END)));
     }
 
     @Override
@@ -152,7 +152,7 @@ public class Tutorial implements GameEventsListener {
     private boolean showTip(TipId tipId) {
         final TipData tipData = mTipData.get(tipId);
         if (!tipData.mShown) {
-            PermData.setTipShown(tipId);
+            PermData.setTipShown(mActivity, tipId);
             tipData.mShown = true;
             Message msg = mTipHandler.obtainMessage();
             msg.obj = tipData;

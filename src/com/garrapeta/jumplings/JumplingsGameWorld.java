@@ -114,7 +114,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mPlayer = new Player(this);
         mTutorial = new Tutorial(gameActivity, GameActivity.DIALOG_FRAGMENT_TAG);
         mGameView.setOnTouchListener(this);
-        mShakeModule = new ShakeModule(PermData.getShakeConfig(), this);
+        mShakeModule = new ShakeModule(PermData.getShakeConfig(mGameActivity), this);
         mAutoplay = mGameActivity.getResources().getBoolean(R.bool.config_debug_autoplay);
      }
 
@@ -128,7 +128,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public void onBeforeRunning() {
         super.onBeforeRunning();
         // TODO: if I put this in the constructor flashes are not shown
-        mFlashModule = new FlashModule(PermData.getFlashConfig(), this);
+        mFlashModule = new FlashModule(PermData.getFlashConfig(mGameActivity), this);
         
         // Inicializaci�n del arma
         setWeapon(WeaponSlap.WEAPON_CODE_GUN);

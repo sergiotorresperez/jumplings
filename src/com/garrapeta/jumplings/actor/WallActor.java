@@ -72,7 +72,9 @@ public class WallActor extends Box2DEdgeActor<JumplingsWorld> {
 
 	@Override
 	public void draw(Canvas canvas) {
-		super.draw(canvas);
+		if (getWorld().mWireframeMode) {
+			super.draw(canvas);
+		}
 	}
 	
 	// -------------------------------------------------------- M�todos de Box2dActor

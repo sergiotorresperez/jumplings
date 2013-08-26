@@ -112,17 +112,17 @@ public class GameOverActivity extends Activity {
 		});
 
 		newHighScore = mPlayerScore.score > 0
-				&& Score.getLocalHighScoresPosition(mPlayerScore.score) < Score.MAX_LOCAL_HIGHSCORE_COUNT;
+				&& Score.getLocalHighScoresPosition(this, mPlayerScore.score) < Score.MAX_LOCAL_HIGHSCORE_COUNT;
 
 		TextView scoreTextView = (TextView) findViewById(R.id.gameover_scoreTextView);
 		final String yourScoreStr = getString(R.string.gameover_your_score, mPlayerScore.score);
 		scoreTextView.setText(yourScoreStr);
 
-		Score highest = PermData.getLocalGetHighScore();
+		Score highest = PermData.getLocalGetHighScore(this);
 		if (highest != null) {
 			TextView messageTextView = (TextView) findViewById(R.id.gameover_messageTextView);
 			messageTextView.setVisibility(View.VISIBLE);
-			long prevHighScore = PermData.getLocalGetHighScore().score;
+			long prevHighScore = PermData.getLocalGetHighScore(this).score;
 			if (mPlayerScore.score > prevHighScore) {
 				messageTextView.setText(R.string.gameover_beaten);
 			} else {
@@ -193,7 +193,7 @@ public class GameOverActivity extends Activity {
 						}
 					});
 
-			mPlayerNameEditText.setText(PermData.getLastPlayerName());
+			mPlayerNameEditText.setText(PermData.getLastPlayerName(this));
 		} else {
 			scoreIntroductionView.setVisibility(View.INVISIBLE);
 			nextActionView.setVisibility(View.VISIBLE);
@@ -252,9 +252,9 @@ public class GameOverActivity extends Activity {
 	 */
 	private void saveHighScore() {
 		mPlayerScore.playerName = mPlayerNameEditText.getText().toString();
-		PermData.saveLastPlayerName(mPlayerScore.playerName);
-		PermData.addNewLocalScore(mPlayerScore);
-		PermData.setLocalScoresSubmissionPending(true);
+		PermData.saveLastPlayerName(this, mPlayerScore.playerName);
+		PermData.addNewLocalScore(this, mPlayerScore);
+		PermData.setLocalScoresSubmissionPending(this, true);
 
 		scoreIntroductionView.setVisibility(View.INVISIBLE);
 		nextActionView.setVisibility(View.VISIBLE);

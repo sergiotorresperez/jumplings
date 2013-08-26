@@ -113,7 +113,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         mSpecialWeaponBar = (ProgressBar) findViewById(R.id.game_specialWeaponBar);
         mScoreTextView = (TextView) findViewById(R.id.game_scoreTextView);
         mLocalHighScoreTextView = (TextView) findViewById(R.id.game_localHightscoreTextView);
-        Score hs = PermData.getLocalGetHighScore();
+        Score hs = PermData.getLocalGetHighScore(this);
         if (hs != null) {
             long localHighScore = hs.score;
             if (localHighScore > 0) {
