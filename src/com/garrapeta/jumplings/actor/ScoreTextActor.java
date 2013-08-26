@@ -4,6 +4,7 @@ import android.graphics.PointF;
 
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.Player;
+import com.garrapeta.jumplings.R;
 
 public class ScoreTextActor extends TextActor {
 
@@ -14,16 +15,15 @@ public class ScoreTextActor extends TextActor {
 
     /** Tiempo que permanece el actor en pantalla, en ms */
     public final static int DEFAULT_LONGEVITY = 250;
-
-    /** Tiempo que permanece el actor en pantalla, en ms */
-    public final static int BASE_FONTSIZE = 35;
+    
+    private static float sBaseTextSize = -1;
 
     // ----------------------------------------- Variables de instancia
 
     // ----------------------------------------------------- Constructor
 
-    public ScoreTextActor(JumplingsGameWorld cWorld, PointF worldPos, int score) {
-        super(cWorld, worldPos);
+    public ScoreTextActor(JumplingsGameWorld jgWorld, PointF worldPos, int score) {
+        super(jgWorld, worldPos);
 
         int level = (score / Player.BASE_POINTS);
 
@@ -34,7 +34,10 @@ public class ScoreTextActor extends TextActor {
         mLongevity = DEFAULT_LONGEVITY + (level * 150);
         mLifeTime = mLongevity;
 
-        float textSize = BASE_FONTSIZE + (level * 3);
+        if (sBaseTextSize < 0) {
+        	sBaseTextSize = jgWorld.mActivity.getResources().getDimension(R.dimen.ingame_score_text_actor_base_text_size);
+        }
+        float textSize = sBaseTextSize + (sBaseTextSize * (level - 1)  * 0.3f);
         mPaint.setTextSize(textSize);
 
     }

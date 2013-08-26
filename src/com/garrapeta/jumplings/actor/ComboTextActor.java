@@ -15,23 +15,26 @@ public class ComboTextActor extends TextActor {
     /** Tiempo que permanece el actor en pantalla, en ms */
     public final static int DEFAULT_LONGEVITY = 600;
 
-    /** Tiempo que permanece el actor en pantalla, en ms */
-    public final static int BASE_FONTSIZE = 36;
-
+    private static float sBaseTextSize = -1;
+    
     // ----------------------------------------- Variables de instancia
 
     // ----------------------------------------------------- Constructor
 
-    public ComboTextActor(JumplingsGameWorld cWorld, PointF worldPos, int comboLevel) {
-        super(cWorld, worldPos);
+    public ComboTextActor(JumplingsGameWorld jgWorld, PointF worldPos, int level) {
+        super(jgWorld, worldPos);
 
-        mText = cWorld.mActivity.getString(R.string.game_combo, comboLevel);
+        mText = jgWorld.mActivity.getString(R.string.game_combo, level);
         mYVel = DEFAULT_Y_VELOCITY;
 
-        mLongevity = DEFAULT_LONGEVITY + ((comboLevel - 1) * 75);
+        mLongevity = DEFAULT_LONGEVITY + ((level - 1) * 75);
         mLifeTime = mLongevity;
 
-        float textSize = BASE_FONTSIZE + ((comboLevel - 1) * 6);
+        if (sBaseTextSize < 0) {
+        	sBaseTextSize = jgWorld.mActivity.getResources().getDimension(R.dimen.ingame_combo_text_actor_base_text_size);
+        }
+        float textSize = sBaseTextSize +  (sBaseTextSize * (level - 1)  * 0.3f);
+        
         mPaint.setTextSize(textSize);
     }
 

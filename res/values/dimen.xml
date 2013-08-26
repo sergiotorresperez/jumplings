@@ -7,6 +7,9 @@
     <dimen name="about_activity_popup_horizontal_margin"> 55dp </dimen>
     <dimen name="about_activity_padding"> 20dp </dimen>
     <dimen name="menu_activity_padding"> 15dp </dimen>
-     <dimen name="menu_activity_button_min_size"> 50dp </dimen>
-
+    <dimen name="menu_activity_button_min_size"> 50dp </dimen>
+    
+    <dimen name="ingame_score_text_actor_base_text_size"> 20dp </dimen>
+    <dimen name="ingame_combo_text_actor_base_text_size"> 25dp </dimen>
+    
 </resources>
