@@ -278,12 +278,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     @Override
-    protected void drawBackground(Canvas canvas) {
-        super.drawBackground(canvas);
-
-        // TODO: evitar esta comporbaci�n de nulidad
-        // TODO: pasar las medidas de la pantalla al escenario en reset()
-        if (mScenario != null && JumplingsApplication.DRAW_SCENARIO) {
+    protected void drawScenario(Canvas canvas) {
+        super.drawScenario(canvas);
+    	if (mScenario != null) {
             mScenario.draw(canvas, mPaint);
         }
     }

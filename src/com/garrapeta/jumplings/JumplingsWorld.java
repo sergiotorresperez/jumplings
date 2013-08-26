@@ -38,7 +38,11 @@ public class JumplingsWorld extends Box2DWorld {
 
     public static final String TAG = JumplingsApplication.LOG_SRC_JUMPLINGS + ".world";
 
-    public static final int WORLD_HEIGHT = 7;
+    /**
+     * World units of the world across the width of the screen. The height is calculated 
+     * automatically depending on this value an the specs of the display. 
+     */
+    public static final int WORLD_WIDTH = 7;
 
     // ------------------------------------ Consantes de sonidos y vibraciones
 
@@ -175,13 +179,21 @@ public class JumplingsWorld extends Box2DWorld {
 
     @Override
     protected void drawBackground(Canvas canvas) {
-        canvas.drawColor(Color.WHITE);
+    	if (!JumplingsApplication.WIREFRAME_MODE) {
+    		drawScenario(canvas);
+    	} else {
+    		super.drawBackground(canvas);
+    	}
     }
 
+    protected void drawScenario(Canvas canvas) {
+    	canvas.drawColor(Color.WHITE);
+    }
+   
     @Override
     public void onGameViewSizeChanged(int width, int height) {
         Log.i(TAG, "surfaceChanged " + this);
-        mViewport.setWorldSizeGivenWorldUnitsPerInchX(WORLD_HEIGHT);
+        mViewport.setWorldSizeGivenWorldUnitsPerInchX(WORLD_WIDTH);
     }
 
     @Override

@@ -5,17 +5,12 @@
     <!-- Some of these may be modified in the ant build process -->
 
 
-    <!-- Draw the shapes of the box2 shapes for the actors -->
-    <bool name="config_draw_actor_shapes">@bool/default_config_draw_actor_shapes</bool>
-    <bool name="default_config_draw_actor_shapes">false</bool>
+    <bool name="config_wireframe_mode">@bool/default_config_wireframe_mode</bool>
+    <bool name="default_config_wireframe_mode">true</bool>
 
     <!-- Draw the bitmaps of the actors -->
     <bool name="config_draw_actor_bitmaps">@bool/default_config_draw_actor_bitmaps</bool>
     <bool name="default_config_draw_actor_bitmaps">true</bool>
-
-    <!-- Draw the scenario -->
-    <bool name="config_draw_scenario">@bool/default_config_draw_scenario</bool>
-    <bool name="default_config_draw_scenario">true</bool>
 
     <!-- Test buttons and other debug functions -->
     <bool name="config_debug_functions_enabled">@bool/default_config_debug_functions_enabled</bool>

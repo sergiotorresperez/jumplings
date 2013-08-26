@@ -24,9 +24,8 @@ public class JumplingsApplication extends Application {
 
     // Enabled features
 
-    public static boolean DRAW_ACTOR_SHAPES;
+    public static boolean WIREFRAME_MODE;
     public static boolean DRAW_ACTOR_BITMAPS;
-    public static boolean DRAW_SCENARIO;
 
     public static boolean DEBUG_FUNCTIONS_ENABLED;
     public static boolean DEBUG_THREAD_BARS_ENABLED;
@@ -71,9 +70,9 @@ public class JumplingsApplication extends Application {
     	
         game_font = Typeface.createFromAsset(getAssets(), GAME_FONT_PATH);
         
-    	DRAW_ACTOR_SHAPES = getInstance().getResources().getBoolean(R.bool.config_draw_actor_shapes);
+        WIREFRAME_MODE = getInstance().getResources().getBoolean(R.bool.config_wireframe_mode);
     	DRAW_ACTOR_BITMAPS = getInstance().getResources().getBoolean(R.bool.config_draw_actor_bitmaps);
-    	DRAW_SCENARIO = getInstance().getResources().getBoolean(R.bool.config_draw_scenario);
+
     	
     	DEBUG_FUNCTIONS_ENABLED = getInstance().getResources().getBoolean(R.bool.config_debug_functions_enabled);
     	DEBUG_THREAD_BARS_ENABLED = getInstance().getResources().getBoolean(R.bool.config_debug_thread_bars_enabled);
