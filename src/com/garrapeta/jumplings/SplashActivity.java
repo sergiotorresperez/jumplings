@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 
+import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 
 /**
@@ -19,7 +20,7 @@ public class SplashActivity extends Activity {
 
 	private View mTitleView;
 	private View mSubtitleView;
-	
+	private boolean mQuickExit = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,13 @@ public class SplashActivity extends Activity {
 		root.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				PremiumPurchaseHelper premiumHelper = new PremiumPurchaseHelper(SplashActivity.this);
+				if (!premiumHelper.isPremiumPurchaseStateKnown(SplashActivity.this)) {
+					// if the premium state is not known ignore the click
+					return;
+				}
+				
+				mQuickExit = true;
 				openMenuActivity();
 			}
 		});
@@ -74,7 +82,9 @@ public class SplashActivity extends Activity {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				onAnimationPhaseTwo(); 
+				if (!mQuickExit) {
+					onAnimationPhaseTwo();
+				}
 			}
 		});
 
@@ -96,7 +106,9 @@ public class SplashActivity extends Activity {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				onAnimationPhaseThree(); 
+				if (!mQuickExit) {
+					onAnimationPhaseThree();
+				}
 			}
 		});
 		// doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
@@ -130,7 +142,7 @@ public class SplashActivity extends Activity {
 	private void openMenuActivity() {
 		finish();
 		overridePendingTransition(0, 0);
-		Intent intent = new Intent(this, MenuActivity.class);
+		Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
 		startActivity(intent);
 	}
 

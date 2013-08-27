@@ -58,7 +58,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     /** World */
     JumplingsWorld mWorld;
     
-    private boolean mFirstStart = true;
+    private boolean mAnimationShown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,25 +163,20 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
 		mPremiumHelper = new PremiumPurchaseHelper(this);
 		if (mPremiumHelper.isPremiumPurchaseStateKnown(this)) {
 			Log.d(TAG, "Premium purchase state known. No need to query.");
-			onPremiumStateUpdate(mPremiumHelper.isPremiumPurchased(this));
-			if (mFirstStart) {
-				onStartAnimationPhaseOne();
-			}
+			startAnimation(mPremiumHelper.isPremiumPurchased(this));
 		} else {
 			Log.d(TAG, "Premium purchase state unknown. Querying for it.");
 			mPremiumHelper.queryIsPremiumPurchasedAsync(this, new PurchaseStateQueryCallback() {
 				@Override
 				public void onPurchaseStateQueryFinished(boolean purchased) {
-					onPremiumStateUpdate(purchased);
-					onStartAnimationPhaseOne();
+					startAnimation(purchased);
 				}
 				
 				@Override
 				public void onPurchaseStateQueryError(String message) {
 					Log.i(TAG, "Error querying purchase state " + message);
 					// we assume it is purchased
-					onPremiumStateUpdate(true);
-					onStartAnimationPhaseOne();
+					startAnimation(true);
 				}
 			});
 		}
@@ -214,7 +209,6 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     @Override
     protected void onStop() {
         super.onStop();
-        mFirstStart = false;
         Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
         FlurryHelper.onEndSession(this);
         
@@ -242,9 +236,15 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     	super.onActivityResult(requestCode, resultCode, data);
 	}
 
+	private void startAnimation(boolean purchased) {
+		onPremiumStateUpdate(purchased);
+		if (!mAnimationShown) {
+			mAnimationShown = true;
+			onStartAnimationPhaseOne();
+		}
+	}
+
 	private void onStartAnimationPhaseOne() {
-		
-		
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.menu_screen_scale_in);
         fadeInAnimation.setAnimationListener(new AnimationListener() {
             @Override
