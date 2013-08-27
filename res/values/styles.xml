@@ -9,35 +9,35 @@
     <!-- TEXTS -->
     <style name="MainFont" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/primary_text_colour</item>
-        <item name="android:textSize">19sp</item>
-        <item name="fontPath">fonts/aescrawl.ttf</item>
+        <item name="android:textSize">27sp</item>
+        <item name="fontPath">fonts/SFGrungeSans.ttf</item>
     </style>
 
     <style name="MainFont.h1">
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/secondary_text_colour</item>
-        <item name="android:textSize">42sp</item>
+        <item name="android:textSize">49sp</item>
     </style>
 
     <style name="MainFont.h2">
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/secondary_text_colour</item>
-        <item name="android:textSize">31sp</item>
+        <item name="android:textSize">40sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="MainFont.h3">
         <item name="android:gravity">center</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">35sp</item>
     </style>
 
     <style name="MainFont.h4">
         <item name="android:gravity">center</item>
-        <item name="android:textSize">21sp</item>
+        <item name="android:textSize">32sp</item>
     </style>
 
     <style name="MainFont.About">
-        <item name="android:drawablePadding">5dp</item>
+        <item name="android:drawablePadding">8dp</item>
         <item name="android:gravity">center</item>
         <item name="android:autoLink">web</item>
         <item name="android:linksClickable">true</item>
@@ -54,8 +54,8 @@
     <!-- BUTTONS -->
     <style name="ColorfulButton" parent="@android:style/Widget.Button">
         <item name="android:textColor">@color/primary_text_colour</item>
-        <item name="fontPath">fonts/aescrawl.ttf</item>
-        <item name="android:textSize">22sp</item>
+        <item name="fontPath">fonts/SFGrungeSans.ttf</item>
+        <item name="android:textSize">32sp</item>
         <item name="android:background">@drawable/colorful_button_background_selector</item>
         <item name="android:gravity">center_vertical|center_horizontal</item>
         <item name="android:padding">10dp</item>
@@ -67,7 +67,7 @@
     </style>
     
     <style name="TransparentButton" parent="@android:style/Widget.Button">
-        <item name="fontPath">fonts/aescrawl.ttf</item>
+        <item name="fontPath">fonts/SFGrungeSans.ttf</item>
         <item name="android:background">@drawable/transparent_button_background_selector</item>
         <item name="android:minWidth">16pt</item>
         <item name="android:minHeight">10pt</item>
@@ -81,7 +81,7 @@
 
     <style name="MainFont.ScoreListHeaderText">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">23sp</item>
+        <item name="android:textSize">25sp</item>
     </style>
 
     <!-- CUSTOM DIALOGS -->
@@ -100,8 +100,8 @@
     <!-- CUSTOM TAB -->
     <style name="CustomTabWidgetStyle" parent="@android:attr/tabWidgetStyle">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="fontPath">fonts/aescrawl.ttf</item>
-        <item name="android:textSize">30sp</item>
+        <item name="fontPath">fonts/SFGrungeSans.ttf</item>
+        <item name="android:textSize">35sp</item>
     </style>
 
     <style name="ThemeJumplings.PopupActivity">

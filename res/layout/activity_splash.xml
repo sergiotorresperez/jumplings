@@ -20,7 +20,7 @@
             android:layout_alignParentTop="true"
             android:text="@string/splash_developer"
             android:textColor="@color/secondary_text_colour"
-            android:textSize="66dp"
+            android:textSize="80dp"
             android:textStyle="bold" />
 
         <com.garrapeta.jumplings.ui.CustomFontTextView
@@ -32,7 +32,7 @@
             android:layout_below="@+id/splash_title"
             android:text="@string/splash_presents"
             android:textColor="@color/secondary_text_colour"
-            android:textSize="31dp" />
+            android:textSize="40dp" />
     </RelativeLayout>
 
 </RelativeLayout>
