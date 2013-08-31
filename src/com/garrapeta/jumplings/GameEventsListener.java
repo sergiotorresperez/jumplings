@@ -1,6 +1,5 @@
 package com.garrapeta.jumplings;
 
-import com.garrapeta.jumplings.actor.BladePowerUpActor;
 import com.garrapeta.jumplings.actor.BombActor;
 import com.garrapeta.jumplings.actor.EnemyActor;
 import com.garrapeta.jumplings.actor.LifePowerUpActor;
@@ -51,19 +50,5 @@ public interface GameEventsListener {
      * @return if the event is consumed
      */
     public boolean onLifePowerUp(LifePowerUpActor lifePowerUpActor);
-    
-    /**
-     * Called when the player gets a blade power up
-     * 
-     * @param bladePowerUpActor
-     * @return if the event is consumed
-     */
-    public boolean onBladePowerUpStart(BladePowerUpActor bladePowerUpActor);
-    
-    /**
-     * Called when the blade finishes
-     * 
-     * @return if the event is consumed
-     */
-    public boolean onBladePowerUpEnd();
+
 }

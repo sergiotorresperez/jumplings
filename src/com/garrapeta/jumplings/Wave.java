@@ -6,7 +6,6 @@ import android.widget.Button;
 
 import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.utils.PhysicsUtils;
-import com.garrapeta.jumplings.actor.BladePowerUpActor;
 import com.garrapeta.jumplings.actor.BombActor;
 import com.garrapeta.jumplings.actor.EnemyActor;
 import com.garrapeta.jumplings.actor.JumplingActor;
@@ -114,21 +113,9 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
         return false;
     }
 
-    @Override
-    public boolean onBladePowerUpStart(BladePowerUpActor bladePowerUpActor) {
-        return false;
-    }
-    
-    @Override
-    public boolean onBladePowerUpEnd() {
-        return false;
-    }
-
     public boolean onFail() {
         return false;
     }
-
-
 
     // --------------------------------------------------- M�todos abstractos
 
@@ -227,7 +214,7 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
     }
 
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-    public void onTestButtonClicked(Button showAdBtn) {
+    public void onTestButtonClicked(Button testBtn) {
     }
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 

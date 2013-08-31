@@ -7,13 +7,10 @@ public abstract class Weapon {
 	// --------------------------------------- Variables de instancia
 	protected JumplingsGameWorld mWorld;
 	
-	private long creationTimeStamp;
-	
 	// ------------------------------------------------- Constructores
 	
 	public Weapon(JumplingsGameWorld jgWorld) {
-		this.mWorld = jgWorld;
-		this.creationTimeStamp = jgWorld.currentGameMillis();
+		mWorld = jgWorld;
 	}
 	
 	// ----------------------------------------------- M�todos propios
@@ -24,13 +21,8 @@ public abstract class Weapon {
 	public abstract void onTouchEvent(double[] info);
 	
 	public abstract short getWeaponCode();
-	
-	public abstract int getMaxTime();
-	
-	public abstract void onStart();
-	public abstract void onEnd();
-	
-	public int getRemainingTime() {
-		return getMaxTime() - (int) (mWorld.currentGameMillis() - creationTimeStamp);
-	}
+
+	public abstract void onStart(float gameTimeStep);
+
+	public abstract void processFrame(float gameTimeStep);
 }

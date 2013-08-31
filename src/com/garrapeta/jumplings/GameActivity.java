@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +46,8 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
      * Tag used to refer to the dialog fragment
      */
     static final String DIALOG_FRAGMENT_TAG = "dialog_fragment_tag";
+    
+    private final int SWORD_PROGRESS_BAR_MAX = 100;
 
 
 
@@ -70,9 +70,9 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     private ImageButton mPauseBtn;
 
     ViewGroup mLifeCounterView;
-    ProgressBar mSpecialWeaponBar;
+    private ProgressBar mSpecialWeaponBar;
 
-    boolean blinkingLifeBar = false;
+    boolean mBlinkingLifeBar = false;
 
     TextView mScoreTextView;
 
@@ -83,14 +83,9 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     // used to resolve the state of the in app billing purchases and to launch purchases
     private PremiumPurchaseHelper mPremiumHelper;
     
-
-    // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-    // DEBUG
-    public Button testBtn;
-    public RadioGroup weaponsRadioGroup;
-    // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-    // DEBUG
-
+    public Button mTestBtn;
+    public Button mSwordBtn;
+    
     // -------------------------------------------------- M�todos de Activity
 
     /** Called when the activity is first created. */
@@ -111,6 +106,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         });
         mLifeCounterView = (ViewGroup) findViewById(R.id.lifes_counter_layout);
         mSpecialWeaponBar = (ProgressBar) findViewById(R.id.game_specialWeaponBar);
+        mSpecialWeaponBar.setMax(SWORD_PROGRESS_BAR_MAX);
         mScoreTextView = (TextView) findViewById(R.id.game_scoreTextView);
         mLocalHighScoreTextView = (TextView) findViewById(R.id.game_localHightscoreTextView);
         Score hs = PermData.getLocalGetHighScore(this);
@@ -146,30 +142,22 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
-
+ 
         if (PermData.areDebugFeaturesEnabled(this)) {
-            testBtn = (Button) findViewById(R.id.game_testBtn);
-            testBtn.setOnClickListener(new OnClickListener() {
+        	mTestBtn = (Button) findViewById(R.id.game_testBtn);
+            mTestBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mWorld.mWave.onTestButtonClicked(testBtn);
+                    mWorld.mWave.onTestButtonClicked(mTestBtn);
                 }
             });
 
             // Menu de armas
-            weaponsRadioGroup = (RadioGroup) findViewById(R.id.game_weaponsBtnGroup);
-            weaponsRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
+            mSwordBtn = (Button) findViewById(R.id.game_swordBtn);
+            mSwordBtn.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onCheckedChanged(RadioGroup rg, int id) {
-                    if (id == R.id.game_weaponsRadioBtnGun) {
-                        mWorld.setWeapon(WeaponSlap.WEAPON_CODE_GUN);
-                        // } else if (id == R.id.game_weaponsRadioBtnShotgun) {
-                        // world.setWeapon(Shotgun.WEAPON_CODE_SHOTGUN);
-                    } else if (id == R.id.game_weaponsRadioBtnBlade) {
-                        mWorld.setWeapon(WeaponSword.WEAPON_CODE_BLADE);
-                    }
-
+                public void onClick(View v) {
+                    mWorld.setWeapon(WeaponSword.WEAPON_CODE_SWORD);
                 }
             });
         }
@@ -382,28 +370,42 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     }
 
     /**
-     * Actualizaci�n de la barra de arma especial
+     * Start of the sword lifeTime
      */
-    public void updateSpecialWeaponBar() {
-        Weapon weapon = mWorld.mWeapon;
-        int progress = weapon.getRemainingTime();
-        mSpecialWeaponBar.setProgress(progress);
+    public void onSwordStarted() {
+    	runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				mSpecialWeaponBar.setVisibility(View.VISIBLE);
+			}
+		});
     }
-
-    public void activateSpecialWeaponBar(final boolean active) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (active) {
-                    mSpecialWeaponBar.setVisibility(View.VISIBLE);
-                    mSpecialWeaponBar.setMax(mWorld.mWeapon.getMaxTime());
-                    updateSpecialWeaponBar();
-                } else {
-                    mSpecialWeaponBar.setVisibility(View.INVISIBLE);
-                }
-
-            }
-        });
+    
+    /**
+     * Update of sword progress bar
+     */
+    public void updateSwordRemainingTimeUpdated(final float progress) {
+    	// TODO: send this via a handler
+    	runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				int visualProgress = (int) (progress * SWORD_PROGRESS_BAR_MAX);
+				Log.e("stp", ">" + visualProgress);
+		    	mSpecialWeaponBar.setProgress(visualProgress);
+			}
+		});
+    }
+    
+    /**
+     * End of the sword lifeTime
+     */
+    public void onSwordEnded() {
+    	runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				mSpecialWeaponBar.setVisibility(View.INVISIBLE);
+			}
+		});
     }
 
     /**
@@ -423,14 +425,14 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
      * Deja la barra de vida parpadeando
      */
     public void startBlinkingLifeBar() {
-        if (!blinkingLifeBar) {
-            blinkingLifeBar = true;
+        if (!mBlinkingLifeBar) {
+            mBlinkingLifeBar = true;
 
             new Thread(new Runnable() {
 
                 @Override
                 public void run() {
-                    while (blinkingLifeBar) {
+                    while (mBlinkingLifeBar) {
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -456,7 +458,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
      * Para el parpadero de la barra de vida
      */
     public void stopBlinkingLifeBar() {
-        blinkingLifeBar = false;
+        mBlinkingLifeBar = false;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -567,37 +569,4 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         });
     }
  
-    // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-
-    public void updateWeaponsRadioGroup(final short weaponId) {
-        if (weaponsRadioGroup.getVisibility() == View.VISIBLE) {
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    int checked = 0;
-
-                    switch (weaponId) {
-                    case WeaponSlap.WEAPON_CODE_GUN:
-                        checked = R.id.game_weaponsRadioBtnGun;
-                        break;
-                    // case Shotgun.WEAPON_CODE_SHOTGUN:
-                    // checked = R.id.game_weaponsRadioBtnShotgun;
-                    // break;
-                    case WeaponSword.WEAPON_CODE_BLADE:
-                        checked = R.id.game_weaponsRadioBtnBlade;
-                        break;
-                    }
-
-                    if (weaponsRadioGroup.getCheckedRadioButtonId() != checked) {
-                        weaponsRadioGroup.check(checked);
-                    }
-                }
-            });
-
-        }
-    }
-    // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-
-
 }

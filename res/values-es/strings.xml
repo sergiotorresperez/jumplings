@@ -110,7 +110,7 @@
     <string name="tip_splitter_enemy_killed">¡Los amarillos se dividen cuando les das!</string>
     <string name="tip_bomb_exploded">¡Las bombas las tines que esquivas! Esta vez no, pero la próxima perderás una vida.</string>
     <string name="tip_life_power_up">¡Vida extra!</string>
-    <string name="tip_blade_power_up_start">¡Has pillado la espada! Desliza el dedo por la pantalla para blandirla&#8230; y ten cuidado, sólo dura unos pocos segundos!</string>
-    <string name="tip_blade_power_up_end">La espada ha terminado&#8230; ahora vuelve a tocar sobre los Jumplings para matarlos, como antes&#8230;</string>
+    <string name="tip_sword_power_up_start">¡Has pillado la espada! Desliza el dedo por la pantalla para blandirla&#8230; y ten cuidado, sólo dura unos pocos segundos!</string>
+    <string name="tip_sword_power_up_end">La espada ha terminado&#8230; ahora vuelve a tocar sobre los Jumplings para matarlos, como antes&#8230;</string>
 
 </resources>

@@ -92,7 +92,7 @@
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/about_blade"
+                android:drawableLeft="@drawable/about_sword"
                 android:text="@string/about_howto_sable" />
 
             <com.garrapeta.jumplings.ui.CustomFontTextView

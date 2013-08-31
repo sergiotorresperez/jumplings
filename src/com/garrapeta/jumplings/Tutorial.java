@@ -13,7 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.garrapeta.jumplings.actor.BladePowerUpActor;
+import com.garrapeta.jumplings.WeaponSword.WeaponSwordListener;
 import com.garrapeta.jumplings.actor.BombActor;
 import com.garrapeta.jumplings.actor.DoubleEnemyActor;
 import com.garrapeta.jumplings.actor.EnemyActor;
@@ -25,7 +25,7 @@ import com.garrapeta.jumplings.ui.CustomDialogBuilder;
 /**
  * Tutorial that shows tips to help the player learn the different features of the game *
  */
-public class Tutorial implements GameEventsListener {
+public class Tutorial implements GameEventsListener, WeaponSwordListener{
    
     private static final String MESSAGE_ID_KEY = "messageKey" ;
 
@@ -40,8 +40,8 @@ public class Tutorial implements GameEventsListener {
         TIP_ON_SPLITTER_ENEMY_KILLED, 
         TIP_ON_BOMB_EXPLODED, 
         TIP_ON_LIFE_POWER_UP, 
-        TIP_ON_BLADE_POWER_UP_START, 
-        TIP_ON_BLADE_POWER_UP_END
+        TIP_ON_SWORD_POWER_UP_START, 
+        TIP_ON_SWORD_POWER_UP_END
     }
 
     private final FragmentActivity mActivity;
@@ -85,8 +85,8 @@ public class Tutorial implements GameEventsListener {
         mTipData.put(TipId.TIP_ON_SPLITTER_ENEMY_KILLED, new TipData(R.string.tip_splitter_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_SPLITTER_ENEMY_KILLED)));
         mTipData.put(TipId.TIP_ON_BOMB_EXPLODED, new TipData(R.string.tip_bomb_exploded, PermData.isTipShown(mActivity, TipId.TIP_ON_BOMB_EXPLODED)));
         mTipData.put(TipId.TIP_ON_LIFE_POWER_UP, new TipData(R.string.tip_life_power_up, PermData.isTipShown(mActivity, TipId.TIP_ON_LIFE_POWER_UP)));
-        mTipData.put(TipId.TIP_ON_BLADE_POWER_UP_START, new TipData(R.string.tip_blade_power_up_start, PermData.isTipShown(mActivity, TipId.TIP_ON_BLADE_POWER_UP_START)));
-        mTipData.put(TipId.TIP_ON_BLADE_POWER_UP_END, new TipData(R.string.tip_blade_power_up_end, PermData.isTipShown(mActivity, TipId.TIP_ON_BLADE_POWER_UP_END)));
+        mTipData.put(TipId.TIP_ON_SWORD_POWER_UP_START, new TipData(R.string.tip_sword_power_up_start, PermData.isTipShown(mActivity, TipId.TIP_ON_SWORD_POWER_UP_START)));
+        mTipData.put(TipId.TIP_ON_SWORD_POWER_UP_END, new TipData(R.string.tip_sword_power_up_end, PermData.isTipShown(mActivity, TipId.TIP_ON_SWORD_POWER_UP_END)));
     }
 
     @Override
@@ -113,18 +113,6 @@ public class Tutorial implements GameEventsListener {
     @Override
     public boolean onLifePowerUp(LifePowerUpActor lifePowerUpActor) {
         showTip(TipId.TIP_ON_LIFE_POWER_UP);
-        return false;
-    }
-
-    @Override
-    public boolean onBladePowerUpStart(BladePowerUpActor bladePowerUpActor) {
-        showTip(TipId.TIP_ON_BLADE_POWER_UP_START);
-        return false;
-    }
-
-    @Override
-    public boolean onBladePowerUpEnd() {
-        showTip(TipId.TIP_ON_BLADE_POWER_UP_END);
         return false;
     }
 
@@ -225,4 +213,19 @@ public class Tutorial implements GameEventsListener {
             public void onTipDialogClosed();
         }
     }
+
+	@Override
+	public void onSwordStarted() {
+		showTip(TipId.TIP_ON_SWORD_POWER_UP_START);
+	}
+
+	@Override
+	public void onSwordRemainingTimeUpdated(float remaining) {
+	}
+	
+	@Override
+	public void onSwordEnded() {
+		showTip(TipId.TIP_ON_SWORD_POWER_UP_END);
+	}
+
 }

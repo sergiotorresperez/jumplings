@@ -13,8 +13,6 @@ public class WeaponSlap extends Weapon {
 
     public final static short WEAPON_CODE_GUN = 0;
 
-    private static int WEAPON_TIME_GUN = Integer.MAX_VALUE;
-
     // -------------------------------------------------------- Variables de
     // instancia
 
@@ -58,16 +56,14 @@ public class WeaponSlap extends Weapon {
         return WEAPON_CODE_GUN;
     }
 
-    public int getMaxTime() {
-        return WEAPON_TIME_GUN;
+    @Override
+    public void onStart(float gameTimeStep) {
+    	// nothing
     }
 
-    @Override
-    public void onStart() {
-    }
-
-    @Override
-    public void onEnd() {
-    }
+	@Override
+	public void processFrame(float gameTimeStep) {
+		// nothing
+	}
 
 }

@@ -369,7 +369,7 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
         if (Math.random() < lifeUpProbability) {
             powerUp = getWorld().getFactory().getLifePowerUpActor(initPos);
         } else {
-            powerUp = getWorld().getFactory().getBladePowerUpActor(initPos);
+            powerUp = getWorld().getFactory().getSwordPowerUpActor(initPos);
         }
         powerUp.setLinearVelocity(initVel.x, initVel.y);
         getWorld().addActor(powerUp);

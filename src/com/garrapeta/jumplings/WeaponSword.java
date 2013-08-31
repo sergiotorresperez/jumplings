@@ -7,19 +7,23 @@ public class WeaponSword extends Weapon {
 	
 	// -------------------------------------------------------------------- Constantes
 	
-	public final static short WEAPON_CODE_BLADE = 2;
+	public final static short WEAPON_CODE_SWORD = 2;
 	
-	private static int WEAPON_TIME_BLADE = 10000;
+	private static int LIFE_TIME = 10000;
+	
+	private final WeaponSwordListener mListener;
 	
 	// -------------------------------------------------------- Variables de instancia
 	HarmerSwipeActor mSwipe;
 	
+	private float mRemainingLife;
 		
-	public WeaponSword(JumplingsGameWorld demoWorld) {
-		super(demoWorld);
-		mSwipe = new HarmerSwipeActor(demoWorld);
+	public WeaponSword(JumplingsGameWorld jgWorld, WeaponSwordListener listener) {
+		super(jgWorld);
+		mSwipe = new HarmerSwipeActor(jgWorld);
 		mSwipe.setInitted();
-		demoWorld.addActor(mSwipe);
+		jgWorld.addActor(mSwipe);
+		mListener = listener;
 	}
 
 	@Override
@@ -28,23 +32,40 @@ public class WeaponSword extends Weapon {
 	}
 	
 	public short getWeaponCode() {
-		return WEAPON_CODE_BLADE;
+		return WEAPON_CODE_SWORD;
 	}
 
-	public int getMaxTime() {
-		return WEAPON_TIME_BLADE;
-	}
-	
     @Override
-    public void onStart() {
+    public void onStart(float gameTimeStep ) {
+    	mListener.onSwordStarted();
+    	mRemainingLife = LIFE_TIME;
         mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SHEATH);
     }
 
-    @Override
-    public void onEnd() {
-        mWorld.onBladePowerUpEnd();
-        mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_UNSHEATH);
-        mWorld.removeActor(mSwipe);
-    }
+	@Override
+	public void processFrame(float gameTimeStep) {
+        if (mListener == null) {
+        	return;
+        }
+        mRemainingLife -= gameTimeStep;
+		if (mRemainingLife > 0) {
+			mListener.onSwordRemainingTimeUpdated(mRemainingLife / LIFE_TIME);
+        } else {
+        	mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_UNSHEATH);
+        	mWorld.removeActor(mSwipe);
+        	mListener.onSwordEnded();
+        }
+	}
 
+	/**
+	 * Listener of the events produced by the sword
+	 */
+	public static interface WeaponSwordListener {
+		public void onSwordStarted();
+		/**
+		 * @param remaining, between 0 and 1
+		 */
+		public void onSwordRemainingTimeUpdated(float remaining);
+		public void onSwordEnded();
+	}
 }

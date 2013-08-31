@@ -17,7 +17,7 @@ import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
 import com.garrapeta.gameengine.module.SoundModule;
 import com.garrapeta.gameengine.module.VibrationModule;
-import com.garrapeta.jumplings.actor.BladePowerUpActor;
+import com.garrapeta.jumplings.WeaponSword.WeaponSwordListener;
 import com.garrapeta.jumplings.actor.BombActor;
 import com.garrapeta.jumplings.actor.ComboTextActor;
 import com.garrapeta.jumplings.actor.EnemyActor;
@@ -34,7 +34,7 @@ import com.garrapeta.jumplings.scenario.IScenario;
  * 
  * @author GaRRaPeTa
  */
-public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListener, GameEventsListener {
+public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListener, GameEventsListener, WeaponSwordListener {
 
     // -------------------------------------------------------- Constantes
 
@@ -42,7 +42,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public static final int WEAPON_GUN = 0;
     public static final int WEAPON_SHOTGUN = 1;
-    public static final int WEAPON_BLADE = 2;
+    public static final int WEAPON_SWORD = 2;
 
     // ------------------------------------ Consantes de sonidos y vibraciones
 
@@ -250,12 +250,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     @Override
     public boolean processFrame(float gameTimeStep) {
-        if (mWeapon.getWeaponCode() != WeaponSlap.WEAPON_CODE_GUN) {
-            if (mWeapon.getRemainingTime() <= 0) {
-                setWeapon(WeaponSlap.WEAPON_CODE_GUN);
-            } else {
-                mGameActivity.updateSpecialWeaponBar();
-            }
+        if (mWeapon != null) {
+        	mWeapon.processFrame(gameTimeStep);
         }
 
         super.processFrame(gameTimeStep);
@@ -435,34 +431,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         return true;
     }
     
-    @Override
-    public boolean onBladePowerUpStart(BladePowerUpActor bladePowerUpActor) {
-       if (!mGameActivity.isGameOver()) {
-
-           if (mWave.onBladePowerUpStart(bladePowerUpActor)) {
-               return true;
-           }
-           
-           mTutorial.onBladePowerUpStart(bladePowerUpActor);
-
-           onPostBladePowerUp(bladePowerUpActor);
-       }
-       return true;
-   }
-    
-    @Override
-    public boolean onBladePowerUpEnd() {
-       if (!mGameActivity.isGameOver()) {
-
-           if (mWave.onBladePowerUpEnd()) {
-               return true;
-           }
-           
-           mTutorial.onBladePowerUpEnd();
-
-       }
-       return true;
-   }
     public void onPostEnemyScaped(EnemyActor e) {
         mFlashModule.flash(FlashModule.ENEMY_SCAPED_KEY);
         onFail();
@@ -479,11 +447,6 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mPlayer.addLifes(1);
     }
     
-    private void onPostBladePowerUp(BladePowerUpActor bladePowerUpActor) {
-        setWeapon(WeaponSword.WEAPON_CODE_BLADE);
-        mFlashModule.flash(FlashModule.BLADE_DRAWN_KEY);
-    }
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (!mGameActivity.isGameOver() && !isPaused()) {
@@ -499,34 +462,52 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     public void setWeapon(short weaponId) {
-        if (mWeapon != null) {
-            mWeapon.onEnd();
-        }
-        boolean active = false;
         switch (weaponId) {
         case WeaponSlap.WEAPON_CODE_GUN:
             mWeapon = new WeaponSlap(this);
-            active = false;
             break;
         // case Shotgun.WEAPON_CODE_SHOTGUN:
         // weapon = new Shotgun(this);
         // active = true;
         // break;
-        case WeaponSword.WEAPON_CODE_BLADE:
-            mWeapon = new WeaponSword(this);
-            active = true;
+        case WeaponSword.WEAPON_CODE_SWORD:
+            mWeapon = new WeaponSword(this, this);
             break;
         }
 
-        mWeapon.onStart();
-        mGameActivity.activateSpecialWeaponBar(active);
-
+        mWeapon.onStart(currentGameMillis());
+        
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         if (PermData.areDebugFeaturesEnabled(mActivity)) {
-            mGameActivity.updateWeaponsRadioGroup(weaponId);
+//            mGameActivity.updateWeaponsRadioGroup(weaponId);
         }
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     }
+    
+	@Override
+	public void onSwordStarted() {
+	   mGameActivity.onSwordStarted();
+       mFlashModule.flash(FlashModule.SWORD_DRAWN_KEY);
+       
+       if (!mGameActivity.isGameOver() && mTutorial != null) {
+           mTutorial.onSwordStarted();
+       }
+	}
+	
+	@Override
+	public void onSwordRemainingTimeUpdated(float remaining) {
+        mGameActivity.updateSwordRemainingTimeUpdated(remaining);
+	}
+
+	@Override
+	public void onSwordEnded() {
+		mGameActivity.onSwordEnded();
+		setWeapon(WeaponSlap.WEAPON_CODE_GUN);
+		
+        if (!mGameActivity.isGameOver() && mTutorial != null) {
+      	    mTutorial.onSwordEnded();
+        }
+	}
 
     /**
      * Método ejecutado cuando el jugador falla

@@ -56,8 +56,8 @@ public abstract class MainActor extends JumplingActor<JumplingsGameWorld> {
 			return BombActor.getBombBaseThread();
 		case LifePowerUpActor.JUMPER_CODE_POWER_UP_LIFE:
 			return LifePowerUpActor.getLifePowerUpBaseThread();
-		case BladePowerUpActor.JUMPER_CODE_POWER_UP_BLADE:
-			return BladePowerUpActor.getBladePowerUpBaseThread();
+		case SwordPowerUpActor.JUMPER_CODE_POWER_UP_SWORD:
+			return SwordPowerUpActor.getSwordPowerUpBaseThread();
 		}
 		
 		throw new IllegalArgumentException("Unknown mainActor code: " + code);

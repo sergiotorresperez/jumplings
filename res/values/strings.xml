@@ -125,8 +125,8 @@
     <string name="tip_splitter_enemy_killed">The yellow ones split when you tap on them!</string>
     <string name="tip_bomb_exploded">Bombs are not meant to be tapped! Not this time, but next you\'ll lose a life.</string>
     <string name="tip_life_power_up">Extra life!</string>
-    <string name="tip_blade_power_up_start">You\'ve got the blade! Swipe through the screen to use it&#8230; and be careful, it will only last for a few seconds!</string>
-    <string name="tip_blade_power_up_end">The blade is over&#8230; now tap on them, us usual&#8230;</string>
+    <string name="tip_sword_power_up_start">You\'ve got the sword! Swipe through the screen to use it&#8230; and be careful, it will only last for a few seconds!</string>
+    <string name="tip_sword_power_up_end">The sword is over&#8230; now tap on them, us usual&#8230;</string>
     
 
 </resources>

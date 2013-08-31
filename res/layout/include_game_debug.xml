@@ -56,31 +56,15 @@
         android:text="Test"
         android:visibility="gone" />
 
-    <!-- weapons group -->
-
-    <RadioGroup
-        android:id="@+id/game_weaponsBtnGroup"
+    <!-- sword button -->
+    <com.garrapeta.jumplings.ui.CustomFontButton
+        android:id="@+id/game_swordBtn"
+        style="@style/ColorfulButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/game_testBtn"
-        android:orientation="horizontal"
-        android:visibility="gone" >
-
-        <RadioButton
-            android:id="@+id/game_weaponsRadioBtnGun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gun" >
-        </RadioButton>
-
-        <RadioButton
-            android:id="@+id/game_weaponsRadioBtnBlade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Blade" >
-        </RadioButton>
-    </RadioGroup>
-    <!-- /weapons group -->
-
+        android:text="Sword"
+        android:visibility="gone" />
+    
 </RelativeLayout>

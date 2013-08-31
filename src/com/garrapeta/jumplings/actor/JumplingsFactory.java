@@ -31,7 +31,7 @@ public class JumplingsFactory {
     private Pool<DoubleSonEnemyActor> mDoubleSonEnemyActorPool;
     private Pool<SplitterEnemyActor> mSplitterEnemyActorPool;
     private Pool<BombActor> mBombActorPool;
-    private Pool<BladePowerUpActor> mBladePowerUpActorPool;
+    private Pool<SwordPowerUpActor> mSwordPowerUpActorPool;
     private Pool<LifePowerUpActor> mLifePowerUpActorPool;
 
     public JumplingsFactory(JumplingsWorld jumplingsWorld) {
@@ -91,10 +91,10 @@ public class JumplingsFactory {
                     return new BombActor(jumplingsGameWorld);
                 }
             };
-            mBladePowerUpActorPool = new Pool<BladePowerUpActor>(2, MAX_INSTANCES) {
+            mSwordPowerUpActorPool = new Pool<SwordPowerUpActor>(2, MAX_INSTANCES) {
                 @Override
-                protected BladePowerUpActor newObject() {
-                    return new BladePowerUpActor(jumplingsGameWorld);
+                protected SwordPowerUpActor newObject() {
+                    return new SwordPowerUpActor(jumplingsGameWorld);
                 }
             };
             mLifePowerUpActorPool = new Pool<LifePowerUpActor>(2, MAX_INSTANCES) {
@@ -164,9 +164,9 @@ public class JumplingsFactory {
         return actor;
     }
 
-    public BladePowerUpActor getBladePowerUpActor(PointF worldPos) {
-        BladePowerUpActor actor = mBladePowerUpActorPool.obtain();
-        Log.i(LOG_SRC, "BladePowerUpActor: " + mBladePowerUpActorPool.getDebugString());
+    public SwordPowerUpActor getSwordPowerUpActor(PointF worldPos) {
+        SwordPowerUpActor actor = mSwordPowerUpActorPool.obtain();
+        Log.i(LOG_SRC, "SwordPowerUpActor: " + mSwordPowerUpActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
@@ -211,8 +211,8 @@ public class JumplingsFactory {
         mBombActorPool.free(actor);
     }
  
-    public void free(BladePowerUpActor actor) {
-        mBladePowerUpActorPool.free(actor);
+    public void free(SwordPowerUpActor actor) {
+        mSwordPowerUpActorPool.free(actor);
     } 
 
     public void free(LifePowerUpActor actor) {
@@ -233,7 +233,7 @@ public class JumplingsFactory {
             mDoubleSonEnemyActorPool.clear();
             mSplitterEnemyActorPool.clear();
             mBombActorPool.clear();
-            mBladePowerUpActorPool.clear();
+            mSwordPowerUpActorPool.clear();
             mLifePowerUpActorPool.clear();
         }
     }

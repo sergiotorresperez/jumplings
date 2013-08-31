@@ -119,7 +119,7 @@ public class HarmerSwipeActor extends HarmerActor {
                         mTimestamp = System.currentTimeMillis();
 
                         getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SWING);
-                        getWorld().mFlashModule.flash(FlashModule.BLADE_SWING_KEY);
+                        getWorld().mFlashModule.flash(FlashModule.SWORD_SWING_KEY);
                     }
                 } else {
                     if (dist < MIN_STOP_DISTANCE) {

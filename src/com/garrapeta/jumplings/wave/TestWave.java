@@ -37,8 +37,8 @@ public class TestWave extends Wave<JumplingsGameWorld> {
         super(jgWorld, 0);
         mJgWorld = jgWorld;
         if (PermData.areDebugFeaturesEnabled(mJgWorld.mGameActivity)) {
-            mJgWorld.mGameActivity.testBtn.setVisibility(View.VISIBLE);
-            mJgWorld.mGameActivity.weaponsRadioGroup.setVisibility(View.VISIBLE);
+            mJgWorld.mGameActivity.mTestBtn.setVisibility(View.VISIBLE);
+            mJgWorld.mGameActivity.mSwordBtn.setVisibility(View.VISIBLE);
             mJgWorld.setGravityY(-1);
         }
 
