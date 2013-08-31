@@ -38,7 +38,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     // -------------------------------------------------------- Constantes
 
-    public static final float LIFE_LOSS_FACTOR = 5;
+    public static final int INVULNERABILITY_TIME_ENEMY_SCAPED = 2000;
+    public static final int INVULNERABILITY_TIME_BOMB_EXPLODED = 4000;
 
     public static final int WEAPON_GUN = 0;
     public static final int WEAPON_SHOTGUN = 1;
@@ -367,10 +368,11 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
                 return true;
             }
             if (mTutorial.onEnemyScaped(enemy)) {
-                mPlayer.makeInvulnerable();
+                mPlayer.makeInvulnerable(INVULNERABILITY_TIME_ENEMY_SCAPED);
                 return true;
             }
-            onPostEnemyScaped(enemy);
+            mFlashModule.flash(FlashModule.ENEMY_SCAPED_KEY);
+            onFail(INVULNERABILITY_TIME_ENEMY_SCAPED);
         }
         return true;
     }
@@ -419,7 +421,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             if (mTutorial.onBombExploded(bomb)) {
                 return true;
             }
-            onPostBombExploded(bomb);
+        	mFlashModule.flash(FlashModule.BOMB_EXPLODED_KEY);
+            onFail(INVULNERABILITY_TIME_BOMB_EXPLODED);
         }
         return true;
     }
@@ -433,26 +436,13 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
             
             mTutorial.onLifePowerUp(lifePowerUpActor);
             
-            onPostLifePowerUp(lifePowerUpActor);
+            getSoundManager().play(SAMPLE_LIFE_UP);
+            mFlashModule.flash(FlashModule.LIFE_UP_KEY);
+            mPlayer.addLifes(1);
         }
         return true;
     }
     
-    public void onPostEnemyScaped(EnemyActor e) {
-        mFlashModule.flash(FlashModule.ENEMY_SCAPED_KEY);
-        onFail();
-    }
-
-    private void onPostBombExploded(BombActor bomb) {
-    	mFlashModule.flash(FlashModule.BOMB_EXPLODED_KEY);
-        onFail();
-    }
-
-    private void onPostLifePowerUp(LifePowerUpActor lifePowerUpActor) {
-        getSoundManager().play(SAMPLE_LIFE_UP);
-        mFlashModule.flash(FlashModule.LIFE_UP_KEY);
-        mPlayer.addLifes(1);
-    }
     
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -517,15 +507,16 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 	}
 
     /**
-     * Método ejecutado cuando el jugador falla
+     * Executed when the player fails
+     * @param invulnerabilityTime
      */
-    private void onFail() {
+    private void onFail(int invulnerabilityTime) {
         if (!mWave.onFail()) {
             getSoundManager().play(SAMPLE_FAIL);
             getVibratorManager().vibrate(VIBRATION_FAIL_KEY);
 
             mPlayer.subLifes(1);
-            mPlayer.makeInvulnerable();
+            mPlayer.makeInvulnerable(invulnerabilityTime);
 
             mShakeModule.shake(ShakeModule.PLAYER_FAIL_SHAKE);
             if (mPlayer.getLifes() <= 0) {

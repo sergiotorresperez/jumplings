@@ -21,8 +21,6 @@ public class Player {
     public static final int COMBO_MAX_SPACING_TIME = 350;
 
     public static final int BASE_POINTS = 5;
-    
-    public static final float INVULNERABLE_TIME = 1500;
 
     // --------------------------------------------- Variables de instancia
 
@@ -134,8 +132,8 @@ public class Player {
         this.mIsVulnerable = true;
     }
 
-    public void makeInvulnerable() {
-        this.mIsVulnerable = false;
+    public void makeInvulnerable(int invulnerabilityTime) {
+        mIsVulnerable = false;
         mWorld.mGameActivity.startBlinkingLifeBar();
 
         mWorld.post(new SyncGameMessage() {
@@ -144,7 +142,7 @@ public class Player {
             public void doInGameLoop(GameWorld world) {
                 makeVulnerable();
             }
-        }, INVULNERABLE_TIME);
+        }, invulnerabilityTime);
 
     }
 
