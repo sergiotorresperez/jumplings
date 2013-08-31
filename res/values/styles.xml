@@ -43,6 +43,11 @@
         <item name="android:linksClickable">true</item>
     </style>
 
+    <style name="MainFont.Toast">
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="MainFont.GameScore">
         <item name="android:textColor">@color/secondary_text_colour</item>
     </style>
@@ -62,11 +67,11 @@
         <item name="android:paddingRight">10dp</item>
     </style>
 
-    <style name="ColorfulButton.Menu" >
+    <style name="ColorfulButton.Menu">
         <item name="android:minWidth">@dimen/menu_activity_button_min_size</item>
         <item name="android:minHeight">@dimen/menu_activity_button_min_size</item>
     </style>
-    
+
     <style name="TransparentButton" parent="@android:style/Widget.Button">
         <item name="fontPath">fonts/SFGrungeSans.ttf</item>
         <item name="android:background">@drawable/transparent_button_background_selector</item>

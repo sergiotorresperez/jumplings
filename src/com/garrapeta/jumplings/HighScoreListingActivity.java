@@ -22,7 +22,6 @@ import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.comms.BackendConnectionException;
@@ -32,6 +31,7 @@ import com.garrapeta.jumplings.comms.RequestFactory;
 import com.garrapeta.jumplings.comms.RequestModel;
 import com.garrapeta.jumplings.comms.ResponseModel;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
+import com.garrapeta.jumplings.ui.JumplingsToast;
 import com.garrapeta.jumplings.util.Utils;
 
 @SuppressWarnings("deprecation")
@@ -167,7 +167,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
                 if (Utils.isNetworkAvailable(HighScoreListingActivity.this)) {
                     submitScores();
                 } else {
-                    Toast.makeText(HighScoreListingActivity.this, R.string.highscores_error_connection, Toast.LENGTH_LONG).show();
+                	JumplingsToast.show(HighScoreListingActivity.this, R.string.highscores_error_connection, JumplingsToast.LENGTH_LONG);
                 }
             }
         });
@@ -279,8 +279,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     private void onScoresSubmitted() {
         // Los scores se han mandado al servidor
 
-        Toast toast = Toast.makeText(HighScoreListingActivity.this, R.string.highscores_submit_score_ok, Toast.LENGTH_LONG);
-        toast.show();
+    	JumplingsToast.show(this, R.string.highscores_submit_score_ok, JumplingsToast.LENGTH_LONG);
         
         PermData.setLocalScoresSubmissionPending(this, false);
         updateSubmitScoresBtnVisibility();
@@ -398,7 +397,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     // FIXME: externalize and localize error message
     private void notifyError(int errorMessageResId, Exception error) {
     	setHttpRequestProgressBarVisible(false);
-    	Toast.makeText(this, errorMessageResId, Toast.LENGTH_LONG).show();
+    	JumplingsToast.show(this, errorMessageResId, JumplingsToast.LENGTH_LONG);
     }
     
     // -------------------------------------------------OnTabChangeListener methods

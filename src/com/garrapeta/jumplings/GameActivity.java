@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.garrapeta.gameengine.GameView;
 import com.garrapeta.jumplings.Tutorial.TipDialogFragment.TipDialogListener;
@@ -24,6 +23,7 @@ import com.garrapeta.jumplings.ui.AdDialogHelper;
 import com.garrapeta.jumplings.ui.AdDialogHelper.AdDialogListener;
 import com.garrapeta.jumplings.ui.GameOverDialogFactory;
 import com.garrapeta.jumplings.ui.GameOverDialogFactory.GameOverDialogFragment.GameOverDialogListener;
+import com.garrapeta.jumplings.ui.JumplingsToast;
 import com.garrapeta.jumplings.ui.PauseDialogFactory;
 import com.garrapeta.jumplings.ui.PauseDialogFactory.PauseDialogFragment.PauseDialogListener;
 import com.garrapeta.jumplings.wave.CampaignWave;
@@ -545,7 +545,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
                 String message =  getString(R.string.game_level, level);
                 TextView levelTextView = (TextView) findViewById(R.id.game_levelTextView);
                 levelTextView.setText(message);
-                Toast.makeText(GameActivity.this, message, Toast.LENGTH_SHORT).show();
+                JumplingsToast.show(GameActivity.this, message, JumplingsToast.LENGTH_SHORT);
             }
         });
     }
