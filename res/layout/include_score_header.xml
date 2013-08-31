@@ -1,51 +1,52 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-          android:orientation="horizontal" 
-          android:layout_height="wrap_content" 
-          android:layout_width="fill_parent" 
-          style="@style/MainFont.ScoreListHeaderLayout"
-          >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MainFont.ScoreListHeaderLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/highscores_activity_list_padding"
+    android:paddingRight="@dimen/highscores_activity_list_padding" >
 
-		<com.garrapeta.jumplings.ui.CustomFontTextView
-		    android:id="@+id/scoreHeader_index"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="0.05"
-		    android:text="@string/highscores_header_number"
-		    style="@style/MainFont.ScoreListHeaderText"/>
-			          
-		<com.garrapeta.jumplings.ui.CustomFontTextView
-		    android:id="@+id/scoreHeader_playerName"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="0.45"
-		    android:text="@string/highscores_header_player_name"
-		    style="@style/MainFont.ScoreListHeaderText"/>
-			
-		<com.garrapeta.jumplings.ui.CustomFontTextView
-		    android:id="@+id/scoreHeader_globalRank"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="0.20"
-		    android:text="@string/highscores_header_global_rank"
-		    android:gravity="right"
-		    style="@style/MainFont.ScoreListHeaderText"/>
-				
-		<com.garrapeta.jumplings.ui.CustomFontTextView 
-		    android:id="@+id/scoreHeader_level"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="0.10"
-		    android:text="@string/highscores_header_level"
-		    android:gravity="right"
-		    style="@style/MainFont.ScoreListHeaderText"/>
-		
-		<com.garrapeta.jumplings.ui.CustomFontTextView 
-		    android:id="@+id/scoreHeader_score"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="0.2"
-		    android:text="@string/highscores_header_score"
-		    android:gravity="right"
-		    style="@style/MainFont.ScoreListHeaderText"/>
+    <com.garrapeta.jumplings.ui.CustomFontTextView
+        android:id="@+id/scoreHeader_index"
+        style="@style/MainFont.ScoreListHeaderText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
+        android:text="@string/highscores_header_number" />
+
+    <com.garrapeta.jumplings.ui.CustomFontTextView
+        android:id="@+id/scoreHeader_playerName"
+        style="@style/MainFont.ScoreListHeaderText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.45"
+        android:text="@string/highscores_header_player_name" />
+
+    <com.garrapeta.jumplings.ui.CustomFontTextView
+        android:id="@+id/scoreHeader_globalRank"
+        style="@style/MainFont.ScoreListHeaderText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.20"
+        android:gravity="right"
+        android:text="@string/highscores_header_global_rank" />
+
+    <com.garrapeta.jumplings.ui.CustomFontTextView
+        android:id="@+id/scoreHeader_level"
+        style="@style/MainFont.ScoreListHeaderText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.10"
+        android:gravity="right"
+        android:text="@string/highscores_header_level" />
+
+    <com.garrapeta.jumplings.ui.CustomFontTextView
+        android:id="@+id/scoreHeader_score"
+        style="@style/MainFont.ScoreListHeaderText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:gravity="right"
+        android:text="@string/highscores_header_score" />
 
 </LinearLayout>

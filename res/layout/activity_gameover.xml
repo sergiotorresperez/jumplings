@@ -80,6 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/gameover_playerNameEditText"
+                    android:layout_marginLeft="@dimen/ui_spacing"
                     android:layout_alignBottom="@+id/gameover_playerNameEditText"
                     android:text="@string/nav_ok" />
                 
@@ -117,6 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/icon_score"
+                        android:layout_marginLeft="@dimen/ui_spacing"
                         android:text="@string/gameover_view_high_scores" />
                 </LinearLayout>
 
@@ -124,6 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/ui_spacing"
                     android:orientation="horizontal" >
 
                     <com.garrapeta.jumplings.ui.CustomFontButton
@@ -138,6 +141,7 @@
                         style="@style/ColorfulButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/ui_spacing"
                         android:text="@string/nav_menu" />
                 </LinearLayout>
             </LinearLayout>

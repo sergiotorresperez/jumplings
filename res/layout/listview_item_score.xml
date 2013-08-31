@@ -1,8 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-          android:orientation="horizontal" 
-          android:layout_height="wrap_content" 
-          android:layout_width="fill_parent"  
-          >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/highscores_activity_list_padding"
+    android:paddingRight="@dimen/highscores_activity_list_padding" >
 
 		<com.garrapeta.jumplings.ui.CustomFontTextView  
 		    android:id="@+id/scoreItem_index"

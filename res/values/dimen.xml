@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="ui_spacing"> 2.2dp </dimen>
+    
+    <dimen name="highscores_activity_list_padding"> 12dp </dimen>
     <dimen name="dialog_width"> 350dp </dimen>
     <dimen name="about_activity_vertical_spacing"> 25dp </dimen>
     <dimen name="about_activity_popup_vertical_margin"> 22dp </dimen>
