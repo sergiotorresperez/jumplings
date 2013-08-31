@@ -59,7 +59,8 @@
     <string name="gameover_beaten">¡Has batido la puntuación máxima!</string>
     <string name="gameover_highscore_is">"La puntuación máxima es %1$d"</string>
     <string name="gameover_share">"He conseguido %1$d puntos en Los Jumplings!. Bájatelo gratis de http://play.google.com/store/apps/details?id=com.garrapeta.jumplings"</string>
-
+ 	<string name="gameover_invalid_username">"Introduce un nombre con por  %1$d caracteres por como mínimo"</string>
+ 
     <!-- High scores activity -->
     <string name="highscores_submit">Mandar</string>
     <string name="highscores_clear">Borrar</string>

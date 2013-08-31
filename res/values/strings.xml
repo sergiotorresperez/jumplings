@@ -60,6 +60,7 @@
     <string name="gameover_beaten">You\'ve beaten the high score!</string>
     <string name="gameover_highscore_is">"High score is %1$d"</string>
     <string name="gameover_share">"I've achieved %1$d points in The Jumplings!. Download it for free at http://play.google.com/store/apps/details?id=com.garrapeta.jumplings"</string>
+    <string name="gameover_invalid_username">"Enter a name at least %1$d characters long"</string>
 
     <!-- High scores activity -->
     <string name="highscores_submit">Submit</string>

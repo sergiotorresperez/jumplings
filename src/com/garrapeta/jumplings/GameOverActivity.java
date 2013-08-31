@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
+import com.garrapeta.jumplings.ui.JumplingsToast;
 import com.garrapeta.jumplings.util.Utils;
 
 /**
@@ -34,7 +35,7 @@ public class GameOverActivity extends Activity {
 	public static final String NEW_HIGHSCORE_KEY = Score.class.getCanonicalName();
 
 	/** Minimum length of the username */
-	private static final int MINIMUM_NAME_LENGTH = 4;
+	private static final int MINIMUM_NAME_LENGTH = 5;
 
 	// ------------------------------------------------------------------
 	// Variables
@@ -45,14 +46,11 @@ public class GameOverActivity extends Activity {
 
 	private EditText mPlayerNameEditText;
 
-	private View scoreIntroductionView;
-	private View nextActionView;
-
-	/** Si el score es lo suficientemente alto para ser grabado */
-	private boolean newHighScore = false;
+	private View mScoreIntroductionView;
+	private View mNextActionView;
 
 	/** Wave de la partida jugada */
-	private String waveKey;
+	private String mWaveKey;
 
 	// -------------------------------------------------------- Variables
 	// est�ticas
@@ -68,11 +66,11 @@ public class GameOverActivity extends Activity {
 		Log.i(JumplingsApplication.LOG_SRC, "onCreate " + this);
 
 		// Wave y botones
-		waveKey = null;
+		mWaveKey = null;
 
 		Bundle b = getIntent().getExtras();
 		if (b != null) {
-			waveKey = b.getString(GameActivity.WAVE_BUNDLE_KEY);
+			mWaveKey = b.getString(GameActivity.WAVE_BUNDLE_KEY);
 			mPlayerScore = (Score) b.getParcelable(NEW_HIGHSCORE_KEY);
 		}
 
@@ -111,12 +109,13 @@ public class GameOverActivity extends Activity {
 			}
 		});
 
-		newHighScore = mPlayerScore.score > 0
+		final boolean newHighScore = mPlayerScore.score > 0
 				&& Score.getLocalHighScoresPosition(this, mPlayerScore.score) < Score.MAX_LOCAL_HIGHSCORE_COUNT;
 
 		TextView scoreTextView = (TextView) findViewById(R.id.gameover_scoreTextView);
 		final String yourScoreStr = getString(R.string.gameover_your_score, mPlayerScore.score);
 		scoreTextView.setText(yourScoreStr);
+		
 
 		Score highest = PermData.getLocalGetHighScore(this);
 		if (highest != null) {
@@ -131,38 +130,27 @@ public class GameOverActivity extends Activity {
 			}
 		}
 
-		scoreIntroductionView = findViewById(R.id.gameover_nameIntroductionLayout);
-		nextActionView = findViewById(R.id.gameover_nextActionView);
+		mScoreIntroductionView = findViewById(R.id.gameover_nameIntroductionLayout);
+		mNextActionView = findViewById(R.id.gameover_nextActionView);
 
 		if (newHighScore) {
-			scoreIntroductionView.setVisibility(View.VISIBLE);
-			nextActionView.setVisibility(View.INVISIBLE);
-
-			mSaveScoreButton = (Button) findViewById(R.id.gameover_saveScoreBtn);
-			mSaveScoreButton.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-					imm.hideSoftInputFromWindow(mPlayerNameEditText.getWindowToken(), 0);
-					saveHighScore();
-				}
-			});
+			mScoreIntroductionView.setVisibility(View.VISIBLE);
+			mNextActionView.setVisibility(View.INVISIBLE);
 
 			mPlayerNameEditText = (EditText) findViewById(R.id.gameover_playerNameEditText);
+			mPlayerNameEditText.setText(PermData.getLastPlayerName(this));
+			int textLength = mPlayerNameEditText.getText().length();
+			mPlayerNameEditText.setSelection(textLength, textLength);
 
 			mPlayerNameEditText.addTextChangedListener(new TextWatcher() {
 
 				@Override
-				public void onTextChanged(CharSequence s, int start,
-						int before, int count) {
-					String text = s.toString();
-					mSaveScoreButton.setEnabled(text != null
-							&& text.trim().length() >= MINIMUM_NAME_LENGTH);
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+					onUsernameEditTextChanged(s);
 				}
 
 				@Override
-				public void beforeTextChanged(CharSequence s, int start,
-						int count, int after) {
+				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 				}
 
 				@Override
@@ -170,8 +158,7 @@ public class GameOverActivity extends Activity {
 				}
 			});
 
-			mPlayerNameEditText
-					.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			mPlayerNameEditText .setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
 						@Override
 						public boolean onEditorAction(TextView tv,
@@ -192,14 +179,27 @@ public class GameOverActivity extends Activity {
 
 						}
 					});
-
-			mPlayerNameEditText.setText(PermData.getLastPlayerName(this));
 		} else {
-			scoreIntroductionView.setVisibility(View.INVISIBLE);
-			nextActionView.setVisibility(View.VISIBLE);
+			mScoreIntroductionView.setVisibility(View.INVISIBLE);
+			mNextActionView.setVisibility(View.VISIBLE);
 		}
 
-		if (waveKey != null) {
+		mSaveScoreButton = (Button) findViewById(R.id.gameover_saveScoreBtn);
+		mSaveScoreButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (isUsernameValid(mPlayerNameEditText.getText())) {
+					InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(mPlayerNameEditText.getWindowToken(), 0);
+					saveHighScore();
+				} else {
+					final String message = getResources().getString(R.string.gameover_invalid_username, MINIMUM_NAME_LENGTH);
+					JumplingsToast.show(GameOverActivity.this, message, JumplingsToast.LENGTH_LONG);
+				}
+			}
+		});
+		
+		if (mWaveKey != null) {
 			Button replayButton = (Button) findViewById(R.id.gameover_replayBtn);
 			replayButton.setOnClickListener(new OnClickListener() {
 				@Override
@@ -207,7 +207,7 @@ public class GameOverActivity extends Activity {
 					finish();
 					Intent i = new Intent(GameOverActivity.this,
 							GameActivity.class);
-					i.putExtra(GameActivity.WAVE_BUNDLE_KEY, waveKey);
+					i.putExtra(GameActivity.WAVE_BUNDLE_KEY, mWaveKey);
 
 					startActivity(i);
 				}
@@ -259,12 +259,27 @@ public class GameOverActivity extends Activity {
 		PermData.addNewLocalScore(this, mPlayerScore);
 		PermData.setLocalScoresSubmissionPending(this, true);
 
-		scoreIntroductionView.setVisibility(View.INVISIBLE);
-		nextActionView.setVisibility(View.VISIBLE);
+		mScoreIntroductionView.setVisibility(View.INVISIBLE);
+		mNextActionView.setVisibility(View.VISIBLE);
 	}
 
 	private String getShareScoreMessage() {
 		return getString(R.string.gameover_share, mPlayerScore.score);
+	}
+	
+	private void onUsernameEditTextChanged(CharSequence text) {
+		// NOTE: instead of disabling the text we just change the background.
+		//       we want to capture the click event even if the name is not valid to prompt a message
+		if (isUsernameValid(text)) {
+			mSaveScoreButton.setBackgroundResource(R.drawable.colorful_button_enabled);
+		} else {
+			mSaveScoreButton.setBackgroundResource(R.drawable.colorful_button_disabled);
+		}
+	}
+	
+	private boolean isUsernameValid(CharSequence text) {
+		text = text.toString().trim();
+		return (text != null && text.length() >= MINIMUM_NAME_LENGTH);
 	}
 
 }
