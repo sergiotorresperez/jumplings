@@ -9,8 +9,9 @@
 
     <TabHost
         android:id="@android:id/tabhost"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/highscoresListing_buttons"
         android:layout_alignParentTop="true" >
 
         <LinearLayout
@@ -87,30 +88,29 @@
         </LinearLayout>
     </TabHost>
 
-    <!-- ADMOB -->
-
-    <com.google.ads.AdView
-        android:id="@+id/highscoresListing_advertising_banner_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/admob_off_game_ad_unit"
-        ads:loadAdOnCreate="true"
-        ads:testDevices="" />
-    <!-- /ADMOB -->
-
-
     <!-- Botones -->
 
     <LinearLayout
         android:id="@+id/highscoresListing_buttons"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/highscoresListing_advertising_banner_view"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <!-- ADMOB -->
+
+        <com.google.ads.AdView
+            android:id="@+id/highscoresListing_advertising_banner_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/admob_off_game_ad_unit"
+            ads:loadAdOnCreate="true"
+            ads:testDevices="" />
+        <!-- /ADMOB -->
 
         <com.garrapeta.jumplings.ui.CustomFontButton
             android:id="@+id/highscoresListing_clearLocalScoresBtn"
@@ -140,8 +140,8 @@
         android:id="@+id/highscoresListing_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-		android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_marginRight="6dip"
         android:indeterminate="true" />
 
