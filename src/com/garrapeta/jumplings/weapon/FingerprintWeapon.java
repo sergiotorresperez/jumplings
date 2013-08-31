@@ -193,7 +193,6 @@ public class FingerprintWeapon extends Weapon {
 	        if (!mAlreadyKilled) {
 	            if (hits(mainActor)) {
 	                mAlreadyKilled = true;
-	                mLifeTime = Math.min(mLifeTime, LONGEVITY / 3);
 	                return true;
 	            }
 	        }

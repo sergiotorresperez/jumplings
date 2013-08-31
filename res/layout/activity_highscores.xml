@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/highscoresListing_buttons"
-        android:layout_alignParentTop="true"  >
+        android:layout_alignParentTop="true" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -90,16 +90,15 @@
 
     <!-- Botones -->
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/highscoresListing_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:orientation="horizontal"
+        android:gravity="right"
         android:paddingLeft="@dimen/ui_spacing"
-        android:paddingRight="@dimen/ui_spacing"
-        android:gravity="right">
+        android:paddingRight="@dimen/ui_spacing" >
 
         <!-- ADMOB -->
 
@@ -107,38 +106,44 @@
             android:id="@+id/highscoresListing_advertising_banner_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
             ads:adSize="BANNER"
             ads:adUnitId="@string/admob_off_game_ad_unit"
             ads:loadAdOnCreate="true"
             ads:testDevices="" />
         <!-- /ADMOB -->
 
-        <com.garrapeta.jumplings.ui.CustomFontButton
-            android:id="@+id/highscoresListing_clearLocalScoresBtn"
-            style="@style/ColorfulButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/ui_spacing"
-            android:text="@string/highscores_clear"
-            android:visibility="gone" />
+            android:gravity="right"
+            android:layout_marginLeft="@dimen/ui_spacing" >
 
-        <com.garrapeta.jumplings.ui.CustomFontButton
-            android:id="@+id/highscoresListing_submitBtn"
-            style="@style/ColorfulButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/ui_spacing"
-            android:text="@string/highscores_submit" />
+            <com.garrapeta.jumplings.ui.CustomFontButton
+                android:id="@+id/highscoresListing_clearLocalScoresBtn"
+                style="@style/ColorfulButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscores_clear"
+                android:visibility="gone" />
 
-        <com.garrapeta.jumplings.ui.CustomFontButton
-            android:id="@+id/highscoresListing_backBtn"
-            style="@style/ColorfulButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/ui_spacing"
-            android:text="@string/nav_back" />
-    </LinearLayout>
+	        <com.garrapeta.jumplings.ui.CustomFontButton
+	            android:id="@+id/highscoresListing_submitBtn"
+	            style="@style/ColorfulButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="@dimen/ui_spacing"
+	            android:text="@string/highscores_submit" />
+	
+	        <com.garrapeta.jumplings.ui.CustomFontButton
+	            android:id="@+id/highscoresListing_backBtn"
+	            style="@style/ColorfulButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="@dimen/ui_spacing"
+	            android:text="@string/nav_back" />
+	        </LinearLayout>
+    </RelativeLayout>
     <!-- /Botones -->
 
     <ProgressBar
