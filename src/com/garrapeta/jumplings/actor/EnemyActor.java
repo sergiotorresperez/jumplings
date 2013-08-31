@@ -87,8 +87,7 @@ public abstract class EnemyActor extends MainActor implements IBumpable {
         getWorld().onEnemyActorAdded(this);
 
         if (getWorldPos().y > getWorld().mViewport.getWorldBoundaries().top) {
-            // TODO: sample when enemy falls
-            // mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_THROW);
+        	getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_DROP);
         } else {
             getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_BOING);
         }

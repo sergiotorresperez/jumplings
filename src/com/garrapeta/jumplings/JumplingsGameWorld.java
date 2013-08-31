@@ -47,7 +47,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     // ------------------------------------ Consantes de sonidos y vibraciones
 
     public static final short SAMPLE_ENEMY_BOING = 1;
-    public static final short SAMPLE_ENEMY_THROW = 2;
+    public static final short SAMPLE_ENEMY_DROP = 2;
     public static final short SAMPLE_ENEMY_KILLED = 3;
     public static final short SAMPLE_FAIL = 4;
 
@@ -233,7 +233,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         
         SoundModule sm = getSoundManager();
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_BOING).add(R.raw.boing1).add(R.raw.boing2).add(R.raw.boing3);
-        sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_THROW).add(R.raw.whip);
+        sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_DROP).add(R.raw.drop);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_KILLED).add(R.raw.crush);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_FAIL).add(R.raw.wrong);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_SLAP).add(R.raw.whip);
