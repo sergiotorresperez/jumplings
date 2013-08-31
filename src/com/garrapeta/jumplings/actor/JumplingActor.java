@@ -49,7 +49,7 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
      * Radio de la circunferencia circunscrita en el cuerpo del enemigo, en
      * unidades del mundo.
      */
-    protected float mRadius;
+    public float mRadius;
 
     /**
      * Si el enemigo ha llegado a entrar dentro de los bounds del juego. Si el

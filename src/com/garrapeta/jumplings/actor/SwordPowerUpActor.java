@@ -3,7 +3,7 @@ package com.garrapeta.jumplings.actor;
 import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.R;
-import com.garrapeta.jumplings.WeaponSword;
+import com.garrapeta.jumplings.weapon.SwordWeapon;
 
 public class SwordPowerUpActor extends PowerUpActor {
 
@@ -47,7 +47,7 @@ public class SwordPowerUpActor extends PowerUpActor {
     }
     @Override
     public void onHitted() {
-        getWorld().setWeapon(WeaponSword.WEAPON_CODE_SWORD);
+        getWorld().setWeapon(SwordWeapon.WEAPON_CODE_SWORD);
         super.onHitted();
     }
 

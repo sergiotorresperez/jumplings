@@ -17,7 +17,6 @@ import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
 import com.garrapeta.gameengine.module.SoundModule;
 import com.garrapeta.gameengine.module.VibrationModule;
-import com.garrapeta.jumplings.WeaponSword.WeaponSwordListener;
 import com.garrapeta.jumplings.actor.BombActor;
 import com.garrapeta.jumplings.actor.ComboTextActor;
 import com.garrapeta.jumplings.actor.EnemyActor;
@@ -28,6 +27,10 @@ import com.garrapeta.jumplings.actor.ScoreTextActor;
 import com.garrapeta.jumplings.module.FlashModule;
 import com.garrapeta.jumplings.module.ShakeModule;
 import com.garrapeta.jumplings.scenario.IScenario;
+import com.garrapeta.jumplings.weapon.FingerprintWeapon;
+import com.garrapeta.jumplings.weapon.Weapon;
+import com.garrapeta.jumplings.weapon.WeaponFactory;
+import com.garrapeta.jumplings.weapon.SwordWeapon.WeaponSwordListener;
 
 /**
  * Mundo del juego
@@ -41,9 +44,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public static final int INVULNERABILITY_TIME_ENEMY_SCAPED = 2000;
     public static final int INVULNERABILITY_TIME_BOMB_EXPLODED = 4000;
 
-    public static final int WEAPON_GUN = 0;
-    public static final int WEAPON_SHOTGUN = 1;
-    public static final int WEAPON_SWORD = 2;
+    public static final int WEAPON_FINGERPRINT = 0;
+    public static final int WEAPON_SWORD = 1;
 
     // ------------------------------------ Consantes de sonidos y vibraciones
 
@@ -52,7 +54,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     public static final short SAMPLE_ENEMY_KILLED = 3;
     public static final short SAMPLE_FAIL = 4;
 
-    public static final short SAMPLE_SLAP = 5;
+    public static final short SAMPLE_FINGERPRINT = 5;
     public static final short SAMPLE_SWORD_SWING = 6;
 
     public static final short SAMPLE_FUSE = 7;
@@ -135,7 +137,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         mFlashModule = new FlashModule(PermData.getFlashConfig(mGameActivity), this);
         
         // Inicializaci�n del arma
-        setWeapon(WeaponSlap.WEAPON_CODE_GUN);
+        setWeapon(FingerprintWeapon.WEAPON_CODE_FINGERPRINT);
 
         // inicialización del tutorial
         mTutorial.init();
@@ -239,7 +241,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_DROP).add(R.raw.drop);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_KILLED).add(R.raw.crush);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_FAIL).add(R.raw.wrong);
-        sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_SLAP).add(R.raw.whip);
+        sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_FINGERPRINT).add(R.raw.whip);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_SWORD_SWING).add(R.raw.sword_swing);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_FUSE).add(R.raw.fuse);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_BOMB_BOOM).add(R.raw.bomb_boom);
@@ -461,26 +463,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     }
 
     public void setWeapon(short weaponId) {
-        switch (weaponId) {
-        case WeaponSlap.WEAPON_CODE_GUN:
-            mWeapon = new WeaponSlap(this);
-            break;
-        // case Shotgun.WEAPON_CODE_SHOTGUN:
-        // weapon = new Shotgun(this);
-        // active = true;
-        // break;
-        case WeaponSword.WEAPON_CODE_SWORD:
-            mWeapon = new WeaponSword(this, this);
-            break;
-        }
-
+    	mWeapon = WeaponFactory.getWeapon(this, weaponId);
         mWeapon.onStart(currentGameMillis());
-        
-        // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-        if (PermData.areDebugFeaturesEnabled(mActivity)) {
-//            mGameActivity.updateWeaponsRadioGroup(weaponId);
-        }
-        // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
     }
     
 	@Override
@@ -501,7 +485,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 	@Override
 	public void onSwordEnded() {
 		mGameActivity.onSwordEnded();
-		setWeapon(WeaponSlap.WEAPON_CODE_GUN);
+		setWeapon(FingerprintWeapon.WEAPON_CODE_FINGERPRINT);
 		
         if (!isGameOver() && mTutorial != null) {
       	    mTutorial.onSwordEnded();

@@ -28,6 +28,7 @@ import com.garrapeta.jumplings.ui.PauseDialogFactory;
 import com.garrapeta.jumplings.ui.PauseDialogFactory.PauseDialogFragment.PauseDialogListener;
 import com.garrapeta.jumplings.wave.CampaignWave;
 import com.garrapeta.jumplings.wave.TestWave;
+import com.garrapeta.jumplings.weapon.SwordWeapon;
 
 public class GameActivity extends FragmentActivity implements TipDialogListener, AdDialogListener, PauseDialogListener, GameOverDialogListener {
 
@@ -151,7 +152,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
             mSwordBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mWorld.setWeapon(WeaponSword.WEAPON_CODE_SWORD);
+                    mWorld.setWeapon(SwordWeapon.WEAPON_CODE_SWORD);
                 }
             });
         }

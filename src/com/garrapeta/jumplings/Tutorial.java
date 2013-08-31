@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.garrapeta.jumplings.WeaponSword.WeaponSwordListener;
 import com.garrapeta.jumplings.actor.BombActor;
 import com.garrapeta.jumplings.actor.DoubleEnemyActor;
 import com.garrapeta.jumplings.actor.EnemyActor;
@@ -21,6 +20,7 @@ import com.garrapeta.jumplings.actor.LifePowerUpActor;
 import com.garrapeta.jumplings.actor.RoundEnemyActor;
 import com.garrapeta.jumplings.actor.SplitterEnemyActor;
 import com.garrapeta.jumplings.ui.CustomDialogBuilder;
+import com.garrapeta.jumplings.weapon.SwordWeapon.WeaponSwordListener;
 
 /**
  * Tutorial that shows tips to help the player learn the different features of the game *
