@@ -8,6 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/gameover_advertising_banner_view"
+        android:layout_alignWithParentIfMissing="true"
         android:orientation="vertical" >
 
         <!-- SCORE INFO LAYOUT -->
@@ -15,7 +17,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical" >
 
             <!-- Score: XX -->
@@ -42,49 +43,47 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10">
+            android:layout_height="match_parent">
 
             <!-- NAME INTRODUCTION -->
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/gameover_nameIntroductionLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:orientation="vertical"
                 android:visibility="invisible" >
+
+                <!-- TODO: ancho del campo especificado de manera absoluta -->
+
+                <EditText
+                    android:id="@+id/gameover_playerNameEditText"
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone|flagNoExtractUi"
+                    android:inputType="textPersonName"
+                    android:layout_centerInParent="true"
+                    android:maxLength="40" >
+                </EditText>
 
                 <com.garrapeta.jumplings.ui.CustomFontTextView
                     style="@style/MainFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/gameover_name" />
+                    android:text="@string/gameover_name" 
+                    android:layout_alignLeft="@+id/gameover_playerNameEditText"
+                    android:layout_above="@+id/gameover_playerNameEditText"/>
 
-                <LinearLayout
+                <com.garrapeta.jumplings.ui.CustomFontButton
+                    android:id="@+id/gameover_saveScoreBtn"
+                    style="@style/ColorfulButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <!-- TODO: ancho del campo especificado de manera absoluta -->
-
-                    <EditText
-                        android:id="@+id/gameover_playerNameEditText"
-                        android:imeOptions="actionDone|flagNoExtractUi"
-                        android:layout_width="210dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:maxLength="40" >
-                    </EditText>
-
-                    <com.garrapeta.jumplings.ui.CustomFontButton
-                        android:id="@+id/gameover_saveScoreBtn"
-                        style="@style/ColorfulButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/nav_ok" />
-                </LinearLayout>
-            </LinearLayout>
+                    android:layout_toRightOf="@+id/gameover_playerNameEditText"
+                    android:layout_alignBottom="@+id/gameover_playerNameEditText"
+                    android:text="@string/nav_ok" />
+                
+            </RelativeLayout>
             <!-- /NAME INTRODUCTION -->
 
 
