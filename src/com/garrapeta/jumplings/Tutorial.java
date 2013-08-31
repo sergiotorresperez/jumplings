@@ -95,11 +95,6 @@ public class Tutorial implements GameEventsListener, WeaponSwordListener{
     }
 
     @Override
-    public boolean onGameOver() {
-        return false;
-    }
-
-    @Override
     public boolean onCombo() {
         showTip(TipId.TIP_ON_COMBO);
         return false;

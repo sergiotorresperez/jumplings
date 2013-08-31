@@ -16,8 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.garrapeta.gameengine.GameView;
-import com.garrapeta.gameengine.GameWorld;
-import com.garrapeta.gameengine.SyncGameMessage;
 import com.garrapeta.jumplings.Tutorial.TipDialogFragment.TipDialogListener;
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper.PurchaseCallback;
@@ -62,10 +60,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     /** Wave actual */
     String waveKey;
 
-    /**
-     * Si el jugador ha muerto
-     */
-    private boolean gameOver = false;
 
     private ImageButton mPauseBtn;
 
@@ -211,7 +205,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     protected void onPause() {
         super.onPause();
         Log.i(JumplingsApplication.LOG_SRC, "onPause " + this);
-        if (!gameOver) {
+        if (!mWorld.isGameOver()) {
             pauseGame();
         }
     }
@@ -231,13 +225,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     protected void onDestroy() {
         super.onDestroy();
         Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
-        mWorld.post(new SyncGameMessage() {
-			@Override
-			public void doInGameLoop(GameWorld world) {
-		        mWorld.finish();
-		        mWorld = null;
-			}
-		});
+        mWorld.finish();
         // If the user presses the on / off button of the phone and the activity
         // is destroyed, we want to show the menu activity when going to the task again.
         finish();
@@ -309,7 +297,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         // If the game is over the game over dialog will be active
         DialogFragment dialog = PauseDialogFactory.create();
         dialog.show(getSupportFragmentManager(),  DIALOG_FRAGMENT_TAG);
-        mPauseBtn.setVisibility(View.GONE);
+        mPauseBtn.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -321,17 +309,9 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     }
 
     /**
-     * @return si el jugador ha muerto
-     */
-    boolean isGameOver() {
-        return gameOver;
-    }
-
-    /**
      * Invocado al morir el jugador
      */
     public void onGameOver() {
-        gameOver = true;
         mWorld.mScenario.onGameOver();
         FlurryHelper.logGameOver(mWorld.currentGameMillis(), mWorld.mWave.getLevel(), mWorld.getPlayer().getScore());
 

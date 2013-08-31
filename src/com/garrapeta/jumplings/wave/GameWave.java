@@ -389,7 +389,7 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
 
     	@Override
     	public final void doInGameLoop(GameWorld world) {
-    		if (!mGameWave.mParent.isGameOver()) {
+    		if (!mGameWave.getWorld().isGameOver()) {
 	    		final float nextPowerUp;
 	    		if (!mGameWave.mParent.isInBetweenWaves()) {
 	    			mGameWave.generatePowerUp();

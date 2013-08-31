@@ -115,11 +115,6 @@ public class CampaignWave extends Wave<JumplingsGameWorld> implements ICampaignW
         mCurrentWave = null;
     }
 
-    @Override
-    public boolean onGameOver() {
-        return mCurrentWave.onGameOver();
-    }
-
     // ---------------------------------- M�todos de IWaveEventListener
 
     @Override
@@ -138,11 +133,6 @@ public class CampaignWave extends Wave<JumplingsGameWorld> implements ICampaignW
 	@Override
 	public boolean isInBetweenWaves() {
 		return mCurrentWave.isCompleted() || !mCurrentWave.isPlaying();
-	}
-	
-	@Override
-	public boolean isGameOver() {
-		return mIsGameOver;
 	}
 
     // ------------------------------------------------ M�todos propios

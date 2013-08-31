@@ -30,9 +30,6 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
 
     /** nivel */
     protected int mLevel;
-    
-    /** If game is over */
-    protected boolean mIsGameOver = false;
 
 
     // ------------------------------------------------ Constructor
@@ -82,17 +79,16 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
         return mLevel;
     }
 
+    protected final T getWorld() {
+        return mWorld;
+    }
+
     @Override
     public boolean onEnemyScaped(EnemyActor e) {
         return false;
     }
     
-    @Override
-    public boolean onGameOver() {
-        mIsGameOver = true;
-        return false;
-    }
-    
+
     @Override
     public boolean onCombo() {
         return false;
@@ -217,10 +213,6 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
     public void onTestButtonClicked(Button testBtn) {
     }
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-
-    protected T getWorld() {
-        return mWorld;
-    }
 
 
 

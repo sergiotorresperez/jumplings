@@ -5,6 +5,4 @@ public interface ICampaignWave {
 	public void onChildWaveStarted();
 	public void onChildWaveEnded();
 	public boolean isInBetweenWaves();
-	public boolean isGameOver();
-	
 }

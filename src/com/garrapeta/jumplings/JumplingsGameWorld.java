@@ -105,6 +105,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     /** Escenario actual */
     IScenario mScenario = null;
 
+    
+    /** If game is over */
+    private boolean mIsGameOver = false;
 
     // ----------------------------------------------------------- Constructor
 
@@ -287,6 +290,13 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     // -------------------------------------------------------- M�todos propios
 
+    /**
+     * @return if the game is over
+     */
+    public boolean isGameOver() {
+    	return mIsGameOver;
+    }
+   
     public void setScenario(IScenario scenario) {
         mScenario = scenario;
     }
@@ -352,7 +362,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     @Override
     public boolean onEnemyScaped(EnemyActor enemy) {
-        if (!mGameActivity.isGameOver() && mPlayer.isVulnerable()) {            
+        if (!isGameOver() && mPlayer.isVulnerable()) {            
             if (mWave.onEnemyScaped(enemy)) {
                 return true;
             }
@@ -365,12 +375,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         return true;
     }
 
-    @Override
-    public boolean onGameOver() {
-        if (mWave.onGameOver()) {
-            return true;
-        }
-        mTutorial.onGameOver();
+
+    private boolean onGameOver() {
+        mIsGameOver = true;
         mGameActivity.onGameOver();
         return true;
     }
@@ -405,7 +412,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     @Override
     public boolean onBombExploded(BombActor bomb) {
-        if (!mGameActivity.isGameOver() && mPlayer.isVulnerable() ) {
+        if (!isGameOver() && mPlayer.isVulnerable() ) {
             if (mWave.onBombExploded(bomb)) {
                 return true;
             }
@@ -419,7 +426,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     @Override
     public boolean onLifePowerUp(LifePowerUpActor lifePowerUpActor) {
-        if (!mGameActivity.isGameOver()) {
+        if (!isGameOver()) {
             if (mWave.onLifePowerUp(lifePowerUpActor)) {
                 return true;
             }
@@ -449,7 +456,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
     
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (!mGameActivity.isGameOver() && !isPaused()) {
+        if (!isGameOver() && !isPaused()) {
             final double[] info = new double[] { event.getAction(), event.getX(), event.getY(), System.currentTimeMillis() };
             post(new SyncGameMessage() {
                 @Override
@@ -489,7 +496,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 	   mGameActivity.onSwordStarted();
        mFlashModule.flash(FlashModule.SWORD_DRAWN_KEY);
        
-       if (!mGameActivity.isGameOver() && mTutorial != null) {
+       if (!isGameOver() && mTutorial != null) {
            mTutorial.onSwordStarted();
        }
 	}
@@ -504,7 +511,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 		mGameActivity.onSwordEnded();
 		setWeapon(WeaponSlap.WEAPON_CODE_GUN);
 		
-        if (!mGameActivity.isGameOver() && mTutorial != null) {
+        if (!isGameOver() && mTutorial != null) {
       	    mTutorial.onSwordEnded();
         }
 	}

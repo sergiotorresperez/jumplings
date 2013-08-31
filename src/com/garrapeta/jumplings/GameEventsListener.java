@@ -14,13 +14,6 @@ public interface GameEventsListener {
     public boolean onEnemyScaped(EnemyActor eenemy) ;
     
     /**
-     * Invocado al morir el jugador
-     * 
-     * @return if the event is consumed
-     */
-    public boolean onGameOver();
-    
-    /**
      * Called when the player makes a Combo
      * 
      * @return if the event is consumed

@@ -3,12 +3,12 @@ package com.garrapeta.jumplings.wave;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.garrapeta.jumplings.JumplingsWorld;
+import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.PermData;
 import com.garrapeta.jumplings.R.id;
 import com.garrapeta.jumplings.Wave;
 
-public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
+public abstract class AllowanceWave<T extends JumplingsGameWorld> extends Wave<T> {
 
     // ----------------------------------------------------- Constantes
 
@@ -44,7 +44,7 @@ public abstract class AllowanceWave<T extends JumplingsWorld> extends Wave<T> {
 
     @Override
     public void onProcessFrame(float stepTime) {
-        if (!mIsGameOver) {
+        if (!getWorld().isGameOver()) {
             if (mThreadBarsEnabled) {
                 updateThreadRatioBar();
                 updateAllowedThreadGenerationBar();
