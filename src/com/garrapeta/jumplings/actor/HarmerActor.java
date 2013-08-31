@@ -1,6 +1,9 @@
 package com.garrapeta.jumplings.actor;
 
+import android.graphics.Bitmap;
+
 import com.garrapeta.gameengine.Actor;
+import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 
 public abstract class HarmerActor extends Actor<JumplingsGameWorld> {
@@ -11,7 +14,7 @@ public abstract class HarmerActor extends Actor<JumplingsGameWorld> {
      * Z-Index del actor
      */
     public final static int Z_INDEX = 20;
-
+    
     public HarmerActor(JumplingsGameWorld world) {
         super(world, 100);
     }

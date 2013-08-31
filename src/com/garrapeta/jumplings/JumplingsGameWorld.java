@@ -228,6 +228,8 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         bm.loadBitmap(resources, R.drawable.powerup_debris_sword);
         bm.loadBitmap(resources, R.drawable.powerup_heart);
         bm.loadBitmap(resources, R.drawable.powerup_debris_heart);
+        
+        bm.loadBitmap(resources, R.drawable.fingerprint);
 
         // Sound samples setup
         

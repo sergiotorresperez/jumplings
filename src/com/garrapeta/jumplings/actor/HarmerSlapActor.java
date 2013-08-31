@@ -1,5 +1,8 @@
 package com.garrapeta.jumplings.actor;
 
+import java.util.Random;
+
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -7,8 +10,10 @@ import android.graphics.Paint.Align;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
+import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.gameengine.Viewport;
 import com.garrapeta.jumplings.JumplingsGameWorld;
+import com.garrapeta.jumplings.R;
 
 public class HarmerSlapActor extends HarmerActor {
 
@@ -18,17 +23,20 @@ public class HarmerSlapActor extends HarmerActor {
     private final static float BLAST_RADIUS = 2;
     private final static float BLAST_FORCE = 20;
 
+    protected final static int BMP_FINGERPRINT_ID = R.drawable.fingerprint;
+    
+    private final static int MAX_ANGLE = 30; 
+    private final static Random sRandom = new Random();
+    
     // ----------------------------------------- Variables de instancia
 
     protected Paint mPaint;
 
     PointF mWorldPos;
 
-    public float mLongevity;
+    public final float mLongevity;
 
-    public float mLifeTime = mLongevity;
-
-    private float mMaxExplosionRadius;
+    public float mLifeTime;
 
     protected JumplingsGameWorld mWorld;
 
@@ -40,25 +48,31 @@ public class HarmerSlapActor extends HarmerActor {
     private final RectF mIntersectionRectThis;
     private final RectF mIntersectionRectOther;
 
+    private Bitmap mBmpFingerprint;
+    
+    private final float mAngle;
     // -------------------------------------------------- Constructores
 
-    public HarmerSlapActor(JumplingsGameWorld cWorld, PointF worldPos, float maxRadius, float longevity) {
+    public HarmerSlapActor(JumplingsGameWorld cWorld, PointF worldPos) {
         super(cWorld);
         mWorld = cWorld;
         mWorldPos = worldPos;
-        mMaxExplosionRadius = maxRadius;
-        mLongevity = longevity;
-        mLifeTime = longevity;
+        mLongevity = 150;
+        mLifeTime = mLongevity;
 
         mPaint = new Paint();
         mPaint.setColor(Color.YELLOW);
         mPaint.setTextAlign(Align.CENTER);
+        
+        BitmapManager mb = getWorld().getBitmapManager();
+        mBmpFingerprint = mb.getBitmap(BMP_FINGERPRINT_ID);
         
         mIntersectionRectThis = new RectF();
         mIntersectionRectOther = new RectF();
 
         mTimestamp = System.currentTimeMillis();
 
+        mAngle = -MAX_ANGLE + sRandom.nextInt(MAX_ANGLE * 2);
     }
 
     // ----------------------------------------------- M�todos heredados
@@ -99,14 +113,19 @@ public class HarmerSlapActor extends HarmerActor {
 
     @Override
     public void draw(Canvas canvas) {
-        int a = (int) ((mLifeTime / mLongevity) * 255);
-        mPaint.setAlpha(a);
+        int alpha = (int) ((mLifeTime / mLongevity) * 255);
+        mPaint.setAlpha(alpha);
         PointF screenPos = mWorld.mViewport.worldToScreen(mWorldPos);
-        float currentRadius = ((mLongevity - mLifeTime) / mLongevity) * mMaxExplosionRadius;
-        canvas.drawCircle(screenPos.x, screenPos.y, mWorld.mViewport.worldUnitsToPixels(currentRadius), mPaint);
+        
+        if (getWorld().mDrawActorBitmaps) {
+        	mWorld.drawBitmap(canvas, screenPos.x, screenPos.y, mAngle, mBmpFingerprint, mPaint);
+        }
+        if (getWorld().mWireframeMode || !getWorld().mDrawActorBitmaps) {
+        	canvas.drawCircle(screenPos.x, screenPos.y, mWorld.mViewport.worldUnitsToPixels(KILL_RADIUS), mPaint);
+        }
     }
 
-    // --------------------------------------- M�todos propios
+    // ------------------------------------------------- Self methods
 
     private boolean hits(MainActor mainActor) {
         final PointF pos = mainActor.getWorldPos();

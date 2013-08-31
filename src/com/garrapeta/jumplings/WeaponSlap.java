@@ -16,19 +16,13 @@ public class WeaponSlap extends Weapon {
     // -------------------------------------------------------- Variables de
     // instancia
 
-    protected float bulletRadius;
-    protected float bulletLongevity;
-
     protected long lastShootTimeStamp;
 
     protected int shootTimeGap;
 
     public WeaponSlap(JumplingsGameWorld jgWorld) {
         super(jgWorld);
-
         shootTimeGap = 100;
-        bulletRadius = 0.5f;
-        bulletLongevity = 150;
     }
 
     public void doLogic(float gameTimeStep) {
@@ -45,7 +39,7 @@ public class WeaponSlap extends Weapon {
             lastShootTimeStamp = System.currentTimeMillis();
 
             PointF worldPos = mWorld.mViewport.screenToWorld((float) info[1], (float) info[2]);
-            HarmerSlapActor bullet = new HarmerSlapActor(mWorld, worldPos, bulletRadius, bulletLongevity);
+            HarmerSlapActor bullet = new HarmerSlapActor(mWorld, worldPos);
             bullet.setInitted();
  
             mWorld.addActor(bullet);

@@ -265,13 +265,27 @@ public class JumplingsWorld extends Box2DWorld {
      */
     public final void drawBitmap(Canvas canvas, Body body, Bitmap bitmap, Paint paint) {
         Vector2 worldPos = body.getWorldCenter();
-
         PointF screenPos = mViewport.worldToScreen(worldPos.x, worldPos.y);
+        float angle = -(float) Math.toDegrees(body.getAngle());
+    	drawBitmap(canvas, screenPos.x, screenPos.y, angle, bitmap, paint);        
+    }
+    
+    /**
+     * Dibuja el bitmap en las coordenadas proporcionadas
+     * 
+     * @param canvas
+     * @param x, in pixels, in screen units
+     * @param y, in pixels, in screen units
+     * @param angle in degrees, in screen units
+     * @param bitmap
+     * @param paint
+     */
+    public final void drawBitmap(Canvas canvas, float x, float y , float angle, Bitmap bitmap, Paint paint) {
         canvas.save();
 
-        canvas.translate(screenPos.x, screenPos.y);
+        canvas.translate(x, y);
 
-        canvas.rotate(-(float) Math.toDegrees(body.getAngle()));
+        canvas.rotate(angle);
 
         // TODO: �No se puede especificar el punto de anclaje de otra manera?
         canvas.translate(-bitmap.getWidth() / 2, -bitmap.getHeight() / 2);
