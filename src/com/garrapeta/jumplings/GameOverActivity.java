@@ -65,6 +65,13 @@ public class GameOverActivity extends Activity {
 
 		Log.i(JumplingsApplication.LOG_SRC, "onCreate " + this);
 
+		// DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG
+		if (mPlayerScore == null) {
+			getIntent().putExtra(NEW_HIGHSCORE_KEY, new Score(this, 7, 777));
+			HighScoreListingActivity.putScreenSizeExtras(getIntent(), 20, 7);
+		}
+		// DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG
+		
 		// Wave y botones
 		mWaveKey = null;
 
@@ -73,14 +80,6 @@ public class GameOverActivity extends Activity {
 			mWaveKey = b.getString(GameActivity.WAVE_BUNDLE_KEY);
 			mPlayerScore = (Score) b.getParcelable(NEW_HIGHSCORE_KEY);
 		}
-
-		// DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG
-		// - DEBUG
-		if (mPlayerScore == null) {
-			mPlayerScore = new Score(this, 999999, 99);
-		}
-		// DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG
-		// - DEBUG
 
 		initGui();
 	}
