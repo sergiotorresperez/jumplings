@@ -104,7 +104,7 @@
     <string name="game_combo">¡combo x %1$d!</string>
 
     <!-- Tutorial tips -->
-    <string name="tip_enemy_scaped">¡Si dejas que los Jumplings se caigan de la pantalla pierdes una vida! Como es la primera vez lo dejaremos pasar&#8230;</string>
+    <string name="tip_enemy_escaped">¡Si dejas que los Jumplings se caigan de la pantalla pierdes una vida! Como es la primera vez lo dejaremos pasar&#8230;</string>
     <string name="tip_combo">¡Mata Jumplings muy rápido para hacer combos!</string>
     <string name="tip_round_enemy_killed">Eso eso, mata a los Jumplings antes de que caigan por el borde inferior de la pantalla.</string>
     <string name="tip_double_enemy_killed">Cuidado con los naranjas, necesitas tos toques para matarlos del todo.</string>

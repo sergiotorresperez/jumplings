@@ -119,7 +119,7 @@
     <string name="game_combo">%1$d x combo!</string>
     
     <!-- Tutorial tips -->
-    <string name="tip_enemy_scaped">If you let the Jumplings scape from the lower edge of the screen you\'ll lose a life! As this was the first time we let it pass&#8230;</string>
+    <string name="tip_enemy_escaped">If you let the Jumplings escape from the lower edge of the screen you\'ll lose a life! As this was the first time we let it pass&#8230;</string>
     <string name="tip_combo">If you kill Jumplings very quickly you score a combo!</string>
     <string name="tip_round_enemy_killed">That\'s it, tap on the Jumplings before they fall from the lower bottom of the screen.</string>
     <string name="tip_double_enemy_killed">Careful with the orange ones, they need two taps to be killed.</string>

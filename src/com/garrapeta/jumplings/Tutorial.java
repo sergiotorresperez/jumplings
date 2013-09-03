@@ -78,7 +78,7 @@ public class Tutorial implements GameEventsListener, WeaponSwordListener{
      * Should be run in background.
      */
     public void init() {
-        mTipData.put(TipId.TIP_ON_ENEMY_SCAPED, new TipData(R.string.tip_enemy_scaped, PermData.isTipShown(mActivity, TipId.TIP_ON_ENEMY_SCAPED)));
+        mTipData.put(TipId.TIP_ON_ENEMY_SCAPED, new TipData(R.string.tip_enemy_escaped, PermData.isTipShown(mActivity, TipId.TIP_ON_ENEMY_SCAPED)));
         mTipData.put(TipId.TIP_ON_COMBO, new TipData(R.string.tip_combo, PermData.isTipShown(mActivity, TipId.TIP_ON_COMBO)));
         mTipData.put(TipId.TIP_ON_ROUND_ENEMY_KILLED, new TipData(R.string.tip_round_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_ROUND_ENEMY_KILLED)));
         mTipData.put(TipId.TIP_ON_DOUBLE_ENEMY_KILLED, new TipData(R.string.tip_double_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_DOUBLE_ENEMY_KILLED)));
