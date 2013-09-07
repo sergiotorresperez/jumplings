@@ -164,11 +164,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         mSubmitScoresBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Utils.isNetworkAvailable(HighScoreListingActivity.this)) {
-                    submitScores();
-                } else {
-                	JumplingsToast.show(HighScoreListingActivity.this, R.string.highscores_error_connection, JumplingsToast.LENGTH_LONG);
-                }
+                submitScores();
             }
         });
         updateSubmitScoresBtnVisibility();
@@ -258,18 +254,18 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	    	            manageBackendResponse(response);
 	    	            onScoresSubmitted();
 	    	        } catch (JSONException e) {
-	    	        	notifyError(R.string.highscores_error_submit_score_parse, e);
+	    	        	manageScoresDownloadError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not parse server response", e));
 	    	        }
 	    		}
 				@Override
 	    		public void onBackendRequestError(BackendConnectionException error) {
     	            setHttpRequestProgressBarVisible(false);
-					FlurryHelper.onErrorScoreSubmissionError(error);
-	    			notifyError(R.string.highscores_error_submit_score_server, error);
+    	            manageScoresDownloadError(error);
 	    		}});
 		} catch (Exception error) {
-			Log.e(TAG, "Could not send submit scores to server", error);
-			notifyError(R.string.highscores_error_submit_score_server, error);
+			String srt = "Error preparing the scores submission payload";
+			Log.e(TAG, srt, error);
+			manageScoresSubmissionError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, srt, error));
 		}
     }
 
@@ -323,19 +319,17 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	    	 		try {
 	    	            manageBackendResponse(response);
 	    	        } catch (JSONException e) {
-	    	        	notifyError(R.string.highscores_error_download_score_parse, e);
+	    	        	manageScoresDownloadError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not parse server response", e));
 	    	        }
 	    		}
 	
 	    		@Override
 	    		public void onBackendRequestError(BackendConnectionException error) {
 	    			setHttpRequestProgressBarVisible(false);
-	    			FlurryHelper.onErrorScoreDownloadError(error);
-	    			notifyError(R.string.highscores_error_download_score_server, error);
+	    			manageScoresDownloadError(error);
 	    		}});
 		} catch (Exception error) {
-			Log.e(TAG, "Could not download scores from server", error);
-			notifyError(R.string.highscores_error_download_score_server, error);
+			manageScoresDownloadError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Error preparing the scores download payload", error));
 		}
     }
 
@@ -403,8 +397,44 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         }
     }
 
-    private void notifyError(int errorMessageResId, Exception error) {
-    	JumplingsToast.show(this, errorMessageResId, JumplingsToast.LENGTH_LONG);
+    private void manageScoresDownloadError(BackendConnectionException e) {
+    	FlurryHelper.onErrorScoreDownloadError(e);
+    	Log.e(TAG, "Error downloading scores", e);
+		notifyError(R.string.highscores_error_download_score, e.getErrorType());
+    }
+
+    private void manageScoresSubmissionError(BackendConnectionException e) {
+    	FlurryHelper.onErrorScoreSubmissionError(e);
+     	Log.e(TAG, "Error submitting scores", e);
+    	notifyError(R.string.highscores_error_submit_score, e.getErrorType());
+    }
+
+    private void notifyError(int errorMessageResId, BackendConnectionException.ErrorType errorType) {
+    	if (errorType != null) {
+    		switch(errorType) {
+    		case NO_CONNECTION_ERROR:
+    			notifyError(errorMessageResId, R.string.highscores_error_no_connection);
+    			return;
+    		case IO_ERROR:
+    			notifyError(errorMessageResId, R.string.highscores_error_io_error);
+    			return;
+    		case SERVER_ERROR:
+    			notifyError(errorMessageResId, R.string.highscores_error_server_error);
+    			return;
+    		case CLIENT_ERROR:
+    		case HTTP_ERROR:
+    		}
+    	}
+    	
+    	notifyError(getString(errorMessageResId));
+    }
+
+    private void notifyError(int errorMessageResId, int errorCauseResId) {
+    	notifyError(getString(errorMessageResId) + ". " + getString(errorCauseResId));
+    }
+
+    private void notifyError(String message) {
+    	JumplingsToast.show(this, message, JumplingsToast.LENGTH_LONG);
     }
     
     // -------------------------------------------------OnTabChangeListener methods

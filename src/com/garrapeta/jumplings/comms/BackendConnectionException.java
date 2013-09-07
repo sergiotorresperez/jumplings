@@ -10,7 +10,7 @@ public class BackendConnectionException extends Exception {
 	/**
 	 * Classification of errors
 	 */
-	public enum ErrorType{CLIENT_ERROR, IO_ERROR, HTTP_ERROR, PARSING_ERROR};
+	public enum ErrorType{NO_CONNECTION_ERROR, IO_ERROR, CLIENT_ERROR, SERVER_ERROR, HTTP_ERROR};
 	
 	private final ErrorType mErrorType;
 	

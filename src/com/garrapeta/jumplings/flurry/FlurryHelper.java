@@ -7,6 +7,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.flurry.android.FlurryAgent;
+import com.garrapeta.jumplings.comms.BackendConnectionException;
 
 /**
  * Helper to integrate Flurry
@@ -157,19 +158,17 @@ public class FlurryHelper {
 		}
 	}
 
-	public static void onErrorScoreDownloadError(Throwable t) {
+	public static void onErrorScoreDownloadError(BackendConnectionException e) {
 		checkInitialized();
 		if (sIsEnabled) {
-			FlurryAgent.onError(ERROR_ID_SCORE_DOWNLOAD,
-					"Error downloading scores", t);
+			FlurryAgent.onError(ERROR_ID_SCORE_DOWNLOAD, "Error downloading scores", e);
 		}
 	}
 
-	public static void onErrorScoreSubmissionError(Throwable t) {
+	public static void onErrorScoreSubmissionError(BackendConnectionException e) {
 		checkInitialized();
 		if (sIsEnabled) {
-			FlurryAgent.onError(ERROR_ID_SCORE_SUBMISSION,
-					"Error submitting scores", t);
+			FlurryAgent.onError(ERROR_ID_SCORE_SUBMISSION, "Error submitting scores", e);
 		}
 	}
 

@@ -71,13 +71,13 @@
     <string name="highscores_header_score">Puntuación</string>
     <string name="highscores_local_scores">Puntuaciones locales</string>
     <string name="highscores_global_scores">Puntuaciones globales</string>
-    <string name="highscores_error_connection">¡Necesitas estar conectado a interneeeeeeeeé para subir tus puntuaciones!</string>
-    <string name="highscores_error_submit_score_parse">Error leyendo la respuesta del servidor al subir tus puntuaciones</string>
-    <string name="highscores_error_submit_score_server">Error procesando la respuesta del servidor al subir tus puntuaciones</string>
     <string name="highscores_submit_score_ok">Puntuaciones manadadas al servidor</string>
-    <string name="highscores_error_download_score_parse">Error leyendo la respuesta del servidor al bajar las puntuaciones globales</string>
-    <string name="highscores_error_download_score_server">Error procesando la respuesta del servidor al bajar las puntuaciones globales</string>
-
+    <string name="highscores_error_download_score">No se pudieron recuperar las puntuaciones globales</string>
+    <string name="highscores_error_submit_score">No se pudieton mandar las puntuaciones</string>
+    <string name="highscores_error_no_connection">Necesitas estar conectado a Internet</string>
+    <string name="highscores_error_io_error">Error al comunicar con el servidor de puntuaciones.</string>
+    <string name="highscores_error_server_error">Algo raro ha pasado en el servidor&#8230;</string>
+    
     <!-- Preferences activity -->
     <string name="prefs_sound_summary">Activar o desactivar efectos de sonidos</string>
     <string name="prefs_sound_title">Activar sonido</string>

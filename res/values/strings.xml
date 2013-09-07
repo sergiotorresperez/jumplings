@@ -72,12 +72,12 @@
     <string name="highscores_header_score">Score</string>
     <string name="highscores_local_scores">Local scores</string>
     <string name="highscores_global_scores">Global scores</string>
-    <string name="highscores_error_connection">You need to be connected to the Internet to upload your scores</string>
-    <string name="highscores_error_submit_score_parse">Error reading response from server when submiting your scores</string>
-    <string name="highscores_error_submit_score_server">Error processing response from server when submiting your scores</string>
     <string name="highscores_submit_score_ok">Scores submitted</string>
-    <string name="highscores_error_download_score_parse">Error reading response from server when downloading scores</string>
-    <string name="highscores_error_download_score_server">Error processing response from server when downloading scores</string>    
+    <string name="highscores_error_download_score">Could not download scores</string>
+    <string name="highscores_error_submit_score">Could not submit scores</string>
+    <string name="highscores_error_no_connection">You need to be connected to the Internet</string>
+    <string name="highscores_error_io_error">Error communicating with the score server.</string>
+    <string name="highscores_error_server_error">Something wrong happened in the server&#8230;</string>
     
     <!-- Preferences activity -->
     <string name="prefs_sound_summary">Enable or disable sound</string>

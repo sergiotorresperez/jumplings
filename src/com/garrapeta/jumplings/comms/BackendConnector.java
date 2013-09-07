@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -33,6 +34,11 @@ public class BackendConnector {
 	private final static String PARAM_DATA 		 = "data";
 	private final static String PARAM_AUTH_TOKEN = "authToken";
 	
+	private final static int STATUS_OK                = 00;
+	private final static int STATUS_ERROR_CLIENT      = 10;
+	private final static int STATUS_ERROR_SERVER      = 20;
+	private final static int STATUS_ERROR_AUTH_ERROR  = 30;
+	
 	// TODO: obfuscate
 	private final static String SECRET_MD5_PREFIX = "pl40ap_sw113ja_w140jx";
 	
@@ -47,6 +53,13 @@ public class BackendConnector {
 	 */
 	public static ResponseModel postRequestSync(Context context, final RequestModel request) throws BackendConnectionException {
 		final String url = PermData.getScoresServerUrl(context);
+		
+        if (!Utils.isNetworkAvailable(context)) {
+        	throw new BackendConnectionException(BackendConnectionException.ErrorType.NO_CONNECTION_ERROR, "Could not send request to " + url + ": No connection available");
+        }
+        
+        HttpResponse response;
+        
 		try {
 			HttpPost httpPost = new HttpPost(url);
 			String data = sGson.toJson(request);
@@ -58,11 +71,14 @@ public class BackendConnector {
 	        httpPost.setEntity(new UrlEncodedFormEntity(nvps, "UTF_8"));
 			
 	        DefaultHttpClient client = new DefaultHttpClient();
-			HttpResponse response = client.execute(httpPost);
-			return manageResponse(response);
+			response = client.execute(httpPost);
+		} catch (IOException ioe) {
+			throw new BackendConnectionException(BackendConnectionException.ErrorType.IO_ERROR, "Could not send request to " + url + ": " + ioe.getMessage() , ioe);
 		} catch (Exception e) {
 			throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not send request to " + url + ": " + e.getMessage() , e);
 		}
+		
+		return manageResponse(response);
 	}
 
 	/**
@@ -74,28 +90,43 @@ public class BackendConnector {
 		new ServerRequestAsyncTask(context, callback).execute(request);
 	}
 
-	private static ResponseModel manageResponse(HttpResponse response) throws BackendConnectionException{
+	private static ResponseModel manageResponse(HttpResponse response) throws BackendConnectionException {
 		try {
-			int code = response.getStatusLine().getStatusCode();
+			int httpStatusCode = response.getStatusLine().getStatusCode();
 
 			HttpEntity er = response.getEntity();
 			InputStream is;
 			is = er.getContent();
 			String responseString = IOUtils.getStringFromInputStream(is);
 
-			Log.i(JumplingsApplication.LOG_SRC, "Response received = " + code + ". Response: " + responseString);
+			Log.i(JumplingsApplication.LOG_SRC, "Response received = " + httpStatusCode + ". Response: " + responseString);
 
-			if (code == 200) {
+			if (httpStatusCode == HttpStatus.SC_OK) {
 				try {
-					return sGson.fromJson(responseString, ResponseModel.class);
+					ResponseModel responseObject = sGson.fromJson(responseString, ResponseModel.class);
+					checkError(responseObject);
+					return responseObject;
 				} catch (JsonSyntaxException je) {
-					throw new BackendConnectionException(BackendConnectionException.ErrorType.PARSING_ERROR, "Could not parse response", je);
+					throw new BackendConnectionException(BackendConnectionException.ErrorType.SERVER_ERROR, "Could not parse response", je);
 				}
 			} else {
-				throw new BackendConnectionException(BackendConnectionException.ErrorType.HTTP_ERROR, "Server reports error: HTTP code = " + code + ". Response: " + responseString);
+				throw new BackendConnectionException(BackendConnectionException.ErrorType.HTTP_ERROR, "Server reports error: HTTP code = " + httpStatusCode + ". Response: " + responseString);
 			}
 		} catch (IOException ioe) {
 			throw new BackendConnectionException(BackendConnectionException.ErrorType.IO_ERROR, "IO error when communicating with the backend", ioe);
+		}
+	}
+	
+	private static void checkError(ResponseModel responseObject) throws BackendConnectionException {
+		switch (responseObject.status) {
+			case STATUS_ERROR_CLIENT:
+			case STATUS_ERROR_AUTH_ERROR:
+				throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, responseObject.errorMessage);
+			case STATUS_ERROR_SERVER:
+				throw new BackendConnectionException(BackendConnectionException.ErrorType.SERVER_ERROR, responseObject.errorMessage);
+			case STATUS_OK:
+			default:
+				return;
 		}
 	}
 
@@ -146,7 +177,7 @@ public class BackendConnector {
 			try {
 				return BackendConnector.postRequestSync(mContext, args[0]);
 			} catch (BackendConnectionException e) {
-				Log.e(JumplingsApplication.LOG_SRC, "Error preparing http request: " + e.toString(), e);
+				Log.e(JumplingsApplication.LOG_SRC, "Error in request: " + e.toString(), e);
 				mError = e;
 				return null;
 			}
