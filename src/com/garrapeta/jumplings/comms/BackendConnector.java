@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.garrapeta.gameengine.utils.IOUtils;
@@ -103,6 +104,9 @@ public class BackendConnector {
 
 			if (httpStatusCode == HttpStatus.SC_OK) {
 				try {
+					if (TextUtils.isEmpty(responseString)) {
+						throw new BackendConnectionException(BackendConnectionException.ErrorType.SERVER_ERROR, "Server returned empty response");
+					}
 					ResponseModel responseObject = sGson.fromJson(responseString, ResponseModel.class);
 					checkError(responseObject);
 					return responseObject;
