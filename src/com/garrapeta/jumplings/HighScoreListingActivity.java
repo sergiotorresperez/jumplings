@@ -234,9 +234,6 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 		
 		try {
 			FlurryHelper.logScoresSubmitted();
-			
-			// Show progress bar
-	    	setHttpRequestProgressBarVisible(true);
 	    	
 	    	// get world size
 	    	final float worldWidth = getWorldWidth(this);
@@ -245,25 +242,29 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	    		throw new IllegalStateException("Screen size is unavailable");
 	    	}
 	    	
-	    	// Send
+	    	
+	    	// Prepare
 	    	RequestModel request = RequestFactory.createSubmitScoresRequestModel(this, mLocalScoreList, worldWidth, worldHeight);
+	    	
+			// Show progress bar
+	    	setHttpRequestProgressBarVisible(true);
+	    	
+	    	// Send
 	    	BackendConnector.postRequestAsync(this, request, new BackendConnectorCallback() {
 	    	 	@Override
 	    		public void onBackendRequestSuccess(ResponseModel response) {
-	    	        try {
-	    	            // Dismiss progress dialog
-	    	            setHttpRequestProgressBarVisible(false);
-	
+	    	 		setHttpRequestProgressBarVisible(false);
+	    	 		try {
+	    	            manageBackendResponse(response);
 	    	            onScoresSubmitted();
-	    	            onRankingUpdated(response.localScores);
 	    	        } catch (JSONException e) {
 	    	        	notifyError(R.string.highscores_error_submit_score_parse, e);
 	    	        }
 	    		}
-	
-	    		@Override
+				@Override
 	    		public void onBackendRequestError(BackendConnectionException error) {
-	    			FlurryHelper.onErrorScoreSubmissionError(error);
+    	            setHttpRequestProgressBarVisible(false);
+					FlurryHelper.onErrorScoreSubmissionError(error);
 	    			notifyError(R.string.highscores_error_submit_score_server, error);
 	    		}});
 		} catch (Exception error) {
@@ -278,29 +279,28 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
      */
     private void onScoresSubmitted() {
         // Los scores se han mandado al servidor
-
     	JumplingsToast.show(this, R.string.highscores_submit_score_ok, JumplingsToast.LENGTH_LONG);
         
         PermData.setLocalScoresSubmissionPending(this, false);
         updateSubmitScoresBtnVisibility();
-
-        // we update the global table, to see our new scores in it
-        // TODO: receive the global scores in the response of the upload, so we
-        // can skip this call
-        if (Utils.isNetworkAvailable(this)) {
-        	downloadScores();
-        }
     }
 
+	/**
+	 * Processes the response of the server
+	 * @param response
+	 * @throws JSONException
+	 */
+	private void manageBackendResponse(ResponseModel response) throws JSONException {
+     	onRankingUpdated(response.localScores);
+        onScoresUpdated(response.globalScores);
+	}
+	
     /**
      * Actualiza los scores del servidor
      */
     private void downloadScores() {
 		Log.i(TAG, "Requesting global scores update. ");
 		
-		// Show progress bar
-    	setHttpRequestProgressBarVisible(true);
-    	
     	try {
 	    	// get world size
 	    	final float worldWidth = getWorldWidth(this);
@@ -309,16 +309,19 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	    		throw new IllegalStateException("Screen size is unavailable");
 	    	}
 	    	
-	    	// Send
+	    	// Prepare
 	    	RequestModel request = RequestFactory.createDownloadScoresRequestModel(this, mLocalScoreList, worldWidth, worldHeight);
+	    	
+			// Show progress bar
+	    	setHttpRequestProgressBarVisible(true);
+	    	
+	    	// Send
 	    	BackendConnector.postRequestAsync(this, request, new BackendConnectorCallback() {
 	    	 	@Override
 	    		public void onBackendRequestSuccess(ResponseModel response) {
-	    	        try {
-	    	            // Dismiss progress dialog
-	    	            setHttpRequestProgressBarVisible(false);
-	 	                onScoresUpdated(response.globalScores);
-	 	                onRankingUpdated(response.localScores);
+	    	 		setHttpRequestProgressBarVisible(false);
+	    	 		try {
+	    	            manageBackendResponse(response);
 	    	        } catch (JSONException e) {
 	    	        	notifyError(R.string.highscores_error_download_score_parse, e);
 	    	        }
@@ -326,6 +329,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	
 	    		@Override
 	    		public void onBackendRequestError(BackendConnectionException error) {
+	    			setHttpRequestProgressBarVisible(false);
 	    			FlurryHelper.onErrorScoreDownloadError(error);
 	    			notifyError(R.string.highscores_error_download_score_server, error);
 	    		}});
@@ -342,6 +346,10 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
      * @throws JSONException
      */
     private void onScoresUpdated(List<Score> globalScores) throws JSONException {
+    	if (globalScores == null) {
+    		return;
+    	}
+    	
         // copiamos la lista de scores goblales
         mGlobalScoreList = globalScores;
         // la salvamos
@@ -358,6 +366,9 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
      * @throws JSONException
      */
     private void onRankingUpdated(List<Score> localScores) throws JSONException {
+    	if (localScores == null) {
+    		return;
+    	}
         // para cada elemento recibido del server..
         for (Score aux : localScores) {
         	
@@ -392,11 +403,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         }
     }
 
-
- 
-    // FIXME: externalize and localize error message
     private void notifyError(int errorMessageResId, Exception error) {
-    	setHttpRequestProgressBarVisible(false);
     	JumplingsToast.show(this, errorMessageResId, JumplingsToast.LENGTH_LONG);
     }
     
