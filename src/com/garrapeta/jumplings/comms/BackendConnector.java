@@ -10,10 +10,13 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.params.ClientPNames;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HTTP;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -52,31 +55,34 @@ public class BackendConnector {
 	 * @param request
 	 * @throws BackendConnectionException
 	 */
-	public static ResponseModel postRequestSync(Context context, final RequestModel request) throws BackendConnectionException {
-		final String url = PermData.getScoresServerUrl(context);
+	public static ResponseModel sendRequestSync(Context context, final RequestModel request) throws BackendConnectionException {
+		final String serviceUrl = PermData.getScoresServerUrl(context);
 		
         if (!Utils.isNetworkAvailable(context)) {
-        	throw new BackendConnectionException(BackendConnectionException.ErrorType.NO_CONNECTION_ERROR, "Could not send request to " + url + ": No connection available");
+        	throw new BackendConnectionException(BackendConnectionException.ErrorType.NO_CONNECTION_ERROR, "Could not send request to " + serviceUrl + ": No connection available");
         }
         
         HttpResponse response;
         
 		try {
-			HttpPost httpPost = new HttpPost(url);
 			String data = sGson.toJson(request);
+			List<NameValuePair> queryParams = new ArrayList<NameValuePair>();
+			queryParams.add(new BasicNameValuePair(PARAM_DATA, data)) ;	
+			queryParams.add(new BasicNameValuePair(PARAM_AUTH_TOKEN, computeAuthToken(data)));
+
+			final String url = PermData.getScoresServerUrl(context) + "?" + URLEncodedUtils.format(queryParams, HTTP.UTF_8);
+			HttpGet httpGet = new HttpGet(url);
 			
-			List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-	        nvps.add(new BasicNameValuePair(PARAM_DATA, data));
-	        nvps.add(new BasicNameValuePair(PARAM_AUTH_TOKEN, computeAuthToken(data)));
+			HttpParams httpParams = httpGet.getParams();
+			httpParams.setParameter(ClientPNames.HANDLE_REDIRECTS, Boolean.TRUE);
+			httpGet.setParams(httpParams);
 	        
-	        httpPost.setEntity(new UrlEncodedFormEntity(nvps, "UTF_8"));
-			
-	        DefaultHttpClient client = new DefaultHttpClient();
-			response = client.execute(httpPost);
+			DefaultHttpClient client = new DefaultHttpClient();
+			response = client.execute(httpGet);
 		} catch (IOException ioe) {
-			throw new BackendConnectionException(BackendConnectionException.ErrorType.IO_ERROR, "Could not send request to " + url + ": " + ioe.getMessage() , ioe);
+			throw new BackendConnectionException(BackendConnectionException.ErrorType.IO_ERROR, "Could not send request to " + serviceUrl + ": " + ioe.getMessage() , ioe);
 		} catch (Exception e) {
-			throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not send request to " + url + ": " + e.getMessage() , e);
+			throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not send request to " + serviceUrl + ": " + e.getMessage() , e);
 		}
 		
 		return manageResponse(response);
@@ -179,7 +185,7 @@ public class BackendConnector {
 		@Override
 		protected ResponseModel doInBackground(RequestModel... args) {
 			try {
-				return BackendConnector.postRequestSync(mContext, args[0]);
+				return BackendConnector.sendRequestSync(mContext, args[0]);
 			} catch (BackendConnectionException e) {
 				Log.e(JumplingsApplication.LOG_SRC, "Error in request: " + e.toString(), e);
 				mError = e;
