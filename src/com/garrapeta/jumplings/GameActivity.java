@@ -371,7 +371,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 			@Override
 			public void run() {
 				int visualProgress = (int) (progress * SWORD_PROGRESS_BAR_MAX);
-				Log.e("stp", ">" + visualProgress);
 		    	mSpecialWeaponBar.setProgress(visualProgress);
 			}
 		});

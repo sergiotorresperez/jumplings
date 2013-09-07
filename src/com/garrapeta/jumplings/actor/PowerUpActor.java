@@ -128,6 +128,11 @@ public abstract class PowerUpActor extends MainActor {
         getWorld().drawBitmap(canvas, this.mIconBody, mBmpIcon);
     }
 
+	@Override
+	public void onBumpChange(boolean bumped) {
+		// nothing
+	}
+	
     @Override
     protected void dispose() {
         super.dispose();

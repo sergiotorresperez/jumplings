@@ -232,8 +232,6 @@ public class BombActor extends MainActor {
             applyBlast(sparkles, force);
         }
 
-
-
         super.onHitted();
     }
 
@@ -241,6 +239,11 @@ public class BombActor extends MainActor {
     protected void free(JumplingsFactory factory) {
         getWorld().getFactory().free(this);
     }
+
+	@Override
+	public void onBumpChange(boolean bumped) {
+		// nothing
+	}
 
     @Override
     protected void dispose() {

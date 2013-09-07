@@ -2,6 +2,7 @@ package com.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
+import android.graphics.PointF;
 import android.view.MotionEvent;
 
 import com.badlogic.gdx.math.Vector2;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Joint;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 
-public abstract class MainActor extends JumplingActor<JumplingsGameWorld> {
+public abstract class MainActor extends JumplingActor<JumplingsGameWorld> implements IBumpable {
 
 	// ---------------------------------------------------- Constantes
 	
@@ -63,7 +64,6 @@ public abstract class MainActor extends JumplingActor<JumplingsGameWorld> {
 		throw new IllegalArgumentException("Unknown mainActor code: " + code);
 	}
 	
-
     @Override
     public void onAddedToWorld() {
         super.onAddedToWorld();

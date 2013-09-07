@@ -7,5 +7,5 @@ package com.garrapeta.jumplings.actor;
  */
 public interface IBumpable {
 
-    public void onBumpedChanged(boolean bumped);
+    public void onBumpChange(boolean bumped);
 }
