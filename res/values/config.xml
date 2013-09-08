@@ -3,6 +3,9 @@
 
     <!-- If the Logger is enabled. Only applies to debuggable builds (in production is always disable) -->
     <bool name="config_log_enabled_in_debug_build">true</bool>
+
+    <!-- Backend authentication secret. Setup in build time -->
+    <string name="config_backend_auth_secret">backend_auth_token_unset</string>
     
     <!-- If Flurry is enabled -->
     <bool name="config_flurry_enabled">@bool/config_value_default_flurry_enabled</bool>

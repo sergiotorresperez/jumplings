@@ -27,6 +27,7 @@ import com.garrapeta.gameengine.utils.IOUtils;
 import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.PermData;
+import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -43,9 +44,6 @@ public class BackendConnector {
 	private final static int STATUS_ERROR_CLIENT      = 10;
 	private final static int STATUS_ERROR_SERVER      = 20;
 	private final static int STATUS_ERROR_AUTH_ERROR  = 30;
-	
-	// TODO: obfuscate
-	private final static String SECRET_MD5_PREFIX = "pl40ap_sw113ja_w140jx";
 	
 	// used to parse and format the requests and responses to Json
 	private final static Gson sGson = new Gson();
@@ -69,7 +67,7 @@ public class BackendConnector {
 			String data = sGson.toJson(request);
 			List<NameValuePair> queryParams = new ArrayList<NameValuePair>();
 			queryParams.add(new BasicNameValuePair(PARAM_DATA, data)) ;	
-			queryParams.add(new BasicNameValuePair(PARAM_AUTH_TOKEN, computeAuthToken(data)));
+			queryParams.add(new BasicNameValuePair(PARAM_AUTH_TOKEN, computeAuthToken(context, data)));
 
 			final String url = PermData.getScoresServerUrl(context) + "?" + URLEncodedUtils.format(queryParams, HTTP.UTF_8);
 			HttpGet httpGet = new HttpGet(url);
@@ -150,16 +148,15 @@ public class BackendConnector {
 	 * @return the authToken associated to the passed string
 	 * @throws NoSuchAlgorithmException 
 	 */
-	private static String computeAuthToken(String data) throws NoSuchAlgorithmException {
-		return Utils.md5(getSecretMD5Prefix() + data);
+	private static String computeAuthToken(Context context, String data) throws NoSuchAlgorithmException {
+		return Utils.md5(getSecretMD5Prefix(context) + data);
 	}
 
 	/**
 	 * @return the secret string used as a prefix to calculate the auth token
 	 */
-	private static String getSecretMD5Prefix() {
-		// TODO: obfuscate
-		return SECRET_MD5_PREFIX;
+	private static String getSecretMD5Prefix(Context context) {
+		return context.getResources().getString(R.string.config_backend_auth_secret);
 	}
 
 	/**
