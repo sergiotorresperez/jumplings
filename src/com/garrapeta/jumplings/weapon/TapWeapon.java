@@ -26,8 +26,10 @@ public abstract class TapWeapon extends Weapon {
         if (info[0] == MotionEvent.ACTION_DOWN && (System.currentTimeMillis() - mTapTimeStamp) >= mTimeGap) {
             mTapTimeStamp = System.currentTimeMillis();
 
-            PointF worldPos = mWorld.mViewport.screenToWorld((float) info[1], (float) info[2]);
-            TapActor tap = getTapActor(mWorld, worldPos);
+	        float worldPositionX = mWorld.mViewport.screenToWorldX((float) info[1]);
+	        float worldPositionY = mWorld.mViewport.screenToWorldY((float) info[2]);
+	        
+            TapActor tap = getTapActor(mWorld, new PointF(worldPositionX, worldPositionY));
             tap.setInitted();
             tap.onTapEffect();
             mWorld.addActor(tap);
@@ -39,7 +41,7 @@ public abstract class TapWeapon extends Weapon {
     /**
 	 * The actor that harms
 	 */
-	protected abstract static class TapActor extends HarmerActor {
+	protected abstract  class TapActor extends HarmerActor {
 
 	    protected Paint mPaint;
 
@@ -48,8 +50,6 @@ public abstract class TapWeapon extends Weapon {
 	    private float mTimeLeft;
 	    private final float mLongevity;
 	    private final float mKillRadius;
-
-	    protected JumplingsGameWorld mWorld;
 
 	    private boolean mFirstFrame = true;
 
@@ -116,13 +116,15 @@ public abstract class TapWeapon extends Weapon {
 	    public final void draw(Canvas canvas) {
 	        int alpha = (int) ((mTimeLeft / mLongevity) * 255);
 	        mPaint.setAlpha(alpha);
-	        PointF screenPos = mWorld.mViewport.worldToScreen(mWorldPos);
 	        
+	        float screenPositionX = mWorld.mViewport.worldToScreenX(mWorldPos.x);
+	        float screenPositionY = mWorld.mViewport.worldToScreenY(mWorldPos.y);
+
 	        if (getWorld().mDrawActorBitmaps) {
-	        	drawBitmap(canvas, screenPos);
+	        	drawBitmap(canvas, screenPositionX, screenPositionY);
 	        }
 	        if (getWorld().mWireframeMode || !getWorld().mDrawActorBitmaps) {
-	        	canvas.drawCircle(screenPos.x, screenPos.y, mWorld.mViewport.worldUnitsToPixels(mKillRadius), mPaint);
+	        	canvas.drawCircle(screenPositionX, screenPositionY, mWorld.mViewport.worldUnitsToPixels(mKillRadius), mPaint);
 	        }
 	    }
 
@@ -146,7 +148,7 @@ public abstract class TapWeapon extends Weapon {
 	        return RectF.intersects(mIntersectionRectOther, mIntersectionRectThis);
 	    }
 	    
-	    protected abstract void drawBitmap(Canvas canvas, PointF screenPos);
+	    protected abstract void drawBitmap(Canvas canvas, float screenPosX, float screenPosY);
 
 	    protected abstract void onMissed(MainActor actor);
 	}

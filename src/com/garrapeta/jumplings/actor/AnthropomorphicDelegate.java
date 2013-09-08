@@ -49,14 +49,14 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
     private JumplingActor<T> mActor;
 
     // Cuerpos
-    Body rightFootBody;
-    Body leftFootBody;
+    Body mRightFootBody;
+    Body mLeftFootBody;
 
-    Body rightHandBody;
-    Body leftHandBody;
+    Body mRightHandBody;
+    Body mLeftHandBody;
 
-    Body rightEyeBody;
-    Body leftEyeBody;
+    Body mRightEyeBody;
+    Body mLeftEyeBody;
 
     Body mouthBody;
 
@@ -97,10 +97,10 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
             PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x - feetWorldRadius - 0, mActor.mMainBody.getWorldCenter().y - radius
                     - feetWorldRadius);
 
-            leftFootBody = mActor.getWorld().createBody(mActor, anchor, true);
-            leftFootBody.setBullet(false);
+            mLeftFootBody = mActor.getWorld().createBody(mActor, anchor, true);
+            mLeftFootBody.setBullet(false);
             // Assign shape to Body
-            Fixture f = leftFootBody.createFixture(circleShape, LIMBS_DENSITY);
+            Fixture f = mLeftFootBody.createFixture(circleShape, LIMBS_DENSITY);
             f.setFilterData(JumplingActor.NO_CONTACT_FILTER);
             circleShape.dispose();
 
@@ -111,7 +111,7 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
 
             // jointDef.collideConnected = true;
 
-            jointDef.initialize(mActor.mMainBody, leftFootBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, mLeftFootBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.getWorld().createJoint(mActor, jointDef);
         }
@@ -125,9 +125,9 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
             PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x + feetWorldRadius - 0, mActor.mMainBody.getWorldCenter().y - radius
                     - feetWorldRadius);
 
-            rightFootBody = mActor.getWorld().createBody(mActor, anchor, true);
+            mRightFootBody = mActor.getWorld().createBody(mActor, anchor, true);
             // Assign shape to Body
-            Fixture f = rightFootBody.createFixture(circleShape, LIMBS_DENSITY);
+            Fixture f = mRightFootBody.createFixture(circleShape, LIMBS_DENSITY);
             f.setFilterData(JumplingActor.NO_CONTACT_FILTER);
             circleShape.dispose();
 
@@ -138,7 +138,7 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
 
             // jointDef.collideConnected = true;
 
-            jointDef.initialize(mActor.mMainBody, rightFootBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, mRightFootBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.getWorld().createJoint(mActor, jointDef);
         }
@@ -154,10 +154,10 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
             PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x - radius - handWorldRadius - 0, mActor.mMainBody.getWorldCenter().y
                     - handWorldRadius);
 
-            leftHandBody = mActor.getWorld().createBody(mActor, anchor, true);
-            leftHandBody.setBullet(false);
+            mLeftHandBody = mActor.getWorld().createBody(mActor, anchor, true);
+            mLeftHandBody.setBullet(false);
             // Assign shape to Body
-            Fixture f = leftHandBody.createFixture(circleShape, LIMBS_DENSITY);
+            Fixture f = mLeftHandBody.createFixture(circleShape, LIMBS_DENSITY);
             f.setFilterData(JumplingActor.NO_CONTACT_FILTER);
             circleShape.dispose();
 
@@ -166,7 +166,7 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
             jointDef.frequencyHz = handJointFrequencyHz;
             jointDef.dampingRatio = handJointdampingRatio;
 
-            jointDef.initialize(mActor.mMainBody, leftHandBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, mLeftHandBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.getWorld().createJoint(mActor, jointDef);
         }
@@ -180,10 +180,10 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
             PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x + radius + handWorldRadius, mActor.mMainBody.getWorldCenter().y
                     - handWorldRadius);
 
-            rightHandBody = mActor.getWorld().createBody(mActor, anchor, true);
-            rightHandBody.setBullet(false);
+            mRightHandBody = mActor.getWorld().createBody(mActor, anchor, true);
+            mRightHandBody.setBullet(false);
             // Assign shape to Body
-            Fixture f = rightHandBody.createFixture(circleShape, LIMBS_DENSITY);
+            Fixture f = mRightHandBody.createFixture(circleShape, LIMBS_DENSITY);
             f.setFilterData(JumplingActor.NO_CONTACT_FILTER);
             circleShape.dispose();
 
@@ -192,7 +192,7 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
             jointDef.frequencyHz = handJointFrequencyHz;
             jointDef.dampingRatio = handJointdampingRatio;
 
-            jointDef.initialize(mActor.mMainBody, rightHandBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, mRightHandBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.getWorld().createJoint(mActor, jointDef);
         }
@@ -208,10 +208,10 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
             PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x - eyeWorldRadius * 1.5f, mActor.mMainBody.getWorldCenter().y
                     + eyeWorldRadius);
 
-            leftEyeBody = mActor.getWorld().createBody(mActor, anchor, true);
-            leftEyeBody.setBullet(false);
+            mLeftEyeBody = mActor.getWorld().createBody(mActor, anchor, true);
+            mLeftEyeBody.setBullet(false);
             // Assign shape to Body
-            Fixture f = leftEyeBody.createFixture(circleShape, LIMBS_DENSITY);
+            Fixture f = mLeftEyeBody.createFixture(circleShape, LIMBS_DENSITY);
             f.setFilterData(JumplingActor.NO_CONTACT_FILTER);
             circleShape.dispose();
 
@@ -220,7 +220,7 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
             jointDef.frequencyHz = eyeJointFrequencyHz;
             jointDef.dampingRatio = eyeJointdampingRatio;
 
-            jointDef.initialize(mActor.mMainBody, leftEyeBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, mLeftEyeBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.getWorld().createJoint(mActor, jointDef);
         }
@@ -234,10 +234,10 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
             PointF anchor = new PointF(mActor.mMainBody.getWorldCenter().x + eyeWorldRadius * 1.5f, mActor.mMainBody.getWorldCenter().y
                     + eyeWorldRadius);
 
-            rightEyeBody = mActor.getWorld().createBody(mActor, anchor, true);
-            rightEyeBody.setBullet(false);
+            mRightEyeBody = mActor.getWorld().createBody(mActor, anchor, true);
+            mRightEyeBody.setBullet(false);
             // Assign shape to Body
-            Fixture f = rightEyeBody.createFixture(circleShape, LIMBS_DENSITY);
+            Fixture f = mRightEyeBody.createFixture(circleShape, LIMBS_DENSITY);
             f.setFilterData(JumplingActor.NO_CONTACT_FILTER);
             circleShape.dispose();
 
@@ -246,7 +246,7 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
             jointDef.frequencyHz = eyeJointFrequencyHz;
             jointDef.dampingRatio = eyeJointdampingRatio;
 
-            jointDef.initialize(mActor.mMainBody, rightEyeBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
+            jointDef.initialize(mActor.mMainBody, mRightEyeBody, Viewport.pointFToVector2(anchor), Viewport.pointFToVector2(anchor));
 
             mActor.getWorld().createJoint(mActor, jointDef);
         }
@@ -270,20 +270,20 @@ public class AnthropomorphicDelegate<T extends JumplingsWorld> {
     }
 
     public void drawAnthropomorphicBitmaps(Canvas canvas) {
-        mActor.getWorld().drawBitmap(canvas, this.leftHandBody, mBmpHandLeft);
-        mActor.getWorld().drawBitmap(canvas, this.leftFootBody, mBmpFootLeft);
+        mActor.getWorld().drawBitmap(canvas, mLeftHandBody, mBmpHandLeft);
+        mActor.getWorld().drawBitmap(canvas, mLeftFootBody, mBmpFootLeft);
 
-        mActor.getWorld().drawBitmap(canvas, this.rightHandBody, mBmpHandRight);
-        mActor.getWorld().drawBitmap(canvas, this.rightFootBody, mBmpFootRight);
+        mActor.getWorld().drawBitmap(canvas, mRightHandBody, mBmpHandRight);
+        mActor.getWorld().drawBitmap(canvas, mRightFootBody, mBmpFootRight);
 
         mActor.getWorld().drawBitmap(canvas, mActor.mMainBody, mBmpBody);
 
         if (mAreEyesOpened) {
-            mActor.getWorld().drawBitmap(canvas, this.leftEyeBody, mBmpEyeLeftOpened);
-            mActor.getWorld().drawBitmap(canvas, this.rightEyeBody, mBmpEyeRightOpened);
+            mActor.getWorld().drawBitmap(canvas, mLeftEyeBody, mBmpEyeLeftOpened);
+            mActor.getWorld().drawBitmap(canvas, mRightEyeBody, mBmpEyeRightOpened);
         } else {
-            mActor.getWorld().drawBitmap(canvas, this.leftEyeBody, mBmpEyeLeftClosed);
-            mActor.getWorld().drawBitmap(canvas, this.rightEyeBody, mBmpEyeRightClosed);
+            mActor.getWorld().drawBitmap(canvas, mLeftEyeBody, mBmpEyeLeftClosed);
+            mActor.getWorld().drawBitmap(canvas, mRightEyeBody, mBmpEyeRightClosed);
         }
     }
 

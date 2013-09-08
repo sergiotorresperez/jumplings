@@ -47,7 +47,7 @@ public class SwordTipWeapon extends TapWeapon {
 	/**
 	 * The actor that harms
 	 */
-	private static class FingerprintActor extends TapActor {
+	private class FingerprintActor extends TapActor {
 
 	    // ----------------------------------------------------- Constantes
 
@@ -84,8 +84,8 @@ public class SwordTipWeapon extends TapWeapon {
 	    }
 	    
 		@Override
-		protected void drawBitmap(Canvas canvas, PointF screenPos) {
-        	mWorld.drawBitmap(canvas, screenPos.x, screenPos.y, mAngle, mBmpFingerprint, mPaint);
+		protected void drawBitmap(Canvas canvas, float screenPosX, float screenPosY) {
+        	mWorld.drawBitmap(canvas, screenPosX, screenPosY, mAngle, mBmpFingerprint, mPaint);
 		}
 
 		@Override

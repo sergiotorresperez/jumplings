@@ -67,8 +67,9 @@ public abstract class TextActor extends Actor<JumplingsGameWorld> {
     public void draw(Canvas canvas) {
         int a = (int) ((mLifeTime / mLongevity) * 255);
         mPaint.setAlpha(a);
-        PointF screenPos = mJgWorld.mViewport.worldToScreen(mWorldPos);
-        canvas.drawText(mText, screenPos.x, screenPos.y, mPaint);
+        float screenPositionX = mJgWorld.mViewport.worldToScreenX(mWorldPos.x);
+        float screenPositionY = mJgWorld.mViewport.worldToScreenY(mWorldPos.y);
+        canvas.drawText(mText, screenPositionX, screenPositionY, mPaint);
     }
 
     @Override

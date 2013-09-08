@@ -40,7 +40,7 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
     public final static Filter NO_CONTACT_FILTER;
 
     public final static Filter CONTACT_FILTER;
-
+    
     // ----------------------------------------- Variables de instancia
 
     public Body mMainBody;
@@ -230,8 +230,8 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
     /**
      * @return
      */
-    protected Body[] getMainBodies() {
-        return new Body[] { mMainBody };
+    protected Body getMainBody() {
+        return mMainBody;
     }
 
     /**
@@ -240,11 +240,8 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
     public double getMainMassRatio() {
         double mainBodiesMass = 0;
 
-        Body[] mainBodies = getMainBodies();
-        int l = mainBodies.length;
-        for (int i = 0; i < l; i++) {
-            mainBodiesMass += mainBodies[i].getMass();
-        }
+        Body mainBody = getMainBody();
+        mainBodiesMass = mainBody.getMass();
 
         return mainBodiesMass / this.getMass();
     }
@@ -253,18 +250,9 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
      * @return
      */
     public final PointF getWorldPos() {
-        float x = 0;
-        float y = 0;
-
-        Body[] mainBodies = getMainBodies();
-        int l = mainBodies.length;
-        for (int i = 0; i < l; i++) {
-            Vector2 wc = mainBodies[i].getWorldCenter();
-            x += wc.x;
-            y += wc.y;
-        }
-
-        return new PointF(x / l, y / l);
+        Body mainBody = getMainBody();
+        Vector2 wc = mainBody.getWorldCenter();
+        return new PointF(wc.x, wc.y);
     }
 
     /**
@@ -273,32 +261,8 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
      */
     public final void setLinearVelocity(float vx, float vy) {
         double ratio = getMainMassRatio();
+     	getMainBody().setLinearVelocity((float) (vx * (1 / ratio)), (float) (vy * (1 / ratio)));
 
-        Vector2 aux = new Vector2((float) (vx * (1 / ratio)), (float) (vy * (1 / ratio)));
-
-        Body[] mainBodies = getMainBodies();
-        int l = mainBodies.length;
-        for (int i = 0; i < l; i++) {
-            mainBodies[i].setLinearVelocity(aux);
-        }
-    }
-
-    /**
-     * @return
-     */
-    public final PointF getLinearVelocity() {
-        float vx = 0;
-        float vy = 0;
-
-        Body[] mainBodies = getMainBodies();
-        int l = mainBodies.length;
-        for (int i = 0; i < l; i++) {
-            Vector2 v = mainBodies[i].getLinearVelocity();
-            vx += v.x;
-            vy += v.y;
-        }
-
-        return new PointF(vx / l, vy / l);
     }
 
     /**
