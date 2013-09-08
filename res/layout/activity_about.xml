@@ -145,7 +145,20 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/icon_linkedin"
                 android:text="@string/about_credits_linkedin_profile" />
+            
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                android:layout_marginTop="@dimen/about_activity_vertical_spacing_small"
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_credits_5" />
 
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_credits_source_repository" />
+            
             <com.garrapeta.jumplings.ui.CustomFontTextView
                 style="@style/MainFont.h3"
                 android:layout_width="wrap_content"

@@ -45,7 +45,8 @@
     <string name="about_credits_3">2011 - 2013</string>
     <string name="about_credits_4">Plymouth y Londres</string>
     <string name="about_credits_linkedin_profile">http://uk.linkedin.com/in/sergiotorresperez</string>
-    <string name="about_ack_title">Reconocimientos</string>
+    <string name="about_credits_5">Código fuente:</string>
+    <string name="about_credits_source_repository">http://bitbucket.org/garrapeta/</string>    <string name="about_ack_title">Reconocimientos</string>
     <string name="about_ack_1">El juego usa la adaptación de Box2D para Android hecha por Badlogic</string>
     <string name="about_ack_2">https://github.com/libgdx/libgdx</string>
     <string name="about_ack_3">Algunos sonidos y bitmaps han sido tomados prestados y muy modificados del juego Teeworlds</string>

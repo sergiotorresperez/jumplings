@@ -46,6 +46,8 @@
     <string name="about_credits_3">2011 - 2013</string>
     <string name="about_credits_4">Plymouth and London</string>
     <string name="about_credits_linkedin_profile">http://uk.linkedin.com/in/sergiotorresperez</string>
+    <string name="about_credits_5">Source code:</string>
+    <string name="about_credits_source_repository">http://bitbucket.org/garrapeta/</string>
     <string name="about_ack_title">Acknowledgements</string>
     <string name="about_ack_1">The game integrates the adaptation of Box2D for Android made by Badlogic</string>
     <string name="about_ack_2">https://github.com/libgdx/libgdx</string>
