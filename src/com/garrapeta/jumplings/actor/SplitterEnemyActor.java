@@ -134,7 +134,7 @@ public class SplitterEnemyActor extends EnemyActor {
             // Create Shape with Properties
             PolygonShape polygonShape = new PolygonShape();
 
-            // v�rtices que conforman la "circunferencia" (pol�gono)
+            // pooints of the poligon incribed in the circunference of mRadius 
             float[][] aux = MathUtils.getPolyconVertexes(0, 0, mRadius, sides);
             Vector2[] vertices = new Vector2[aux.length];
 

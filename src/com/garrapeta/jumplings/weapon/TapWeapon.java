@@ -9,7 +9,6 @@ import android.view.MotionEvent;
 
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.actor.MainActor;
-import com.garrapeta.jumplings.module.FlashModule;
 
 public abstract class TapWeapon extends Weapon {
 
@@ -25,15 +24,12 @@ public abstract class TapWeapon extends Weapon {
     @Override
     public final void onTouchEvent(double[] info) {
         if (info[0] == MotionEvent.ACTION_DOWN && (System.currentTimeMillis() - mTapTimeStamp) >= mTimeGap) {
-
-        	mWorld.mFlashModule.flash(FlashModule.TAP_KEY);
-            mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_FINGERPRINT);
-
             mTapTimeStamp = System.currentTimeMillis();
 
             PointF worldPos = mWorld.mViewport.screenToWorld((float) info[1], (float) info[2]);
             TapActor tap = getTapActor(mWorld, worldPos);
             tap.setInitted();
+            tap.onTapEffect();
             mWorld.addActor(tap);
         }
     }
@@ -113,7 +109,9 @@ public abstract class TapWeapon extends Weapon {
 	            }
 	        }
 	    }
-
+	    
+	    protected abstract void onTapEffect();
+	    
 	    @Override
 	    public final void draw(Canvas canvas) {
 	        int alpha = (int) ((mTimeLeft / mLongevity) * 255);
