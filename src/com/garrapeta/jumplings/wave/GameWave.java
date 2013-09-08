@@ -55,9 +55,9 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
         mNextJumperCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
 
         // Inicializaci�n de probabilidades y riesgos
-        setMaxThreat(-0.5 + (level * 1.5));
+        setMaxThreat(-0.25 + (level * 1.25));
 
-        mBombProbability = Math.min(0.30f, level * 0.03f);
+        mBombProbability = Math.min(0.30f, level * 0.025f);
 
         mSpecialEnemyProbability = Math.min(0.65f, level * 0.07f);
 
