@@ -42,7 +42,7 @@
 	<string name="config_value_default_ads">@string/config_value_true</string>
 	<string name="config_value_default_paint_bitmaps">@string/config_value_true</string>
 	<string name="config_value_default_wireframe_mode">@string/config_value_false</string>
-	<string name="config_value_default_debug_features">@string/config_value_false</string>
+	<string name="config_value_default_debug_features">@string/config_value_true</string>
 	<string name="config_value_default_thread_bars">@string/config_value_false</string>
 	<string name="config_value_default_autoplay">@string/config_value_false</string>
 	<string name="config_value_default_scores_server_url">@string/config_score_server_url_development</string>
