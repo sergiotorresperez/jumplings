@@ -2,7 +2,7 @@
 <resources>
 
     <!-- If the Logger is enabled. Only applies to debuggable builds (in production is always disable) -->
-    <bool name="config_log_enabled_in_debug_build">false</bool>
+    <bool name="config_log_enabled_in_debug_build">true</bool>
     
     <!-- If Flurry is enabled -->
     <bool name="config_flurry_enabled">@bool/config_value_default_flurry_enabled</bool>
