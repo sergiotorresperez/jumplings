@@ -265,9 +265,10 @@ public class JumplingsWorld extends Box2DWorld {
      */
     public final void drawBitmap(Canvas canvas, Body body, Bitmap bitmap, Paint paint) {
         Vector2 worldPos = body.getWorldCenter();
-        PointF screenPos = mViewport.worldToScreen(worldPos.x, worldPos.y);
+        float screenPositionX = mViewport.worldToScreenX(worldPos.x);
+        float screenPositionY = mViewport.worldToScreenY(worldPos.y);
         float angle = -(float) Math.toDegrees(body.getAngle());
-    	drawBitmap(canvas, screenPos.x, screenPos.y, angle, bitmap, paint);        
+    	drawBitmap(canvas, screenPositionX, screenPositionY, angle, bitmap, paint);        
     }
     
     /**

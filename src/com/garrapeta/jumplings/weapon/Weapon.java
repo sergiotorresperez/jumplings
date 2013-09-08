@@ -10,7 +10,7 @@ public abstract class Weapon {
 	
 	// --------------------------------------- Variables de instancia
 	protected JumplingsGameWorld mWorld;
-	
+    
 	// ------------------------------------------------- Constructores
 	
 	public Weapon(JumplingsGameWorld jgWorld) {

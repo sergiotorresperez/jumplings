@@ -113,11 +113,6 @@ public abstract class EnemyActor extends MainActor {
     // ------------------------------------------------ M�todos propios
 
     @Override
-    protected Body[] getMainBodies() {
-        return new Body[] { mMainBody };
-    }
-
-    @Override
     protected void onScapedFromBounds() {
         getWorld().onEnemyScaped(this);
         super.onScapedFromBounds();
@@ -144,7 +139,7 @@ public abstract class EnemyActor extends MainActor {
 
         // Left hand
         {
-            Body body = mAnthtopoDelegate.leftHandBody;
+            Body body = mAnthtopoDelegate.mLeftHandBody;
             DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisHandLeft);
             
             getWorld().addActor(debrisActor);
@@ -153,7 +148,7 @@ public abstract class EnemyActor extends MainActor {
 
         // Right Hand
         {
-            Body body = mAnthtopoDelegate.rightHandBody;
+            Body body = mAnthtopoDelegate.mRightHandBody;
             DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisHandRight);
 
             getWorld().addActor(debrisActor);
@@ -162,7 +157,7 @@ public abstract class EnemyActor extends MainActor {
 
         // Left foot
         {
-            Body body = mAnthtopoDelegate.leftFootBody;
+            Body body = mAnthtopoDelegate.mLeftFootBody;
             DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisFootLeft);
 
             getWorld().addActor(debrisActor);
@@ -171,7 +166,7 @@ public abstract class EnemyActor extends MainActor {
 
         // Right foot
         {
-            Body body = mAnthtopoDelegate.rightFootBody;
+            Body body = mAnthtopoDelegate.mRightFootBody;
             DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisFootRight);
             
             getWorld().addActor(debrisActor);
@@ -180,7 +175,7 @@ public abstract class EnemyActor extends MainActor {
 
         // Left Eye
         {
-            Body body = mAnthtopoDelegate.leftEyeBody;
+            Body body = mAnthtopoDelegate.mLeftEyeBody;
             DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisEyeLeft);
 
             getWorld().addActor(debrisActor);
@@ -189,7 +184,7 @@ public abstract class EnemyActor extends MainActor {
 
         // Right Eye
         {
-            Body body = mAnthtopoDelegate.rightEyeBody;
+            Body body = mAnthtopoDelegate.mRightEyeBody;
             DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisEyeRight);
 
             getWorld().addActor(debrisActor);

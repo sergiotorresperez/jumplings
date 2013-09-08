@@ -223,8 +223,9 @@ public class SwordWeapon extends Weapon {
 	        PointF pos = mainActor.getWorldPos();
 
 	        float sr = getWorld().mViewport.worldUnitsToPixels(mainActor.mRadius);
-	        PointF sc = getWorld().mViewport.worldToScreen(pos.x, pos.y);
-	        mCollisionDetectionMainActorRegion.set((int) (sc.x - sr), (int) (sc.y - sr), (int)(sc.x + sr), (int)(sc.y + sr));
+	        float screenPositionX = getWorld().mViewport.worldToScreenX(pos.x);
+	        float screenPositionY = getWorld().mViewport.worldToScreenY(pos.y);
+	        mCollisionDetectionMainActorRegion.set((int) (screenPositionX - sr), (int) (screenPositionY - sr), (int)(screenPositionX + sr), (int)(screenPositionY + sr));
 
 	        return mCollisionDetectionAuxRegion.setPath(mPath, mCollisionDetectionMainActorRegion);
 	    }
