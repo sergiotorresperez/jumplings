@@ -166,6 +166,7 @@
                 android:text="@string/about_ack_2" />
 
             <com.garrapeta.jumplings.ui.CustomFontTextView
+                android:layout_marginTop="@dimen/about_activity_vertical_spacing_small"
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -179,6 +180,40 @@
                 android:linksClickable="true"
                 android:text="@string/about_ack_4" />
 
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                android:layout_marginTop="@dimen/about_activity_vertical_spacing_small"
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:text="@string/about_ack_5" />
+
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:text="@string/about_ack_6" />
+
+             <com.garrapeta.jumplings.ui.CustomFontTextView
+                android:layout_marginTop="@dimen/about_activity_vertical_spacing_small"
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:text="@string/about_ack_7" />
+            
+            <com.garrapeta.jumplings.ui.CustomFontTextView
+                style="@style/MainFont.About"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:text="@string/about_ack_8" />
+            
             <com.garrapeta.jumplings.ui.CustomFontTextView
                 style="@style/MainFont.h4"
                 android:layout_width="wrap_content"

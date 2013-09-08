@@ -51,6 +51,10 @@
     <string name="about_ack_2">https://github.com/libgdx/libgdx</string>
     <string name="about_ack_3">Some sound samples and bitmaps were taken from the free source game Teeworlds and heavily modified.</string>
     <string name="about_ack_4">https://www.teeworlds.com</string>
+    <string name="about_ack_5">AnuDaw font by Nyek! fonts</string>
+    <string name="about_ack_6">\@nyekfonts</string>
+    <string name="about_ack_7">GF Grunge sans font by ShyFonts Type Foundry</string>
+    <string name="about_ack_8">http://www.shyfonts.com</string>
     <string name="about_copyright">© 2013 Sergio Torres Pérez</string>
 
     <!-- Game Over activity -->

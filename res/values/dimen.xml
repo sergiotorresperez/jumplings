@@ -6,6 +6,7 @@
     <dimen name="highscores_activity_list_padding"> 12dp </dimen>
     <dimen name="dialog_width"> 350dp </dimen>
     <dimen name="about_activity_vertical_spacing"> 25dp </dimen>
+    <dimen name="about_activity_vertical_spacing_small"> 10dp </dimen>
     <dimen name="about_activity_popup_vertical_margin"> 22dp </dimen>
     <dimen name="about_activity_popup_horizontal_margin"> 55dp </dimen>
     <dimen name="about_activity_padding"> 20dp </dimen>
