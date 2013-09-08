@@ -7,7 +7,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -290,8 +289,7 @@ public class JumplingsWorld extends Box2DWorld {
         // TODO: �No se puede especificar el punto de anclaje de otra manera?
         canvas.translate(-bitmap.getWidth() / 2, -bitmap.getHeight() / 2);
 
-        Matrix m = new Matrix();
-        canvas.drawBitmap(bitmap, m, paint);
+        canvas.drawBitmap(bitmap, 0, 0, paint);
         canvas.restore();
     }
 
