@@ -24,6 +24,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.garrapeta.gameengine.utils.IOUtils;
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.PermData;
 import com.garrapeta.jumplings.util.Utils;
@@ -106,7 +107,7 @@ public class BackendConnector {
 			is = er.getContent();
 			String responseString = IOUtils.getStringFromInputStream(is);
 
-			Log.i(JumplingsApplication.LOG_SRC, "Response received = " + httpStatusCode + ". Response: " + responseString);
+			if (L.sEnabled) Log.i(JumplingsApplication.TAG, "Response received = " + httpStatusCode + ". Response: " + responseString);
 
 			if (httpStatusCode == HttpStatus.SC_OK) {
 				try {
@@ -187,7 +188,7 @@ public class BackendConnector {
 			try {
 				return BackendConnector.sendRequestSync(mContext, args[0]);
 			} catch (BackendConnectionException e) {
-				Log.e(JumplingsApplication.LOG_SRC, "Error in request: " + e.toString(), e);
+				if (L.sEnabled) Log.e(JumplingsApplication.TAG, "Error in request: " + e.toString(), e);
 				mError = e;
 				return null;
 			}

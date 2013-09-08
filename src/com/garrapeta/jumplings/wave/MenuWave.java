@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.Actor;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.JumplingsWorld;
 import com.garrapeta.jumplings.Wave;
 import com.garrapeta.jumplings.actor.IntroActor;
@@ -39,7 +40,7 @@ public class MenuWave extends Wave<JumplingsWorld> {
     @Override
     public void start() {
         super.start();
-        Log.i(LOG_SRC, "Starting Intro Wave");
+        if (L.sEnabled) Log.i(TAG, "Starting Intro Wave");
         scheduleIntroActorCreation();
     }
 
@@ -80,7 +81,7 @@ public class MenuWave extends Wave<JumplingsWorld> {
     }
 
     private void createIntroActor() {
-        Log.i(LOG_SRC, "Creating intro jumpling");
+        if (L.sEnabled) Log.i(TAG, "Creating intro jumpling");
 
         float worldXPos;
         float worldYPos;

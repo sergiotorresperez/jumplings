@@ -24,6 +24,8 @@ public class SwordWeapon extends Weapon {
 	
 	private final WeaponSwordListener mListener;
 	
+	private final SwordTipWeapon mSwordTipWeapon;
+	
 	// -------------------------------------------------------- Variables de instancia
 	SwordSwipeActor mSwipe;
 	
@@ -31,6 +33,7 @@ public class SwordWeapon extends Weapon {
 		
 	SwordWeapon(JumplingsGameWorld jgWorld, WeaponSwordListener listener) {
 		super(jgWorld);
+		mSwordTipWeapon = new SwordTipWeapon(jgWorld);
 		mSwipe = new SwordSwipeActor(jgWorld);
 		mSwipe.setInitted();
 		jgWorld.addActor(mSwipe);
@@ -39,6 +42,7 @@ public class SwordWeapon extends Weapon {
 
 	@Override
 	public void onTouchEvent(double[] info) {
+		mSwordTipWeapon.onTouchEvent(info);
 		mSwipe.onTouchEvent(info);
 	}
 	
@@ -51,10 +55,12 @@ public class SwordWeapon extends Weapon {
     	mListener.onSwordStarted();
     	mRemainingLife = LIFE_TIME;
         mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_SHEATH);
+        mSwordTipWeapon.onStart(gameTimeStep);
     }
 
 	@Override
 	public void processFrame(float gameTimeStep) {
+		mSwordTipWeapon.processFrame(gameTimeStep);
         if (mListener == null) {
         	return;
         }
@@ -92,8 +98,8 @@ public class SwordWeapon extends Weapon {
 	    
 	    private Path mPath = new Path();
 
-	    private final int MIN_START_DISTANCE = 30;
-	    private final int MIN_STOP_DISTANCE = 15;
+	    private final int MIN_START_DISTANCE = 15;
+	    private final int MIN_STOP_DISTANCE = 10;
 
 	    private double[] mPrev;
 

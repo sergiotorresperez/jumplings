@@ -25,12 +25,16 @@ public class BumpDelegate {
         mBumpable = bumpable;
     }
 
+    public void reset(AnthropomorphicDelegate<?> anthrophoDelegate) {
+    	mIsBumped = false;
+    	anthrophoDelegate.setEyesOpened(true);
+    }
+  
     public void processFrame(float gameTimeStep) {
         if (mIsBumped) {
             mRemainingTime -= gameTimeStep;
             if (mRemainingTime <= 0) {
-                mIsBumped = false;
-                mBumpable.onBumpedChanged(false);
+                mBumpable.onBumpChange(false);
             }
         }
     }
@@ -45,13 +49,13 @@ public class BumpDelegate {
                 return;
             }
         }
-        mIsBumped = true;
-        mRemainingTime = BUMP_TIME;
-        mBumpable.onBumpedChanged(true);
+        mBumpable.onBumpChange(true);
     }
 
     public void onBumped(boolean bumped, JumplingActor<?> actor, AnthropomorphicDelegate<?> anthrophoDelegate) {
-        if (bumped) {
+    	mIsBumped = bumped;
+    	if (bumped) {
+    		mRemainingTime = BUMP_TIME;
             actor.getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_PAIN);
         }
         anthrophoDelegate.setEyesOpened(!bumped);

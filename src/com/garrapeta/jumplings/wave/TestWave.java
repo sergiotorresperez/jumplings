@@ -135,7 +135,7 @@ public class TestWave extends Wave<JumplingsGameWorld> {
         // ShapeActor sa =
         // world.cActivity.CreateShapeEnemy(ShapelingsGameActivity.SHAPE_CIRCLE,
         // initPos, bodyWorldRadius);
-        MainActor mainActor = getWorld().getFactory().getBombActor(initPos);
+        MainActor mainActor = getWorld().getFactory().getRoundEnemyActor(initPos);
  
 
         // EnemyActor enemy = new SplitterEnemyActor(world,

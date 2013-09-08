@@ -58,7 +58,7 @@ public abstract class AllowanceWave<T extends JumplingsGameWorld> extends Wave<T
             mAllowedThreadGeneration = Math.min(mAllowedThreadGeneration, mMaxThreat);
     
             double generated = 0;
-            // Log.i(LOG_SRC, "maxThreat: " + maxThreat + ", existant: " +
+            // if (L.sEnabled) Log.i(TAG, "maxThreat: " + maxThreat + ", existant: " +
             // existant + ", allowedThreadGeneration: " +
             // allowedThreadGeneration + ", acumulated: " + acumulated);
             if (mAccumulated < (mMaxThreat * FACTOR)) {

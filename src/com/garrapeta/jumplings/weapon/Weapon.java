@@ -35,9 +35,9 @@ public abstract class Weapon {
 	/**
 	 * Actor associated to the weapon that does the real damage and has a visual representation
 	 */
-	protected abstract class HarmerActor extends Actor<JumplingsGameWorld> {
+	protected static abstract class HarmerActor extends Actor<JumplingsGameWorld> {
 
-	    public long mTimestamp;
+	    protected long mTimestamp;
 
 	    /**
 	     * Z-Index del actor
@@ -46,6 +46,7 @@ public abstract class Weapon {
 	    
 	    public HarmerActor(JumplingsGameWorld world) {
 	        super(world, 100);
+	        mTimestamp = System.currentTimeMillis();
 	    }
 
 	    // ----------------------------------------------- M�todos de Actor

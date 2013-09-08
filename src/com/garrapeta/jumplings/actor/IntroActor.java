@@ -67,7 +67,12 @@ public class IntroActor extends JumplingActor<JumplingsWorld> implements IBumpab
     }
 
     // --------------------------------------------- M�todos heredados
-
+    
+    public void init(PointF worldPos) {
+    	super.init(worldPos);
+    	mBumpDelegate.reset(mAnthtopoDelegate);
+    }
+    
     @Override
     protected void initBodies(PointF worldPos) {
 
@@ -109,7 +114,7 @@ public class IntroActor extends JumplingActor<JumplingsWorld> implements IBumpab
     }
 
     @Override
-    public void onBumpedChanged(boolean bumped) {
+    public void onBumpChange(boolean bumped) {
         mBumpDelegate.onBumped(bumped, this, mAnthtopoDelegate);
     }
 

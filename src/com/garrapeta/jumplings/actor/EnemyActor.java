@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.PointF;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -11,7 +12,7 @@ import com.garrapeta.gameengine.Box2DActor;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.R;
 
-public abstract class EnemyActor extends MainActor implements IBumpable {
+public abstract class EnemyActor extends MainActor {
 
     // ---------------------------------------------------- Constantes
 
@@ -74,8 +75,12 @@ public abstract class EnemyActor extends MainActor implements IBumpable {
         mBumpDelegate = new BumpDelegate(this);
     }
 
-    // ------------------------------------------- M�todos Heredados
 
+    public void init(PointF worldPos) {
+    	super.init(worldPos);
+    	mBumpDelegate.reset(mAnthtopoDelegate);
+    }
+    
     @Override
     protected final void drawBitmaps(Canvas canvas) {
         mAnthtopoDelegate.drawAnthropomorphicBitmaps(canvas);
@@ -201,7 +206,7 @@ public abstract class EnemyActor extends MainActor implements IBumpable {
     }
 
     @Override
-    public void onBumpedChanged(boolean bumped) {
+    public void onBumpChange(boolean bumped) {
         mBumpDelegate.onBumped(bumped, this, mAnthtopoDelegate);
     }
 

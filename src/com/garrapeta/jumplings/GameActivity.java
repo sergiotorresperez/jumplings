@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.garrapeta.gameengine.GameView;
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.Tutorial.TipDialogFragment.TipDialogListener;
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper.PurchaseCallback;
@@ -184,7 +185,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(JumplingsApplication.LOG_SRC, "onStart " + this);
+        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onStart " + this);
         // FIXME: no se realiza repintado
         FlurryHelper.onStartSession(this);
     }
@@ -192,20 +193,20 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
+        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onStop " + this);
         FlurryHelper.onEndSession(this);
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.i(JumplingsApplication.LOG_SRC, "onRestart " + this);
+        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onRestart " + this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(JumplingsApplication.LOG_SRC, "onPause " + this);
+        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onPause " + this);
         if (!mWorld.isGameOver()) {
             pauseGame();
         }
@@ -214,7 +215,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(JumplingsApplication.LOG_SRC, "onResume " + this);
+        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onResume " + this);
         if (mWorld.isPaused()) {
             showPauseDialog();
         }
@@ -225,7 +226,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
+        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onDestroy " + this);
         mWorld.finish();
         // If the user presses the on / off button of the phone and the activity
         // is destroyed, we want to show the menu activity when going to the task again.
@@ -234,7 +235,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(JumplingsApplication.LOG_SRC, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+        if (L.sEnabled) Log.d(JumplingsApplication.TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
     	if (mPremiumHelper != null && mPremiumHelper.onActivityResult(requestCode, resultCode, data)) {
     		return;
     	}
@@ -371,7 +372,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 			@Override
 			public void run() {
 				int visualProgress = (int) (progress * SWORD_PROGRESS_BAR_MAX);
-				Log.e("stp", ">" + visualProgress);
 		    	mSpecialWeaponBar.setProgress(visualProgress);
 			}
 		});
@@ -521,14 +521,14 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 		mPremiumHelper.purchasePremiumAsync(this, new PurchaseCallback() {
 			@Override
 			public void onPurchaseFinished(boolean purchased) {
-				Log.i(JumplingsApplication.LOG_SRC, "Premium purchased.");
+				if (L.sEnabled) Log.i(JumplingsApplication.TAG, "Premium purchased.");
 				FlurryHelper.logPurchasedFromGame();
 				mWorld.resume();
 			}
 			
 			@Override
 			public void onPurchaseError(String message) {
-				Log.e(JumplingsApplication.LOG_SRC, "Error querying purchase state " + message);
+				if (L.sEnabled) Log.e(JumplingsApplication.TAG, "Error querying purchase state " + message);
 				mWorld.resume();
 			}
 		});

@@ -28,9 +28,9 @@ import com.garrapeta.jumplings.module.FlashModule;
 import com.garrapeta.jumplings.module.ShakeModule;
 import com.garrapeta.jumplings.scenario.IScenario;
 import com.garrapeta.jumplings.weapon.FingerprintWeapon;
+import com.garrapeta.jumplings.weapon.SwordWeapon.WeaponSwordListener;
 import com.garrapeta.jumplings.weapon.Weapon;
 import com.garrapeta.jumplings.weapon.WeaponFactory;
-import com.garrapeta.jumplings.weapon.SwordWeapon.WeaponSwordListener;
 
 /**
  * Mundo del juego
@@ -63,8 +63,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
 
     public static final short SAMPLE_SWORD_SHEATH = 10;
     public static final short SAMPLE_SWORD_UNSHEATH = 11;
+    public static final short SAMPLE_SWORD_STAB = 12;
 
-    public static final short SAMPLE_LIFE_UP = 12;
+    public static final short SAMPLE_LIFE_UP = 13;
 
     public static final short VIBRATION_ENEMY_KILLED_KEY = 0;
     public static final short VIBRATION_FAIL_KEY = 1;
@@ -232,6 +233,7 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         bm.loadBitmap(resources, R.drawable.powerup_debris_heart);
         
         bm.loadBitmap(resources, R.drawable.fingerprint);
+        bm.loadBitmap(resources, R.drawable.sword_point);
 
         // Sound samples setup
         
@@ -248,7 +250,9 @@ public class JumplingsGameWorld extends JumplingsWorld implements OnTouchListene
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_BOMB_LAUNCH).add(R.raw.bomb_launch);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_SWORD_SHEATH).add(R.raw.sword_sheath);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_SWORD_UNSHEATH).add(R.raw.sword_unsheath);
+        sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_SWORD_STAB).add(R.raw.stab);
         sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_LIFE_UP).add(R.raw.life_up);
+        
         
         // Vibrations setup
         VibrationModule vm = getVibratorManager();

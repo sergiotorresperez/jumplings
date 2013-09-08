@@ -10,6 +10,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.Tutorial.TipId;
 
 public class PermData {
@@ -289,7 +290,7 @@ public class PermData {
         } else if (str.equals(r.getString(R.string.config_value_none))) {
             return CFG_LEVEL_NONE;
         } else {
-            Log.w(JumplingsApplication.LOG_SRC, "Invalid configuration level string: " + str);
+            if (L.sEnabled) Log.w(JumplingsApplication.TAG, "Invalid configuration level string: " + str);
             throw new IllegalArgumentException("Illegal configuration value: " + str);
         }
     }

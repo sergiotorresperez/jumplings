@@ -7,27 +7,26 @@ import android.graphics.Canvas;
 import android.graphics.PointF;
 
 import com.garrapeta.gameengine.BitmapManager;
-import com.garrapeta.gameengine.Viewport;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.actor.MainActor;
 import com.garrapeta.jumplings.module.FlashModule;
 
-public class FingerprintWeapon extends TapWeapon {
+public class SwordTipWeapon extends TapWeapon {
 
     // --------------------------------------------------------------------
     // Constantes
 
-    public final static short WEAPON_CODE_FINGERPRINT = 0;
+    public final static short WEAPON_CODE_SWORDTIP = 2;
 
     private final static Random sRandom = new Random();
     
-    FingerprintWeapon(JumplingsGameWorld jgWorld) {
+    SwordTipWeapon(JumplingsGameWorld jgWorld) {
         super(jgWorld, 100);
     }
 
     public short getWeaponCode() {
-        return WEAPON_CODE_FINGERPRINT;
+        return WEAPON_CODE_SWORDTIP;
     }
 
     @Override
@@ -52,14 +51,12 @@ public class FingerprintWeapon extends TapWeapon {
 
 	    // ----------------------------------------------------- Constantes
 
-	    private final static float KILL_RADIUS = 1.2f;
-	    private final static float BLAST_RADIUS = KILL_RADIUS * 1.7f;
-	    private final static float BLAST_FORCE = 35;
+	    private final static float KILL_RADIUS = 0.8f;
 	    private final static float LONGEVITY = 150;
 
-	    protected final static int BMP_FINGERPRINT_ID = R.drawable.fingerprint;
+	    protected final static int BMP_SWORD_POINT_ID = R.drawable.sword_point;
 	    
-	    private final static int MAX_ANGLE = 30; 
+	    private final static int MAX_ANGLE = 360; 
 	    // ----------------------------------------- Variables de instancia
 
 	    private Bitmap mBmpFingerprint;
@@ -73,17 +70,17 @@ public class FingerprintWeapon extends TapWeapon {
 	        mWorldPos = worldPos;
 	        
 	        BitmapManager mb = getWorld().getBitmapManager();
-	        mBmpFingerprint = mb.getBitmap(BMP_FINGERPRINT_ID);
+	        mBmpFingerprint = mb.getBitmap(BMP_SWORD_POINT_ID);
 
-	        mAngle = -MAX_ANGLE + sRandom.nextInt(MAX_ANGLE * 2);
+	        mAngle = sRandom.nextInt(MAX_ANGLE);
 	    }
 
 	    // ----------------------------------------------- M�todos heredados
 
 	    @Override
 	    protected void onTapEffect() {
-	    	mWorld.mFlashModule.flash(FlashModule.FINGERPRINT_KEY);
-            mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_FINGERPRINT);
+	    	mWorld.mFlashModule.flash(FlashModule.SWORD_STAB_KEY);
+            mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_STAB);
 	    }
 	    
 		@Override
@@ -93,10 +90,7 @@ public class FingerprintWeapon extends TapWeapon {
 
 		@Override
 		protected void onMissed(MainActor actor) {
-			if (intersects(BLAST_RADIUS, actor.mRadius, actor.getWorldPos())) {
-				mWorld.applyBlast(Viewport.pointFToVector2(mWorldPos), actor.mMainBody, BLAST_RADIUS, BLAST_FORCE);
-				actor.onBumpChange(true);	
-			}
+			// nothing
 		}
 		
 	    @Override
