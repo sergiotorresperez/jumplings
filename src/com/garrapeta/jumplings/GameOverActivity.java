@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.JumplingsToast;
@@ -63,7 +64,7 @@ public class GameOverActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Log.i(JumplingsApplication.LOG_SRC, "onCreate " + this);
+		if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onCreate " + this);
 
 		// Wave y botones
 		mWaveKey = null;

@@ -7,6 +7,7 @@ import android.util.Log;
 import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.gameengine.utils.PhysicsUtils;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.Player;
@@ -171,9 +172,9 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
             }
         } while (MainActor.getBaseThread(code) > getMaxThreat());
 
-        Log.i(LOG_SRC, "Next enemy code: " + code);
+        if (L.sEnabled) Log.i(TAG, "Next enemy code: " + code);
         
-//        Log.w("stp", "Next " + code + " maxBombs " + maxBombs + " currentBombs " + getWorld().mBombActors.size());
+//        if (L.sEnabled) Log.w("stp", "Next " + code + " maxBombs " + maxBombs + " currentBombs " + getWorld().mBombActors.size());
         return code;
     }
 
@@ -210,7 +211,7 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
         if (mainActor != null) {
             mainActor.setLinearVelocity(initVel.x, initVel.y);
             getWorld().addActor(mainActor);
-            Log.i(LOG_SRC, "Added mainActor: " + mNextJumperCode);
+            if (L.sEnabled) Log.i(TAG, "Added mainActor: " + mNextJumperCode);
             mNextJumperCode = JUMPER_CODE_NULL;
             return threat;
 
@@ -344,7 +345,7 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
         int wounds = Math.max(0, Player.DEFAUL_INIT_LIFES - getWorld().getPlayer().getLifes());
 
         float lapse =  POWERUP_BASE_LAPSE - (wounds * (POWERUP_BASE_LAPSE / Player.DEFAUL_INIT_LIFES));
-        Log.i(LOG_SRC, "Next power up in: " + lapse + " ms (" +  getWorld().getPlayer().getLifes() + " lives)");
+        if (L.sEnabled) Log.i(TAG, "Next power up in: " + lapse + " ms (" +  getWorld().getPlayer().getLifes() + " lives)");
         return lapse;
     }
 

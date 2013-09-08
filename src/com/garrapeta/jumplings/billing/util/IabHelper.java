@@ -35,6 +35,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.garrapeta.gameengine.utils.L;
 
 
 /**
@@ -70,8 +71,6 @@ import com.android.vending.billing.IInAppBillingService;
  *
  */
 public class IabHelper {
-    // Is debug logging enabled?
-    boolean mDebugLog = false;
     String mDebugTag = "IabHelper";
 
     // Is setup done?
@@ -163,18 +162,6 @@ public class IabHelper {
         logDebug("IAB helper created.");
     }
     
-    /**
-     * Enables or disable debug logging through LogCat.
-     */
-    public void enableDebugLogging(boolean enable, String tag) {
-        mDebugLog = enable;
-        mDebugTag = tag;
-    }
-    
-    public void enableDebugLogging(boolean enable) {
-        mDebugLog = enable;
-    }
-
     /**
      * Callback for setup process. This listener's {@link #onIabSetupFinished} method is called
      * when the setup process is complete.
@@ -949,14 +936,14 @@ public class IabHelper {
     }
     
     void logDebug(String msg) {
-        if (mDebugLog) Log.d(mDebugTag, msg);
+        if (L.sEnabled) Log.d(mDebugTag, msg);
     }
     
     void logError(String msg) {
-        Log.e(mDebugTag, "In-app billing error: " + msg);
+        if (L.sEnabled) Log.e(mDebugTag, "In-app billing error: " + msg);
     }
     
     void logWarn(String msg) {
-        Log.w(mDebugTag, "In-app billing warning: " + msg);
+        if (L.sEnabled) Log.w(mDebugTag, "In-app billing warning: " + msg);
     }
 }

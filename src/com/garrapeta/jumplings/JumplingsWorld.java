@@ -20,6 +20,7 @@ import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.gameengine.Box2DWorld;
 import com.garrapeta.gameengine.GameView;
 import com.garrapeta.gameengine.module.SoundModule;
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.actor.JumplingActor;
 import com.garrapeta.jumplings.actor.JumplingsFactory;
 import com.garrapeta.jumplings.actor.WallActor;
@@ -35,7 +36,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     // -------------------------------------------------------- Constantes
 
-    public static final String TAG = JumplingsApplication.LOG_SRC_JUMPLINGS + ".world";
+    public static final String TAG = JumplingsApplication.TAG_JUMPLINGS + ".world";
 
     /**
      * World units of the world across the width of the screen. The height is calculated 
@@ -84,7 +85,7 @@ public class JumplingsWorld extends Box2DWorld {
 
     @Override
     protected void onBeforeRunning() {
-        Log.i(TAG, "onBeforeRunning " + this);
+        if (L.sEnabled) Log.i(TAG, "onBeforeRunning " + this);
 
         // Paredes
         // -----------------------------------------------------------------
@@ -196,7 +197,7 @@ public class JumplingsWorld extends Box2DWorld {
    
     @Override
     public void onGameViewSizeChanged(int width, int height) {
-        Log.i(TAG, "surfaceChanged " + this);
+        if (L.sEnabled) Log.i(TAG, "surfaceChanged " + this);
         mViewport.setWorldSizeGivenWorldUnitsPerInchX(WORLD_WIDTH);
     }
 
@@ -204,7 +205,7 @@ public class JumplingsWorld extends Box2DWorld {
     public void onGameWorldSizeChanged(RectF worldBoundaries) {
     	// FIXME: if this comes from a screen orientation change to portrait the size of the world will be wrong
         if (!isRunning()) {
-            Log.i(JumplingsApplication.LOG_SRC, "onGameWorldSizeChanged: " + worldBoundaries.width() + " x " + worldBoundaries.height() + ". Staring Game" + this);
+            if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onGameWorldSizeChanged: " + worldBoundaries.width() + " x " + worldBoundaries.height() + ". Staring Game" + this);
 
             // Se arranca el game loop
             start();
@@ -236,7 +237,7 @@ public class JumplingsWorld extends Box2DWorld {
     
     @Override
     public void onError(Throwable error) {
-    	Log.e(TAG, "Game error!", error);
+    	if (L.sEnabled) Log.e(TAG, "Game error!", error);
  		FlurryHelper.onGameEngineError(error);
 
 		// show error dialog

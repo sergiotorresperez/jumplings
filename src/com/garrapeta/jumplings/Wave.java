@@ -16,7 +16,7 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
     // ------------------------------------------------- Constantes
 
     /** tag del log */
-    public static final String LOG_SRC = JumplingsApplication.LOG_SRC_JUMPLINGS + ".wave";
+    public static final String TAG = JumplingsApplication.TAG_JUMPLINGS + ".wave";
 
     public static float ENEMY_OFFSET = JumplingActor.BASE_RADIUS * 2.5f;
 

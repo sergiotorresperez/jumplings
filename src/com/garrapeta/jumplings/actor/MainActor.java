@@ -2,7 +2,6 @@ package com.garrapeta.jumplings.actor;
 
 import java.util.ArrayList;
 
-import android.graphics.PointF;
 import android.view.MotionEvent;
 
 import com.badlogic.gdx.math.Vector2;

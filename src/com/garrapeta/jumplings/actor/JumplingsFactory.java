@@ -5,6 +5,7 @@ import android.graphics.PointF;
 import android.util.Log;
 
 import com.badlogic.gdx.physics.box2d.Body;
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.gameengine.utils.Pool;
 import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.JumplingsGameWorld;
@@ -16,7 +17,7 @@ import com.garrapeta.jumplings.JumplingsWorld;
  */
 public class JumplingsFactory {
 
-    public final static String LOG_SRC = JumplingsApplication.LOG_SRC_JUMPLINGS + ".pool";
+    public final static String TAG = JumplingsApplication.TAG_JUMPLINGS + ".pool";
     private final static int MAX_INSTANCES = 300;
     
     private final JumplingsWorld mJumplingsWorld;
@@ -110,70 +111,70 @@ public class JumplingsFactory {
 
     public DebrisActor getDebrisActor(Body body, Bitmap bitmap) {
         DebrisActor actor = mDebrisActorPool.obtain();
-        Log.i(LOG_SRC, "DebrisActor: " +   mDebrisActorPool.getDebugString());
+        if (L.sEnabled) Log.i(TAG, "DebrisActor: " +   mDebrisActorPool.getDebugString());
         actor.init(body, bitmap);
         return actor;
     }
 
     public IntroActor getIntroActor(PointF worldPos) {
         IntroActor actor = mIntroActor.obtain();
-        Log.i(LOG_SRC, "IntroActor: " + mIntroActor.getDebugString());
+        if (L.sEnabled) Log.i(TAG, "IntroActor: " + mIntroActor.getDebugString());
         actor.init(worldPos);
         return actor;
     }
 
     public SparksActor getSparksActor(PointF worldPos, int longevity) {
         SparksActor actor = mSparksActor.obtain();
-        Log.i(LOG_SRC, "SparksActor: " + mSparksActor.getDebugString());
+        if (L.sEnabled) Log.i(TAG, "SparksActor: " + mSparksActor.getDebugString());
         actor.init(worldPos, longevity);
         return actor;
     }
  
     public RoundEnemyActor getRoundEnemyActor(PointF worldPos) {
         RoundEnemyActor actor = mRoundEnemyActorPool.obtain();
-        Log.i(LOG_SRC, "RoundEnemyActor: " +  mRoundEnemyActorPool.getDebugString());
+        if (L.sEnabled) Log.i(TAG, "RoundEnemyActor: " +  mRoundEnemyActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
 
     public DoubleEnemyActor getDoubleEnemyActor(PointF worldPos) {
         DoubleEnemyActor actor = mDoubleEnemyActorPool.obtain();
-        Log.i(LOG_SRC, "DoubleEnemyActor: " + mDoubleEnemyActorPool.getDebugString());
+        if (L.sEnabled) Log.i(TAG, "DoubleEnemyActor: " + mDoubleEnemyActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
     
     public DoubleSonEnemyActor getDoubleSonEnemyActor(PointF worldPos) {
         DoubleSonEnemyActor actor = mDoubleSonEnemyActorPool.obtain();
-        Log.i(LOG_SRC, "DoubleSonEnemyActor: " + mDoubleSonEnemyActorPool.getDebugString());
+        if (L.sEnabled) Log.i(TAG, "DoubleSonEnemyActor: " + mDoubleSonEnemyActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
     
     public SplitterEnemyActor getSplitterEnemyActor(PointF worldPos, int level) {
         SplitterEnemyActor actor = mSplitterEnemyActorPool.obtain();
-        Log.i(LOG_SRC, "SplitterEnemyActor: " + mSplitterEnemyActorPool.getDebugString());
+        if (L.sEnabled) Log.i(TAG, "SplitterEnemyActor: " + mSplitterEnemyActorPool.getDebugString());
         actor.init(worldPos, level);
         return actor;
     }
 
     public BombActor getBombActor(PointF worldPos) {
         BombActor actor = mBombActorPool.obtain();
-        Log.i(LOG_SRC, "BombActor: " + mBombActorPool.getDebugString());
+        if (L.sEnabled) Log.i(TAG, "BombActor: " + mBombActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
 
     public SwordPowerUpActor getSwordPowerUpActor(PointF worldPos) {
         SwordPowerUpActor actor = mSwordPowerUpActorPool.obtain();
-        Log.i(LOG_SRC, "SwordPowerUpActor: " + mSwordPowerUpActorPool.getDebugString());
+        if (L.sEnabled) Log.i(TAG, "SwordPowerUpActor: " + mSwordPowerUpActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
     
     public LifePowerUpActor getLifePowerUpActor(PointF worldPos) {
         LifePowerUpActor actor = mLifePowerUpActorPool.obtain();
-        Log.i(LOG_SRC, "LifePowerUpActor: " + mLifePowerUpActorPool.getDebugString());
+        if (L.sEnabled) Log.i(TAG, "LifePowerUpActor: " + mLifePowerUpActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }

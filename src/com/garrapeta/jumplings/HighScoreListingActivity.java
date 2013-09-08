@@ -23,6 +23,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.comms.BackendConnectionException;
 import com.garrapeta.jumplings.comms.BackendConnector;
@@ -76,7 +77,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i(JumplingsApplication.LOG_SRC, "onCreate " + this);
+        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onCreate " + this);
 
         // Lectura de datos persistentes
         mLocalScoreList = PermData.getLocalScoresList(this);
@@ -226,7 +227,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
      * Sube los scores locales al servidor
      */
     private void submitScores() {
-		Log.i(TAG, "Submitting local scores");
+		if (L.sEnabled) Log.i(TAG, "Submitting local scores");
 		
 		try {
 			FlurryHelper.logScoresSubmitted();
@@ -264,7 +265,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 	    		}});
 		} catch (Exception error) {
 			String srt = "Error preparing the scores submission payload";
-			Log.e(TAG, srt, error);
+			if (L.sEnabled) Log.e(TAG, srt, error);
 			manageScoresSubmissionError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, srt, error));
 		}
     }
@@ -295,7 +296,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
      * Actualiza los scores del servidor
      */
     private void downloadScores() {
-		Log.i(TAG, "Requesting global scores update. ");
+		if (L.sEnabled) Log.i(TAG, "Requesting global scores update. ");
 		
     	try {
 	    	// get world size
@@ -399,13 +400,13 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 
     private void manageScoresDownloadError(BackendConnectionException e) {
     	FlurryHelper.onErrorScoreDownloadError(e);
-    	Log.e(TAG, "Error downloading scores", e);
+    	if (L.sEnabled) Log.e(TAG, "Error downloading scores", e);
 		notifyError(R.string.highscores_error_download_score, e.getErrorType());
     }
 
     private void manageScoresSubmissionError(BackendConnectionException e) {
     	FlurryHelper.onErrorScoreSubmissionError(e);
-     	Log.e(TAG, "Error submitting scores", e);
+     	if (L.sEnabled) Log.e(TAG, "Error submitting scores", e);
     	notifyError(R.string.highscores_error_submit_score, e.getErrorType());
     }
 

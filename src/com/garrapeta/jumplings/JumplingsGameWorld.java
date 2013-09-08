@@ -28,9 +28,9 @@ import com.garrapeta.jumplings.module.FlashModule;
 import com.garrapeta.jumplings.module.ShakeModule;
 import com.garrapeta.jumplings.scenario.IScenario;
 import com.garrapeta.jumplings.weapon.FingerprintWeapon;
+import com.garrapeta.jumplings.weapon.SwordWeapon.WeaponSwordListener;
 import com.garrapeta.jumplings.weapon.Weapon;
 import com.garrapeta.jumplings.weapon.WeaponFactory;
-import com.garrapeta.jumplings.weapon.SwordWeapon.WeaponSwordListener;
 
 /**
  * Mundo del juego

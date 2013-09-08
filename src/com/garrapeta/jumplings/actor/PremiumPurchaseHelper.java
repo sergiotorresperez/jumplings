@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.billing.util.IabHelper;
 import com.garrapeta.jumplings.billing.util.IabHelper.OnIabPurchaseFinishedListener;
@@ -46,13 +47,8 @@ public class PremiumPurchaseHelper {
 	public PremiumPurchaseHelper(Context context) {
 		// Create the helper, passing it our context and the public key to
 		// verify signatures with
-		Log.d(TAG, "Creating IAB helper.");
+		if (L.sEnabled) Log.d(TAG, "Creating IAB helper.");
 		mHelper = new IabHelper(context, getAppIdKey(context));
-
-		// enable debug logging (for a production application, you should set
-		// this to false).
-		mHelper.enableDebugLogging(true);
-		
 		mNoAdsSKU = context.getString(R.string.inapp_sku_noads);
 	}
 
@@ -64,10 +60,10 @@ public class PremiumPurchaseHelper {
 	 */
 	public void queryIsPremiumPurchasedAsync(final Context context, final PurchaseStateQueryCallback listener) {
 		if (!mIsSetUp) {
-			Log.d(TAG, "Starting setup.");
+			if (L.sEnabled) Log.d(TAG, "Starting setup.");
 			mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
 				public void onIabSetupFinished(IabResult result) {
-					Log.d(TAG, "Setup finished.");
+					if (L.sEnabled) Log.d(TAG, "Setup finished.");
 
 					if (!result.isSuccess()) {
 						if (listener != null) {
@@ -82,12 +78,12 @@ public class PremiumPurchaseHelper {
 			return;
 		}
 
-		Log.i(TAG, "Querying inventory.");
+		if (L.sEnabled) Log.i(TAG, "Querying inventory.");
 		mHelper.queryInventoryAsync(new QueryInventoryFinishedListener() {
 			@Override
 			public void onQueryInventoryFinished(IabResult result, Inventory inv) {
 				if (!result.isSuccess()) {
-					Log.e(TAG, "Querying inventory resulted in error: " + result.getMessage());
+					if (L.sEnabled) Log.e(TAG, "Querying inventory resulted in error: " + result.getMessage());
 					if (listener != null) {
 						listener.onPurchaseStateQueryError("Error querying user inventory: " + result.getMessage());
 					}
@@ -98,7 +94,7 @@ public class PremiumPurchaseHelper {
 						// 0 means purchased
 						isPurchased = (purchase.getPurchaseState() == 0);
 					}
-					Log.i(TAG, "Querying inventory finished. Is purchased: " + isPurchased);
+					if (L.sEnabled) Log.i(TAG, "Querying inventory finished. Is purchased: " + isPurchased);
 					setPremiumPurchased(context, isPurchased);
 					if (listener != null) {
 						listener.onPurchaseStateQueryFinished(isPurchased);
@@ -116,10 +112,10 @@ public class PremiumPurchaseHelper {
 	 */
 	public void purchasePremiumAsync(final Activity activity, final PurchaseCallback listener) {
 		if (!mIsSetUp) {
-			Log.d(TAG, "Starting setup.");
+			if (L.sEnabled) Log.d(TAG, "Starting setup.");
 			mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
 				public void onIabSetupFinished(IabResult result) {
-					Log.d(TAG, "Setup finished.");
+					if (L.sEnabled) Log.d(TAG, "Setup finished.");
 
 					if (!result.isSuccess()) {
 						if (listener != null) {
@@ -134,13 +130,13 @@ public class PremiumPurchaseHelper {
 			return;
 		}
 
-		Log.i(TAG, "Launching purchase process");
+		if (L.sEnabled) Log.i(TAG, "Launching purchase process");
 		mHelper.launchPurchaseFlow(activity, mNoAdsSKU, RC_REQUEST,
 				new OnIabPurchaseFinishedListener() {
 					@Override
 					public void onIabPurchaseFinished(IabResult result, Purchase info) {
 						if (!result.isSuccess()) {
-							Log.e(TAG, "Purchase process finished with error: " + result.getMessage());
+							if (L.sEnabled) Log.e(TAG, "Purchase process finished with error: " + result.getMessage());
 							if (listener != null) {
 								listener.onPurchaseError("Error purchasing item: " + result.getMessage());
 							}
@@ -150,7 +146,7 @@ public class PremiumPurchaseHelper {
 								// 0 means purchased
 								isPurchased = (info.getPurchaseState() == 0);
 							}
-							Log.i(TAG, "Purchase process finished. Is purchased: " + isPurchased);
+							if (L.sEnabled) Log.i(TAG, "Purchase process finished. Is purchased: " + isPurchased);
 							setPremiumPurchased(activity, isPurchased);
 							if (listener != null) {
 								listener.onPurchaseFinished(isPurchased);
@@ -168,7 +164,7 @@ public class PremiumPurchaseHelper {
 	 * @return
 	 */
 	public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+		if (L.sEnabled) Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
 
 		// Pass on the activity result to the helper for handling
 		if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
@@ -177,7 +173,7 @@ public class PremiumPurchaseHelper {
 			// billing...
 			return false;
 		} else {
-			Log.d(TAG, "onActivityResult handled by IABUtil.");
+			if (L.sEnabled) Log.d(TAG, "onActivityResult handled by IABUtil.");
 			return true;
 		}
 	}
@@ -224,7 +220,7 @@ public class PremiumPurchaseHelper {
 	 */
 	public void dispose() {
 		// very important:
-		Log.d(TAG, "Destroying helper.");
+		if (L.sEnabled) Log.d(TAG, "Destroying helper.");
 		if (mHelper != null) {
 			mHelper.dispose();
 			mHelper = null;

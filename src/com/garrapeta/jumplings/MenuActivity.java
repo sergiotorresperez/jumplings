@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.garrapeta.gameengine.GameView;
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper.PurchaseCallback;
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper.PurchaseStateQueryCallback;
@@ -157,15 +158,15 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(JumplingsApplication.LOG_SRC, "onStart " + this);
+        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onStart " + this);
         
         // Query the state of the purchase
 		mPremiumHelper = new PremiumPurchaseHelper(this);
 		if (mPremiumHelper.isPremiumPurchaseStateKnown(this)) {
-			Log.d(TAG, "Premium purchase state known. No need to query.");
+			if (L.sEnabled) Log.d(TAG, "Premium purchase state known. No need to query.");
 			startAnimation(mPremiumHelper.isPremiumPurchased(this));
 		} else {
-			Log.d(TAG, "Premium purchase state unknown. Querying for it.");
+			if (L.sEnabled) Log.d(TAG, "Premium purchase state unknown. Querying for it.");
 			mPremiumHelper.queryIsPremiumPurchasedAsync(this, new PurchaseStateQueryCallback() {
 				@Override
 				public void onPurchaseStateQueryFinished(boolean purchased) {
@@ -174,7 +175,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
 				
 				@Override
 				public void onPurchaseStateQueryError(String message) {
-					Log.i(TAG, "Error querying purchase state " + message);
+					if (L.sEnabled) Log.i(TAG, "Error querying purchase state " + message);
 					// we assume it is purchased
 					startAnimation(true);
 				}
@@ -193,7 +194,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(JumplingsApplication.LOG_SRC, "onPause " + this);
+        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onPause " + this);
         if (mWorld.isRunning()) {
         	mWorld.pause();
         }
@@ -202,14 +203,14 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(JumplingsApplication.LOG_SRC, "onResume " + this);
+        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onResume " + this);
         mWorld.resume();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i(JumplingsApplication.LOG_SRC, "onStop " + this);
+        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onStop " + this);
         FlurryHelper.onEndSession(this);
         
         if (mWorld.isRunning()) {
@@ -220,7 +221,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
 
 	@Override
 	protected void onDestroy() {
-		Log.i(JumplingsApplication.LOG_SRC, "onDestroy " + this);
+		if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onDestroy " + this);
 		super.onDestroy();
 		if (mPremiumHelper != null) {
 			mPremiumHelper.dispose();
@@ -229,7 +230,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
 	
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+        if (L.sEnabled) Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
     	if (mPremiumHelper != null && mPremiumHelper.onActivityResult(requestCode, resultCode, data)) {
     		return;
     	}
@@ -334,7 +335,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     }
     
     private void onPremiumStateUpdate(boolean purchased) {
-    	Log.i(TAG, "Premium upgrade purchased: " + purchased);
+    	if (L.sEnabled) Log.i(TAG, "Premium upgrade purchased: " + purchased);
     	mShowNonPremiumComponents = PermData.areAdsEnabled(this) && !purchased;
     	if (!mShowNonPremiumComponents) {
     		// this will prevent the animations to start, and the views will never become visible
@@ -355,7 +356,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
 			
 			@Override
 			public void onPurchaseError(String message) {
-				Log.i(TAG, "Error querying purchase state " + message);
+				if (L.sEnabled) Log.i(TAG, "Error querying purchase state " + message);
 			}
 		});
 	}

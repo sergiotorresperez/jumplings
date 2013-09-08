@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
+import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.GameActivity;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.Player;
@@ -77,7 +78,7 @@ public class CampaignWave extends Wave<JumplingsGameWorld> implements ICampaignW
     @Override
     public void start() {
         super.start();
-        Log.i(LOG_SRC, "Starting Wave Campaign");
+        if (L.sEnabled) Log.i(TAG, "Starting Wave Campaign");
         mScenario.init();
         scheduleNextWave(FIRST_WAVE_DELAY);
     }
@@ -119,12 +120,12 @@ public class CampaignWave extends Wave<JumplingsGameWorld> implements ICampaignW
 
     @Override
     public void onChildWaveStarted() {
-        Log.i(LOG_SRC, "Wave started");
+        if (L.sEnabled) Log.i(TAG, "Wave started");
     }
 
     @Override
     public void onChildWaveEnded() {
-        Log.i(LOG_SRC, "Wave ended");
+        if (L.sEnabled) Log.i(TAG, "Wave ended");
         mCurrentWave.pause();
         mLevel++;
         scheduleNextWave(INTER_WAVE_DELAY);
