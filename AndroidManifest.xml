@@ -3,7 +3,7 @@
     package="com.garrapeta.jumplings"
     android:installLocation="preferExternal"
     android:versionCode="21"
-    android:versionName="0.8.0" >
+    android:versionName="1.0.0" >
 
     <!-- TODO: if it wasn't for the TabActivity this could be reduced -->
     <uses-sdk
