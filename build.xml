@@ -132,7 +132,6 @@
 		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_ads" value="true"/>
 		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_paint_bitmaps" value="true"/>
 		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_wireframe_mode" value="false"/>
-		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_debug_features" value="false"/>
 		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_thread_bars" value="false"/>
 		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_autoplay" value="false"/>
 		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_flurry_enabled" value="true"/>
