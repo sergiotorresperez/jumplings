@@ -104,7 +104,8 @@ public abstract class PowerUpActor extends MainActor {
         // Main Body
         {
             Body body = mMainBody;
-            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisBg);
+            DebrisActor debrisActor = getWorld().getFactory()
+                                                .getDebrisActor(body, mBmpDebrisBg);
 
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -113,7 +114,8 @@ public abstract class PowerUpActor extends MainActor {
         // Icon
         {
             Body body = mIconBody;
-            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisIcon);
+            DebrisActor debrisActor = getWorld().getFactory()
+                                                .getDebrisActor(body, mBmpDebrisIcon);
 
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -128,16 +130,16 @@ public abstract class PowerUpActor extends MainActor {
         getWorld().drawBitmap(canvas, this.mIconBody, mBmpIcon);
     }
 
-	@Override
-	public void onBumpChange(boolean bumped) {
-		// nothing
-	}
-	
+    @Override
+    public void onBumpChange(boolean bumped) {
+        // nothing
+    }
+
     @Override
     protected void dispose() {
         super.dispose();
         mIconBody = null;
-        mBmpBg= null;
+        mBmpBg = null;
         mBmpIcon = null;
         mBmpDebrisBg = null;
         mBmpDebrisIcon = null;

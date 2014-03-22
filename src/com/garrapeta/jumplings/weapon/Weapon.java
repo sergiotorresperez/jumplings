@@ -6,70 +6,68 @@ import com.garrapeta.jumplings.actor.MainActor;
 
 public abstract class Weapon {
 
-	// ---------------------------------------------------- Contantes
-	
-	// --------------------------------------- Variables de instancia
-	protected JumplingsGameWorld mWorld;
-    
-	// ------------------------------------------------- Constructores
-	
-	public Weapon(JumplingsGameWorld jgWorld) {
-		mWorld = jgWorld;
-	}
-	
-	// ----------------------------------------------- M�todos propios
-	
-	/**
-	 * @param info
-	 */
-	public abstract void onTouchEvent(double[] info);
-	
-	public abstract short getWeaponCode();
+    // ---------------------------------------------------- Contantes
 
-	public abstract void onStart(float gameTimeStep);
+    // --------------------------------------- Variables de instancia
+    protected JumplingsGameWorld mWorld;
 
-	public abstract void processFrame(float gameTimeStep);
-	
-	
-	
-	/**
-	 * Actor associated to the weapon that does the real damage and has a visual representation
-	 */
-	protected static abstract class HarmerActor extends Actor<JumplingsGameWorld> {
+    // ------------------------------------------------- Constructores
 
-	    protected long mTimestamp;
+    public Weapon(JumplingsGameWorld jgWorld) {
+        mWorld = jgWorld;
+    }
 
-	    /**
-	     * Z-Index del actor
-	     */
-	    public final static int Z_INDEX = 20;
-	    
-	    public HarmerActor(JumplingsGameWorld world) {
-	        super(world, 100);
-	        mTimestamp = System.currentTimeMillis();
-	    }
+    // ----------------------------------------------- M�todos propios
 
-	    // ----------------------------------------------- M�todos de Actor
+    /**
+     * @param info
+     */
+    public abstract void onTouchEvent(double[] info);
 
-	    @Override
-	    protected void processFrame(float gameTimeStep) {
-	        // efectos sobre los mainActors
-	        Object[] as = getWorld().mMainActors.toArray();
+    public abstract short getWeaponCode();
 
-	        int l = as.length;
+    public abstract void onStart(float gameTimeStep);
 
-	        for (int i = 0; i < l; i++) {
-	            MainActor j = (MainActor) as[i];
-	            if (j.timestamp <= mTimestamp) {
-	                effectOver(j);
-	            }
-	        }
-	    }
+    public abstract void processFrame(float gameTimeStep);
 
+    /**
+     * Actor associated to the weapon that does the real damage and has a visual
+     * representation
+     */
+    protected static abstract class HarmerActor extends Actor<JumplingsGameWorld> {
 
-	    // ----------------------------------------------- M�todos propios
-	    protected abstract void effectOver(MainActor j);
+        protected long mTimestamp;
 
-	}
+        /**
+         * Z-Index del actor
+         */
+        public final static int Z_INDEX = 20;
+
+        public HarmerActor(JumplingsGameWorld world) {
+            super(world, 100);
+            mTimestamp = System.currentTimeMillis();
+        }
+
+        // ----------------------------------------------- M�todos de Actor
+
+        @Override
+        protected void processFrame(float gameTimeStep) {
+            // efectos sobre los mainActors
+            Object[] as = getWorld().mMainActors.toArray();
+
+            int l = as.length;
+
+            for (int i = 0; i < l; i++) {
+                MainActor j = (MainActor) as[i];
+                if (j.timestamp <= mTimestamp) {
+                    effectOver(j);
+                }
+            }
+        }
+
+        // ----------------------------------------------- M�todos propios
+        protected abstract void effectOver(MainActor j);
+
+    }
 
 }

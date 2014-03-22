@@ -15,7 +15,7 @@ public abstract class TextActor extends Actor<JumplingsGameWorld> {
     // ----------------------------------------------------- Constantes
 
     private static final String GAME_FONT_PATH = "fonts/AnuDaw.ttf";
-    
+
     /**
      * Z-Index del actor
      */
@@ -44,7 +44,7 @@ public abstract class TextActor extends Actor<JumplingsGameWorld> {
         mJgWorld = jgWorld;
         mWorldPos = worldPos;
         mGameFont = Typeface.createFromAsset(mJgWorld.mActivity.getAssets(), GAME_FONT_PATH);
-        
+
         mPaint = new Paint();
         mPaint.setColor(Color.RED);
         mPaint.setTextAlign(Align.CENTER);
@@ -77,8 +77,8 @@ public abstract class TextActor extends Actor<JumplingsGameWorld> {
         mText = null;
         mPaint = null;
     }
- 
+
     public void forceDisappear() {
-        mLifeTime =mLifeTime / 4;
+        mLifeTime = mLifeTime / 4;
     }
 }

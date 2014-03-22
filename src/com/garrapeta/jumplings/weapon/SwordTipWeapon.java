@@ -20,7 +20,7 @@ public class SwordTipWeapon extends TapWeapon {
     public final static short WEAPON_CODE_SWORDTIP = 2;
 
     private final static Random sRandom = new Random();
-    
+
     SwordTipWeapon(JumplingsGameWorld jgWorld) {
         super(jgWorld, 100);
     }
@@ -31,73 +31,75 @@ public class SwordTipWeapon extends TapWeapon {
 
     @Override
     public void onStart(float gameTimeStep) {
-    	// nothing
+        // nothing
     }
 
-	@Override
-	public void processFrame(float gameTimeStep) {
-		// nothing
-	}
+    @Override
+    public void processFrame(float gameTimeStep) {
+        // nothing
+    }
 
-	@Override
-	protected TapActor getTapActor(JumplingsGameWorld jgWorld, PointF worldPos) {
+    @Override
+    protected TapActor getTapActor(JumplingsGameWorld jgWorld, PointF worldPos) {
         return new FingerprintActor(mWorld, worldPos);
-	}
-	
-	/**
-	 * The actor that harms
-	 */
-	private class FingerprintActor extends TapActor {
+    }
 
-	    // ----------------------------------------------------- Constantes
+    /**
+     * The actor that harms
+     */
+    private class FingerprintActor extends TapActor {
 
-	    private final static float KILL_RADIUS = 0.8f;
-	    private final static float LONGEVITY = 150;
+        // ----------------------------------------------------- Constantes
 
-	    protected final static int BMP_SWORD_POINT_ID = R.drawable.sword_point;
-	    
-	    private final static int MAX_ANGLE = 360; 
-	    // ----------------------------------------- Variables de instancia
+        private final static float KILL_RADIUS = 0.8f;
+        private final static float LONGEVITY = 150;
 
-	    private Bitmap mBmpFingerprint;
-	    
-	    private final float mAngle;
-	    // -------------------------------------------------- Constructores
+        protected final static int BMP_SWORD_POINT_ID = R.drawable.sword_point;
 
-	    public FingerprintActor(JumplingsGameWorld cWorld, PointF worldPos) {
-	        super(cWorld, worldPos, LONGEVITY, KILL_RADIUS);
-	        mWorld = cWorld;
-	        mWorldPos = worldPos;
-	        
-	        BitmapManager mb = getWorld().getBitmapManager();
-	        mBmpFingerprint = mb.getBitmap(BMP_SWORD_POINT_ID);
+        private final static int MAX_ANGLE = 360;
+        // ----------------------------------------- Variables de instancia
 
-	        mAngle = sRandom.nextInt(MAX_ANGLE);
-	    }
+        private Bitmap mBmpFingerprint;
 
-	    // ----------------------------------------------- M�todos heredados
+        private final float mAngle;
 
-	    @Override
-	    protected void onTapEffect() {
-	    	mWorld.mFlashModule.flash(FlashModule.SWORD_STAB_KEY);
-            mWorld.getSoundManager().play(JumplingsGameWorld.SAMPLE_SWORD_STAB);
-	    }
-	    
-		@Override
-		protected void drawBitmap(Canvas canvas, float screenPosX, float screenPosY) {
-        	mWorld.drawBitmap(canvas, screenPosX, screenPosY, mAngle, mBmpFingerprint, mPaint);
-		}
+        // -------------------------------------------------- Constructores
 
-		@Override
-		protected void onMissed(MainActor actor) {
-			// nothing
-		}
-		
-	    @Override
-	    protected void dispose() {
-	        super.dispose();
-	        mBmpFingerprint = null;
-	    }
-	}
+        public FingerprintActor(JumplingsGameWorld cWorld, PointF worldPos) {
+            super(cWorld, worldPos, LONGEVITY, KILL_RADIUS);
+            mWorld = cWorld;
+            mWorldPos = worldPos;
+
+            BitmapManager mb = getWorld().getBitmapManager();
+            mBmpFingerprint = mb.getBitmap(BMP_SWORD_POINT_ID);
+
+            mAngle = sRandom.nextInt(MAX_ANGLE);
+        }
+
+        // ----------------------------------------------- M�todos heredados
+
+        @Override
+        protected void onTapEffect() {
+            mWorld.mFlashModule.flash(FlashModule.SWORD_STAB_KEY);
+            mWorld.getSoundManager()
+                  .play(JumplingsGameWorld.SAMPLE_SWORD_STAB);
+        }
+
+        @Override
+        protected void drawBitmap(Canvas canvas, float screenPosX, float screenPosY) {
+            mWorld.drawBitmap(canvas, screenPosX, screenPosY, mAngle, mBmpFingerprint, mPaint);
+        }
+
+        @Override
+        protected void onMissed(MainActor actor) {
+            // nothing
+        }
+
+        @Override
+        protected void dispose() {
+            super.dispose();
+            mBmpFingerprint = null;
+        }
+    }
 
 }

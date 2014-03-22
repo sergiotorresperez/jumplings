@@ -25,41 +25,46 @@ public class JumplingsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        
-        // enable or disable the logger
-        L.setEnabled(isDebugBuild(this) && this.getResources().getBoolean(R.bool.config_log_enabled_in_debug_build));
-        
-        if (L.sEnabled) Log.i(TAG, "onCreate " + this);
 
-    	// Flurry initialization
-    	final boolean flurryEnabled = getResources().getBoolean(R.bool.config_flurry_enabled);
-    	final String flurryApiKey = getResources().getString(R.string.config_flurry_api_key);
-    	FlurryHelper.initialize(flurryEnabled, flurryApiKey, false);
+        // enable or disable the logger
+        L.setEnabled(isDebugBuild(this) && this.getResources()
+                                               .getBoolean(R.bool.config_log_enabled_in_debug_build));
+
+        if (L.sEnabled)
+            Log.i(TAG, "onCreate " + this);
+
+        // Flurry initialization
+        final boolean flurryEnabled = getResources().getBoolean(R.bool.config_flurry_enabled);
+        final String flurryApiKey = getResources().getString(R.string.config_flurry_api_key);
+        FlurryHelper.initialize(flurryEnabled, flurryApiKey, false);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (L.sEnabled) Log.i(TAG, "onConfigurationChanged " + this);
+        if (L.sEnabled)
+            Log.i(TAG, "onConfigurationChanged " + this);
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        if (L.sEnabled) Log.w(TAG, "onLowMemory " + this);
+        if (L.sEnabled)
+            Log.w(TAG, "onLowMemory " + this);
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-        if (L.sEnabled) Log.i(TAG, "onTerminate " + this);
+        if (L.sEnabled)
+            Log.i(TAG, "onTerminate " + this);
     }
-    
+
     /**
      * @return if this a debug/development build
      */
-    public static boolean isDebugBuild(Context context) { 
-    	return ( 0 != ( context.getApplicationInfo().flags &= ApplicationInfo.FLAG_DEBUGGABLE ) );
+    public static boolean isDebugBuild(Context context) {
+        return (0 != (context.getApplicationInfo().flags &= ApplicationInfo.FLAG_DEBUGGABLE));
     }
 
 }

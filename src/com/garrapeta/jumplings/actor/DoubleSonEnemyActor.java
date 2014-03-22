@@ -82,10 +82,11 @@ public class DoubleSonEnemyActor extends EnemyActor {
         mBmpDebrisEyeRight = mb.getBitmap(BMP_DEBRIS_EYE_0_RIGHT_ID);
         mBmpDebrisEyeLeft = mb.getBitmap(BMP_DEBRIS_EYE_0_LEFT_ID);
     }
-    
+
     @Override
     protected void free(JumplingsFactory factory) {
-        getWorld().getFactory().free(this);
+        getWorld().getFactory()
+                  .free(this);
     }
 
 }

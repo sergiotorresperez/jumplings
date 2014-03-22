@@ -78,7 +78,8 @@ public class CampaignWave extends Wave<JumplingsGameWorld> implements ICampaignW
     @Override
     public void start() {
         super.start();
-        if (L.sEnabled) Log.i(TAG, "Starting Wave Campaign");
+        if (L.sEnabled)
+            Log.i(TAG, "Starting Wave Campaign");
         mScenario.init();
         scheduleNextWave(FIRST_WAVE_DELAY);
     }
@@ -120,32 +121,34 @@ public class CampaignWave extends Wave<JumplingsGameWorld> implements ICampaignW
 
     @Override
     public void onChildWaveStarted() {
-        if (L.sEnabled) Log.i(TAG, "Wave started");
+        if (L.sEnabled)
+            Log.i(TAG, "Wave started");
     }
 
     @Override
     public void onChildWaveEnded() {
-        if (L.sEnabled) Log.i(TAG, "Wave ended");
+        if (L.sEnabled)
+            Log.i(TAG, "Wave ended");
         mCurrentWave.pause();
         mLevel++;
         scheduleNextWave(INTER_WAVE_DELAY);
     }
-    
-	@Override
-	public boolean isInBetweenWaves() {
-		return mCurrentWave.isCompleted() || !mCurrentWave.isPlaying();
-	}
+
+    @Override
+    public boolean isInBetweenWaves() {
+        return mCurrentWave.isCompleted() || !mCurrentWave.isPlaying();
+    }
 
     // ------------------------------------------------ M�todos propios
 
     private void switchWave() {
-    	if (mWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
+        if (mWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
             // Se muestra anuncio
             mWorld.mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     // FIXME: avoid this cast
-                    ((GameActivity)mWorld.mActivity).showAdDialogIfAvailable();
+                    ((GameActivity) mWorld.mActivity).showAdDialogIfAvailable();
                 }
             });
 
@@ -159,7 +162,7 @@ public class CampaignWave extends Wave<JumplingsGameWorld> implements ICampaignW
 
     private void showLevel() {
         // FIXME: avoid this cast
-        ((GameActivity)mWorld.mActivity).onLevelChanged(mLevel);
+        ((GameActivity) mWorld.mActivity).onLevelChanged(mLevel);
     }
 
     private void scheduleNextWave(float delay) {

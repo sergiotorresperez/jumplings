@@ -53,17 +53,19 @@ public abstract class LayerScenario implements IScenario {
 
     @Override
     public final void processFrame(float gameTimeStep) {
-    	final int size = mLayers.size(); 
-    	for (int i = 0; i< size; i++) {
-            mLayers.get(i).processFrame(gameTimeStep);
+        final int size = mLayers.size();
+        for (int i = 0; i < size; i++) {
+            mLayers.get(i)
+                   .processFrame(gameTimeStep);
         }
     }
 
     @Override
     public final void draw(Canvas canvas, Paint paint) {
-    	final int size = mLayers.size(); 
-    	for (int i = 0; i< size; i++) {
-    		mLayers.get(i).draw(canvas, paint);
+        final int size = mLayers.size();
+        for (int i = 0; i < size; i++) {
+            mLayers.get(i)
+                   .draw(canvas, paint);
         }
     }
 

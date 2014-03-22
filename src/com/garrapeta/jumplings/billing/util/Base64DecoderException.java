@@ -16,7 +16,7 @@ package com.garrapeta.jumplings.billing.util;
 
 /**
  * Exception thrown when encountering an invalid Base64 input character.
- *
+ * 
  * @author nelson
  */
 public class Base64DecoderException extends Exception {

@@ -42,7 +42,8 @@ public class DebrisActor extends JumplingActor<JumplingsWorld> {
 
     float mLifeTime;
 
-    // --------------------------------------------------- Inicialización  estática
+    // --------------------------------------------------- Inicialización
+    // estática
 
     static {
 
@@ -50,7 +51,7 @@ public class DebrisActor extends JumplingActor<JumplingsWorld> {
 
         DEBRIS_FILTER.categoryBits = DebrisActor.DEBRIS_FILTER_BIT;
 
-        DEBRIS_FILTER.maskBits = WallActor.WALL_FILTER_BIT | WallActor.FLOOR_FILTER_BIT ;
+        DEBRIS_FILTER.maskBits = WallActor.WALL_FILTER_BIT | WallActor.FLOOR_FILTER_BIT;
 
     }
 
@@ -87,7 +88,8 @@ public class DebrisActor extends JumplingActor<JumplingsWorld> {
         ArrayList<Fixture> fs = mMainBody.getFixtureList();
         int l2 = fs.size();
         for (int i2 = 0; i2 < l2; i2++) {
-            fs.get(i2).setFilterData(DEBRIS_FILTER);
+            fs.get(i2)
+              .setFilterData(DEBRIS_FILTER);
         }
     }
 
@@ -107,7 +109,8 @@ public class DebrisActor extends JumplingActor<JumplingsWorld> {
 
     @Override
     protected void free(JumplingsFactory factory) {
-        getWorld().getFactory().free(this);
+        getWorld().getFactory()
+                  .free(this);
     }
 
     @Override

@@ -22,8 +22,8 @@ public class MenuWave extends Wave<JumplingsWorld> {
 
     /** Ms que hay entre las creaciones de jumplings */
     private static final int JUMPLING_CREATION_REALTIME = 1700;
-    
-    /** Maximun number of jumplings that can be in a square world unit  */
+
+    /** Maximun number of jumplings that can be in a square world unit */
     private static final float WORLD_WIDTH_JUMPLINGS_RATIO = 0.005f;
 
     // --------------------------------------------------- Variables
@@ -40,7 +40,8 @@ public class MenuWave extends Wave<JumplingsWorld> {
     @Override
     public void start() {
         super.start();
-        if (L.sEnabled) Log.i(TAG, "Starting Intro Wave");
+        if (L.sEnabled)
+            Log.i(TAG, "Starting Intro Wave");
         scheduleIntroActorCreation();
     }
 
@@ -54,8 +55,8 @@ public class MenuWave extends Wave<JumplingsWorld> {
         getWorld().post(new SyncGameMessage() {
             @Override
             public void doInGameLoop(GameWorld world) {
-                if  (countIntroActors() < getMaxIntroActors()) {
-                    createIntroActor();    
+                if (countIntroActors() < getMaxIntroActors()) {
+                    createIntroActor();
                 }
                 scheduleIntroActorCreation();
             }
@@ -67,7 +68,7 @@ public class MenuWave extends Wave<JumplingsWorld> {
         int introActorsCount = 0;
         for (Actor<?> actor : getWorld().mActors) {
             if (actor instanceof IntroActor) {
-                introActorsCount ++;
+                introActorsCount++;
             }
         }
         return introActorsCount;
@@ -75,13 +76,15 @@ public class MenuWave extends Wave<JumplingsWorld> {
 
     private int getMaxIntroActors() {
         RectF worldBoundaries = getWorld().mViewport.getWorldBoundaries();
-        //FIXME: the - should not be needed. Maybe RectF is not a good class for holding the worldBoundaries
+        // FIXME: the - should not be needed. Maybe RectF is not a good class
+        // for holding the worldBoundaries
         float worldSquareUnits = worldBoundaries.width() * -worldBoundaries.height();
         return (int) (worldSquareUnits * WORLD_WIDTH_JUMPLINGS_RATIO);
     }
 
     private void createIntroActor() {
-        if (L.sEnabled) Log.i(TAG, "Creating intro jumpling");
+        if (L.sEnabled)
+            Log.i(TAG, "Creating intro jumpling");
 
         float worldXPos;
         float worldYPos;
@@ -92,7 +95,8 @@ public class MenuWave extends Wave<JumplingsWorld> {
         PointF initPos = new PointF(worldXPos, worldYPos);
         Vector2 initVel = getInitialVelocity(initPos);
 
-        IntroActor actor = getWorld().getFactory().getIntroActor(initPos);
+        IntroActor actor = getWorld().getFactory()
+                                     .getIntroActor(initPos);
         actor.setLinearVelocity(initVel.x, initVel.y);
         getWorld().addActor(actor);
     }

@@ -40,7 +40,7 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
     public final static Filter NO_CONTACT_FILTER;
 
     public final static Filter CONTACT_FILTER;
-    
+
     // ----------------------------------------- Variables de instancia
 
     public Body mMainBody;
@@ -77,12 +77,11 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
 
     // --------------------------------------------------- Constructor
 
-    protected  JumplingActor(T world, int zIndex) {
+    protected JumplingActor(T world, int zIndex) {
         super(world, zIndex);
     }
 
-    
-   // ----------------------------------------- M�todos de Box2DActor
+    // ----------------------------------------- M�todos de Box2DActor
 
     @Override
     protected void onAddedToWorld() {
@@ -175,7 +174,7 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
         assertInnited();
         setNotInitted();
     }
-    
+
     // ------------------------------------------------ Métodos propios
 
     public void init(PointF worldPos) {
@@ -185,7 +184,6 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
 
         setInitted();
     }
-
 
     /**
      * Crea los cuerpos y los elementos f�sicos
@@ -204,7 +202,9 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
         // TODO: ¿que era esto??
         double ratio = getMainMassRatio();
         float mainBodyRestitution = (float) (OVERALL_ACTOR_RESTITUTION * (1 / ratio));
-        mMainBody.getFixtureList().get(0).setRestitution(mainBodyRestitution);
+        mMainBody.getFixtureList()
+                 .get(0)
+                 .setRestitution(mainBodyRestitution);
     }
 
     /**
@@ -261,7 +261,7 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
      */
     public final void setLinearVelocity(float vx, float vy) {
         double ratio = getMainMassRatio();
-     	getMainBody().setLinearVelocity((float) (vx * (1 / ratio)), (float) (vy * (1 / ratio)));
+        getMainBody().setLinearVelocity((float) (vx * (1 / ratio)), (float) (vy * (1 / ratio)));
 
     }
 
@@ -277,8 +277,9 @@ public abstract class JumplingActor<T extends JumplingsWorld> extends Box2DActor
     protected abstract void drawBitmaps(Canvas canvas);
 
     /**
-     * To be implemented by extending classes to free this resource 
-     * from its pool in the factory
+     * To be implemented by extending classes to free this resource from its
+     * pool in the factory
+     * 
      * @param factory
      */
     protected abstract void free(JumplingsFactory factory);

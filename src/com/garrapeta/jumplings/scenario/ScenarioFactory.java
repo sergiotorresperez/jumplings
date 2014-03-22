@@ -8,7 +8,11 @@ import com.garrapeta.jumplings.JumplingsWorld;
 public class ScenarioFactory {
 
     public enum ScenariosIds {
-        ROLLING, NATURE, DESERT, JUNGLE, WINTER
+        ROLLING,
+        NATURE,
+        DESERT,
+        JUNGLE,
+        WINTER
     };
 
     public static IScenario getScenario(JumplingsWorld world, ScenariosIds scenarioId) {
@@ -27,7 +31,11 @@ public class ScenarioFactory {
             scenario = new WinterScenario(world);
             break;
         case ROLLING:
-            scenario = new RollingScenario(world, new ScenarioFactory.ScenariosIds[]  {ScenariosIds.NATURE, ScenariosIds.DESERT, ScenariosIds.WINTER, ScenariosIds.JUNGLE});
+            scenario = new RollingScenario(world, new ScenarioFactory.ScenariosIds[] {
+                    ScenariosIds.NATURE,
+                    ScenariosIds.DESERT,
+                    ScenariosIds.WINTER,
+                    ScenariosIds.JUNGLE });
             break;
         default:
             throw new IllegalArgumentException("Cannot create scenario " + scenarioId);

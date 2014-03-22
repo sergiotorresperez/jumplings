@@ -11,15 +11,15 @@ public interface GameEventsListener {
      * 
      * @return if the event is consumed
      */
-    public boolean onEnemyScaped(EnemyActor eenemy) ;
-    
+    public boolean onEnemyScaped(EnemyActor eenemy);
+
     /**
      * Called when the player makes a Combo
      * 
      * @return if the event is consumed
      */
     public boolean onCombo();
-    
+
     /**
      * Called when the player has killed an enemy.
      * 
@@ -27,7 +27,7 @@ public interface GameEventsListener {
      * @return if the event is consumed
      */
     public boolean onEnemyKilled(EnemyActor enemy);
-    
+
     /**
      * Called when the player explodes a bomb
      * 
@@ -35,7 +35,7 @@ public interface GameEventsListener {
      * @return if the event is consumed
      */
     public boolean onBombExploded(BombActor bomb);
-    
+
     /**
      * Called when the player gets a life up power up
      * 

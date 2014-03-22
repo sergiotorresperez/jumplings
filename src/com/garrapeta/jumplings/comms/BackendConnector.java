@@ -37,171 +37,185 @@ import com.google.gson.JsonSyntaxException;
  */
 public class BackendConnector {
 
-	private final static String PARAM_DATA 		 = "data";
-	private final static String PARAM_AUTH_TOKEN = "authToken";
-	
-	private final static int STATUS_OK                = 00;
-	private final static int STATUS_ERROR_CLIENT      = 10;
-	private final static int STATUS_ERROR_SERVER      = 20;
-	private final static int STATUS_ERROR_AUTH_ERROR  = 30;
-	
-	// used to parse and format the requests and responses to Json
-	private final static Gson sGson = new Gson();
-	
-	/**
-	 * Sends a request to the request using POST synchronously
-	 * @param context
-	 * @param request
-	 * @throws BackendConnectionException
-	 */
-	public static ResponseModel sendRequestSync(Context context, final RequestModel request) throws BackendConnectionException {
-		final String serviceUrl = PermData.getScoresServerUrl(context);
-		
+    private final static String PARAM_DATA = "data";
+    private final static String PARAM_AUTH_TOKEN = "authToken";
+
+    private final static int STATUS_OK = 00;
+    private final static int STATUS_ERROR_CLIENT = 10;
+    private final static int STATUS_ERROR_SERVER = 20;
+    private final static int STATUS_ERROR_AUTH_ERROR = 30;
+
+    // used to parse and format the requests and responses to Json
+    private final static Gson sGson = new Gson();
+
+    /**
+     * Sends a request to the request using POST synchronously
+     * 
+     * @param context
+     * @param request
+     * @throws BackendConnectionException
+     */
+    public static ResponseModel sendRequestSync(Context context, final RequestModel request)
+            throws BackendConnectionException {
+        final String serviceUrl = PermData.getScoresServerUrl(context);
+
         if (!Utils.isNetworkAvailable(context)) {
-        	throw new BackendConnectionException(BackendConnectionException.ErrorType.NO_CONNECTION_ERROR, "Could not send request to " + serviceUrl + ": No connection available");
+            throw new BackendConnectionException(BackendConnectionException.ErrorType.NO_CONNECTION_ERROR, "Could not send request to " + serviceUrl
+                    + ": No connection available");
         }
-        
+
         HttpResponse response;
-        
-		try {
-			String data = sGson.toJson(request);
-			List<NameValuePair> queryParams = new ArrayList<NameValuePair>();
-			queryParams.add(new BasicNameValuePair(PARAM_DATA, data)) ;	
-			queryParams.add(new BasicNameValuePair(PARAM_AUTH_TOKEN, computeAuthToken(context, data)));
 
-			final String url = PermData.getScoresServerUrl(context) + "?" + URLEncodedUtils.format(queryParams, HTTP.UTF_8);
-			HttpGet httpGet = new HttpGet(url);
-			
-			HttpParams httpParams = httpGet.getParams();
-			httpParams.setParameter(ClientPNames.HANDLE_REDIRECTS, Boolean.TRUE);
-			httpGet.setParams(httpParams);
-	        
-			DefaultHttpClient client = new DefaultHttpClient();
-			response = client.execute(httpGet);
-		} catch (IOException ioe) {
-			throw new BackendConnectionException(BackendConnectionException.ErrorType.IO_ERROR, "Could not send request to " + serviceUrl + ": " + ioe.getMessage() , ioe);
-		} catch (Exception e) {
-			throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not send request to " + serviceUrl + ": " + e.getMessage() , e);
-		}
-		
-		return manageResponse(response);
-	}
+        try {
+            String data = sGson.toJson(request);
+            List<NameValuePair> queryParams = new ArrayList<NameValuePair>();
+            queryParams.add(new BasicNameValuePair(PARAM_DATA, data));
+            queryParams.add(new BasicNameValuePair(PARAM_AUTH_TOKEN, computeAuthToken(context, data)));
 
-	/**
-	 * Sends a request to the backend using POST asynchronously
-	 * @param context
-	 * @param request
-	 */
-	public static void postRequestAsync(Context context, final RequestModel request, BackendConnectorCallback callback) {
-		new ServerRequestAsyncTask(context, callback).execute(request);
-	}
+            final String url = PermData.getScoresServerUrl(context) + "?" + URLEncodedUtils.format(queryParams, HTTP.UTF_8);
+            HttpGet httpGet = new HttpGet(url);
 
-	private static ResponseModel manageResponse(HttpResponse response) throws BackendConnectionException {
-		try {
-			int httpStatusCode = response.getStatusLine().getStatusCode();
+            HttpParams httpParams = httpGet.getParams();
+            httpParams.setParameter(ClientPNames.HANDLE_REDIRECTS, Boolean.TRUE);
+            httpGet.setParams(httpParams);
 
-			HttpEntity er = response.getEntity();
-			InputStream is;
-			is = er.getContent();
-			String responseString = IOUtils.getStringFromInputStream(is);
+            DefaultHttpClient client = new DefaultHttpClient();
+            response = client.execute(httpGet);
+        } catch (IOException ioe) {
+            throw new BackendConnectionException(BackendConnectionException.ErrorType.IO_ERROR, "Could not send request to " + serviceUrl + ": "
+                    + ioe.getMessage(), ioe);
+        } catch (Exception e) {
+            throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not send request to " + serviceUrl + ": "
+                    + e.getMessage(), e);
+        }
 
-			if (L.sEnabled) Log.i(JumplingsApplication.TAG, "Response received = " + httpStatusCode + ". Response: " + responseString);
+        return manageResponse(response);
+    }
 
-			if (httpStatusCode == HttpStatus.SC_OK) {
-				try {
-					if (TextUtils.isEmpty(responseString)) {
-						throw new BackendConnectionException(BackendConnectionException.ErrorType.SERVER_ERROR, "Server returned empty response");
-					}
-					ResponseModel responseObject = sGson.fromJson(responseString, ResponseModel.class);
-					checkError(responseObject);
-					return responseObject;
-				} catch (JsonSyntaxException je) {
-					throw new BackendConnectionException(BackendConnectionException.ErrorType.SERVER_ERROR, "Could not parse response", je);
-				}
-			} else {
-				throw new BackendConnectionException(BackendConnectionException.ErrorType.HTTP_ERROR, "Server reports error: HTTP code = " + httpStatusCode + ". Response: " + responseString);
-			}
-		} catch (IOException ioe) {
-			throw new BackendConnectionException(BackendConnectionException.ErrorType.IO_ERROR, "IO error when communicating with the backend", ioe);
-		}
-	}
-	
-	private static void checkError(ResponseModel responseObject) throws BackendConnectionException {
-		switch (responseObject.status) {
-			case STATUS_ERROR_CLIENT:
-			case STATUS_ERROR_AUTH_ERROR:
-				throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, responseObject.errorMessage);
-			case STATUS_ERROR_SERVER:
-				throw new BackendConnectionException(BackendConnectionException.ErrorType.SERVER_ERROR, responseObject.errorMessage);
-			case STATUS_OK:
-			default:
-				return;
-		}
-	}
+    /**
+     * Sends a request to the backend using POST asynchronously
+     * 
+     * @param context
+     * @param request
+     */
+    public static void postRequestAsync(Context context, final RequestModel request, BackendConnectorCallback callback) {
+        new ServerRequestAsyncTask(context, callback).execute(request);
+    }
 
-	/**
-	 * Computes the auth token. The auth token is the MD5 of the request with a secret string preffixed.
-	 * 
-	 * md5($_AUTH_TOKEN_MD5_SECRET.$request) == authToken
-	 * 
-	 * @param data
-	 * @return the authToken associated to the passed string
-	 * @throws NoSuchAlgorithmException 
-	 */
-	private static String computeAuthToken(Context context, String data) throws NoSuchAlgorithmException {
-		return Utils.md5(getSecretMD5Prefix(context) + data);
-	}
+    private static ResponseModel manageResponse(HttpResponse response)
+            throws BackendConnectionException {
+        try {
+            int httpStatusCode = response.getStatusLine()
+                                         .getStatusCode();
 
-	/**
-	 * @return the secret string used as a prefix to calculate the auth token
-	 */
-	private static String getSecretMD5Prefix(Context context) {
-		return context.getResources().getString(R.string.config_backend_auth_secret);
-	}
+            HttpEntity er = response.getEntity();
+            InputStream is;
+            is = er.getContent();
+            String responseString = IOUtils.getStringFromInputStream(is);
 
-	/**
-	 * Task for contacting the server.
-	 * </p>
-	 * First parameter is the post string to send.
-	 */
-	private static class ServerRequestAsyncTask extends AsyncTask<RequestModel, Void, ResponseModel> {
-		
-		private final BackendConnectorCallback mCallback;
-		private BackendConnectionException mError;
-		private final Context mContext;
-		
-		/**
-		 * @param context
-		 * @param callback
-		 */
-		public ServerRequestAsyncTask(Context context, BackendConnectorCallback callback) {
-			super();
-			mCallback = callback;
-			mContext = context;
-		}
+            if (L.sEnabled)
+                Log.i(JumplingsApplication.TAG, "Response received = " + httpStatusCode + ". Response: " + responseString);
 
-		@Override
-		protected ResponseModel doInBackground(RequestModel... args) {
-			try {
-				return BackendConnector.sendRequestSync(mContext, args[0]);
-			} catch (BackendConnectionException e) {
-				if (L.sEnabled) Log.e(JumplingsApplication.TAG, "Error in request: " + e.toString(), e);
-				mError = e;
-				return null;
-			}
-		}
+            if (httpStatusCode == HttpStatus.SC_OK) {
+                try {
+                    if (TextUtils.isEmpty(responseString)) {
+                        throw new BackendConnectionException(BackendConnectionException.ErrorType.SERVER_ERROR, "Server returned empty response");
+                    }
+                    ResponseModel responseObject = sGson.fromJson(responseString, ResponseModel.class);
+                    checkError(responseObject);
+                    return responseObject;
+                } catch (JsonSyntaxException je) {
+                    throw new BackendConnectionException(BackendConnectionException.ErrorType.SERVER_ERROR, "Could not parse response", je);
+                }
+            } else {
+                throw new BackendConnectionException(BackendConnectionException.ErrorType.HTTP_ERROR, "Server reports error: HTTP code = " + httpStatusCode
+                        + ". Response: " + responseString);
+            }
+        } catch (IOException ioe) {
+            throw new BackendConnectionException(BackendConnectionException.ErrorType.IO_ERROR, "IO error when communicating with the backend", ioe);
+        }
+    }
 
-		@Override
-		protected void onPostExecute(ResponseModel response) {
-			super.onPostExecute(response);
+    private static void checkError(ResponseModel responseObject)
+            throws BackendConnectionException {
+        switch (responseObject.status) {
+        case STATUS_ERROR_CLIENT:
+        case STATUS_ERROR_AUTH_ERROR:
+            throw new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, responseObject.errorMessage);
+        case STATUS_ERROR_SERVER:
+            throw new BackendConnectionException(BackendConnectionException.ErrorType.SERVER_ERROR, responseObject.errorMessage);
+        case STATUS_OK:
+        default:
+            return;
+        }
+    }
 
-			if (mCallback != null) {
-				if (mError != null) {
-					mCallback.onBackendRequestError(mError);
-				} else {
-					mCallback.onBackendRequestSuccess(response);
-				}
-			}
-		}
-	}
+    /**
+     * Computes the auth token. The auth token is the MD5 of the request with a
+     * secret string preffixed.
+     * 
+     * md5($_AUTH_TOKEN_MD5_SECRET.$request) == authToken
+     * 
+     * @param data
+     * @return the authToken associated to the passed string
+     * @throws NoSuchAlgorithmException
+     */
+    private static String computeAuthToken(Context context, String data)
+            throws NoSuchAlgorithmException {
+        return Utils.md5(getSecretMD5Prefix(context) + data);
+    }
+
+    /**
+     * @return the secret string used as a prefix to calculate the auth token
+     */
+    private static String getSecretMD5Prefix(Context context) {
+        return context.getResources()
+                      .getString(R.string.config_backend_auth_secret);
+    }
+
+    /**
+     * Task for contacting the server. </p> First parameter is the post string
+     * to send.
+     */
+    private static class ServerRequestAsyncTask extends AsyncTask<RequestModel, Void, ResponseModel> {
+
+        private final BackendConnectorCallback mCallback;
+        private BackendConnectionException mError;
+        private final Context mContext;
+
+        /**
+         * @param context
+         * @param callback
+         */
+        public ServerRequestAsyncTask(Context context, BackendConnectorCallback callback) {
+            super();
+            mCallback = callback;
+            mContext = context;
+        }
+
+        @Override
+        protected ResponseModel doInBackground(RequestModel... args) {
+            try {
+                return BackendConnector.sendRequestSync(mContext, args[0]);
+            } catch (BackendConnectionException e) {
+                if (L.sEnabled)
+                    Log.e(JumplingsApplication.TAG, "Error in request: " + e.toString(), e);
+                mError = e;
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(ResponseModel response) {
+            super.onPostExecute(response);
+
+            if (mCallback != null) {
+                if (mError != null) {
+                    mCallback.onBackendRequestError(mError);
+                } else {
+                    mCallback.onBackendRequestSuccess(response);
+                }
+            }
+        }
+    }
 }

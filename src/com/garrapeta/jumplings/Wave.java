@@ -31,7 +31,6 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
     /** nivel */
     protected int mLevel;
 
-
     // ------------------------------------------------ Constructor
 
     public Wave(T world, int level) {
@@ -87,7 +86,6 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
     public boolean onEnemyScaped(EnemyActor e) {
         return false;
     }
-    
 
     @Override
     public boolean onCombo() {
@@ -213,7 +211,5 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
     public void onTestButtonClicked(Button testBtn) {
     }
     // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-
-
 
 }

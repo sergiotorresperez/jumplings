@@ -9,7 +9,7 @@ import com.garrapeta.jumplings.JumplingsGameWorld;
 /**
  * 
  * TODO: avoid haviing only one flash actor active or blend colours
- *
+ * 
  */
 public class FlashActor extends Actor<JumplingsGameWorld> {
 
@@ -37,7 +37,7 @@ public class FlashActor extends Actor<JumplingsGameWorld> {
 
     public FlashActor(JumplingsGameWorld world) {
         super(world, Integer.MAX_VALUE);
-        
+
     }
 
     // ------------------------------------------------------------- M�todos
@@ -76,19 +76,19 @@ public class FlashActor extends Actor<JumplingsGameWorld> {
         float finalAlpha = alphaFactor * mBaseAlpha;
         canvas.drawARGB((int) finalAlpha, (int) mBaseRed, (int) mBaseGreen, (int) mBaseBlue);
     }
-    
+
     public static class FlashData {
-    	int mColor; 
-    	int mAlpha; 
-    	int mLongevity;
-    	int mPriority;
-   
-    	public FlashData(final int color, final int alpha, final int longevity, final int priority) {
-    		mColor = color;
-    		mAlpha = alpha;
-    		mLongevity = longevity;
-    		mPriority = priority;
-    	}
+        int mColor;
+        int mAlpha;
+        int mLongevity;
+        int mPriority;
+
+        public FlashData(final int color, final int alpha, final int longevity, final int priority) {
+            mColor = color;
+            mAlpha = alpha;
+            mLongevity = longevity;
+            mPriority = priority;
+        }
     }
 
 }

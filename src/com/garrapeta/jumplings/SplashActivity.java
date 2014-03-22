@@ -18,132 +18,135 @@ import com.garrapeta.jumplings.flurry.FlurryHelper;
  */
 public class SplashActivity extends Activity {
 
-	private View mTitleView;
-	private View mSubtitleView;
-	private boolean mQuickExit = false;
+    private View mTitleView;
+    private View mSubtitleView;
+    private boolean mQuickExit = false;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_splash);
+        setContentView(R.layout.activity_splash);
 
-		View root = findViewById(R.id.splash_root);
-		root.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				PremiumPurchaseHelper premiumHelper = new PremiumPurchaseHelper(SplashActivity.this);
-				if (!premiumHelper.isPremiumPurchaseStateKnown(SplashActivity.this)) {
-					// if the premium state is not known ignore the click
-					return;
-				}
-				
-				mQuickExit = true;
-				openMenuActivity();
-			}
-		});
+        View root = findViewById(R.id.splash_root);
+        root.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PremiumPurchaseHelper premiumHelper = new PremiumPurchaseHelper(SplashActivity.this);
+                if (!premiumHelper.isPremiumPurchaseStateKnown(SplashActivity.this)) {
+                    // if the premium state is not known ignore the click
+                    return;
+                }
 
-		mTitleView = findViewById(R.id.splash_title);
-		mSubtitleView = findViewById(R.id.splash_subtitle);
+                mQuickExit = true;
+                openMenuActivity();
+            }
+        });
 
-		mTitleView.setVisibility(View.INVISIBLE);
-		mSubtitleView.setVisibility(View.INVISIBLE);
+        mTitleView = findViewById(R.id.splash_title);
+        mSubtitleView = findViewById(R.id.splash_subtitle);
 
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				onAnimationPhaseOne();
-			}
-		}, 300);
-	}
+        mTitleView.setVisibility(View.INVISIBLE);
+        mSubtitleView.setVisibility(View.INVISIBLE);
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		FlurryHelper.onStartSession(this);
-	}
-	
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onAnimationPhaseOne();
+            }
+        }, 300);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryHelper.onStartSession(this);
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
         FlurryHelper.onEndSession(this);
     }
 
-	private void onAnimationPhaseOne() {
-		Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_in);
-		animation.setAnimationListener(new AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-			}
+    private void onAnimationPhaseOne() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_in);
+        animation.setAnimationListener(new AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
 
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-			}
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
 
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				if (!mQuickExit) {
-					onAnimationPhaseTwo();
-				}
-			}
-		});
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (!mQuickExit) {
+                    onAnimationPhaseTwo();
+                }
+            }
+        });
 
-		// doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
-		mTitleView.setVisibility(View.VISIBLE);
-		mTitleView.startAnimation(animation);
-	}
+        // doing this here instead of onAnimationStart because of problems of
+        // the animation not starting in old devices
+        mTitleView.setVisibility(View.VISIBLE);
+        mTitleView.startAnimation(animation);
+    }
 
-	private void onAnimationPhaseTwo() {
-		Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_in);
-		animation.setAnimationListener(new AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-			}
+    private void onAnimationPhaseTwo() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_in);
+        animation.setAnimationListener(new AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
 
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-			}
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
 
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				if (!mQuickExit) {
-					onAnimationPhaseThree();
-				}
-			}
-		});
-		// doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
-		mSubtitleView.setVisibility(View.VISIBLE);
-		mSubtitleView.startAnimation(animation);
-	}
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (!mQuickExit) {
+                    onAnimationPhaseThree();
+                }
+            }
+        });
+        // doing this here instead of onAnimationStart because of problems of
+        // the animation not starting in old devices
+        mSubtitleView.setVisibility(View.VISIBLE);
+        mSubtitleView.startAnimation(animation);
+    }
 
-	private void onAnimationPhaseThree() {
-		Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_out);
-		animation.setAnimationListener(new AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-			}
+    private void onAnimationPhaseThree() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_screen_fade_out);
+        animation.setAnimationListener(new AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
 
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-			}
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
 
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				mTitleView.setVisibility(View.INVISIBLE);
-				mSubtitleView.setVisibility(View.INVISIBLE);
-				openMenuActivity(); 
-			}
-		});
-		// doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
-		mTitleView.startAnimation(animation);
-		mSubtitleView.startAnimation(animation);
-	}
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mTitleView.setVisibility(View.INVISIBLE);
+                mSubtitleView.setVisibility(View.INVISIBLE);
+                openMenuActivity();
+            }
+        });
+        // doing this here instead of onAnimationStart because of problems of
+        // the animation not starting in old devices
+        mTitleView.startAnimation(animation);
+        mSubtitleView.startAnimation(animation);
+    }
 
-	private void openMenuActivity() {
-		finish();
-		overridePendingTransition(0, 0);
-		Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
-		startActivity(intent);
-	}
+    private void openMenuActivity() {
+        finish();
+        overridePendingTransition(0, 0);
+        Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
+        startActivity(intent);
+    }
 
 }

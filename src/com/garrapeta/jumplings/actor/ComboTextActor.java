@@ -16,7 +16,7 @@ public class ComboTextActor extends TextActor {
     public final static int DEFAULT_LONGEVITY = 600;
 
     private static float sBaseTextSize = -1;
-    
+
     // ----------------------------------------- Variables de instancia
 
     // ----------------------------------------------------- Constructor
@@ -31,10 +31,11 @@ public class ComboTextActor extends TextActor {
         mLifeTime = mLongevity;
 
         if (sBaseTextSize < 0) {
-        	sBaseTextSize = jgWorld.mActivity.getResources().getDimension(R.dimen.ingame_combo_text_actor_base_text_size);
+            sBaseTextSize = jgWorld.mActivity.getResources()
+                                             .getDimension(R.dimen.ingame_combo_text_actor_base_text_size);
         }
-        float textSize = sBaseTextSize +  (sBaseTextSize * (level - 1)  * 0.3f);
-        
+        float textSize = sBaseTextSize + (sBaseTextSize * (level - 1) * 0.3f);
+
         mPaint.setTextSize(textSize);
     }
 

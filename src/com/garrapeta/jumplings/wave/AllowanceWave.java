@@ -23,7 +23,7 @@ public abstract class AllowanceWave<T extends JumplingsGameWorld> extends Wave<T
 
     /** Thread creado desde la �ltima vez que fue 0 */
     double mAccumulated = 0;
-    
+
     private final boolean mThreadBarsEnabled;
 
     private ProgressBar mThreadRatioBar;
@@ -50,20 +50,21 @@ public abstract class AllowanceWave<T extends JumplingsGameWorld> extends Wave<T
                 updateAllowedThreadGenerationBar();
                 updateAccumulatedThreatBar();
             }
-    
+
             float existant = getCurrentThreat();
-    
+
             double lackRatio = (mMaxThreat - existant) / mMaxThreat;
             mAllowedThreadGeneration += (stepTime / 200) * lackRatio;
             mAllowedThreadGeneration = Math.min(mAllowedThreadGeneration, mMaxThreat);
-    
+
             double generated = 0;
-            // if (L.sEnabled) Log.i(TAG, "maxThreat: " + maxThreat + ", existant: " +
+            // if (L.sEnabled) Log.i(TAG, "maxThreat: " + maxThreat +
+            // ", existant: " +
             // existant + ", allowedThreadGeneration: " +
             // allowedThreadGeneration + ", acumulated: " + acumulated);
             if (mAccumulated < (mMaxThreat * FACTOR)) {
                 generated = generateThreat(mAllowedThreadGeneration);
-    
+
                 if (generated > 0) {
                     mAccumulated += generated;
                     mAllowedThreadGeneration = 0;
@@ -81,6 +82,7 @@ public abstract class AllowanceWave<T extends JumplingsGameWorld> extends Wave<T
         mAllowedThreadGenerationBar = null;
         mThreadRatioBar = null;
     }
+
     // ---------------------------------------------------- M�todos propios
 
     /**
@@ -97,7 +99,8 @@ public abstract class AllowanceWave<T extends JumplingsGameWorld> extends Wave<T
             this.getWorld().mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    getWorld().mActivity.findViewById(id.game_threadBars).setVisibility(View.VISIBLE);
+                    getWorld().mActivity.findViewById(id.game_threadBars)
+                                        .setVisibility(View.VISIBLE);
                 }
             });
 

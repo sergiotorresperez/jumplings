@@ -11,7 +11,6 @@ public class SwordPowerUpActor extends PowerUpActor {
 
     public final static short JUMPER_CODE_POWER_UP_SWORD = 8;
 
-
     // ------------------------------------------------- Variables est�ticas
 
     // vivo
@@ -36,7 +35,7 @@ public class SwordPowerUpActor extends PowerUpActor {
     }
 
     // --------------------------------------------- M�todos heredados
-    
+
     @Override
     protected void initBitmaps() {
         BitmapManager mb = getWorld().getBitmapManager();
@@ -45,6 +44,7 @@ public class SwordPowerUpActor extends PowerUpActor {
         // debris
         mBmpDebrisIcon = mb.getBitmap(BMP_DEBRIS_SWORD_ID);
     }
+
     @Override
     public void onHitted() {
         getWorld().setWeapon(SwordWeapon.WEAPON_CODE_SWORD);
@@ -53,7 +53,8 @@ public class SwordPowerUpActor extends PowerUpActor {
 
     @Override
     protected void free(JumplingsFactory factory) {
-        getWorld().getFactory().free(this);
+        getWorld().getFactory()
+                  .free(this);
     }
 
 }

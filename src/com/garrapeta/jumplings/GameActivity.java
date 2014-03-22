@@ -41,15 +41,13 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
     /** Lapso de parpadeo de la barra de vida, en ms */
     private static final int LIFEBAR_BLINKING_LAPSE = 100;
-    
+
     /**
      * Tag used to refer to the dialog fragment
      */
     static final String DIALOG_FRAGMENT_TAG = "dialog_fragment_tag";
-    
+
     private final int SWORD_PROGRESS_BAR_MAX = 100;
-
-
 
     // ----------------------------------------------------- Variables de
     // instancia
@@ -62,7 +60,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     /** Wave actual */
     String waveKey;
 
-
     private ImageButton mPauseBtn;
 
     ViewGroup mLifeCounterView;
@@ -73,25 +70,26 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     TextView mScoreTextView;
 
     TextView mLocalHighScoreTextView;
-    
+
     private AdDialogHelper mAdDialogHelper;
-    
-    // used to resolve the state of the in app billing purchases and to launch purchases
+
+    // used to resolve the state of the in app billing purchases and to launch
+    // purchases
     private PremiumPurchaseHelper mPremiumHelper;
-    
+
     public Button mTestBtn;
     public Button mSwordBtn;
-    
+
     // -------------------------------------------------- M�todos de Activity
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        // Initialisation of views and GUI 
+
+        // Initialisation of views and GUI
         setContentView(R.layout.activity_game);
-        
+
         mPauseBtn = (ImageButton) findViewById(R.id.game_pauseBtn);
         mPauseBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -110,7 +108,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
             long localHighScore = hs.score;
             if (localHighScore > 0) {
                 TextView highScoreTextView = mLocalHighScoreTextView;
-                final String highScoreStr =  getString(R.string.game_highscore, localHighScore);
+                final String highScoreStr = getString(R.string.game_highscore, localHighScore);
                 highScoreTextView.setText(highScoreStr);
             }
         }
@@ -130,17 +128,14 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
 
-
-
         mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface), this);
         mWorld.setDrawDebugInfo(PermData.areDebugFeaturesEnabled(this));
-        
-        
+
         // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
         // DEBUG
- 
+
         if (PermData.areDebugFeaturesEnabled(this)) {
-        	mTestBtn = (Button) findViewById(R.id.game_testBtn);
+            mTestBtn = (Button) findViewById(R.id.game_testBtn);
             mTestBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -176,7 +171,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         } else {
             throw new IllegalArgumentException("Cannot create wave: " + waveKey);
         }
-        
+
         // Preparation of ad dialog helper
         mAdDialogHelper = new AdDialogHelper(this, DIALOG_FRAGMENT_TAG);
         mPremiumHelper = new PremiumPurchaseHelper(this);
@@ -185,7 +180,8 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onStart() {
         super.onStart();
-        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onStart " + this);
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onStart " + this);
         // FIXME: no se realiza repintado
         FlurryHelper.onStartSession(this);
     }
@@ -193,20 +189,23 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onStop() {
         super.onStop();
-        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onStop " + this);
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onStop " + this);
         FlurryHelper.onEndSession(this);
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onRestart " + this);
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onRestart " + this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onPause " + this);
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onPause " + this);
         if (!mWorld.isGameOver()) {
             pauseGame();
         }
@@ -215,7 +214,8 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onResume() {
         super.onResume();
-        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onResume " + this);
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onResume " + this);
         if (mWorld.isPaused()) {
             showPauseDialog();
         }
@@ -226,23 +226,27 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onDestroy " + this);
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onDestroy " + this);
         mWorld.finish();
         // If the user presses the on / off button of the phone and the activity
-        // is destroyed, we want to show the menu activity when going to the task again.
+        // is destroyed, we want to show the menu activity when going to the
+        // task again.
         finish();
     }
 
-	@Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (L.sEnabled) Log.d(JumplingsApplication.TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
-    	if (mPremiumHelper != null && mPremiumHelper.onActivityResult(requestCode, resultCode, data)) {
-    		return;
-    	}
-    	super.onActivityResult(requestCode, resultCode, data);
-	}
+        if (L.sEnabled)
+            Log.d(JumplingsApplication.TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+        if (mPremiumHelper != null && mPremiumHelper.onActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     // ---------------------------------------------------- M�todos propios
- 
+
     public JumplingsGameWorld getWorld() {
         return mWorld;
     }
@@ -254,7 +258,8 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         finish();
         Intent intent = new Intent(this, GameOverActivity.class);
 
-        Score highScore = new Score(this, mWorld.getPlayer().getScore(), mWorld.mWave.getLevel());
+        Score highScore = new Score(this, mWorld.getPlayer()
+                                                .getScore(), mWorld.mWave.getLevel());
 
         final RectF worldBoundaries = mWorld.mViewport.getWorldBoundaries();
         HighScoreListingActivity.putScreenSizeExtras(intent, worldBoundaries.width(), worldBoundaries.height());
@@ -289,16 +294,16 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
             mWorld.pause();
         }
     }
-    
+
     private void showPauseDialog() {
         if (getSupportFragmentManager().findFragmentByTag(DIALOG_FRAGMENT_TAG) != null) {
             // the dialog was already shown
             return;
         }
-        
+
         // If the game is over the game over dialog will be active
         DialogFragment dialog = PauseDialogFactory.create();
-        dialog.show(getSupportFragmentManager(),  DIALOG_FRAGMENT_TAG);
+        dialog.show(getSupportFragmentManager(), DIALOG_FRAGMENT_TAG);
         mPauseBtn.setVisibility(View.INVISIBLE);
     }
 
@@ -315,13 +320,14 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
      */
     public void onGameOver() {
         mWorld.mScenario.onGameOver();
-        FlurryHelper.logGameOver(mWorld.currentGameMillis(), mWorld.mWave.getLevel(), mWorld.getPlayer().getScore());
+        FlurryHelper.logGameOver(mWorld.currentGameMillis(), mWorld.mWave.getLevel(), mWorld.getPlayer()
+                                                                                            .getScore());
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 DialogFragment dialog = GameOverDialogFactory.create();
-                dialog.show(getSupportFragmentManager(),  DIALOG_FRAGMENT_TAG);
+                dialog.show(getSupportFragmentManager(), DIALOG_FRAGMENT_TAG);
             }
         });
     }
@@ -355,38 +361,38 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
      * Start of the sword lifeTime
      */
     public void onSwordStarted() {
-    	runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				mSpecialWeaponBar.setVisibility(View.VISIBLE);
-			}
-		});
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mSpecialWeaponBar.setVisibility(View.VISIBLE);
+            }
+        });
     }
-    
+
     /**
      * Update of sword progress bar
      */
     public void updateSwordRemainingTimeUpdated(final float progress) {
-    	// TODO: send this via a handler
-    	runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				int visualProgress = (int) (progress * SWORD_PROGRESS_BAR_MAX);
-		    	mSpecialWeaponBar.setProgress(visualProgress);
-			}
-		});
+        // TODO: send this via a handler
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int visualProgress = (int) (progress * SWORD_PROGRESS_BAR_MAX);
+                mSpecialWeaponBar.setProgress(visualProgress);
+            }
+        });
     }
-    
+
     /**
      * End of the sword lifeTime
      */
     public void onSwordEnded() {
-    	runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				mSpecialWeaponBar.setVisibility(View.INVISIBLE);
-			}
-		});
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mSpecialWeaponBar.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     /**
@@ -396,7 +402,8 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mScoreTextView.setText(String.valueOf(mWorld.getPlayer().getScore()));
+                mScoreTextView.setText(String.valueOf(mWorld.getPlayer()
+                                                            .getScore()));
             }
         });
 
@@ -450,14 +457,15 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
     /**
      * Shows an ad dialog if there is an ad available
+     * 
      * @return if the dialog has been shown.
      */
     public void showAdDialogIfAvailable() {
-    	if (PermData.areAdsEnabled(this) && mPremiumHelper.isPremiumPurchaseStateKnown(this) && !mPremiumHelper.isPremiumPurchased(this)) {
-    		mAdDialogHelper.showIfAvailable();	
-    	}
+        if (PermData.areAdsEnabled(this) && mPremiumHelper.isPremiumPurchaseStateKnown(this) && !mPremiumHelper.isPremiumPurchased(this)) {
+            mAdDialogHelper.showIfAvailable();
+        }
     }
-    
+
     @Override
     public void onPauseDialogShown() {
     }
@@ -465,7 +473,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     public void onPauseDialogClosed() {
     }
-    
 
     @Override
     public void onResumeButtonClicked() {
@@ -476,7 +483,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     public void onMainMenuButtonClicked() {
         gotoMenuActivity();
     }
- 
+
     @Override
     public void onGameOverDialogShown() {
     }
@@ -485,7 +492,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     public void onGameOverDialogClosed() {
         gotoGameOverActivity();
     }
-    
+
     @Override
     public void onTipDialogShown() {
         if (mWorld.isRunning()) {
@@ -509,45 +516,48 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     public void onAdDialogClosed() {
         mWorld.resume();
     }
-    
+
     @Override
     public AdDialogHelper getAdDialogFactory() {
         return mAdDialogHelper;
     }
-    
-	@Override
-	public void onPurchaseBtnClicked() {
-		FlurryHelper.logBuyBtnClickedFromGame();
-		mPremiumHelper.purchasePremiumAsync(this, new PurchaseCallback() {
-			@Override
-			public void onPurchaseFinished(boolean purchased) {
-				if (L.sEnabled) Log.i(JumplingsApplication.TAG, "Premium purchased.");
-				FlurryHelper.logPurchasedFromGame();
-				mWorld.resume();
-			}
-			
-			@Override
-			public void onPurchaseError(String message) {
-				if (L.sEnabled) Log.e(JumplingsApplication.TAG, "Error querying purchase state " + message);
-				mWorld.resume();
-			}
-		});
-	}
-    
+
+    @Override
+    public void onPurchaseBtnClicked() {
+        FlurryHelper.logBuyBtnClickedFromGame();
+        mPremiumHelper.purchasePremiumAsync(this, new PurchaseCallback() {
+            @Override
+            public void onPurchaseFinished(boolean purchased) {
+                if (L.sEnabled)
+                    Log.i(JumplingsApplication.TAG, "Premium purchased.");
+                FlurryHelper.logPurchasedFromGame();
+                mWorld.resume();
+            }
+
+            @Override
+            public void onPurchaseError(String message) {
+                if (L.sEnabled)
+                    Log.e(JumplingsApplication.TAG, "Error querying purchase state " + message);
+                mWorld.resume();
+            }
+        });
+    }
+
     /**
      * Executed when the level changes
+     * 
      * @param level
      */
     public void onLevelChanged(final int level) {
         mWorld.mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                String message =  getString(R.string.game_level, level);
+                String message = getString(R.string.game_level, level);
                 TextView levelTextView = (TextView) findViewById(R.id.game_levelTextView);
                 levelTextView.setText(message);
                 JumplingsToast.show(GameActivity.this, message, JumplingsToast.LENGTH_SHORT);
             }
         });
     }
- 
+
 }

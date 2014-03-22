@@ -70,7 +70,11 @@ public class DoubleEnemyActor extends EnemyActor {
         {
             // Create Shape with Properties
             PolygonShape polygonShape = new PolygonShape();
-            Vector2[] vertices = new Vector2[] { new Vector2(0, mRadius), new Vector2(-mRadius, 0), new Vector2(0, -mRadius), new Vector2(mRadius, 0) };
+            Vector2[] vertices = new Vector2[] {
+                    new Vector2(0, mRadius),
+                    new Vector2(-mRadius, 0),
+                    new Vector2(0, -mRadius),
+                    new Vector2(mRadius, 0) };
             polygonShape.set(vertices);
 
             mMainBody = getWorld().createBody(this, worldPos, true);
@@ -121,7 +125,8 @@ public class DoubleEnemyActor extends EnemyActor {
         Vector2 pos = null;
 
         pos = mMainBody.getWorldCenter();
-        son = getWorld().getFactory().getDoubleSonEnemyActor(Viewport.vector2ToPointF(pos));
+        son = getWorld().getFactory()
+                        .getDoubleSonEnemyActor(Viewport.vector2ToPointF(pos));
         xVel = mMainBody.getLinearVelocity().x;
 
         getWorld().addActor(son);
@@ -131,10 +136,11 @@ public class DoubleEnemyActor extends EnemyActor {
 
         super.onHitted();
     }
-    
+
     @Override
     protected void free(JumplingsFactory factory) {
-        getWorld().getFactory().free(this);
+        getWorld().getFactory()
+                  .free(this);
     }
 
 }

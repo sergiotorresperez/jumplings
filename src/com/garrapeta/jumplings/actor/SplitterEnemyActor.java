@@ -134,7 +134,7 @@ public class SplitterEnemyActor extends EnemyActor {
             // Create Shape with Properties
             PolygonShape polygonShape = new PolygonShape();
 
-            // pooints of the poligon incribed in the circunference of mRadius 
+            // pooints of the poligon incribed in the circunference of mRadius
             float[][] aux = MathUtils.getPolyconVertexes(0, 0, mRadius, sides);
             Vector2[] vertices = new Vector2[aux.length];
 
@@ -164,8 +164,8 @@ public class SplitterEnemyActor extends EnemyActor {
         case 2:
             // vivo
             mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_2_BODY_ID, BMP_YELLOW_2_FOOT_RIGHT_ID, BMP_YELLOW_2_FOOT_LEFT_ID,
-                    BMP_YELLOW_2_HAND_RIGHT_ID, BMP_YELLOW_2_HAND_LEFT_ID, BMP_EYE_2_RIGHT_OPENED_ID, BMP_EYE_2_LEFT_OPENED_ID,
-                    BMP_EYE_2_RIGHT_CLOSED_ID, BMP_EYE_2_LEFT_CLOSED_ID);
+                    BMP_YELLOW_2_HAND_RIGHT_ID, BMP_YELLOW_2_HAND_LEFT_ID, BMP_EYE_2_RIGHT_OPENED_ID, BMP_EYE_2_LEFT_OPENED_ID, BMP_EYE_2_RIGHT_CLOSED_ID,
+                    BMP_EYE_2_LEFT_CLOSED_ID);
 
             // debris
             mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_2_BODY_ID);
@@ -182,8 +182,8 @@ public class SplitterEnemyActor extends EnemyActor {
         case 1:
             // vivo
             mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_1_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID,
-                    BMP_YELLOW_0_HAND_RIGHT_ID, BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID,
-                    BMP_EYE_0_RIGHT_CLOSED_ID, BMP_EYE_0_LEFT_CLOSED_ID);
+                    BMP_YELLOW_0_HAND_RIGHT_ID, BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID, BMP_EYE_0_RIGHT_CLOSED_ID,
+                    BMP_EYE_0_LEFT_CLOSED_ID);
 
             // debris
             mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_1_BODY_ID);
@@ -200,8 +200,8 @@ public class SplitterEnemyActor extends EnemyActor {
         case 0:
             // vivo
             mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_YELLOW_0_BODY_ID, BMP_YELLOW_0_FOOT_RIGHT_ID, BMP_YELLOW_0_FOOT_LEFT_ID,
-                    BMP_YELLOW_0_HAND_RIGHT_ID, BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID,
-                    BMP_EYE_0_RIGHT_CLOSED_ID, BMP_EYE_0_LEFT_CLOSED_ID);
+                    BMP_YELLOW_0_HAND_RIGHT_ID, BMP_YELLOW_0_HAND_LEFT_ID, BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID, BMP_EYE_0_RIGHT_CLOSED_ID,
+                    BMP_EYE_0_LEFT_CLOSED_ID);
 
             // debris
             mBmpDebrisBody = mb.getBitmap(BMP_DEBRIS_YELLOW_0_BODY_ID);
@@ -239,9 +239,11 @@ public class SplitterEnemyActor extends EnemyActor {
             float posY2 = Math.max(b.bottom + mRadius, wc.y - mRadius);
             posY2 = Math.min(posY2, b.top - mRadius);
 
-            actor1 = getWorld().getFactory().getSplitterEnemyActor(new PointF(posX1, posY1), mLevel - 1);
+            actor1 = getWorld().getFactory()
+                               .getSplitterEnemyActor(new PointF(posX1, posY1), mLevel - 1);
 
-            actor2 = getWorld().getFactory().getSplitterEnemyActor(new PointF(posX2, posY2), mLevel - 1);
+            actor2 = getWorld().getFactory()
+                               .getSplitterEnemyActor(new PointF(posX2, posY2), mLevel - 1);
 
             float xVel = mRadius * mLevel * 2;
             float yVel = getRestorationInitVy(getWorldPos().y);
@@ -259,7 +261,8 @@ public class SplitterEnemyActor extends EnemyActor {
 
     @Override
     protected void free(JumplingsFactory factory) {
-        getWorld().getFactory().free(this);
+        getWorld().getFactory()
+                  .free(this);
     }
 
 }

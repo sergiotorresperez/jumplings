@@ -10,7 +10,6 @@ public class LifePowerUpActor extends PowerUpActor {
 
     public final static short JUMPER_CODE_POWER_UP_LIFE = 7;
 
-
     // ------------------------------------------------- Variables est�ticas
 
     // vivo
@@ -43,7 +42,7 @@ public class LifePowerUpActor extends PowerUpActor {
         // debris
         mBmpDebrisIcon = mb.getBitmap(BMP_DEBRIS_HEART_ID);
     }
- 
+
     @Override
     public void onHitted() {
         getWorld().onLifePowerUp(this);
@@ -52,7 +51,8 @@ public class LifePowerUpActor extends PowerUpActor {
 
     @Override
     protected void free(JumplingsFactory factory) {
-        getWorld().getFactory().free(this);
+        getWorld().getFactory()
+                  .free(this);
     }
 
 }

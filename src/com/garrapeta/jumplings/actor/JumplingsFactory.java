@@ -12,14 +12,14 @@ import com.garrapeta.jumplings.JumplingsGameWorld;
 import com.garrapeta.jumplings.JumplingsWorld;
 
 /**
- * Class to control the creation of the Jumplings, so pools can be
- * used and allocation reduced
+ * Class to control the creation of the Jumplings, so pools can be used and
+ * allocation reduced
  */
 public class JumplingsFactory {
 
     public final static String TAG = JumplingsApplication.TAG_JUMPLINGS + ".pool";
     private final static int MAX_INSTANCES = 300;
-    
+
     private final JumplingsWorld mJumplingsWorld;
 
     private final Pool<DebrisActor> mDebrisActorPool;
@@ -38,7 +38,7 @@ public class JumplingsFactory {
     public JumplingsFactory(JumplingsWorld jumplingsWorld) {
         mJumplingsWorld = jumplingsWorld;
 
-        mDebrisActorPool = new  Pool<DebrisActor>(128, MAX_INSTANCES) {
+        mDebrisActorPool = new Pool<DebrisActor>(128, MAX_INSTANCES) {
             @Override
             protected DebrisActor newObject() {
                 return new DebrisActor(mJumplingsWorld);
@@ -58,7 +58,7 @@ public class JumplingsFactory {
                 return new IntroActor(mJumplingsWorld);
             }
         };
- 
+
         // FIXME: fix this dynamic cast
         if (mJumplingsWorld instanceof JumplingsGameWorld) {
             final JumplingsGameWorld jumplingsGameWorld = (JumplingsGameWorld) mJumplingsWorld;
@@ -68,19 +68,19 @@ public class JumplingsFactory {
                     return new RoundEnemyActor(jumplingsGameWorld);
                 }
             };
-            mDoubleEnemyActorPool = new Pool<DoubleEnemyActor>(8, MAX_INSTANCES){
+            mDoubleEnemyActorPool = new Pool<DoubleEnemyActor>(8, MAX_INSTANCES) {
                 @Override
                 protected DoubleEnemyActor newObject() {
                     return new DoubleEnemyActor(jumplingsGameWorld);
                 }
             };
-            mDoubleSonEnemyActorPool = new Pool<DoubleSonEnemyActor>(8, MAX_INSTANCES){
+            mDoubleSonEnemyActorPool = new Pool<DoubleSonEnemyActor>(8, MAX_INSTANCES) {
                 @Override
                 protected DoubleSonEnemyActor newObject() {
                     return new DoubleSonEnemyActor(jumplingsGameWorld);
                 }
             };
-            mSplitterEnemyActorPool = new Pool<SplitterEnemyActor>(16, MAX_INSTANCES){
+            mSplitterEnemyActorPool = new Pool<SplitterEnemyActor>(16, MAX_INSTANCES) {
                 @Override
                 protected SplitterEnemyActor newObject() {
                     return new SplitterEnemyActor(jumplingsGameWorld);
@@ -111,73 +111,84 @@ public class JumplingsFactory {
 
     public DebrisActor getDebrisActor(Body body, Bitmap bitmap) {
         DebrisActor actor = mDebrisActorPool.obtain();
-        if (L.sEnabled) Log.i(TAG, "DebrisActor: " +   mDebrisActorPool.getDebugString());
+        if (L.sEnabled)
+            Log.i(TAG, "DebrisActor: " + mDebrisActorPool.getDebugString());
         actor.init(body, bitmap);
         return actor;
     }
 
     public IntroActor getIntroActor(PointF worldPos) {
         IntroActor actor = mIntroActor.obtain();
-        if (L.sEnabled) Log.i(TAG, "IntroActor: " + mIntroActor.getDebugString());
+        if (L.sEnabled)
+            Log.i(TAG, "IntroActor: " + mIntroActor.getDebugString());
         actor.init(worldPos);
         return actor;
     }
 
     public SparksActor getSparksActor(PointF worldPos, int longevity) {
         SparksActor actor = mSparksActor.obtain();
-        if (L.sEnabled) Log.i(TAG, "SparksActor: " + mSparksActor.getDebugString());
+        if (L.sEnabled)
+            Log.i(TAG, "SparksActor: " + mSparksActor.getDebugString());
         actor.init(worldPos, longevity);
         return actor;
     }
- 
+
     public RoundEnemyActor getRoundEnemyActor(PointF worldPos) {
         RoundEnemyActor actor = mRoundEnemyActorPool.obtain();
-        if (L.sEnabled) Log.i(TAG, "RoundEnemyActor: " +  mRoundEnemyActorPool.getDebugString());
+        if (L.sEnabled)
+            Log.i(TAG, "RoundEnemyActor: " + mRoundEnemyActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
 
     public DoubleEnemyActor getDoubleEnemyActor(PointF worldPos) {
         DoubleEnemyActor actor = mDoubleEnemyActorPool.obtain();
-        if (L.sEnabled) Log.i(TAG, "DoubleEnemyActor: " + mDoubleEnemyActorPool.getDebugString());
+        if (L.sEnabled)
+            Log.i(TAG, "DoubleEnemyActor: " + mDoubleEnemyActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
-    
+
     public DoubleSonEnemyActor getDoubleSonEnemyActor(PointF worldPos) {
         DoubleSonEnemyActor actor = mDoubleSonEnemyActorPool.obtain();
-        if (L.sEnabled) Log.i(TAG, "DoubleSonEnemyActor: " + mDoubleSonEnemyActorPool.getDebugString());
+        if (L.sEnabled)
+            Log.i(TAG, "DoubleSonEnemyActor: " + mDoubleSonEnemyActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
-    
+
     public SplitterEnemyActor getSplitterEnemyActor(PointF worldPos, int level) {
         SplitterEnemyActor actor = mSplitterEnemyActorPool.obtain();
-        if (L.sEnabled) Log.i(TAG, "SplitterEnemyActor: " + mSplitterEnemyActorPool.getDebugString());
+        if (L.sEnabled)
+            Log.i(TAG, "SplitterEnemyActor: " + mSplitterEnemyActorPool.getDebugString());
         actor.init(worldPos, level);
         return actor;
     }
 
     public BombActor getBombActor(PointF worldPos) {
         BombActor actor = mBombActorPool.obtain();
-        if (L.sEnabled) Log.i(TAG, "BombActor: " + mBombActorPool.getDebugString());
+        if (L.sEnabled)
+            Log.i(TAG, "BombActor: " + mBombActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
 
     public SwordPowerUpActor getSwordPowerUpActor(PointF worldPos) {
         SwordPowerUpActor actor = mSwordPowerUpActorPool.obtain();
-        if (L.sEnabled) Log.i(TAG, "SwordPowerUpActor: " + mSwordPowerUpActorPool.getDebugString());
+        if (L.sEnabled)
+            Log.i(TAG, "SwordPowerUpActor: " + mSwordPowerUpActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
-    
+
     public LifePowerUpActor getLifePowerUpActor(PointF worldPos) {
         LifePowerUpActor actor = mLifePowerUpActorPool.obtain();
-        if (L.sEnabled) Log.i(TAG, "LifePowerUpActor: " + mLifePowerUpActorPool.getDebugString());
+        if (L.sEnabled)
+            Log.i(TAG, "LifePowerUpActor: " + mLifePowerUpActorPool.getDebugString());
         actor.init(worldPos);
         return actor;
     }
+
     // Free
 
     public void free(DebrisActor actor) {
@@ -188,7 +199,7 @@ public class JumplingsFactory {
         mSparksActor.free(actor);
     }
 
-    public void free(IntroActor  actor) {
+    public void free(IntroActor actor) {
         mIntroActor.free(actor);
     }
 
@@ -211,10 +222,10 @@ public class JumplingsFactory {
     public void free(BombActor actor) {
         mBombActorPool.free(actor);
     }
- 
+
     public void free(SwordPowerUpActor actor) {
         mSwordPowerUpActorPool.free(actor);
-    } 
+    }
 
     public void free(LifePowerUpActor actor) {
         mLifePowerUpActorPool.free(actor);

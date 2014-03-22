@@ -13,8 +13,8 @@ public class RoundEnemyActor extends EnemyActor {
     // ---------------------------------------------------- Constantes
 
     // FIXME: remove this
-    public static int sCount = 0 ;
-    
+    public static int sCount = 0;
+
     public final static float DEFAULT_RADIUS = BASE_RADIUS * 1f;
 
     public final static short JUMPER_CODE_SIMPLE = 0;
@@ -49,7 +49,7 @@ public class RoundEnemyActor extends EnemyActor {
         super(world);
         mRadius = RoundEnemyActor.DEFAULT_RADIUS;
         mCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
-        sCount ++;
+        sCount++;
     }
 
     // ------------------------------------------------------ M�todos heredados
@@ -80,8 +80,8 @@ public class RoundEnemyActor extends EnemyActor {
     @Override
     protected void initBitmaps() {
         // vivo
-        mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_RED_BODY_ID, BMP_RED_FOOT_RIGHT_ID, BMP_RED_FOOT_LEFT_ID, BMP_RED_HAND_RIGHT_ID,
-                BMP_RED_HAND_LEFT_ID, BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID, BMP_EYE_0_RIGHT_CLOSED_ID, BMP_EYE_0_LEFT_CLOSED_ID);
+        mAnthtopoDelegate.initAnthropomorphicBitmaps(BMP_RED_BODY_ID, BMP_RED_FOOT_RIGHT_ID, BMP_RED_FOOT_LEFT_ID, BMP_RED_HAND_RIGHT_ID, BMP_RED_HAND_LEFT_ID,
+                BMP_EYE_0_RIGHT_OPENED_ID, BMP_EYE_0_LEFT_OPENED_ID, BMP_EYE_0_RIGHT_CLOSED_ID, BMP_EYE_0_LEFT_CLOSED_ID);
 
         // debris
         BitmapManager mb = getWorld().getBitmapManager();
@@ -99,7 +99,8 @@ public class RoundEnemyActor extends EnemyActor {
 
     @Override
     protected void free(JumplingsFactory factory) {
-        getWorld().getFactory().free(this);
+        getWorld().getFactory()
+                  .free(this);
     }
 
 }

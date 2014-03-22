@@ -46,7 +46,8 @@
     <string name="about_credits_4">Plymouth y Londres</string>
     <string name="about_credits_linkedin_profile">http://uk.linkedin.com/in/sergiotorresperez</string>
     <string name="about_credits_5">Código fuente:</string>
-    <string name="about_credits_source_repository">http://bitbucket.org/garrapeta/</string>    <string name="about_ack_title">Reconocimientos</string>
+    <string name="about_credits_source_repository">https://github.com/garrapeta/jumplings</string>
+    <string name="about_ack_title">Reconocimientos</string>
     <string name="about_ack_1">El juego usa la adaptación de Box2D para Android hecha por Badlogic</string>
     <string name="about_ack_2">https://github.com/libgdx/libgdx</string>
     <string name="about_ack_3">Algunos sonidos y bitmaps han sido tomados prestados y muy modificados del juego Teeworlds</string>
@@ -65,8 +66,8 @@
     <string name="gameover_beaten">¡Has batido la puntuación máxima!</string>
     <string name="gameover_highscore_is">"La puntuación máxima es %1$d"</string>
     <string name="gameover_share">"He conseguido %1$d puntos en Los Jumplings!. Bájatelo gratis de http://play.google.com/store/apps/details?id=com.garrapeta.jumplings"</string>
- 	<string name="gameover_invalid_username">"Introduce un nombre con por  %1$d caracteres por como mínimo"</string>
- 
+    <string name="gameover_invalid_username">"Introduce un nombre con por  %1$d caracteres por como mínimo"</string>
+
     <!-- High scores activity -->
     <string name="highscores_submit">Mandar</string>
     <string name="highscores_clear">Borrar</string>
@@ -83,7 +84,7 @@
     <string name="highscores_error_no_connection">Necesitas estar conectado a Internet</string>
     <string name="highscores_error_io_error">Error al comunicar con el servidor de puntuaciones.</string>
     <string name="highscores_error_server_error">Algo raro ha pasado en el servidor&#8230;</string>
-    
+
     <!-- Preferences activity -->
     <string name="prefs_sound_summary">Activar o desactivar efectos de sonidos</string>
     <string name="prefs_sound_title">Activar sonido</string>
@@ -99,7 +100,7 @@
     <string name="game_paused">Juego pausado</string>
     <string name="game_menu">Menú principal</string>
     <string name="game_resume">Reanudar</string>
-    <string name="game_error_title">¡Patachóf!</string> 
+    <string name="game_error_title">¡Patachóf!</string>
     <string name="game_error">Lo siento, algo se ha fastididado&#8230; fallo técnico :-(</string>
     <string name="game_ad_dlg_continue">Jugar</string>
     <string name="game_ad_dlg_continue_in_secs">Jugar (%1$d)</string>

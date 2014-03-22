@@ -32,44 +32,44 @@ import com.garrapeta.jumplings.wave.TestWave;
  */
 public class MenuActivity extends FragmentActivity implements PurchaseDialogListener {
 
-	private final static String TAG = MenuActivity.class.getSimpleName();
-	
+    private final static String TAG = MenuActivity.class.getSimpleName();
+
     /**
      * Tag used to refer to the dialog fragment
      */
     static final String DIALOG_FRAGMENT_TAG = "dialog_fragment_tag";
-    
+
     private View mTitle;
-    
+
     private Button mStartBtn;
     private ImageButton mPreferencesBtn;
     private ImageButton mHighScoresBtn;
     private ImageButton mAboutBtn;
     private ImageButton mShareButton;
     private ImageButton mPremiumBtn;
-    
+
     private View mAdView;
     private View mDebugGroup;
-    
+
     // used to resolve the state of the in app billing purchases
     private PremiumPurchaseHelper mPremiumHelper;
-    
+
     private boolean mShowNonPremiumComponents = false;
-    
+
     /** World */
     JumplingsWorld mWorld;
-    
+
     private boolean mAnimationShown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-         // UI Setup
+        // UI Setup
         setContentView(R.layout.activity_menu);
 
         mTitle = findViewById(R.id.menu_title);
- 
+
         mStartBtn = (Button) findViewById(R.id.menu_playBtn);
         mStartBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -79,7 +79,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         });
 
         mDebugGroup = findViewById(R.id.menu_debug_view_group);
-        
+
         Button testBtn = (Button) findViewById(R.id.menu_testBtn);
         testBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -104,12 +104,11 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
             }
         });
 
-
         mShareButton = (ImageButton) findViewById(R.id.menu_shareBtn);
         mShareButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            	FlurryHelper.logShareButtonClicked();
+                FlurryHelper.logShareButtonClicked();
                 Utils.share(MenuActivity.this, getString(R.string.menu_share));
             }
         });
@@ -118,11 +117,11 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mPremiumBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            	DialogFragment dialog = PurchaseDialogFactory.create();
-                dialog.show(getSupportFragmentManager(),  DIALOG_FRAGMENT_TAG);
+                DialogFragment dialog = PurchaseDialogFactory.create();
+                dialog.show(getSupportFragmentManager(), DIALOG_FRAGMENT_TAG);
             }
         });
-        
+
         mPreferencesBtn = (ImageButton) findViewById(R.id.menu_preferencesBtn);
         mPreferencesBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -138,11 +137,10 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
                 showAbout();
             }
         });
-        
 
         // Ads
         mAdView = findViewById(R.id.menu_advertising_banner_view);
- 
+
         // The UI starts invisible and becomes visible with an animation
         mTitle.setVisibility(View.INVISIBLE);
         mStartBtn.setVisibility(View.INVISIBLE);
@@ -158,30 +156,34 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     @Override
     protected void onStart() {
         super.onStart();
-        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onStart " + this);
-        
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onStart " + this);
+
         // Query the state of the purchase
-		mPremiumHelper = new PremiumPurchaseHelper(this);
-		if (mPremiumHelper.isPremiumPurchaseStateKnown(this)) {
-			if (L.sEnabled) Log.d(TAG, "Premium purchase state known. No need to query.");
-			startAnimation(mPremiumHelper.isPremiumPurchased(this));
-		} else {
-			if (L.sEnabled) Log.d(TAG, "Premium purchase state unknown. Querying for it.");
-			mPremiumHelper.queryIsPremiumPurchasedAsync(this, new PurchaseStateQueryCallback() {
-				@Override
-				public void onPurchaseStateQueryFinished(boolean purchased) {
-					startAnimation(purchased);
-				}
-				
-				@Override
-				public void onPurchaseStateQueryError(String message) {
-					if (L.sEnabled) Log.i(TAG, "Error querying purchase state " + message);
-					// we assume it is purchased
-					startAnimation(true);
-				}
-			});
-		}
-		
+        mPremiumHelper = new PremiumPurchaseHelper(this);
+        if (mPremiumHelper.isPremiumPurchaseStateKnown(this)) {
+            if (L.sEnabled)
+                Log.d(TAG, "Premium purchase state known. No need to query.");
+            startAnimation(mPremiumHelper.isPremiumPurchased(this));
+        } else {
+            if (L.sEnabled)
+                Log.d(TAG, "Premium purchase state unknown. Querying for it.");
+            mPremiumHelper.queryIsPremiumPurchasedAsync(this, new PurchaseStateQueryCallback() {
+                @Override
+                public void onPurchaseStateQueryFinished(boolean purchased) {
+                    startAnimation(purchased);
+                }
+
+                @Override
+                public void onPurchaseStateQueryError(String message) {
+                    if (L.sEnabled)
+                        Log.i(TAG, "Error querying purchase state " + message);
+                    // we assume it is purchased
+                    startAnimation(true);
+                }
+            });
+        }
+
         FlurryHelper.onStartSession(this);
 
         mWorld = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface), this);
@@ -194,58 +196,63 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     @Override
     protected void onPause() {
         super.onPause();
-        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onPause " + this);
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onPause " + this);
         if (mWorld.isRunning()) {
-        	mWorld.pause();
+            mWorld.pause();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onResume " + this);
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onResume " + this);
         mWorld.resume();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onStop " + this);
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onStop " + this);
         FlurryHelper.onEndSession(this);
-        
+
         if (mWorld.isRunning()) {
-        	mWorld.finish();
-        	mWorld = null;
+            mWorld.finish();
+            mWorld = null;
         }
     }
 
-	@Override
-	protected void onDestroy() {
-		if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onDestroy " + this);
-		super.onDestroy();
-		if (mPremiumHelper != null) {
-			mPremiumHelper.dispose();
-		}
-	}
-	
-	@Override
+    @Override
+    protected void onDestroy() {
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onDestroy " + this);
+        super.onDestroy();
+        if (mPremiumHelper != null) {
+            mPremiumHelper.dispose();
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (L.sEnabled) Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
-    	if (mPremiumHelper != null && mPremiumHelper.onActivityResult(requestCode, resultCode, data)) {
-    		return;
-    	}
-    	super.onActivityResult(requestCode, resultCode, data);
-	}
+        if (L.sEnabled)
+            Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+        if (mPremiumHelper != null && mPremiumHelper.onActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-	private void startAnimation(boolean purchased) {
-		onPremiumStateUpdate(purchased);
-		if (!mAnimationShown) {
-			mAnimationShown = true;
-			onStartAnimationPhaseOne();
-		}
-	}
+    private void startAnimation(boolean purchased) {
+        onPremiumStateUpdate(purchased);
+        if (!mAnimationShown) {
+            mAnimationShown = true;
+            onStartAnimationPhaseOne();
+        }
+    }
 
-	private void onStartAnimationPhaseOne() {
+    private void onStartAnimationPhaseOne() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.menu_screen_scale_in);
         fadeInAnimation.setAnimationListener(new AnimationListener() {
             @Override
@@ -258,11 +265,12 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                onStartAnimationPhaseTwo(); 
+                onStartAnimationPhaseTwo();
             }
         });
-        
-		// doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
+
+        // doing this here instead of onAnimationStart because of problems of
+        // the animation not starting in old devices
         mTitle.setVisibility(View.VISIBLE);
         mTitle.startAnimation(fadeInAnimation);
     }
@@ -270,7 +278,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     private void onStartAnimationPhaseTwo() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
         fadeInAnimation.setAnimationListener(new AnimationListener() {
-			@Override
+            @Override
             public void onAnimationStart(Animation animation) {
             }
 
@@ -283,7 +291,8 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
             }
         });
 
-        // doing this here instead of onAnimationStart because of problems of the animation not starting in old devices
+        // doing this here instead of onAnimationStart because of problems of
+        // the animation not starting in old devices
         mStartBtn.setVisibility(View.VISIBLE);
         mStartBtn.setVisibility(View.VISIBLE);
         mPreferencesBtn.setVisibility(View.VISIBLE);
@@ -293,7 +302,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mShareButton.setVisibility(View.VISIBLE);
         mAdView.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
         mPremiumBtn.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
-        
+
         mStartBtn.startAnimation(fadeInAnimation);
         mPreferencesBtn.startAnimation(fadeInAnimation);
         mHighScoresBtn.startAnimation(fadeInAnimation);
@@ -333,32 +342,35 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         Intent i = new Intent(this, AboutActivity.class);
         startActivity(i);
     }
-    
+
     private void onPremiumStateUpdate(boolean purchased) {
-    	if (L.sEnabled) Log.i(TAG, "Premium upgrade purchased: " + purchased);
-    	mShowNonPremiumComponents = PermData.areAdsEnabled(this) && !purchased;
-    	if (!mShowNonPremiumComponents) {
-    		// this will prevent the animations to start, and the views will never become visible
-    		mAdView.setVisibility(View.GONE);
-    		mPremiumBtn.setVisibility(View.GONE);
-    	}
+        if (L.sEnabled)
+            Log.i(TAG, "Premium upgrade purchased: " + purchased);
+        mShowNonPremiumComponents = PermData.areAdsEnabled(this) && !purchased;
+        if (!mShowNonPremiumComponents) {
+            // this will prevent the animations to start, and the views will
+            // never become visible
+            mAdView.setVisibility(View.GONE);
+            mPremiumBtn.setVisibility(View.GONE);
+        }
     }
 
-	@Override
-	public void onPurchaseBtnClicked() {
-		FlurryHelper.logBuyBtnClickedFromHome();
-		mPremiumHelper.purchasePremiumAsync(this, new PurchaseCallback() {
-			@Override
-			public void onPurchaseFinished(boolean purchased) {
-				FlurryHelper.logPurchasedFromHome();
-				onPremiumStateUpdate(purchased);
-			}
-			
-			@Override
-			public void onPurchaseError(String message) {
-				if (L.sEnabled) Log.i(TAG, "Error querying purchase state " + message);
-			}
-		});
-	}
+    @Override
+    public void onPurchaseBtnClicked() {
+        FlurryHelper.logBuyBtnClickedFromHome();
+        mPremiumHelper.purchasePremiumAsync(this, new PurchaseCallback() {
+            @Override
+            public void onPurchaseFinished(boolean purchased) {
+                FlurryHelper.logPurchasedFromHome();
+                onPremiumStateUpdate(purchased);
+            }
+
+            @Override
+            public void onPurchaseError(String message) {
+                if (L.sEnabled)
+                    Log.i(TAG, "Error querying purchase state " + message);
+            }
+        });
+    }
 
 }

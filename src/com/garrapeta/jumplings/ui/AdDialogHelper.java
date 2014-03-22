@@ -20,21 +20,21 @@ import com.google.ads.AdRequest.ErrorCode;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
 
-
 /**
  * Helper class to manage the ad dialog
  */
 public class AdDialogHelper implements AdListener {
 
     private FragmentActivity mActivity;
-    
+
     private final String mFragmentTag;
 
     private boolean mAvailable = false;
 
     /**
-     * Ad view. This has to be created before it is displayed, as we need to instantiate it
-     * to request an ad. When the dialog is show this view it attached to it.
+     * Ad view. This has to be created before it is displayed, as we need to
+     * instantiate it to request an ad. When the dialog is show this view it
+     * attached to it.
      */
     private AdView mAdView;
 
@@ -51,12 +51,13 @@ public class AdDialogHelper implements AdListener {
         // Create the adView
         mAdView = new AdView(activity, AdSize.BANNER, activity.getString(R.string.admob_in_game_ad_unit));
         mAdView.setAdListener(this);
-        
+
         requestAd();
     }
 
     /**
      * Shows the dialog if there is an ad available
+     * 
      * @return if the dialog has been shown.
      */
     public boolean showIfAvailable() {
@@ -75,8 +76,11 @@ public class AdDialogHelper implements AdListener {
      */
     public static interface AdDialogListener {
         public void onAdDialogShown();
-        public void onAdDialogClosed();            
+
+        public void onAdDialogClosed();
+
         public AdDialogHelper getAdDialogFactory();
+
         public void onPurchaseBtnClicked();
     }
 
@@ -86,20 +90,20 @@ public class AdDialogHelper implements AdListener {
     public static class AdDialogFragment extends DialogFragment {
 
         private int NEGATIVE_BUTTON_DISABLED_TIME = 5;
-        
+
         private final static int MSG_CONTINUE_BTN_STEP = 0;
-        
+
         private AdDialogListener mClient;
-        
+
         private Button mContinueBtn;
 
         private final Handler mAdDialogHandler;
-        
-         /**
+
+        /**
          * Constructor
          */
         public AdDialogFragment() {
-            mAdDialogHandler = new Handler(new Handler.Callback() {            
+            mAdDialogHandler = new Handler(new Handler.Callback() {
                 @Override
                 public boolean handleMessage(Message msg) {
                     if (msg.what == MSG_CONTINUE_BTN_STEP) {
@@ -113,53 +117,50 @@ public class AdDialogHelper implements AdListener {
                             continueButtonStep(1000, --n);
                         }
                     }
-                    
+
                     return true;
                 }
             });
         }
- 
-        
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             CustomDialogBuilder builder = new CustomDialogBuilder(getActivity());
 
             builder.setBody(mClient.getAdDialogFactory().mAdView);
-            
+
             builder.setRightButton(getActivity().getString(R.string.game_ad_dlg_continue), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     getDialog().dismiss();
-                    mClient.getAdDialogFactory().requestAd();
+                    mClient.getAdDialogFactory()
+                           .requestAd();
                 }
-            }).setLeftButton(getActivity().getString(R.string.game_ad_dlg_buy), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                    	getDialog().dismiss();
-                    	mClient.onPurchaseBtnClicked();
-                    }
-                });
-            
+            })
+                   .setLeftButton(getActivity().getString(R.string.game_ad_dlg_buy), new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                           getDialog().dismiss();
+                           mClient.onPurchaseBtnClicked();
+                       }
+                   });
 
-            
             Dialog dialog = builder.create();
-            
+
             mContinueBtn = builder.getRightButton();
             mContinueBtn.setEnabled(false);
             continueButtonStep(0, NEGATIVE_BUTTON_DISABLED_TIME);
-            
+
             return dialog;
         }
 
-        
         @Override
-		public void onDestroy() {
-			super.onDestroy();
-			mClient.getAdDialogFactory().mAdView.destroy();
-		}
+        public void onDestroy() {
+            super.onDestroy();
+            mClient.getAdDialogFactory().mAdView.destroy();
+        }
 
-
-		@Override
+        @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
             FlurryHelper.logAdDialogShown();
@@ -196,31 +197,30 @@ public class AdDialogHelper implements AdListener {
         AdRequest request = new AdRequest();
         mAdView.loadAd(request);
     }
- 
-	@Override
-	public void onDismissScreen(Ad arg0) {
 
-	}
+    @Override
+    public void onDismissScreen(Ad arg0) {
 
-	@Override
-	public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
-		mAvailable = false;
-	}
+    }
 
-	@Override
-	public void onLeaveApplication(Ad arg0) {
+    @Override
+    public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
+        mAvailable = false;
+    }
 
-	}
+    @Override
+    public void onLeaveApplication(Ad arg0) {
 
-	@Override
-	public void onPresentScreen(Ad arg0) {
-	
-	}
+    }
 
-	@Override
-	public void onReceiveAd(Ad arg0) {
-		mAvailable = true;
-	}
+    @Override
+    public void onPresentScreen(Ad arg0) {
 
+    }
+
+    @Override
+    public void onReceiveAd(Ad arg0) {
+        mAvailable = true;
+    }
 
 }

@@ -5,57 +5,59 @@ package com.garrapeta.jumplings.comms;
  */
 public class BackendConnectionException extends Exception {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Classification of errors
-	 */
-	public enum ErrorType{NO_CONNECTION_ERROR, IO_ERROR, CLIENT_ERROR, SERVER_ERROR, HTTP_ERROR};
-	
-	private final ErrorType mErrorType;
-	
-	public BackendConnectionException(ErrorType errorType) {
-		super();
-		mErrorType = errorType;
-	}
+    /**
+     * Classification of errors
+     */
+    public enum ErrorType {
+        NO_CONNECTION_ERROR,
+        IO_ERROR,
+        CLIENT_ERROR,
+        SERVER_ERROR,
+        HTTP_ERROR
+    };
 
-	/**
-	 * @param errorType
-	 * @param detailMessage
-	 * @param throwable
-	 */
-	public BackendConnectionException(ErrorType errorType, String detailMessage, Throwable throwable) {
-		super(detailMessage, throwable);
-		mErrorType = errorType;
-	}
+    private final ErrorType mErrorType;
 
-	/**
-	 * @param errorType
-	 * @param detailMessage
-	 */
-	public BackendConnectionException(ErrorType errorType, String detailMessage) {
-		super(detailMessage);
-		mErrorType = errorType;
-	}
+    public BackendConnectionException(ErrorType errorType) {
+        super();
+        mErrorType = errorType;
+    }
 
-	/**
-	 * @param errorType
-	 * @param throwable
-	 */
-	public BackendConnectionException(ErrorType errorType, Throwable throwable) {
-		super(throwable);
-		mErrorType = errorType;
-	}
+    /**
+     * @param errorType
+     * @param detailMessage
+     * @param throwable
+     */
+    public BackendConnectionException(ErrorType errorType, String detailMessage, Throwable throwable) {
+        super(detailMessage, throwable);
+        mErrorType = errorType;
+    }
 
-	/**
-	 * @return the type of error
-	 */
-	public ErrorType getErrorType() {
-		return mErrorType;
-	}
-	
+    /**
+     * @param errorType
+     * @param detailMessage
+     */
+    public BackendConnectionException(ErrorType errorType, String detailMessage) {
+        super(detailMessage);
+        mErrorType = errorType;
+    }
 
-	
-	
+    /**
+     * @param errorType
+     * @param throwable
+     */
+    public BackendConnectionException(ErrorType errorType, Throwable throwable) {
+        super(throwable);
+        mErrorType = errorType;
+    }
+
+    /**
+     * @return the type of error
+     */
+    public ErrorType getErrorType() {
+        return mErrorType;
+    }
 
 }

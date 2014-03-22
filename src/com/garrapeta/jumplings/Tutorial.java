@@ -23,24 +23,25 @@ import com.garrapeta.jumplings.ui.CustomDialogBuilder;
 import com.garrapeta.jumplings.weapon.SwordWeapon.WeaponSwordListener;
 
 /**
- * Tutorial that shows tips to help the player learn the different features of the game *
+ * Tutorial that shows tips to help the player learn the different features of
+ * the game *
  */
-public class Tutorial implements GameEventsListener, WeaponSwordListener{
-   
-    private static final String MESSAGE_ID_KEY = "messageKey" ;
+public class Tutorial implements GameEventsListener, WeaponSwordListener {
+
+    private static final String MESSAGE_ID_KEY = "messageKey";
 
     /**
      * Enum with each different feature / event to
      */
     public enum TipId {
-        TIP_ON_ENEMY_SCAPED, 
-        TIP_ON_COMBO, 
-        TIP_ON_ROUND_ENEMY_KILLED, 
-        TIP_ON_DOUBLE_ENEMY_KILLED, 
-        TIP_ON_SPLITTER_ENEMY_KILLED, 
-        TIP_ON_BOMB_EXPLODED, 
-        TIP_ON_LIFE_POWER_UP, 
-        TIP_ON_SWORD_POWER_UP_START, 
+        TIP_ON_ENEMY_SCAPED,
+        TIP_ON_COMBO,
+        TIP_ON_ROUND_ENEMY_KILLED,
+        TIP_ON_DOUBLE_ENEMY_KILLED,
+        TIP_ON_SPLITTER_ENEMY_KILLED,
+        TIP_ON_BOMB_EXPLODED,
+        TIP_ON_LIFE_POWER_UP,
+        TIP_ON_SWORD_POWER_UP_START,
         TIP_ON_SWORD_POWER_UP_END
     }
 
@@ -56,10 +57,10 @@ public class Tutorial implements GameEventsListener, WeaponSwordListener{
     public Tutorial(FragmentActivity activity, String fragmentTag) {
         mActivity = activity;
         mFragmentTag = fragmentTag;
-        
+
         mTipData = new HashMap<TipId, TipData>();
-    
-        mTipHandler = new Handler(new Handler.Callback() {            
+
+        mTipHandler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
                 TipData tipData = (TipData) msg.obj;
@@ -67,26 +68,30 @@ public class Tutorial implements GameEventsListener, WeaponSwordListener{
                 Bundle bundle = new Bundle();
                 bundle.putInt(MESSAGE_ID_KEY, tipData.mMessageResId);
                 tipDialogFragment.setArguments(bundle);
-                tipDialogFragment.show(mActivity.getSupportFragmentManager(),  mFragmentTag);
+                tipDialogFragment.show(mActivity.getSupportFragmentManager(), mFragmentTag);
                 return true;
             }
         });
     }
 
     /**
-     * Initialises the state of the tips.
-     * Should be run in background.
+     * Initialises the state of the tips. Should be run in background.
      */
     public void init() {
         mTipData.put(TipId.TIP_ON_ENEMY_SCAPED, new TipData(R.string.tip_enemy_escaped, PermData.isTipShown(mActivity, TipId.TIP_ON_ENEMY_SCAPED)));
         mTipData.put(TipId.TIP_ON_COMBO, new TipData(R.string.tip_combo, PermData.isTipShown(mActivity, TipId.TIP_ON_COMBO)));
-        mTipData.put(TipId.TIP_ON_ROUND_ENEMY_KILLED, new TipData(R.string.tip_round_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_ROUND_ENEMY_KILLED)));
-        mTipData.put(TipId.TIP_ON_DOUBLE_ENEMY_KILLED, new TipData(R.string.tip_double_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_DOUBLE_ENEMY_KILLED)));
-        mTipData.put(TipId.TIP_ON_SPLITTER_ENEMY_KILLED, new TipData(R.string.tip_splitter_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_SPLITTER_ENEMY_KILLED)));
+        mTipData.put(TipId.TIP_ON_ROUND_ENEMY_KILLED,
+                new TipData(R.string.tip_round_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_ROUND_ENEMY_KILLED)));
+        mTipData.put(TipId.TIP_ON_DOUBLE_ENEMY_KILLED,
+                new TipData(R.string.tip_double_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_DOUBLE_ENEMY_KILLED)));
+        mTipData.put(TipId.TIP_ON_SPLITTER_ENEMY_KILLED,
+                new TipData(R.string.tip_splitter_enemy_killed, PermData.isTipShown(mActivity, TipId.TIP_ON_SPLITTER_ENEMY_KILLED)));
         mTipData.put(TipId.TIP_ON_BOMB_EXPLODED, new TipData(R.string.tip_bomb_exploded, PermData.isTipShown(mActivity, TipId.TIP_ON_BOMB_EXPLODED)));
         mTipData.put(TipId.TIP_ON_LIFE_POWER_UP, new TipData(R.string.tip_life_power_up, PermData.isTipShown(mActivity, TipId.TIP_ON_LIFE_POWER_UP)));
-        mTipData.put(TipId.TIP_ON_SWORD_POWER_UP_START, new TipData(R.string.tip_sword_power_up_start, PermData.isTipShown(mActivity, TipId.TIP_ON_SWORD_POWER_UP_START)));
-        mTipData.put(TipId.TIP_ON_SWORD_POWER_UP_END, new TipData(R.string.tip_sword_power_up_end, PermData.isTipShown(mActivity, TipId.TIP_ON_SWORD_POWER_UP_END)));
+        mTipData.put(TipId.TIP_ON_SWORD_POWER_UP_START,
+                new TipData(R.string.tip_sword_power_up_start, PermData.isTipShown(mActivity, TipId.TIP_ON_SWORD_POWER_UP_START)));
+        mTipData.put(TipId.TIP_ON_SWORD_POWER_UP_END,
+                new TipData(R.string.tip_sword_power_up_end, PermData.isTipShown(mActivity, TipId.TIP_ON_SWORD_POWER_UP_END)));
     }
 
     @Override
@@ -162,27 +167,26 @@ public class Tutorial implements GameEventsListener, WeaponSwordListener{
      * Tips dialog
      */
     public static class TipDialogFragment extends DialogFragment {
-        
+
         private TipDialogListener mListener;
-        
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            
+
             CustomDialogBuilder builder = new CustomDialogBuilder(getActivity());
 
-            builder.setMessageSmall(getArguments().getInt(MESSAGE_ID_KEY)).setLeftButton("OK", new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onTipDialogClosed();
-                    dismiss();
-                }
-            });
+            builder.setMessageSmall(getArguments().getInt(MESSAGE_ID_KEY))
+                   .setLeftButton("OK", new OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                           mListener.onTipDialogClosed();
+                           dismiss();
+                       }
+                   });
 
-            
-            
             return builder.create();
         }
-        
+
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
@@ -190,10 +194,10 @@ public class Tutorial implements GameEventsListener, WeaponSwordListener{
                 mListener = (TipDialogListener) activity;
                 mListener.onTipDialogShown();
             } catch (ClassCastException e) {
-                throw new ClassCastException(activity.toString()  + " must implement " + TipDialogListener.class.getSimpleName());
+                throw new ClassCastException(activity.toString() + " must implement " + TipDialogListener.class.getSimpleName());
             }
         }
-        
+
         @Override
         public void onDetach() {
             super.onDetach();
@@ -205,22 +209,23 @@ public class Tutorial implements GameEventsListener, WeaponSwordListener{
          */
         public static interface TipDialogListener {
             public void onTipDialogShown();
+
             public void onTipDialogClosed();
         }
     }
 
-	@Override
-	public void onSwordStarted() {
-		showTip(TipId.TIP_ON_SWORD_POWER_UP_START);
-	}
+    @Override
+    public void onSwordStarted() {
+        showTip(TipId.TIP_ON_SWORD_POWER_UP_START);
+    }
 
-	@Override
-	public void onSwordRemainingTimeUpdated(float remaining) {
-	}
-	
-	@Override
-	public void onSwordEnded() {
-		showTip(TipId.TIP_ON_SWORD_POWER_UP_END);
-	}
+    @Override
+    public void onSwordRemainingTimeUpdated(float remaining) {
+    }
+
+    @Override
+    public void onSwordEnded() {
+        showTip(TipId.TIP_ON_SWORD_POWER_UP_END);
+    }
 
 }

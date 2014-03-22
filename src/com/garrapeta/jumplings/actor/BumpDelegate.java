@@ -6,8 +6,8 @@ import com.garrapeta.gameengine.Box2DActor;
 import com.garrapeta.jumplings.JumplingsGameWorld;
 
 /**
- * Common implementation for all {@link IBumpable}, to let objects
- * implementing that interface delegate in this.
+ * Common implementation for all {@link IBumpable}, to let objects implementing
+ * that interface delegate in this.
  * 
  * @author garrapeta
  * 
@@ -15,9 +15,9 @@ import com.garrapeta.jumplings.JumplingsGameWorld;
 public class BumpDelegate {
 
     private static final float BUMP_TIME = 250;
-    
+
     private IBumpable mBumpable;
-    
+
     private float mRemainingTime;
     private boolean mIsBumped = false;
 
@@ -26,10 +26,10 @@ public class BumpDelegate {
     }
 
     public void reset(AnthropomorphicDelegate<?> anthrophoDelegate) {
-    	mIsBumped = false;
-    	anthrophoDelegate.setEyesOpened(true);
+        mIsBumped = false;
+        anthrophoDelegate.setEyesOpened(true);
     }
-  
+
     public void processFrame(float gameTimeStep) {
         if (mIsBumped) {
             mRemainingTime -= gameTimeStep;
@@ -53,10 +53,12 @@ public class BumpDelegate {
     }
 
     public void onBumped(boolean bumped, JumplingActor<?> actor, AnthropomorphicDelegate<?> anthrophoDelegate) {
-    	mIsBumped = bumped;
-    	if (bumped) {
-    		mRemainingTime = BUMP_TIME;
-            actor.getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_PAIN);
+        mIsBumped = bumped;
+        if (bumped) {
+            mRemainingTime = BUMP_TIME;
+            actor.getWorld()
+                 .getSoundManager()
+                 .play(JumplingsGameWorld.SAMPLE_ENEMY_PAIN);
         }
         anthrophoDelegate.setEyesOpened(!bumped);
     }

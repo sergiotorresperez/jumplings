@@ -39,8 +39,9 @@ public class JumplingsWorld extends Box2DWorld {
     public static final String TAG = JumplingsApplication.TAG_JUMPLINGS + ".world";
 
     /**
-     * World units of the world across the width of the screen. The height is calculated 
-     * automatically depending on this value an the specs of the display. 
+     * World units of the world across the width of the screen. The height is
+     * calculated automatically depending on this value an the specs of the
+     * display.
      */
     public static final int WORLD_WIDTH = 7;
 
@@ -51,7 +52,7 @@ public class JumplingsWorld extends Box2DWorld {
     /**
      * Tag used to refer to the error fragment
      */
-	private static final String ERROR_FRAGMENT_TAG = "error_fragment_tag";
+    private static final String ERROR_FRAGMENT_TAG = "error_fragment_tag";
 
     // ------------------------------------------------------------ Variables
 
@@ -67,14 +68,15 @@ public class JumplingsWorld extends Box2DWorld {
     private JumplingsFactory mFactory;
 
     public ArrayList<JumplingActor<?>> mJumplingActors = new ArrayList<JumplingActor<?>>();
-    
+
     public final boolean mWireframeMode;
     public final boolean mDrawActorBitmaps;
 
     // ----------------------------------------------------------- Constructor
 
     public JumplingsWorld(FragmentActivity activity, GameView gameView, Context context) {
-        super(gameView, context, (short) (PermData.isSoundEnabled(context) ? PermData.CFG_LEVEL_ALL : PermData.CFG_LEVEL_NONE) , PermData.getVibratorLevel(context));
+        super(gameView, context, (short) (PermData.isSoundEnabled(context) ? PermData.CFG_LEVEL_ALL : PermData.CFG_LEVEL_NONE),
+                PermData.getVibratorLevel(context));
         mActivity = activity;
         mFactory = new JumplingsFactory(this);
         mDrawActorBitmaps = PermData.paintActorBitmaps(mActivity);
@@ -85,7 +87,8 @@ public class JumplingsWorld extends Box2DWorld {
 
     @Override
     protected void onBeforeRunning() {
-        if (L.sEnabled) Log.i(TAG, "onBeforeRunning " + this);
+        if (L.sEnabled)
+            Log.i(TAG, "onBeforeRunning " + this);
 
         // Paredes
         // -----------------------------------------------------------------
@@ -154,22 +157,21 @@ public class JumplingsWorld extends Box2DWorld {
 
     protected void loadCommonResources() {
         // Preparación samples sonido
-		SoundModule sm = getSoundManager();
-		sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_PAIN)
-				.add(R.raw.pain01)
-				.add(R.raw.pain02)
-				.add(R.raw.pain03)
-				.add(R.raw.pain04)
-				.add(R.raw.pain05)
-				.add(R.raw.pain06)
-				.add(R.raw.pain07)
-				.add(R.raw.pain08)
-				.add(R.raw.pain09)
-				.add(R.raw.pain10)
-				.add(R.raw.pain11)
-				.add(R.raw.pain12);
+        SoundModule sm = getSoundManager();
+        sm.create(PermData.CFG_LEVEL_ALL, SAMPLE_ENEMY_PAIN)
+          .add(R.raw.pain01)
+          .add(R.raw.pain02)
+          .add(R.raw.pain03)
+          .add(R.raw.pain04)
+          .add(R.raw.pain05)
+          .add(R.raw.pain06)
+          .add(R.raw.pain07)
+          .add(R.raw.pain08)
+          .add(R.raw.pain09)
+          .add(R.raw.pain10)
+          .add(R.raw.pain11)
+          .add(R.raw.pain12);
 
-        
     }
 
     @Override
@@ -184,28 +186,32 @@ public class JumplingsWorld extends Box2DWorld {
 
     @Override
     protected void drawBackground(Canvas canvas) {
-    	if (!mWireframeMode) {
-    		drawScenario(canvas);
-    	} else {
-    		super.drawBackground(canvas);
-    	}
+        if (!mWireframeMode) {
+            drawScenario(canvas);
+        } else {
+            super.drawBackground(canvas);
+        }
     }
 
     protected void drawScenario(Canvas canvas) {
-    	canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.WHITE);
     }
-   
+
     @Override
     public void onGameViewSizeChanged(int width, int height) {
-        if (L.sEnabled) Log.i(TAG, "surfaceChanged " + this);
+        if (L.sEnabled)
+            Log.i(TAG, "surfaceChanged " + this);
         mViewport.setWorldSizeGivenWorldUnitsPerInchX(WORLD_WIDTH);
     }
 
     @Override
     public void onGameWorldSizeChanged(RectF worldBoundaries) {
-    	// FIXME: if this comes from a screen orientation change to portrait the size of the world will be wrong
+        // FIXME: if this comes from a screen orientation change to portrait the
+        // size of the world will be wrong
         if (!isRunning()) {
-            if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onGameWorldSizeChanged: " + worldBoundaries.width() + " x " + worldBoundaries.height() + ". Staring Game" + this);
+            if (L.sEnabled)
+                Log.i(JumplingsApplication.TAG, "onGameWorldSizeChanged: " + worldBoundaries.width() + " x " + worldBoundaries.height() + ". Staring Game"
+                        + this);
 
             // Se arranca el game loop
             start();
@@ -221,7 +227,6 @@ public class JumplingsWorld extends Box2DWorld {
     public void onJumplingActorRemoved(JumplingActor<?> actor) {
         mJumplingActors.remove(actor);
     }
-    
 
     @Override
     protected void dispose() {
@@ -234,20 +239,21 @@ public class JumplingsWorld extends Box2DWorld {
         mJumplingActors.clear();
         mJumplingActors = null;
     }
-    
+
     @Override
     public void onError(Throwable error) {
-    	if (L.sEnabled) Log.e(TAG, "Game error!", error);
- 		FlurryHelper.onGameEngineError(error);
+        if (L.sEnabled)
+            Log.e(TAG, "Game error!", error);
+        FlurryHelper.onGameEngineError(error);
 
-		// show error dialog
-    	mActivity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-	            DialogFragment dialog = ErrorDialogFactory.create();
-	            dialog.show(mActivity.getSupportFragmentManager(), ERROR_FRAGMENT_TAG);
-			}
-		});
+        // show error dialog
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DialogFragment dialog = ErrorDialogFactory.create();
+                dialog.show(mActivity.getSupportFragmentManager(), ERROR_FRAGMENT_TAG);
+            }
+        });
     }
 
     // -------------------------------------------------------- M�todos propios
@@ -268,20 +274,23 @@ public class JumplingsWorld extends Box2DWorld {
         float screenPositionX = mViewport.worldToScreenX(worldPos.x);
         float screenPositionY = mViewport.worldToScreenY(worldPos.y);
         float angle = -(float) Math.toDegrees(body.getAngle());
-    	drawBitmap(canvas, screenPositionX, screenPositionY, angle, bitmap, paint);        
+        drawBitmap(canvas, screenPositionX, screenPositionY, angle, bitmap, paint);
     }
-    
+
     /**
      * Dibuja el bitmap en las coordenadas proporcionadas
      * 
      * @param canvas
-     * @param x, in pixels, in screen units
-     * @param y, in pixels, in screen units
-     * @param angle in degrees, in screen units
+     * @param x
+     *            , in pixels, in screen units
+     * @param y
+     *            , in pixels, in screen units
+     * @param angle
+     *            in degrees, in screen units
      * @param bitmap
      * @param paint
      */
-    public final void drawBitmap(Canvas canvas, float x, float y , float angle, Bitmap bitmap, Paint paint) {
+    public final void drawBitmap(Canvas canvas, float x, float y, float angle, Bitmap bitmap, Paint paint) {
         canvas.save();
 
         canvas.translate(x, y);

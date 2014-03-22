@@ -70,17 +70,16 @@ public abstract class EnemyActor extends MainActor {
      * @param worldPos
      */
     public EnemyActor(JumplingsGameWorld world) {
-        super(world,  Z_INDEX);
+        super(world, Z_INDEX);
         mAnthtopoDelegate = new AnthropomorphicDelegate<JumplingsGameWorld>(this);
         mBumpDelegate = new BumpDelegate(this);
     }
 
-
     public void init(PointF worldPos) {
-    	super.init(worldPos);
-    	mBumpDelegate.reset(mAnthtopoDelegate);
+        super.init(worldPos);
+        mBumpDelegate.reset(mAnthtopoDelegate);
     }
-    
+
     @Override
     protected final void drawBitmaps(Canvas canvas) {
         mAnthtopoDelegate.drawAnthropomorphicBitmaps(canvas);
@@ -92,9 +91,11 @@ public abstract class EnemyActor extends MainActor {
         getWorld().onEnemyActorAdded(this);
 
         if (getWorldPos().y > getWorld().mViewport.getWorldBoundaries().top) {
-        	getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_DROP);
+            getWorld().getSoundManager()
+                      .play(JumplingsGameWorld.SAMPLE_ENEMY_DROP);
         } else {
-            getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_ENEMY_BOING);
+            getWorld().getSoundManager()
+                      .play(JumplingsGameWorld.SAMPLE_ENEMY_BOING);
         }
     }
 
@@ -103,7 +104,7 @@ public abstract class EnemyActor extends MainActor {
         super.onRemovedFromWorld();
         getWorld().onEnemyActorRemoved(this);
     }
- 
+
     @Override
     public void onBeginContact(Body thisBody, Box2DActor<JumplingsGameWorld> other, Body otherBody, Contact contact) {
         super.onBeginContact(thisBody, other, otherBody, contact);
@@ -131,8 +132,9 @@ public abstract class EnemyActor extends MainActor {
         // Main Body
         {
             Body body = mMainBody;
-            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisBody);
-            
+            DebrisActor debrisActor = getWorld().getFactory()
+                                                .getDebrisActor(body, mBmpDebrisBody);
+
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
@@ -140,8 +142,9 @@ public abstract class EnemyActor extends MainActor {
         // Left hand
         {
             Body body = mAnthtopoDelegate.mLeftHandBody;
-            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisHandLeft);
-            
+            DebrisActor debrisActor = getWorld().getFactory()
+                                                .getDebrisActor(body, mBmpDebrisHandLeft);
+
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
@@ -149,7 +152,8 @@ public abstract class EnemyActor extends MainActor {
         // Right Hand
         {
             Body body = mAnthtopoDelegate.mRightHandBody;
-            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisHandRight);
+            DebrisActor debrisActor = getWorld().getFactory()
+                                                .getDebrisActor(body, mBmpDebrisHandRight);
 
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -158,7 +162,8 @@ public abstract class EnemyActor extends MainActor {
         // Left foot
         {
             Body body = mAnthtopoDelegate.mLeftFootBody;
-            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisFootLeft);
+            DebrisActor debrisActor = getWorld().getFactory()
+                                                .getDebrisActor(body, mBmpDebrisFootLeft);
 
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -167,8 +172,9 @@ public abstract class EnemyActor extends MainActor {
         // Right foot
         {
             Body body = mAnthtopoDelegate.mRightFootBody;
-            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisFootRight);
-            
+            DebrisActor debrisActor = getWorld().getFactory()
+                                                .getDebrisActor(body, mBmpDebrisFootRight);
+
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
@@ -176,7 +182,8 @@ public abstract class EnemyActor extends MainActor {
         // Left Eye
         {
             Body body = mAnthtopoDelegate.mLeftEyeBody;
-            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisEyeLeft);
+            DebrisActor debrisActor = getWorld().getFactory()
+                                                .getDebrisActor(body, mBmpDebrisEyeLeft);
 
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
@@ -185,7 +192,8 @@ public abstract class EnemyActor extends MainActor {
         // Right Eye
         {
             Body body = mAnthtopoDelegate.mRightEyeBody;
-            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisEyeRight);
+            DebrisActor debrisActor = getWorld().getFactory()
+                                                .getDebrisActor(body, mBmpDebrisEyeRight);
 
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);

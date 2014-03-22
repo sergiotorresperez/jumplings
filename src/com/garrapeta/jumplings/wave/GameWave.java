@@ -26,12 +26,12 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
     private static float POWERUP_BASE_LAPSE = 45000;
 
     public static short JUMPER_CODE_NULL = Short.MIN_VALUE;
-    
+
     // ---------------------------------------- Variables de instancia
 
     // owner of the wave
     private final ICampaignWave mParent;
-    
+
     private short mNextJumperCode;
 
     private float mBombProbability;
@@ -51,7 +51,7 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
     public GameWave(JumplingsGameWorld world, ICampaignWave parent, int level, boolean schedulePowerUpAtStart) {
         super(world, level);
         mParent = parent;
-        
+
         mNextJumperCode = RoundEnemyActor.JUMPER_CODE_SIMPLE;
 
         // Inicializaci�n de probabilidades y riesgos
@@ -122,7 +122,7 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
     public float getProgress() {
         return mKills * 100 / mTotalKills;
     }
-    
+
     public boolean isCompleted() {
         return getProgress() >= 100;
     }
@@ -141,13 +141,13 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
             mParent.onChildWaveStarted();
         }
     }
-    
+
     private short generateJumperCode() {
         short code;
 
         do {
             while (true) {
-                if (Math.random() < mBombProbability && getWorld().mBombActors.size()  < mMaxBombs) {
+                if (Math.random() < mBombProbability && getWorld().mBombActors.size() < mMaxBombs) {
                     code = BombActor.JUMPER_CODE_BOMB;
                     break;
                 }
@@ -172,9 +172,11 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
             }
         } while (MainActor.getBaseThread(code) > getMaxThreat());
 
-        if (L.sEnabled) Log.i(TAG, "Next enemy code: " + code);
-        
-//        if (L.sEnabled) Log.w("stp", "Next " + code + " maxBombs " + maxBombs + " currentBombs " + getWorld().mBombActors.size());
+        if (L.sEnabled)
+            Log.i(TAG, "Next enemy code: " + code);
+
+        // if (L.sEnabled) Log.w("stp", "Next " + code + " maxBombs " + maxBombs
+        // + " currentBombs " + getWorld().mBombActors.size());
         return code;
     }
 
@@ -187,23 +189,28 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
             switch (mNextJumperCode) {
             case RoundEnemyActor.JUMPER_CODE_SIMPLE:
                 // simple
-                mainActor = getWorld().getFactory().getRoundEnemyActor(initPos);
+                mainActor = getWorld().getFactory()
+                                      .getRoundEnemyActor(initPos);
                 break;
             case DoubleEnemyActor.JUMPER_CODE_DOUBLE:
                 // double
-                mainActor = getWorld().getFactory().getDoubleEnemyActor(initPos);
+                mainActor = getWorld().getFactory()
+                                      .getDoubleEnemyActor(initPos);
                 break;
             case SplitterEnemyActor.JUMPER_CODE_SPLITTER_DOUBLE:
                 // splitter small
-                mainActor = getWorld().getFactory().getSplitterEnemyActor(initPos, 1);
+                mainActor = getWorld().getFactory()
+                                      .getSplitterEnemyActor(initPos, 1);
                 break;
             case SplitterEnemyActor.JUMPER_CODE_SPLITTER_TRIPLE:
                 // splitter big
-                mainActor =getWorld().getFactory().getSplitterEnemyActor(initPos, 2);
+                mainActor = getWorld().getFactory()
+                                      .getSplitterEnemyActor(initPos, 2);
                 break;
             case BombActor.JUMPER_CODE_BOMB:
                 // bomb
-                mainActor = getWorld().getFactory().getBombActor(initPos);
+                mainActor = getWorld().getFactory()
+                                      .getBombActor(initPos);
                 break;
             }
         }
@@ -211,7 +218,8 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
         if (mainActor != null) {
             mainActor.setLinearVelocity(initVel.x, initVel.y);
             getWorld().addActor(mainActor);
-            if (L.sEnabled) Log.i(TAG, "Added mainActor: " + mNextJumperCode);
+            if (L.sEnabled)
+                Log.i(TAG, "Added mainActor: " + mNextJumperCode);
             mNextJumperCode = JUMPER_CODE_NULL;
             return threat;
 
@@ -342,10 +350,13 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
     }
 
     private float getPowerUpCreationLapse() {
-        int wounds = Math.max(0, Player.DEFAUL_INIT_LIFES - getWorld().getPlayer().getLifes());
+        int wounds = Math.max(0, Player.DEFAUL_INIT_LIFES - getWorld().getPlayer()
+                                                                      .getLifes());
 
-        float lapse =  POWERUP_BASE_LAPSE - (wounds * (POWERUP_BASE_LAPSE / Player.DEFAUL_INIT_LIFES));
-        if (L.sEnabled) Log.i(TAG, "Next power up in: " + lapse + " ms (" +  getWorld().getPlayer().getLifes() + " lives)");
+        float lapse = POWERUP_BASE_LAPSE - (wounds * (POWERUP_BASE_LAPSE / Player.DEFAUL_INIT_LIFES));
+        if (L.sEnabled)
+            Log.i(TAG, "Next power up in: " + lapse + " ms (" + getWorld().getPlayer()
+                                                                          .getLifes() + " lives)");
         return lapse;
     }
 
@@ -364,43 +375,49 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
         // la probabilidad de que salga una vida crece conforme se ha perdido
         // vida
         float lifeUpBaseProbability = 0.4f;
-        float woundedFactor = 1 - (getWorld().getPlayer().getLifes() / getWorld().getPlayer().getMaxLifes());
+        float woundedFactor = 1 - (getWorld().getPlayer()
+                                             .getLifes() / getWorld().getPlayer()
+                                                                     .getMaxLifes());
         float lifeUpProbability = lifeUpBaseProbability * woundedFactor;
 
         if (Math.random() < lifeUpProbability) {
-            powerUp = getWorld().getFactory().getLifePowerUpActor(initPos);
+            powerUp = getWorld().getFactory()
+                                .getLifePowerUpActor(initPos);
         } else {
-            powerUp = getWorld().getFactory().getSwordPowerUpActor(initPos);
+            powerUp = getWorld().getFactory()
+                                .getSwordPowerUpActor(initPos);
         }
         powerUp.setLinearVelocity(initVel.x, initVel.y);
         getWorld().addActor(powerUp);
     }
-    
+
     /**
-     * Message to generate power ups 
+     * Message to generate power ups
+     * 
      * @author garrapeta
      */
     private static class PowerUpGenerationSynMessage extends SyncGameMessage {
 
-    	private final GameWave mGameWave;
-    	
-    	private PowerUpGenerationSynMessage(GameWave gameWave) {
-    		mGameWave = gameWave;
-    	}
+        private final GameWave mGameWave;
 
-    	@Override
-    	public final void doInGameLoop(GameWorld world) {
-    		if (!mGameWave.getWorld().isGameOver()) {
-	    		final float nextPowerUp;
-	    		if (!mGameWave.mParent.isInBetweenWaves()) {
-	    			mGameWave.generatePowerUp();
-	    			nextPowerUp = mGameWave.getPowerUpCreationLapse();
-	    		} else {
-	    			nextPowerUp = mGameWave.getPowerUpCreationLapse() / 2;
-	    		}
-	    		mGameWave.scheduleGeneratePowerUp(nextPowerUp);
-    		}
-    	}
+        private PowerUpGenerationSynMessage(GameWave gameWave) {
+            mGameWave = gameWave;
+        }
+
+        @Override
+        public final void doInGameLoop(GameWorld world) {
+            if (!mGameWave.getWorld()
+                          .isGameOver()) {
+                final float nextPowerUp;
+                if (!mGameWave.mParent.isInBetweenWaves()) {
+                    mGameWave.generatePowerUp();
+                    nextPowerUp = mGameWave.getPowerUpCreationLapse();
+                } else {
+                    nextPowerUp = mGameWave.getPowerUpCreationLapse() / 2;
+                }
+                mGameWave.scheduleGeneratePowerUp(nextPowerUp);
+            }
+        }
     }
 
 }

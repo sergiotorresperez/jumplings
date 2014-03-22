@@ -25,13 +25,11 @@ public class PermData {
     public static final String LOCAL_SCORES_SUBMISSION_PENDING_KEY = "localScoresSubmissionPending";
 
     public static final String TUTORIAL_TIP_PREFIX = "tip_";
-    
+
     // niveles de configuracion
     public final static short CFG_LEVEL_ALL = 0;
     public final static short CFG_LEVEL_SOME = 1;
     public final static short CFG_LEVEL_NONE = 2;
-    
-
 
     /**
      * @return
@@ -103,6 +101,7 @@ public class PermData {
 
     /**
      * Lo borra todo
+     * 
      * @param context
      */
     public static void clearAll(Context context) {
@@ -183,6 +182,7 @@ public class PermData {
 
     /**
      * Sets if there are local scores pending to be submitted
+     * 
      * @param pending
      */
     public static void setLocalScoresSubmissionPending(Context context, boolean pending) {
@@ -191,7 +191,7 @@ public class PermData {
         editor.putBoolean(LOCAL_SCORES_SUBMISSION_PENDING_KEY, pending);
         editor.commit();
     }
-    
+
     /**
      * @param tipId
      * @return if the tip with the supplied id has been shown
@@ -203,6 +203,7 @@ public class PermData {
 
     /**
      * Sets the tip with the supplied id as shown
+     * 
      * @param pending
      */
     public static void setTipShown(Context context, TipId tipId) {
@@ -231,7 +232,7 @@ public class PermData {
     public static boolean areAdsEnabled(Context context) {
         return getBooleanPreference(context, R.string.config_ads_key, R.string.config_value_default_ads);
     }
-    
+
     public static boolean paintActorBitmaps(Context context) {
         return getBooleanPreference(context, R.string.config_paint_bitmaps_key, R.string.config_value_default_paint_bitmaps);
     }
@@ -247,15 +248,15 @@ public class PermData {
     public static boolean showThreadBars(Context context) {
         return getBooleanPreference(context, R.string.config_thread_bars_key, R.string.config_value_default_thread_bars);
     }
-    
+
     public static boolean isAutoplayEnabled(Context context) {
         return getBooleanPreference(context, R.string.config_autoplay_key, R.string.config_value_default_autoplay);
     }
-    
+
     public static String getScoresServerUrl(Context context) {
         return getStringPreference(context, R.string.config_scores_server_url_key, R.string.config_value_default_scores_server_url);
     }
-    
+
     private static boolean getBooleanPreference(Context context, int key, int defaultResId) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         Resources r = context.getResources();
@@ -263,16 +264,16 @@ public class PermData {
         String keyStr = r.getString(key);
         return sharedPref.getBoolean(keyStr, defaultValue);
     }
-    
+
     private static short getLevelPreference(Context context, int key, int defaultResId) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         Resources r = context.getResources();
-        String defaultValue = r.getString(defaultResId, CFG_LEVEL_ALL );
+        String defaultValue = r.getString(defaultResId, CFG_LEVEL_ALL);
         String keyStr = r.getString(key);
         String valueStr = sharedPref.getString(keyStr, defaultValue);
         return parseConfigLevel(context, valueStr);
     }
-    
+
     private static String getStringPreference(Context context, int key, int defaultResId) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         Resources r = context.getResources();
@@ -280,7 +281,7 @@ public class PermData {
         String keyStr = r.getString(key);
         return sharedPref.getString(keyStr, defaultValue);
     }
-    
+
     private static short parseConfigLevel(Context context, String str) {
         Resources r = context.getResources();
         if (str.equals(r.getString(R.string.config_value_all))) {
@@ -290,7 +291,8 @@ public class PermData {
         } else if (str.equals(r.getString(R.string.config_value_none))) {
             return CFG_LEVEL_NONE;
         } else {
-            if (L.sEnabled) Log.w(JumplingsApplication.TAG, "Invalid configuration level string: " + str);
+            if (L.sEnabled)
+                Log.w(JumplingsApplication.TAG, "Invalid configuration level string: " + str);
             throw new IllegalArgumentException("Illegal configuration value: " + str);
         }
     }

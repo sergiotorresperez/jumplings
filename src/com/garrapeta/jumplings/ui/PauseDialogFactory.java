@@ -10,7 +10,7 @@ import android.view.View.OnClickListener;
 import com.garrapeta.jumplings.R;
 
 /**
- * Helper class to create the Pause DialogFragment 
+ * Helper class to create the Pause DialogFragment
  */
 public class PauseDialogFactory {
 
@@ -27,12 +27,12 @@ public class PauseDialogFactory {
      * Pause dialog
      */
     public static class PauseDialogFragment extends DialogFragment {
-        
+
         private PauseDialogListener mListener;
-        
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            
+
             CustomDialogBuilder builder = new CustomDialogBuilder(getActivity());
 
             builder.setMessageBig(R.string.game_paused);
@@ -52,10 +52,10 @@ public class PauseDialogFactory {
                     dismiss();
                 }
             });
-            
+
             return builder.create();
         }
-        
+
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
@@ -63,10 +63,10 @@ public class PauseDialogFactory {
                 mListener = (PauseDialogListener) activity;
                 mListener.onPauseDialogShown();
             } catch (ClassCastException e) {
-                throw new ClassCastException(activity.toString()  + " must implement " + PauseDialogListener.class.getSimpleName());
+                throw new ClassCastException(activity.toString() + " must implement " + PauseDialogListener.class.getSimpleName());
             }
         }
-        
+
         @Override
         public void onDetach() {
             super.onDetach();
@@ -78,8 +78,11 @@ public class PauseDialogFactory {
          */
         public static interface PauseDialogListener {
             public void onPauseDialogShown();
+
             public void onPauseDialogClosed();
+
             public void onResumeButtonClicked();
+
             public void onMainMenuButtonClicked();
         }
     }

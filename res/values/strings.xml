@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <!-- Global -->
     <string name="app_name">The Jumplings</string>
     <string name="lorem">Lorem ipsum</string>
-    
+
     <!-- Navigation -->
     <string name="nav_exit">Exit</string>
     <string name="nav_test">Test</string>
@@ -14,20 +14,19 @@
     <string name="nav_menu">Menu</string>
     <string name="nav_back">Back</string>
     <string name="nav_proceed">Proceed</string>
-    
-    
+
     <!-- Splash Activity -->
     <string name="splash_developer">Sergio Megaherzio</string>
     <string name="splash_presents">presents</string>
-    
+
     <!-- Menu Activity -->
     <string name="purchaseDlg_message_big">Go premium!</string>
     <string name="purchaseDlg_message_small">Do you want to buy the game and get rid of the ads?</string>
     <string name="purchaseDlg_no">No</string>
     <string name="purchaseDlg_yes">Yes :-)</string>
     <string name="menu_share">"I'm playing The Jumplings and it's fun!. Download it for free at http://play.google.com/store/apps/details?id=com.garrapeta.jumplings"</string>
-    
-	<!-- About Activity -->
+
+    <!-- About Activity -->
     <string name="about_subtitle">by Sergio Megaherzio</string>
     <string name="about_howto_title">How to play</string>
     <string name="about_howto_1">Tap the Jumplings before they fall from the bottom of the screen. Don\'t let them fall, or you\'ll lose one life.</string>
@@ -47,7 +46,7 @@
     <string name="about_credits_4">Plymouth and London</string>
     <string name="about_credits_linkedin_profile">http://uk.linkedin.com/in/sergiotorresperez</string>
     <string name="about_credits_5">Source code:</string>
-    <string name="about_credits_source_repository">http://bitbucket.org/garrapeta/</string>
+    <string name="about_credits_source_repository">https://github.com/garrapeta/jumplings</string>
     <string name="about_ack_title">Acknowledgements</string>
     <string name="about_ack_1">The game integrates the adaptation of Box2D for Android made by Badlogic</string>
     <string name="about_ack_2">https://github.com/libgdx/libgdx</string>
@@ -84,14 +83,14 @@
     <string name="highscores_error_no_connection">You need to be connected to the Internet</string>
     <string name="highscores_error_io_error">Error communicating with the score server.</string>
     <string name="highscores_error_server_error">Something wrong happened in the server&#8230;</string>
-    
+
     <!-- Preferences activity -->
     <string name="prefs_sound_summary">Enable or disable sound</string>
     <string name="prefs_sound_title">Enable sound</string>
     <string name="prefs_vibration_summary">Define the level of the vibration effects</string>
-    <string name="prefs_vibration_title">Vibration level</string>    
+    <string name="prefs_vibration_title">Vibration level</string>
     <string name="prefs_flash_summary">Define the level of the flash effect</string>
-    <string name="prefs_flash_title">Flash effect level</string>  
+    <string name="prefs_flash_title">Flash effect level</string>
     <string name="prefs_shake_summary">Define the level of the screen shake effect</string>
     <string name="prefs_shake_title">Screen shake effect level</string>
     <string name="prefs_ads_summary">Enable or disable ads (if not premium)</string>
@@ -108,22 +107,22 @@
     <string name="prefs_autoplay_title">AutoPlay</string>
     <string name="prefs_server_url_summary">Sets the url of the scores server</string>
     <string name="prefs_server_url_title">Scores server url</string>
-                          
+
     <!-- In game text -->
     <string name="game_over">Game Over</string>
     <string name="game_paused">Game Paused</string>
     <string name="game_menu">Main Menu</string>
     <string name="game_resume">Resume</string>
-    <string name="game_error_title">Kataboom!</string> 
-    <string name="game_error">Sorry, something wrong has happened :-(</string> 
-    <string name="game_ad_dlg_continue">Play</string> 
-    <string name="game_ad_dlg_continue_in_secs">Play (%1$d)</string> 
-    <string name="game_ad_dlg_buy">Get rid of ads</string> 
+    <string name="game_error_title">Kataboom!</string>
+    <string name="game_error">Sorry, something wrong has happened :-(</string>
+    <string name="game_ad_dlg_continue">Play</string>
+    <string name="game_ad_dlg_continue_in_secs">Play (%1$d)</string>
+    <string name="game_ad_dlg_buy">Get rid of ads</string>
     <string name="game_loading">Loading&#8230;</string>
     <string name="game_highscore">Highscore: %1$d</string>
     <string name="game_level">Level %1$d</string>
     <string name="game_combo">%1$d x combo!</string>
-    
+
     <!-- Tutorial tips -->
     <string name="tip_enemy_escaped">If you let the Jumplings escape from the lower edge of the screen you\'ll lose a life! As this was the first time we let it pass&#8230;</string>
     <string name="tip_combo">If you kill Jumplings very quickly you score a combo!</string>
@@ -134,6 +133,5 @@
     <string name="tip_life_power_up">Extra life!</string>
     <string name="tip_sword_power_up_start">You\'ve got the sword! Swipe through the screen to use it&#8230; and be careful, it will only last for a few seconds!</string>
     <string name="tip_sword_power_up_end">The sword is over&#8230; now tap on them, us usual&#8230;</string>
-    
 
 </resources>

@@ -60,10 +60,10 @@ class Layer {
     // offsets produced by the init position
     private float mInitXOffset = 0;
     private float mInitYOffset = 0;
-    
+
     // offset produced by the progress
     private float mProgressYOffset = 0;
-    
+
     // offsets produced by the animation
     private float mAnimlXOffset = 0;
     private float mAnimlYOffset = 0;
@@ -76,8 +76,8 @@ class Layer {
      * @param bmp
      * @param maxHeight
      */
-    Layer(LayerScenario scenario, Bitmap bmp, int maxHeight, float scenarioXOffset, float mcenarioXOffset, float initXVel, float initYVel,
-            boolean tilesX, boolean tilesY, int desiredWidth, int desiredHeight) {
+    Layer(LayerScenario scenario, Bitmap bmp, int maxHeight, float scenarioXOffset, float mcenarioXOffset, float initXVel, float initYVel, boolean tilesX,
+            boolean tilesY, int desiredWidth, int desiredHeight) {
 
         this.mScenario = scenario;
 

@@ -19,13 +19,13 @@ import com.garrapeta.jumplings.R;
 public class CustomDialogBuilder {
 
     private final Activity mActivity;
-    
+
     private int mMessageBigResId = Integer.MIN_VALUE;
-    
+
     private int mMessageSmallResId = Integer.MIN_VALUE;
-    
+
     private View mBody = null;
-    
+
     private boolean mLeftButtonSet = false;
     private String mLeftBtnText = null;
     private OnClickListener mLeftBtnOnClickListener = null;
@@ -33,12 +33,13 @@ public class CustomDialogBuilder {
     private boolean mRightButtonSet = false;
     private String mRightBtnText = null;
     private OnClickListener mRightBtnOnClickListener = null;
-    
+
     private Button mLeftButton = null;
     private Button mRightButton = null;
-    
+
     /**
      * Constructor
+     * 
      * @param activity
      */
     public CustomDialogBuilder(Activity activity) {
@@ -55,7 +56,7 @@ public class CustomDialogBuilder {
         mMessageBigResId = resId;
         return this;
     }
-    
+
     /**
      * Sets the resource id of the small message in the dialog
      * 
@@ -66,7 +67,7 @@ public class CustomDialogBuilder {
         mMessageSmallResId = resId;
         return this;
     }
-    
+
     /**
      * Sets the body of the dialog
      * 
@@ -76,7 +77,7 @@ public class CustomDialogBuilder {
     public void setBody(View view) {
         mBody = view;
     }
-    
+
     /**
      * Sets the text and listener of the left button of the dialog
      * 
@@ -90,7 +91,7 @@ public class CustomDialogBuilder {
         mLeftBtnOnClickListener = onClickListener;
         return this;
     }
-    
+
     /**
      * Sets the text and listener of the right button of the dialog
      * 
@@ -104,28 +105,28 @@ public class CustomDialogBuilder {
         mRightBtnOnClickListener = onClickListener;
         return this;
     }
-    
+
     /**
      * @return creates the dialog
      */
     public Dialog create() {
-        Dialog dialog  = new Dialog(mActivity, R.style.CustomDialog);
+        Dialog dialog = new Dialog(mActivity, R.style.CustomDialog);
         LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.dialog_custom,  null);
+        View view = inflater.inflate(R.layout.dialog_custom, null);
         dialog.setContentView(view);
-        
+
         if (mMessageBigResId != Integer.MIN_VALUE) {
             TextView textView = (TextView) view.findViewById(R.id.dialog_message_big);
             textView.setVisibility(View.VISIBLE);
             textView.setText(mMessageBigResId);
         }
-        
+
         if (mMessageSmallResId != Integer.MIN_VALUE) {
             TextView textView = (TextView) view.findViewById(R.id.dialog_message_small);
             textView.setVisibility(View.VISIBLE);
             textView.setText(mMessageSmallResId);
         }
-        
+
         if (mBody != null) {
             ViewGroup body = (ViewGroup) view.findViewById(R.id.dialog_body_frame);
             body.setVisibility(View.VISIBLE);
@@ -145,14 +146,18 @@ public class CustomDialogBuilder {
             mRightButton.setText(mRightBtnText);
             mRightButton.setOnClickListener(mRightBtnOnClickListener);
         }
-        
-        int width = mActivity.getResources().getDimensionPixelSize(R.dimen.dialog_width);
-        dialog.getWindow().setLayout(width, LayoutParams.WRAP_CONTENT);
+
+        int width = mActivity.getResources()
+                             .getDimensionPixelSize(R.dimen.dialog_width);
+        dialog.getWindow()
+              .setLayout(width, LayoutParams.WRAP_CONTENT);
         return dialog;
     }
 
     /**
-     * Gets the left button. This method has to be called after {@link CustomDialogBuilder#create()}
+     * Gets the left button. This method has to be called after
+     * {@link CustomDialogBuilder#create()}
+     * 
      * @return the left button
      */
     public Button getLeftButton() {
@@ -160,12 +165,13 @@ public class CustomDialogBuilder {
     }
 
     /**
-     * Gets the right button. This method has to be called after {@link CustomDialogBuilder#create()}
+     * Gets the right button. This method has to be called after
+     * {@link CustomDialogBuilder#create()}
+     * 
      * @return the right button
      */
     public Button getRightButton() {
         return mRightButton;
     }
-
 
 }

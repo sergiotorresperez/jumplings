@@ -13,5 +13,5 @@ public class WeaponFactory {
         }
         throw new IllegalStateException("Not such weapon: " + weaponId);
     }
-    
+
 }

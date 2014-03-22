@@ -140,7 +140,8 @@ public class BombActor extends MainActor {
         // Main Body
         {
             Body body = mMainBody;
-            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisBody);
+            DebrisActor debrisActor = getWorld().getFactory()
+                                                .getDebrisActor(body, mBmpDebrisBody);
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
@@ -148,7 +149,8 @@ public class BombActor extends MainActor {
         // Fuse
         {
             Body body = mFuseBody;
-            DebrisActor debrisActor = getWorld().getFactory().getDebrisActor(body, mBmpDebrisFuse);
+            DebrisActor debrisActor = getWorld().getFactory()
+                                                .getDebrisActor(body, mBmpDebrisFuse);
             getWorld().addActor(debrisActor);
             debrisActors.add(debrisActor);
         }
@@ -165,7 +167,8 @@ public class BombActor extends MainActor {
             for (int i = 0; i < sparkles; i++) {
                 PointF aux = Viewport.vector2ToPointF(mFuseBody.getWorldCenter());
                 PointF pos = new PointF(aux.x, aux.y);
-                SparksActor sparkle = getWorld().getFactory().getSparksActor(pos, SPARKLE_LONGEVITY_FUSE);
+                SparksActor sparkle = getWorld().getFactory()
+                                                .getSparksActor(pos, SPARKLE_LONGEVITY_FUSE);
                 getWorld().addActor(sparkle);
                 mLastSparkle = now;
             }
@@ -182,8 +185,10 @@ public class BombActor extends MainActor {
     public void onAddedToWorld() {
         super.onAddedToWorld();
         getWorld().onBombActorAdded(this);
-        getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_LAUNCH);
-        getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_FUSE, true);
+        getWorld().getSoundManager()
+                  .play(JumplingsGameWorld.SAMPLE_BOMB_LAUNCH);
+        getWorld().getSoundManager()
+                  .play(JumplingsGameWorld.SAMPLE_FUSE, true);
     }
 
     @Override
@@ -191,11 +196,10 @@ public class BombActor extends MainActor {
         super.onRemovedFromWorld();
         getWorld().onBombActorRemoved(this);
         if (getWorld().mBombActors.size() == 0) {
-            getWorld().getSoundManager().stop(JumplingsGameWorld.SAMPLE_FUSE);
+            getWorld().getSoundManager()
+                      .stop(JumplingsGameWorld.SAMPLE_FUSE);
         }
     }
-    
-
 
     // ------------------------------------------------ M�todos propios
 
@@ -204,7 +208,8 @@ public class BombActor extends MainActor {
         getWorld().onBombExploded(this);
 
         // sonido
-        getWorld().getSoundManager().play(JumplingsGameWorld.SAMPLE_BOMB_BOOM);
+        getWorld().getSoundManager()
+                  .play(JumplingsGameWorld.SAMPLE_BOMB_BOOM);
 
         // Se genera una onda expansiva sobre los enemigos
         Object[] as = getWorld().mJumplingActors.toArray();
@@ -223,11 +228,12 @@ public class BombActor extends MainActor {
             ArrayList<JumplingActor<?>> sparkles = new ArrayList<JumplingActor<?>>();
             float force = EXPLOSION_SPARKLE_FORCE / (round + 1);
             for (int j = 0; j < SPARKS_AT_EXPLOSION / rounds; j++) {
-                SparksActor sparkle = getWorld().getFactory().getSparksActor(new PointF(aux.x, aux.y), SPARKLE_LONGEVITY_EXPLOSION);
+                SparksActor sparkle = getWorld().getFactory()
+                                                .getSparksActor(new PointF(aux.x, aux.y), SPARKLE_LONGEVITY_EXPLOSION);
                 getWorld().addActor(sparkle);
                 sparkles.add(sparkle);
             }
-            
+
             // se aceleran para que salgan disparadas
             applyBlast(sparkles, force);
         }
@@ -237,13 +243,14 @@ public class BombActor extends MainActor {
 
     @Override
     protected void free(JumplingsFactory factory) {
-        getWorld().getFactory().free(this);
+        getWorld().getFactory()
+                  .free(this);
     }
 
-	@Override
-	public void onBumpChange(boolean bumped) {
-		// nothing
-	}
+    @Override
+    public void onBumpChange(boolean bumped) {
+        // nothing
+    }
 
     @Override
     protected void dispose() {

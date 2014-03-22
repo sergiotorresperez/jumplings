@@ -15,7 +15,7 @@ public class ScoreTextActor extends TextActor {
 
     /** Tiempo que permanece el actor en pantalla, en ms */
     public final static int DEFAULT_LONGEVITY = 250;
-    
+
     private static float sBaseTextSize = -1;
 
     // ----------------------------------------- Variables de instancia
@@ -35,9 +35,10 @@ public class ScoreTextActor extends TextActor {
         mLifeTime = mLongevity;
 
         if (sBaseTextSize < 0) {
-        	sBaseTextSize = jgWorld.mActivity.getResources().getDimension(R.dimen.ingame_score_text_actor_base_text_size);
+            sBaseTextSize = jgWorld.mActivity.getResources()
+                                             .getDimension(R.dimen.ingame_score_text_actor_base_text_size);
         }
-        float textSize = sBaseTextSize + (sBaseTextSize * (level - 1)  * 0.3f);
+        float textSize = sBaseTextSize + (sBaseTextSize * (level - 1) * 0.3f);
         mPaint.setTextSize(textSize);
 
     }

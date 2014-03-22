@@ -40,18 +40,18 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 
     // ----------------------------------------------------------------
     // Constantes
-	
-	// Log tag
-	private static final String TAG = HighScoreListingActivity.class.getSimpleName();
 
-	// tabs ids
+    // Log tag
+    private static final String TAG = HighScoreListingActivity.class.getSimpleName();
+
+    // tabs ids
     public static final String TAB_LOCALSCORES_ID = "tab_local_id";
     public static final String TAB_GLOBALSCORES_ID = "tab_global_id";
 
-	// key to pass the world size through activities
-	private static final String WORLD_WIDTH_EXTRA_KEY = "worldWidth";
-	private static final String WORLD_HEIGHT_EXTRA_KEY = "worldHeight";
-	
+    // key to pass the world size through activities
+    private static final String WORLD_WIDTH_EXTRA_KEY = "worldWidth";
+    private static final String WORLD_HEIGHT_EXTRA_KEY = "worldHeight";
+
     // -----------------------------------------------------------------
     // Variables
 
@@ -77,7 +77,8 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (L.sEnabled) Log.i(JumplingsApplication.TAG, "onCreate " + this);
+        if (L.sEnabled)
+            Log.i(JumplingsApplication.TAG, "onCreate " + this);
 
         // Lectura de datos persistentes
         mLocalScoreList = PermData.getLocalScoresList(this);
@@ -87,14 +88,15 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 
         mProgressBar = (ProgressBar) findViewById(R.id.highscoresListing_progress_bar);
         setHttpRequestProgressBarVisible(false);
-        
+
         // Preparaci�n de Tabs
         mTabHost = getTabHost();
 
         // NOTE:
         // http://ondrejcermak.info/programovani/custom-tabs-in-android-tutorial/comment-page-1/
         {
-            View tabIndicator = LayoutInflater.from(this).inflate(R.layout.tab_indicator, getTabWidget(), false);
+            View tabIndicator = LayoutInflater.from(this)
+                                              .inflate(R.layout.tab_indicator, getTabWidget(), false);
             TextView indicatorTextView = (TextView) tabIndicator.findViewById(R.id.custom_tab_indicator_text);
             indicatorTextView.setText(R.string.highscores_local_scores);
 
@@ -105,7 +107,8 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         }
 
         {
-            View tabIndicator = LayoutInflater.from(this).inflate(R.layout.tab_indicator, getTabWidget(), false);
+            View tabIndicator = LayoutInflater.from(this)
+                                              .inflate(R.layout.tab_indicator, getTabWidget(), false);
             TextView indicatorTextView = (TextView) tabIndicator.findViewById(R.id.custom_tab_indicator_text);
             indicatorTextView.setText(R.string.highscores_global_scores);
 
@@ -131,7 +134,8 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         // Preparaci�n de contenido de tab global
 
         // Se elimina la columna Global Rank en header de lista global
-        findViewById(R.id.highscoresListing_globalScoresTabContent).findViewById(R.id.scoreHeader_globalRank).setVisibility(View.INVISIBLE);
+        findViewById(R.id.highscoresListing_globalScoresTabContent).findViewById(R.id.scoreHeader_globalRank)
+                                                                   .setVisibility(View.INVISIBLE);
 
         // Se rellenan los scores globales
         mGlobalHighScoresView = (ListView) findViewById(R.id.highscoresListing_globalHighScoresListView);
@@ -170,23 +174,22 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         });
         updateSubmitScoresBtnVisibility();
 
-        
-		// Ads
+        // Ads
         final boolean showAds;
-		if (PermData.areAdsEnabled(this)) {
-			final PremiumPurchaseHelper premiumHelper  = new PremiumPurchaseHelper(this);
-			showAds = (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this));
-			premiumHelper.dispose();
-		} else {
-			showAds = false;
-		}
-		findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(showAds ? View.VISIBLE : View.GONE);
-        
-		if (Utils.isNetworkAvailable(this)) {
-        	downloadScores();
+        if (PermData.areAdsEnabled(this)) {
+            final PremiumPurchaseHelper premiumHelper = new PremiumPurchaseHelper(this);
+            showAds = (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this));
+            premiumHelper.dispose();
+        } else {
+            showAds = false;
+        }
+        findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(showAds ? View.VISIBLE : View.GONE);
+
+        if (Utils.isNetworkAvailable(this)) {
+            downloadScores();
         }
     }
-    
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -198,7 +201,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         super.onStop();
         FlurryHelper.onEndSession(this);
     }
-    
+
     // ---------------------------------------------- M�todos propios
 
     /**
@@ -227,47 +230,51 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
      * Sube los scores locales al servidor
      */
     private void submitScores() {
-		if (L.sEnabled) Log.i(TAG, "Submitting local scores");
-		
-		try {
-			FlurryHelper.logScoresSubmitted();
-	    	
-	    	// get world size
-	    	final float worldWidth = getWorldWidth(this);
-	    	final float worldHeight = getWorldHeight(this);
-	    	if (worldWidth <= 0 || worldHeight <= 0) {
-	    		throw new IllegalStateException("Screen size is unavailable");
-	    	}
-	    	
-	    	
-	    	// Prepare
-	    	RequestModel request = RequestFactory.createSubmitScoresRequestModel(this, mLocalScoreList, worldWidth, worldHeight);
-	    	
-			// Show progress bar
-	    	setHttpRequestProgressBarVisible(true);
-	    	
-	    	// Send
-	    	BackendConnector.postRequestAsync(this, request, new BackendConnectorCallback() {
-	    	 	@Override
-	    		public void onBackendRequestSuccess(ResponseModel response) {
-	    	 		setHttpRequestProgressBarVisible(false);
-	    	 		try {
-	    	            manageBackendResponse(response);
-	    	            onScoresSubmitted();
-	    	        } catch (JSONException e) {
-	    	        	manageScoresDownloadError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not parse server response", e));
-	    	        }
-	    		}
-				@Override
-	    		public void onBackendRequestError(BackendConnectionException error) {
-    	            setHttpRequestProgressBarVisible(false);
-    	            manageScoresDownloadError(error);
-	    		}});
-		} catch (Exception error) {
-			String srt = "Error preparing the scores submission payload";
-			if (L.sEnabled) Log.e(TAG, srt, error);
-			manageScoresSubmissionError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, srt, error));
-		}
+        if (L.sEnabled)
+            Log.i(TAG, "Submitting local scores");
+
+        try {
+            FlurryHelper.logScoresSubmitted();
+
+            // get world size
+            final float worldWidth = getWorldWidth(this);
+            final float worldHeight = getWorldHeight(this);
+            if (worldWidth <= 0 || worldHeight <= 0) {
+                throw new IllegalStateException("Screen size is unavailable");
+            }
+
+            // Prepare
+            RequestModel request = RequestFactory.createSubmitScoresRequestModel(this, mLocalScoreList, worldWidth, worldHeight);
+
+            // Show progress bar
+            setHttpRequestProgressBarVisible(true);
+
+            // Send
+            BackendConnector.postRequestAsync(this, request, new BackendConnectorCallback() {
+                @Override
+                public void onBackendRequestSuccess(ResponseModel response) {
+                    setHttpRequestProgressBarVisible(false);
+                    try {
+                        manageBackendResponse(response);
+                        onScoresSubmitted();
+                    } catch (JSONException e) {
+                        manageScoresDownloadError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR,
+                                "Could not parse server response", e));
+                    }
+                }
+
+                @Override
+                public void onBackendRequestError(BackendConnectionException error) {
+                    setHttpRequestProgressBarVisible(false);
+                    manageScoresDownloadError(error);
+                }
+            });
+        } catch (Exception error) {
+            String srt = "Error preparing the scores submission payload";
+            if (L.sEnabled)
+                Log.e(TAG, srt, error);
+            manageScoresSubmissionError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, srt, error));
+        }
     }
 
     /**
@@ -276,62 +283,68 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
      */
     private void onScoresSubmitted() {
         // Los scores se han mandado al servidor
-    	JumplingsToast.show(this, R.string.highscores_submit_score_ok, JumplingsToast.LENGTH_LONG);
-        
+        JumplingsToast.show(this, R.string.highscores_submit_score_ok, JumplingsToast.LENGTH_LONG);
+
         PermData.setLocalScoresSubmissionPending(this, false);
         updateSubmitScoresBtnVisibility();
     }
 
-	/**
-	 * Processes the response of the server
-	 * @param response
-	 * @throws JSONException
-	 */
-	private void manageBackendResponse(ResponseModel response) throws JSONException {
-     	onRankingUpdated(response.localScores);
+    /**
+     * Processes the response of the server
+     * 
+     * @param response
+     * @throws JSONException
+     */
+    private void manageBackendResponse(ResponseModel response)
+            throws JSONException {
+        onRankingUpdated(response.localScores);
         onScoresUpdated(response.globalScores);
-	}
-	
+    }
+
     /**
      * Actualiza los scores del servidor
      */
     private void downloadScores() {
-		if (L.sEnabled) Log.i(TAG, "Requesting global scores update. ");
-		
-    	try {
-	    	// get world size
-	    	final float worldWidth = getWorldWidth(this);
-	    	final float worldHeight = getWorldHeight(this);
-	    	if (worldWidth <= 0 || worldHeight <= 0) {
-	    		throw new IllegalStateException("Screen size is unavailable");
-	    	}
-	    	
-	    	// Prepare
-	    	RequestModel request = RequestFactory.createDownloadScoresRequestModel(this, mLocalScoreList, worldWidth, worldHeight);
-	    	
-			// Show progress bar
-	    	setHttpRequestProgressBarVisible(true);
-	    	
-	    	// Send
-	    	BackendConnector.postRequestAsync(this, request, new BackendConnectorCallback() {
-	    	 	@Override
-	    		public void onBackendRequestSuccess(ResponseModel response) {
-	    	 		setHttpRequestProgressBarVisible(false);
-	    	 		try {
-	    	            manageBackendResponse(response);
-	    	        } catch (JSONException e) {
-	    	        	manageScoresDownloadError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Could not parse server response", e));
-	    	        }
-	    		}
-	
-	    		@Override
-	    		public void onBackendRequestError(BackendConnectionException error) {
-	    			setHttpRequestProgressBarVisible(false);
-	    			manageScoresDownloadError(error);
-	    		}});
-		} catch (Exception error) {
-			manageScoresDownloadError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR, "Error preparing the scores download payload", error));
-		}
+        if (L.sEnabled)
+            Log.i(TAG, "Requesting global scores update. ");
+
+        try {
+            // get world size
+            final float worldWidth = getWorldWidth(this);
+            final float worldHeight = getWorldHeight(this);
+            if (worldWidth <= 0 || worldHeight <= 0) {
+                throw new IllegalStateException("Screen size is unavailable");
+            }
+
+            // Prepare
+            RequestModel request = RequestFactory.createDownloadScoresRequestModel(this, mLocalScoreList, worldWidth, worldHeight);
+
+            // Show progress bar
+            setHttpRequestProgressBarVisible(true);
+
+            // Send
+            BackendConnector.postRequestAsync(this, request, new BackendConnectorCallback() {
+                @Override
+                public void onBackendRequestSuccess(ResponseModel response) {
+                    setHttpRequestProgressBarVisible(false);
+                    try {
+                        manageBackendResponse(response);
+                    } catch (JSONException e) {
+                        manageScoresDownloadError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR,
+                                "Could not parse server response", e));
+                    }
+                }
+
+                @Override
+                public void onBackendRequestError(BackendConnectionException error) {
+                    setHttpRequestProgressBarVisible(false);
+                    manageScoresDownloadError(error);
+                }
+            });
+        } catch (Exception error) {
+            manageScoresDownloadError(new BackendConnectionException(BackendConnectionException.ErrorType.CLIENT_ERROR,
+                    "Error preparing the scores download payload", error));
+        }
     }
 
     /**
@@ -340,11 +353,12 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
      * @param globalScores
      * @throws JSONException
      */
-    private void onScoresUpdated(List<Score> globalScores) throws JSONException {
-    	if (globalScores == null) {
-    		return;
-    	}
-    	
+    private void onScoresUpdated(List<Score> globalScores)
+            throws JSONException {
+        if (globalScores == null) {
+            return;
+        }
+
         // copiamos la lista de scores goblales
         mGlobalScoreList = globalScores;
         // la salvamos
@@ -360,13 +374,14 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
      * @param localScores
      * @throws JSONException
      */
-    private void onRankingUpdated(List<Score> localScores) throws JSONException {
-    	if (localScores == null) {
-    		return;
-    	}
+    private void onRankingUpdated(List<Score> localScores)
+            throws JSONException {
+        if (localScores == null) {
+            return;
+        }
         // para cada elemento recibido del server..
         for (Score aux : localScores) {
-        	
+
             // buscamos el score en la lista local
             for (Score local : mLocalScoreList) {
                 if (local.clientId.equals(aux.clientId)) {
@@ -388,7 +403,7 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         } else {
             mSubmitScoresBtn.setVisibility(View.GONE);
         }
-	}
+    }
 
     private void setHttpRequestProgressBarVisible(boolean visible) {
         if (visible) {
@@ -399,51 +414,54 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
     }
 
     private void manageScoresDownloadError(BackendConnectionException e) {
-    	FlurryHelper.onErrorScoreDownloadError(e);
-    	if (L.sEnabled) Log.e(TAG, "Error downloading scores", e);
-		notifyError(R.string.highscores_error_download_score, e.getErrorType());
+        FlurryHelper.onErrorScoreDownloadError(e);
+        if (L.sEnabled)
+            Log.e(TAG, "Error downloading scores", e);
+        notifyError(R.string.highscores_error_download_score, e.getErrorType());
     }
 
     private void manageScoresSubmissionError(BackendConnectionException e) {
-    	FlurryHelper.onErrorScoreSubmissionError(e);
-     	if (L.sEnabled) Log.e(TAG, "Error submitting scores", e);
-    	notifyError(R.string.highscores_error_submit_score, e.getErrorType());
+        FlurryHelper.onErrorScoreSubmissionError(e);
+        if (L.sEnabled)
+            Log.e(TAG, "Error submitting scores", e);
+        notifyError(R.string.highscores_error_submit_score, e.getErrorType());
     }
 
     private void notifyError(int errorMessageResId, BackendConnectionException.ErrorType errorType) {
-    	if (errorType != null) {
-    		switch(errorType) {
-    		case NO_CONNECTION_ERROR:
-    			notifyError(errorMessageResId, R.string.highscores_error_no_connection);
-    			return;
-    		case IO_ERROR:
-    			notifyError(errorMessageResId, R.string.highscores_error_io_error);
-    			return;
-    		case SERVER_ERROR:
-    			notifyError(errorMessageResId, R.string.highscores_error_server_error);
-    			return;
-    		case CLIENT_ERROR:
-    		case HTTP_ERROR:
-    		}
-    	}
-    	
-    	notifyError(getString(errorMessageResId));
+        if (errorType != null) {
+            switch (errorType) {
+            case NO_CONNECTION_ERROR:
+                notifyError(errorMessageResId, R.string.highscores_error_no_connection);
+                return;
+            case IO_ERROR:
+                notifyError(errorMessageResId, R.string.highscores_error_io_error);
+                return;
+            case SERVER_ERROR:
+                notifyError(errorMessageResId, R.string.highscores_error_server_error);
+                return;
+            case CLIENT_ERROR:
+            case HTTP_ERROR:
+            }
+        }
+
+        notifyError(getString(errorMessageResId));
     }
 
     private void notifyError(int errorMessageResId, int errorCauseResId) {
-    	notifyError(getString(errorMessageResId) + ". " + getString(errorCauseResId));
+        notifyError(getString(errorMessageResId) + ". " + getString(errorCauseResId));
     }
 
     private void notifyError(String message) {
-    	JumplingsToast.show(this, message, JumplingsToast.LENGTH_LONG);
+        JumplingsToast.show(this, message, JumplingsToast.LENGTH_LONG);
     }
-    
-    // -------------------------------------------------OnTabChangeListener methods
+
+    // -------------------------------------------------OnTabChangeListener
+    // methods
 
     @Override
     public void onTabChanged(String tabId) {
         updateSubmitScoresBtnVisibility();
-        
+
         if (TAB_LOCALSCORES_ID.equals(tabId)) {
             if (PermData.areDebugFeaturesEnabled(this)) {
                 mClearScoresBtn.setVisibility(View.VISIBLE);
@@ -458,37 +476,43 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 
     /**
      * @param activity
-     * @return the width of the game world (retrieved from the passed Bundle), or 0.0f if it is unavailable
+     * @return the width of the game world (retrieved from the passed Bundle),
+     *         or 0.0f if it is unavailable
      */
     static float getWorldWidth(Activity activity) {
-    	Bundle extras = activity.getIntent().getExtras();
-    	if (extras == null) {
-    		return 0;
-    	}
-    	return extras.getFloat(WORLD_WIDTH_EXTRA_KEY);
+        Bundle extras = activity.getIntent()
+                                .getExtras();
+        if (extras == null) {
+            return 0;
+        }
+        return extras.getFloat(WORLD_WIDTH_EXTRA_KEY);
     }
-    
+
     /**
-     * Puts in the intent extra information with the screen size, or 0.0f if it is unavailable
+     * Puts in the intent extra information with the screen size, or 0.0f if it
+     * is unavailable
+     * 
      * @param intent
      * @param worldWidth
      * @param worldHeight
      */
     static void putScreenSizeExtras(Intent intent, float worldWidth, float worldHeight) {
-    	intent.putExtra(HighScoreListingActivity.WORLD_WIDTH_EXTRA_KEY, Math.abs(worldWidth));
-    	intent.putExtra(HighScoreListingActivity.WORLD_HEIGHT_EXTRA_KEY, Math.abs(worldHeight));
+        intent.putExtra(HighScoreListingActivity.WORLD_WIDTH_EXTRA_KEY, Math.abs(worldWidth));
+        intent.putExtra(HighScoreListingActivity.WORLD_HEIGHT_EXTRA_KEY, Math.abs(worldHeight));
     }
-   
+
     /**
      * @param activity
-     * @return the height of the game world (retrieved from the passed Bundle), or 0.0f if it is unavailable
+     * @return the height of the game world (retrieved from the passed Bundle),
+     *         or 0.0f if it is unavailable
      */
-     static float getWorldHeight(Activity activity) {
-    	Bundle extras = activity.getIntent().getExtras();
-    	if (extras == null) {
-    		return 0;
-    	}
-    	return extras.getFloat(WORLD_HEIGHT_EXTRA_KEY);
+    static float getWorldHeight(Activity activity) {
+        Bundle extras = activity.getIntent()
+                                .getExtras();
+        if (extras == null) {
+            return 0;
+        }
+        return extras.getFloat(WORLD_HEIGHT_EXTRA_KEY);
     }
 
     // -------------------------------------------------------- Internal classes
@@ -564,7 +588,8 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
                     TextView view = (TextView) convertView.findViewById(R.id.scoreItem_globalRank);
                     view.setText(String.valueOf(str));
                 } else {
-                    convertView.findViewById(R.id.scoreItem_globalRank).setVisibility(View.INVISIBLE);
+                    convertView.findViewById(R.id.scoreItem_globalRank)
+                               .setVisibility(View.INVISIBLE);
                 }
             }
 

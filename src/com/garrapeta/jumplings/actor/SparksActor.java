@@ -29,7 +29,11 @@ public class SparksActor extends JumplingActor<JumplingsWorld> {
     // ------------------------------------------------- Variables est�ticas
 
     // Vivo
-    protected static final int[] bmpsSparkles = { R.drawable.sparks_big_0, R.drawable.sparks_big_1, R.drawable.sparks_big_2, R.drawable.sparks_big_3 };
+    protected static final int[] bmpsSparkles = {
+            R.drawable.sparks_big_0,
+            R.drawable.sparks_big_1,
+            R.drawable.sparks_big_2,
+            R.drawable.sparks_big_3 };
 
     // ----------------------------------------------- Variables de instancia
 
@@ -112,7 +116,8 @@ public class SparksActor extends JumplingActor<JumplingsWorld> {
 
     @Override
     protected void free(JumplingsFactory factory) {
-        getWorld().getFactory().free(this);
+        getWorld().getFactory()
+                  .free(this);
     }
 
     @Override
