@@ -10,8 +10,8 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 
-import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
+import com.garrapeta.jumplings.util.AdsHelper;
 
 /**
  * Activity implementing the Splash screen
@@ -32,8 +32,7 @@ public class SplashActivity extends Activity {
         root.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                PremiumPurchaseHelper premiumHelper = new PremiumPurchaseHelper(SplashActivity.this);
-                if (!premiumHelper.isPremiumPurchaseStateKnown(SplashActivity.this)) {
+                if (AdsHelper.shoulShowAds(SplashActivity.this)) {
                     // if the premium state is not known ignore the click
                     return;
                 }

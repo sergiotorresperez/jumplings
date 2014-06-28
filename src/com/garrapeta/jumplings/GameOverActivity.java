@@ -17,10 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.garrapeta.gameengine.utils.L;
-import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.JumplingsToast;
-import com.garrapeta.jumplings.util.AdMobHelper;
+import com.garrapeta.jumplings.util.AdsHelper;
 import com.garrapeta.jumplings.util.Utils;
 import com.google.android.gms.ads.AdView;
 
@@ -229,28 +228,15 @@ public class GameOverActivity extends Activity {
             }
         });
 
-        // Ads
-        final boolean showAds;
-        if (PermData.areAdsEnabled(this)) {
-            final PremiumPurchaseHelper premiumHelper = new PremiumPurchaseHelper(this);
-            showAds = (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this));
-            premiumHelper.dispose();
-        } else {
-            showAds = false;
-        }
-
         final AdView adView = (AdView) findViewById(R.id.gameover_advertising_banner_view);
-        if (showAds) {
-            AdMobHelper.requestAd(adView);
+        if (AdsHelper.shoulShowAds(this)) {
+            AdsHelper.requestAd(adView);
             adView.setVisibility(View.VISIBLE);
         } else {
             adView.setVisibility(View.GONE);
 
         }
     }
-
-    // -------------------------------------------------------- M�todos
-    // propios
 
     /**
      * Salva el score

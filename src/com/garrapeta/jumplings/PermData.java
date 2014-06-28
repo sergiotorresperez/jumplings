@@ -17,14 +17,17 @@ public class PermData {
 
     // -------------------------------------------------------------- Constantes
 
-    public static final String LAST_PLAYER_NAME_KEY = "lastPlayerName";
+    private static final String LAST_PLAYER_NAME_KEY = "lastPlayerName";
 
-    public static final String LOCAL_HIGHSCORE_KEY_PREFIX = "localHighscore_";
-    public static final String GLOBAL_HIGHSCORE_KEY_PREFIX = "globalHighscore_";
+    private static final String LOCAL_HIGHSCORE_KEY_PREFIX = "localHighscore_";
+    private static final String GLOBAL_HIGHSCORE_KEY_PREFIX = "globalHighscore_";
 
-    public static final String LOCAL_SCORES_SUBMISSION_PENDING_KEY = "localScoresSubmissionPending";
+    private static final String LOCAL_SCORES_SUBMISSION_PENDING_KEY = "localScoresSubmissionPending";
 
-    public static final String TUTORIAL_TIP_PREFIX = "tip_";
+    private static final String TUTORIAL_TIP_PREFIX = "tip_";
+
+    // Key in shared prefs to save the state of the purchase
+    private static final String PREMIUM_PURCHASED_SHARED_PREF_KEY = "premiumPurchasePurchased";
 
     // niveles de configuracion
     public final static short CFG_LEVEL_ALL = 0;
@@ -190,6 +193,47 @@ public class PermData {
         Editor editor = sharedPref.edit();
         editor.putBoolean(LOCAL_SCORES_SUBMISSION_PENDING_KEY, pending);
         editor.commit();
+    }
+
+    /**
+     * Gets if the state of the premium upgrade is known. This method does not
+     * block.
+     * 
+     * @param context
+     * @return if the state of the premium upgrade is known.
+     */
+    public static boolean isPremiumPurchaseStateKnown(Context context) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        final int stateUnknown = Integer.MIN_VALUE;
+        final int state = sharedPref.getInt(PREMIUM_PURCHASED_SHARED_PREF_KEY, Integer.MIN_VALUE);
+
+        return (state != stateUnknown);
+    }
+
+    /**
+     * Gets if the premium upgrade is purchased. This method does not block.
+     * 
+     * @param context
+     * @throws IllegalStateException
+     *             if the state of the purchase is not known.
+     */
+    public static boolean isPremiumPurchased(Context context)
+            throws IllegalStateException {
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        final int stateUnknown = Integer.MIN_VALUE;
+        final int state = sharedPref.getInt(PREMIUM_PURCHASED_SHARED_PREF_KEY, Integer.MIN_VALUE);
+
+        if (state == stateUnknown) {
+            throw new IllegalStateException("Purchase state is not known");
+        }
+        return state > 0;
+    }
+
+    public static void setPremiumPurchased(Context context, boolean purchased) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        sharedPref.edit()
+                  .putInt(PREMIUM_PURCHASED_SHARED_PREF_KEY, (purchased ? 1 : 0))
+                  .commit();
     }
 
     /**

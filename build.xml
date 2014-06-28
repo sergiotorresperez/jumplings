@@ -3,7 +3,7 @@
 	This file imports the standart android build.xml provided by Google in the Antroid SDK tools package.
 	This was created and tested using Android SDK Tools 22.0.1. I hope Google keeps the android.xml backwards compatible.
 -->
-<project name="jumplings" default="jumplings-all">
+<project name="jumplings" default="jumplings-all" basedir=".">
 
 	<!-- The local.properties file is created and updated by the 'android'
 	     tool.

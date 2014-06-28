@@ -13,7 +13,7 @@ import android.widget.Button;
 
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
-import com.garrapeta.jumplings.util.AdMobHelper;
+import com.garrapeta.jumplings.util.AdsHelper;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -56,7 +56,9 @@ public class AdDialogHelper extends AdListener {
         mAdView.setAdSize(AdSize.BANNER);
         mAdView.setAdListener(this);
 
-        AdMobHelper.requestAd(mAdView);
+        if (AdsHelper.shoulShowAds(activity)) {
+            AdsHelper.requestAd(mAdView);
+        }
     }
 
     /**
@@ -176,7 +178,7 @@ public class AdDialogHelper extends AdListener {
         public void onDetach() {
             super.onDetach();
             mAdLoaded = false;
-            AdMobHelper.requestAd(mAdView);
+            AdsHelper.requestAd(mAdView);
             ((ViewGroup) mAdView.getParent()).removeView(mAdView);
             mClient.onAdDialogClosed();
         }
