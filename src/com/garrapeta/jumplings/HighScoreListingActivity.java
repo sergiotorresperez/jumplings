@@ -33,7 +33,9 @@ import com.garrapeta.jumplings.comms.RequestModel;
 import com.garrapeta.jumplings.comms.ResponseModel;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.JumplingsToast;
+import com.garrapeta.jumplings.util.AdMobHelper;
 import com.garrapeta.jumplings.util.Utils;
+import com.google.android.gms.ads.AdView;
 
 @SuppressWarnings("deprecation")
 public class HighScoreListingActivity extends TabActivity implements OnTabChangeListener {
@@ -54,6 +56,9 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 
     // -----------------------------------------------------------------
     // Variables
+
+    // BaseGameActivity deleteme;
+    // GoogleApiClient c;
 
     private List<Score> mLocalScoreList;
     private List<Score> mGlobalScoreList;
@@ -183,7 +188,14 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         } else {
             showAds = false;
         }
-        findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(showAds ? View.VISIBLE : View.GONE);
+        final AdView adView = (AdView) findViewById(R.id.highscoresListing_advertising_banner_view);
+        if (showAds) {
+            AdMobHelper.requestAd(adView);
+            adView.setVisibility(View.VISIBLE);
+        } else {
+            adView.setVisibility(View.GONE);
+
+        }
 
         if (Utils.isNetworkAvailable(this)) {
             downloadScores();

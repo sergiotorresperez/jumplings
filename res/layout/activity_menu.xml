@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
@@ -14,22 +13,19 @@
     </com.garrapeta.gameengine.GameView>
     <!-- /GAME SURFACE -->
 
-
     <!-- UI -->
 
 
     <!-- ADMOB -->
-
-    <com.google.ads.AdView
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/menu_advertising_banner_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/admob_off_game_ad_unit"
-        ads:loadAdOnCreate="true"
-        ads:testDevices="" />
+        ads:adUnitId="@string/admob_off_game_ad_unit" />
     <!-- /ADMOB -->
 
     <RelativeLayout

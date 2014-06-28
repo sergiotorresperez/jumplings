@@ -20,7 +20,9 @@ import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.JumplingsToast;
+import com.garrapeta.jumplings.util.AdMobHelper;
 import com.garrapeta.jumplings.util.Utils;
+import com.google.android.gms.ads.AdView;
 
 /**
  * Actividad para introducir un nuevo High Score
@@ -236,8 +238,15 @@ public class GameOverActivity extends Activity {
         } else {
             showAds = false;
         }
-        findViewById(R.id.gameover_advertising_banner_view).setVisibility(showAds ? View.VISIBLE : View.GONE);
 
+        final AdView adView = (AdView) findViewById(R.id.gameover_advertising_banner_view);
+        if (showAds) {
+            AdMobHelper.requestAd(adView);
+            adView.setVisibility(View.VISIBLE);
+        } else {
+            adView.setVisibility(View.GONE);
+
+        }
     }
 
     // -------------------------------------------------------- M�todos

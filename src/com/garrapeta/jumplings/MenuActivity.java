@@ -22,10 +22,12 @@ import com.garrapeta.jumplings.actor.PremiumPurchaseHelper.PurchaseStateQueryCal
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.PurchaseDialogFactory;
 import com.garrapeta.jumplings.ui.PurchaseDialogFactory.PurchaseDialogFragment.PurchaseDialogListener;
+import com.garrapeta.jumplings.util.AdMobHelper;
 import com.garrapeta.jumplings.util.Utils;
 import com.garrapeta.jumplings.wave.CampaignWave;
 import com.garrapeta.jumplings.wave.MenuWave;
 import com.garrapeta.jumplings.wave.TestWave;
+import com.google.android.gms.ads.AdView;
 
 /**
  * Activity implementing the menu screen
@@ -48,7 +50,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     private ImageButton mShareButton;
     private ImageButton mPremiumBtn;
 
-    private View mAdView;
+    private AdView mAdView;
     private View mDebugGroup;
 
     // used to resolve the state of the in app billing purchases
@@ -139,7 +141,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         });
 
         // Ads
-        mAdView = findViewById(R.id.menu_advertising_banner_view);
+        mAdView = (AdView) findViewById(R.id.menu_advertising_banner_view);
 
         // The UI starts invisible and becomes visible with an animation
         mTitle.setVisibility(View.INVISIBLE);
@@ -300,7 +302,12 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mAboutBtn.setVisibility(View.VISIBLE);
         mDebugGroup.setVisibility(PermData.areDebugFeaturesEnabled(this) ? View.VISIBLE : View.GONE);
         mShareButton.setVisibility(View.VISIBLE);
-        mAdView.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
+        if (mShowNonPremiumComponents) {
+            mAdView.setVisibility(View.VISIBLE);
+            AdMobHelper.requestAd(mAdView);
+        } else {
+            mAdView.setVisibility(View.GONE);
+        }
         mPremiumBtn.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
 
         mStartBtn.startAnimation(fadeInAnimation);
