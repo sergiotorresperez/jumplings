@@ -7,8 +7,8 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.garrapeta.jumplings.util.Utils;
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Player score
@@ -47,15 +47,14 @@ public class Score implements Parcelable {
 
     // ------------------------------------------------ Variables de instancia
 
-    public final String clientId;
+    @SerializedName("score")
+    public final long mScore;
 
-    public final long score;
+    @SerializedName("level")
+    public final int mLevel;
 
-    public final int level;
-
-    public String playerName;
-
-    public int globalRank;
+    @SerializedName("playerName")
+    public String mPlayerName;
 
     // ----------------------------------------------------------------- M�todos
     // est�ticos
@@ -77,7 +76,7 @@ public class Score implements Parcelable {
 
         int index = 0;
         for (index = 0; index < list.size(); index++) {
-            if (newScore > list.get(index).score) {
+            if (newScore > list.get(index).mScore) {
                 break;
             }
         }
@@ -85,26 +84,10 @@ public class Score implements Parcelable {
         return index;
     }
 
-    // ------------------------------------------------------------ Constructor
-
     public Score(Activity activity, long score, int level) {
-        this.clientId = getLocalId(activity);
-        this.score = score;
-        this.level = level;
+        mScore = score;
+        mLevel = level;
     }
-
-    // ---------------------------------------------------------- M�todos
-
-    /**
-     * @return this client id
-     */
-    public String getLocalId(Activity activity) {
-        String userId = System.currentTimeMillis() + "_" + Utils.getUniquePseudoID(activity);
-        return userId;
-    }
-
-    // ------------------------------------------------------- M�todos de
-    // Parcelable
 
     @Override
     public int describeContents() {

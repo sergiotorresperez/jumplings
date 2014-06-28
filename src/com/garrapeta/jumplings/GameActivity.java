@@ -1,7 +1,6 @@
 package com.garrapeta.jumplings;
 
 import android.content.Intent;
-import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -103,9 +102,9 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         mSpecialWeaponBar.setMax(SWORD_PROGRESS_BAR_MAX);
         mScoreTextView = (TextView) findViewById(R.id.game_scoreTextView);
         mLocalHighScoreTextView = (TextView) findViewById(R.id.game_localHightscoreTextView);
-        Score hs = PermData.getLocalGetHighScore(this);
+        Score hs = PermData.getLocalHighestScore(this);
         if (hs != null) {
-            long localHighScore = hs.score;
+            long localHighScore = hs.mScore;
             if (localHighScore > 0) {
                 TextView highScoreTextView = mLocalHighScoreTextView;
                 final String highScoreStr = getString(R.string.game_highscore, localHighScore);
@@ -261,8 +260,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         Score highScore = new Score(this, mWorld.getPlayer()
                                                 .getScore(), mWorld.mWave.getLevel());
 
-        final RectF worldBoundaries = mWorld.mViewport.getWorldBoundaries();
-        HighScoreListingActivity.putScreenSizeExtras(intent, worldBoundaries.width(), worldBoundaries.height());
         intent.putExtra(GameOverActivity.NEW_HIGHSCORE_KEY, highScore);
         intent.putExtra(GameActivity.WAVE_BUNDLE_KEY, waveKey);
 

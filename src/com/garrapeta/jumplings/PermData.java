@@ -24,6 +24,8 @@ public class PermData {
 
     private static final String LOCAL_SCORES_SUBMISSION_PENDING_KEY = "localScoresSubmissionPending";
 
+    private static final String HIGHEST_SCORE_SENT_TO_LEADERBOARD = "highestScoreSentToLeaderboard";
+
     private static final String TUTORIAL_TIP_PREFIX = "tip_";
 
     // Key in shared prefs to save the state of the purchase
@@ -35,9 +37,9 @@ public class PermData {
     public final static short CFG_LEVEL_NONE = 2;
 
     /**
-     * @return
+     * @return the local highest score
      */
-    public static Score getLocalGetHighScore(Context context) {
+    public static Score getLocalHighestScore(Context context) {
         ArrayList<Score> localScoreList = getLocalScoresList(context);
         if (localScoreList.size() > 0) {
             return localScoreList.get(0);
@@ -54,7 +56,7 @@ public class PermData {
     public static void addNewLocalScore(Context context, Score highScore) {
         ArrayList<Score> list = getLocalScoresList(context);
 
-        int index = Score.getLocalHighScoresPosition(context, highScore.score);
+        int index = Score.getLocalHighScoresPosition(context, highScore.mScore);
 
         if (index < Score.MAX_LOCAL_HIGHSCORE_COUNT) {
             list.add(index, highScore);
@@ -140,6 +142,28 @@ public class PermData {
     }
 
     /**
+     * The highest score successfully sent to the google play game leaderboard
+     * 
+     * @param context
+     * @param score
+     */
+    public static void saveHighestScoreSentToLeaderboard(Context context, long score) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        Editor editor = sharedPref.edit();
+        editor.putLong(HIGHEST_SCORE_SENT_TO_LEADERBOARD, score);
+        editor.commit();
+    }
+
+    /**
+     * @param context
+     * @return the highest score successfully sent to google play
+     */
+    public static long getHighestScoreSentToLeaderboard(Context context) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPref.getLong(HIGHEST_SCORE_SENT_TO_LEADERBOARD, 0);
+    }
+
+    /**
      * Salva la lista local
      * 
      * @return
@@ -181,18 +205,6 @@ public class PermData {
     public static boolean isLocalScoresSubmissionPending(Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPref.getBoolean(LOCAL_SCORES_SUBMISSION_PENDING_KEY, false);
-    }
-
-    /**
-     * Sets if there are local scores pending to be submitted
-     * 
-     * @param pending
-     */
-    public static void setLocalScoresSubmissionPending(Context context, boolean pending) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        Editor editor = sharedPref.edit();
-        editor.putBoolean(LOCAL_SCORES_SUBMISSION_PENDING_KEY, pending);
-        editor.commit();
     }
 
     /**

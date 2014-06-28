@@ -1,6 +1,5 @@
 package com.garrapeta.jumplings;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,20 +14,23 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.JumplingsToast;
 import com.garrapeta.jumplings.util.AdsHelper;
+import com.garrapeta.jumplings.util.GooglePlayGamesLeaderboardHelper;
 import com.garrapeta.jumplings.util.Utils;
 import com.google.android.gms.ads.AdView;
+import com.google.example.games.basegameutils.BaseGameActivity;
 
 /**
  * Actividad para introducir un nuevo High Score
  * 
  * @author GaRRaPeTa
  */
-public class GameOverActivity extends Activity {
+public class GameOverActivity extends BaseGameActivity {
 
     // -----------------------------------------------------------------
     // Constantes
@@ -68,16 +70,7 @@ public class GameOverActivity extends Activity {
         if (L.sEnabled)
             Log.i(JumplingsApplication.TAG, "onCreate " + this);
 
-        // Wave y botones
         mWaveKey = null;
-
-        // DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG
-        if (getIntent().getExtras() == null) {
-            getIntent().putExtra(NEW_HIGHSCORE_KEY, new Score(this, 7, 777));
-            HighScoreListingActivity.putScreenSizeExtras(getIntent(), 20, 7);
-        }
-        // DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG - DEBUG
-
         mWaveKey = getIntent().getStringExtra(GameActivity.WAVE_BUNDLE_KEY);
         mPlayerScore = (Score) getIntent().getParcelableExtra(NEW_HIGHSCORE_KEY);
 
@@ -108,18 +101,18 @@ public class GameOverActivity extends Activity {
             }
         });
 
-        final boolean newHighScore = mPlayerScore.score > 0 && Score.getLocalHighScoresPosition(this, mPlayerScore.score) < Score.MAX_LOCAL_HIGHSCORE_COUNT;
+        final boolean newHighScore = mPlayerScore.mScore > 0 && Score.getLocalHighScoresPosition(this, mPlayerScore.mScore) < Score.MAX_LOCAL_HIGHSCORE_COUNT;
 
         TextView scoreTextView = (TextView) findViewById(R.id.gameover_scoreTextView);
-        final String yourScoreStr = getString(R.string.gameover_your_score, mPlayerScore.score);
+        final String yourScoreStr = getString(R.string.gameover_your_score, mPlayerScore.mScore);
         scoreTextView.setText(yourScoreStr);
 
-        Score highest = PermData.getLocalGetHighScore(this);
+        Score highest = PermData.getLocalHighestScore(this);
         if (highest != null) {
             TextView messageTextView = (TextView) findViewById(R.id.gameover_messageTextView);
             messageTextView.setVisibility(View.VISIBLE);
-            long prevHighScore = PermData.getLocalGetHighScore(this).score;
-            if (mPlayerScore.score > prevHighScore) {
+            long prevHighScore = PermData.getLocalHighestScore(this).mScore;
+            if (mPlayerScore.mScore > prevHighScore) {
                 messageTextView.setText(R.string.gameover_beaten);
             } else {
                 final String highscoreStr = getString(R.string.gameover_highscore_is, prevHighScore);
@@ -222,8 +215,6 @@ public class GameOverActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameOverActivity.this, HighScoreListingActivity.class);
-                HighScoreListingActivity.putScreenSizeExtras(intent, HighScoreListingActivity.getWorldWidth(GameOverActivity.this),
-                        HighScoreListingActivity.getWorldHeight(GameOverActivity.this));
                 startActivity(intent);
             }
         });
@@ -242,18 +233,17 @@ public class GameOverActivity extends Activity {
      * Salva el score
      */
     private void saveHighScore() {
-        mPlayerScore.playerName = mPlayerNameEditText.getText()
-                                                     .toString();
-        PermData.saveLastPlayerName(this, mPlayerScore.playerName);
+        mPlayerScore.mPlayerName = mPlayerNameEditText.getText()
+                                                      .toString();
+        PermData.saveLastPlayerName(this, mPlayerScore.mPlayerName);
         PermData.addNewLocalScore(this, mPlayerScore);
-        PermData.setLocalScoresSubmissionPending(this, true);
 
         mScoreIntroductionView.setVisibility(View.INVISIBLE);
         mNextActionView.setVisibility(View.VISIBLE);
     }
 
     private String getShareScoreMessage() {
-        return getString(R.string.gameover_share, mPlayerScore.score);
+        return getString(R.string.gameover_share, mPlayerScore.mScore);
     }
 
     private void onUsernameEditTextChanged(CharSequence text) {
@@ -271,6 +261,21 @@ public class GameOverActivity extends Activity {
         text = text.toString()
                    .trim();
         return (text != null && text.length() >= MINIMUM_NAME_LENGTH);
+    }
+
+    @Override
+    public void onSignInFailed() {
+        Toast.makeText(this, "failed", Toast.LENGTH_SHORT)
+             .show();
+
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+        Toast.makeText(this, "oK!!", Toast.LENGTH_SHORT)
+             .show();
+
+        GooglePlayGamesLeaderboardHelper.submitHighestScoreIfNeeded(this, getApiClient());
     }
 
 }

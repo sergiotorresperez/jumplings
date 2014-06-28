@@ -89,16 +89,25 @@
             </intent-filter>
         </activity>
 
-        <!-- ADMOB -->
+        <!-- Google play services -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <!-- Admob -->
+
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
-        <!-- /ADMOB -->
+        <!-- /Admob -->
 
+
+        <!-- Google play games services -->
+        <meta-data
+            android:name="com.google.android.gms.games.APP_ID"
+            android:value="@string/config_google_play_games_app_id" />
+
+        <!-- /Google play games services -->
     </application>
 
 </manifest>

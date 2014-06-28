@@ -13,10 +13,30 @@
     </com.garrapeta.gameengine.GameView>
     <!-- /GAME SURFACE -->
 
+
     <!-- UI -->
 
 
+    <!-- sign-in button -->
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_plus_sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp" />
+
+    <!-- sign-out button -->
+
+    <Button
+        android:id="@+id/sign_out_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:text="Sign Out"
+        android:visibility="gone" />
+
     <!-- ADMOB -->
+
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/menu_advertising_banner_view"

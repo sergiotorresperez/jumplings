@@ -4,90 +4,26 @@
     android:layout_height="fill_parent"
     android:background="@android:color/white" >
 
-    <!-- Tabs -->
+    <LinearLayout
+        android:id="@+id/highscoresListing_localScoresTabContent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-    <TabHost
-        android:id="@android:id/tabhost"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/highscoresListing_buttons"
-        android:layout_alignParentTop="true" >
+        <!-- header -->
 
-        <LinearLayout
+        <include
+            android:id="@+id/highscoresListing_localScoresHeader"
+            layout="@layout/include_score_header" />
+
+        <ListView
+            android:id="@+id/highscoresListing_localHighScoresListView"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical" >
-
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:tabStripLeft="@drawable/custom_tab_strip_selector"
-                android:tabStripRight="@drawable/custom_tab_strip_selector" />
-
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
-
-                <!-- TAB 1 CONTENT -->
-
-                <LinearLayout
-                    android:id="@+id/highscoresListing_localScoresTabContent"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical" >
-
-                    <!-- header -->
-
-                    <include
-                        android:id="@+id/highscoresListing_localScoresHeader"
-                        layout="@layout/include_score_header" />
-
-                    <!-- lista de scores -->
-
-                    <ListView
-                        android:id="@+id/highscoresListing_localHighScoresListView"
-                        android:layout_width="fill_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical" >
-                    </ListView>
-                    <!-- /lista de scores -->
-                </LinearLayout>
-                <!-- /TAB 1 CONTENT -->
-
-
-                <!-- TAB 2 CONTENT -->
-
-                <LinearLayout
-                    android:id="@+id/highscoresListing_globalScoresTabContent"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical" >
-
-                    <!-- header -->
-
-                    <include
-                        android:id="@+id/highscoresListing_localScoresHeader"
-                        layout="@layout/include_score_header" />
-
-                    <!-- lista de scores -->
-
-                    <ListView
-                        android:id="@+id/highscoresListing_globalHighScoresListView"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:orientation="vertical" >
-                    </ListView>
-                </LinearLayout>
-                <!-- /TAB 2 CONTENT -->
-
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
-
-    <!-- Botones -->
+        </ListView>
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/highscoresListing_buttons"
@@ -133,24 +69,8 @@
                 android:layout_marginLeft="@dimen/ui_spacing"
                 android:text="@string/highscores_submit" />
 
-            <com.garrapeta.jumplings.ui.CustomFontButton
-                android:id="@+id/highscoresListing_backBtn"
-                style="@style/ColorfulButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/ui_spacing"
-                android:text="@string/nav_back" />
+
         </LinearLayout>
     </RelativeLayout>
-    <!-- /Botones -->
-
-    <ProgressBar
-        android:id="@+id/highscoresListing_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:layout_marginRight="6dip"
-        android:indeterminate="true" />
-
+ 
 </RelativeLayout>

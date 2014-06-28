@@ -1,10 +1,8 @@
 package com.garrapeta.jumplings;
 
 import android.content.Intent;
-import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +11,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.garrapeta.gameengine.GameView;
 import com.garrapeta.gameengine.utils.L;
@@ -20,6 +19,7 @@ import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.PurchaseDialogFactory;
 import com.garrapeta.jumplings.ui.PurchaseDialogFactory.PurchaseDialogFragment.PurchaseDialogListener;
 import com.garrapeta.jumplings.util.AdsHelper;
+import com.garrapeta.jumplings.util.GooglePlayGamesLeaderboardHelper;
 import com.garrapeta.jumplings.util.InAppPurchaseHelper;
 import com.garrapeta.jumplings.util.InAppPurchaseHelper.PurchaseCallback;
 import com.garrapeta.jumplings.util.InAppPurchaseHelper.PurchaseStateQueryCallback;
@@ -28,11 +28,12 @@ import com.garrapeta.jumplings.wave.CampaignWave;
 import com.garrapeta.jumplings.wave.MenuWave;
 import com.garrapeta.jumplings.wave.TestWave;
 import com.google.android.gms.ads.AdView;
+import com.google.example.games.basegameutils.BaseGameActivity;
 
 /**
  * Activity implementing the menu screen
  */
-public class MenuActivity extends FragmentActivity implements PurchaseDialogListener {
+public class MenuActivity extends BaseGameActivity implements PurchaseDialogListener {
 
     private final static String TAG = MenuActivity.class.getSimpleName();
 
@@ -49,6 +50,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     private ImageButton mAboutBtn;
     private ImageButton mShareButton;
     private ImageButton mPremiumBtn;
+    private View mGooglePlaySignInBtn;
 
     private AdView mAdView;
     private View mDebugGroup;
@@ -140,6 +142,17 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
 
         // Ads
         mAdView = (AdView) findViewById(R.id.menu_advertising_banner_view);
+
+        // Google Play
+        mGooglePlaySignInBtn = findViewById(R.id.google_plus_sign_in_button);
+        mGooglePlaySignInBtn.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // Declared in BaseGameActivity
+                beginUserInitiatedSignIn();
+            }
+        });
 
         // The UI starts invisible and becomes visible with an animation
         mTitle.setVisibility(View.INVISIBLE);
@@ -334,8 +347,6 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
 
     private void showHighScores() {
         Intent intent = new Intent(this, HighScoreListingActivity.class);
-        RectF worldBoundaries = mWorld.mViewport.getWorldBoundaries();
-        HighScoreListingActivity.putScreenSizeExtras(intent, worldBoundaries.width(), worldBoundaries.height());
         startActivity(intent);
     }
 
@@ -376,6 +387,22 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
                     Log.i(TAG, "Error querying purchase state " + message);
             }
         });
+    }
+
+    @Override
+    public void onSignInFailed() {
+        Toast.makeText(this, "failed", Toast.LENGTH_SHORT)
+             .show();
+
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+        Toast.makeText(this, "oK!!", Toast.LENGTH_SHORT)
+             .show();
+
+        GooglePlayGamesLeaderboardHelper.submitHighestScoreIfNeeded(this, getApiClient());
+
     }
 
 }
