@@ -16,16 +16,18 @@ import android.widget.ImageButton;
 
 import com.garrapeta.gameengine.GameView;
 import com.garrapeta.gameengine.utils.L;
-import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
-import com.garrapeta.jumplings.actor.PremiumPurchaseHelper.PurchaseCallback;
-import com.garrapeta.jumplings.actor.PremiumPurchaseHelper.PurchaseStateQueryCallback;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.PurchaseDialogFactory;
 import com.garrapeta.jumplings.ui.PurchaseDialogFactory.PurchaseDialogFragment.PurchaseDialogListener;
+import com.garrapeta.jumplings.util.AdsHelper;
+import com.garrapeta.jumplings.util.InAppPurchaseHelper;
+import com.garrapeta.jumplings.util.InAppPurchaseHelper.PurchaseCallback;
+import com.garrapeta.jumplings.util.InAppPurchaseHelper.PurchaseStateQueryCallback;
 import com.garrapeta.jumplings.util.Utils;
 import com.garrapeta.jumplings.wave.CampaignWave;
 import com.garrapeta.jumplings.wave.MenuWave;
 import com.garrapeta.jumplings.wave.TestWave;
+import com.google.android.gms.ads.AdView;
 
 /**
  * Activity implementing the menu screen
@@ -48,13 +50,11 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     private ImageButton mShareButton;
     private ImageButton mPremiumBtn;
 
-    private View mAdView;
+    private AdView mAdView;
     private View mDebugGroup;
 
     // used to resolve the state of the in app billing purchases
-    private PremiumPurchaseHelper mPremiumHelper;
-
-    private boolean mShowNonPremiumComponents = false;
+    private InAppPurchaseHelper mInAppPurchaseHelper;
 
     /** World */
     JumplingsWorld mWorld;
@@ -139,7 +139,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         });
 
         // Ads
-        mAdView = findViewById(R.id.menu_advertising_banner_view);
+        mAdView = (AdView) findViewById(R.id.menu_advertising_banner_view);
 
         // The UI starts invisible and becomes visible with an animation
         mTitle.setVisibility(View.INVISIBLE);
@@ -160,15 +160,15 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
             Log.i(JumplingsApplication.TAG, "onStart " + this);
 
         // Query the state of the purchase
-        mPremiumHelper = new PremiumPurchaseHelper(this);
-        if (mPremiumHelper.isPremiumPurchaseStateKnown(this)) {
+        mInAppPurchaseHelper = new InAppPurchaseHelper(this);
+        if (PermData.isPremiumPurchaseStateKnown(this)) {
             if (L.sEnabled)
                 Log.d(TAG, "Premium purchase state known. No need to query.");
-            startAnimation(mPremiumHelper.isPremiumPurchased(this));
+            startAnimation(PermData.isPremiumPurchased(this));
         } else {
             if (L.sEnabled)
                 Log.d(TAG, "Premium purchase state unknown. Querying for it.");
-            mPremiumHelper.queryIsPremiumPurchasedAsync(this, new PurchaseStateQueryCallback() {
+            mInAppPurchaseHelper.queryIsPremiumPurchasedAsync(this, new PurchaseStateQueryCallback() {
                 @Override
                 public void onPurchaseStateQueryFinished(boolean purchased) {
                     startAnimation(purchased);
@@ -229,8 +229,8 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         if (L.sEnabled)
             Log.i(JumplingsApplication.TAG, "onDestroy " + this);
         super.onDestroy();
-        if (mPremiumHelper != null) {
-            mPremiumHelper.dispose();
+        if (mInAppPurchaseHelper != null) {
+            mInAppPurchaseHelper.dispose();
         }
     }
 
@@ -238,7 +238,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (L.sEnabled)
             Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
-        if (mPremiumHelper != null && mPremiumHelper.onActivityResult(requestCode, resultCode, data)) {
+        if (mInAppPurchaseHelper != null && mInAppPurchaseHelper.onActivityResult(requestCode, resultCode, data)) {
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -300,8 +300,14 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
         mAboutBtn.setVisibility(View.VISIBLE);
         mDebugGroup.setVisibility(PermData.areDebugFeaturesEnabled(this) ? View.VISIBLE : View.GONE);
         mShareButton.setVisibility(View.VISIBLE);
-        mAdView.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
-        mPremiumBtn.setVisibility((mShowNonPremiumComponents ? View.VISIBLE : View.GONE));
+        if (AdsHelper.shoulShowAds(this)) {
+            mAdView.setVisibility(View.VISIBLE);
+            mPremiumBtn.setVisibility(View.VISIBLE);
+            AdsHelper.requestAd(mAdView);
+        } else {
+            mAdView.setVisibility(View.GONE);
+            mPremiumBtn.setVisibility(View.GONE);
+        }
 
         mStartBtn.startAnimation(fadeInAnimation);
         mPreferencesBtn.startAnimation(fadeInAnimation);
@@ -346,8 +352,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     private void onPremiumStateUpdate(boolean purchased) {
         if (L.sEnabled)
             Log.i(TAG, "Premium upgrade purchased: " + purchased);
-        mShowNonPremiumComponents = PermData.areAdsEnabled(this) && !purchased;
-        if (!mShowNonPremiumComponents) {
+        if (!AdsHelper.shoulShowAds(this)) {
             // this will prevent the animations to start, and the views will
             // never become visible
             mAdView.setVisibility(View.GONE);
@@ -358,7 +363,7 @@ public class MenuActivity extends FragmentActivity implements PurchaseDialogList
     @Override
     public void onPurchaseBtnClicked() {
         FlurryHelper.logBuyBtnClickedFromHome();
-        mPremiumHelper.purchasePremiumAsync(this, new PurchaseCallback() {
+        mInAppPurchaseHelper.purchasePremiumAsync(this, new PurchaseCallback() {
             @Override
             public void onPurchaseFinished(boolean purchased) {
                 FlurryHelper.logPurchasedFromHome();

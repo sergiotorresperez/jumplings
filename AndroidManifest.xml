@@ -37,6 +37,7 @@
             android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -65,9 +66,9 @@
         </activity>
         <activity
             android:name=".GameOverActivity"
-            android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -89,8 +90,12 @@
         </activity>
 
         <!-- ADMOB -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
-            android:name="com.google.ads.AdActivity"
+            android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
         <!-- /ADMOB -->
 

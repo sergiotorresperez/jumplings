@@ -1,13 +1,12 @@
-package com.garrapeta.jumplings.actor;
+package com.garrapeta.jumplings.util;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.jumplings.PermData;
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.billing.util.IabHelper;
 import com.garrapeta.jumplings.billing.util.IabHelper.OnIabPurchaseFinishedListener;
@@ -21,13 +20,10 @@ import com.garrapeta.jumplings.billing.util.Purchase;
  * example by Google
  * 
  */
-public class PremiumPurchaseHelper {
+public class InAppPurchaseHelper {
 
     // Debug tag, for logging
-    private static final String TAG = PremiumPurchaseHelper.class.getSimpleName();
-
-    // Key in shared prefs to save the state of the purchase
-    private static final String PREMIUM_PURCHASED_SHARED_PREF_KEY = "premiumPurchasePurchased";
+    private static final String TAG = InAppPurchaseHelper.class.getSimpleName();
 
     // (arbitrary) request code for the purchase flow
     static final int RC_REQUEST = 20002;
@@ -44,7 +40,7 @@ public class PremiumPurchaseHelper {
      * 
      * @param context
      */
-    public PremiumPurchaseHelper(Context context) {
+    public InAppPurchaseHelper(Context context) {
         // Create the helper, passing it our context and the public key to
         // verify signatures with
         if (L.sEnabled)
@@ -101,7 +97,7 @@ public class PremiumPurchaseHelper {
                     }
                     if (L.sEnabled)
                         Log.i(TAG, "Querying inventory finished. Is purchased: " + isPurchased);
-                    setPremiumPurchased(context, isPurchased);
+                    PermData.setPremiumPurchased(context, isPurchased);
                     if (listener != null) {
                         listener.onPurchaseStateQueryFinished(isPurchased);
                     }
@@ -157,7 +153,7 @@ public class PremiumPurchaseHelper {
                     }
                     if (L.sEnabled)
                         Log.i(TAG, "Purchase process finished. Is purchased: " + isPurchased);
-                    setPremiumPurchased(activity, isPurchased);
+                    PermData.setPremiumPurchased(activity, isPurchased);
                     if (listener != null) {
                         listener.onPurchaseFinished(isPurchased);
                     }
@@ -189,47 +185,6 @@ public class PremiumPurchaseHelper {
                 Log.d(TAG, "onActivityResult handled by IABUtil.");
             return true;
         }
-    }
-
-    /**
-     * Gets if the state of the premium upgrade is known. This method does not
-     * block.
-     * 
-     * @param context
-     * @return if the state of the premium upgrade is known.
-     */
-    public boolean isPremiumPurchaseStateKnown(Context context) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        final int stateUnknown = Integer.MIN_VALUE;
-        final int state = sharedPref.getInt(PREMIUM_PURCHASED_SHARED_PREF_KEY, Integer.MIN_VALUE);
-
-        return (state != stateUnknown);
-    }
-
-    /**
-     * Gets if the premium upgrade is purchased. This method does not block.
-     * 
-     * @param context
-     * @throws IllegalStateException
-     *             if the state of the purchase is not known.
-     */
-    public boolean isPremiumPurchased(Context context)
-            throws IllegalStateException {
-        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        final int stateUnknown = Integer.MIN_VALUE;
-        final int state = sharedPref.getInt(PREMIUM_PURCHASED_SHARED_PREF_KEY, Integer.MIN_VALUE);
-
-        if (state == stateUnknown) {
-            throw new IllegalStateException("Purchase state is not known");
-        }
-        return state > 0;
-    }
-
-    private void setPremiumPurchased(Context context, boolean purchased) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        sharedPref.edit()
-                  .putInt(PREMIUM_PURCHASED_SHARED_PREF_KEY, (purchased ? 1 : 0))
-                  .commit();
     }
 
     /**

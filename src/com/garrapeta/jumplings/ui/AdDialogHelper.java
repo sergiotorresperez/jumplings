@@ -13,24 +13,23 @@ import android.widget.Button;
 
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
-import com.google.ads.Ad;
-import com.google.ads.AdListener;
-import com.google.ads.AdRequest;
-import com.google.ads.AdRequest.ErrorCode;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
+import com.garrapeta.jumplings.util.AdsHelper;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 /**
  * Helper class to manage the ad dialog
  */
-public class AdDialogHelper implements AdListener {
+public class AdDialogHelper extends AdListener {
 
     private FragmentActivity mActivity;
 
     private final String mFragmentTag;
 
-    private boolean mAvailable = false;
+    private boolean mAdLoaded = false;
 
+    private AdDialogFragment mAdDialogFragment;
     /**
      * Ad view. This has to be created before it is displayed, as we need to
      * instantiate it to request an ad. When the dialog is show this view it
@@ -48,11 +47,18 @@ public class AdDialogHelper implements AdListener {
         mActivity = activity;
         mFragmentTag = fragmentTag;
 
+        mAdDialogFragment = new AdDialogFragment();
+        mAdDialogFragment.setCancelable(false);
+
         // Create the adView
-        mAdView = new AdView(activity, AdSize.BANNER, activity.getString(R.string.admob_in_game_ad_unit));
+        mAdView = new AdView(activity);
+        mAdView.setAdUnitId(activity.getString(R.string.admob_in_game_ad_unit));
+        mAdView.setAdSize(AdSize.BANNER);
         mAdView.setAdListener(this);
 
-        requestAd();
+        if (AdsHelper.shoulShowAds(activity)) {
+            AdsHelper.requestAd(mAdView);
+        }
     }
 
     /**
@@ -61,10 +67,8 @@ public class AdDialogHelper implements AdListener {
      * @return if the dialog has been shown.
      */
     public boolean showIfAvailable() {
-        if (mAvailable) {
-            AdDialogFragment adDialogFragment = new AdDialogFragment();
-            adDialogFragment.setCancelable(false);
-            adDialogFragment.show(mActivity.getSupportFragmentManager(), mFragmentTag);
+        if (mAdLoaded) {
+            mAdDialogFragment.show(mActivity.getSupportFragmentManager(), mFragmentTag);
             return true;
         } else {
             return false;
@@ -87,7 +91,7 @@ public class AdDialogHelper implements AdListener {
     /**
      * Ad dialog
      */
-    public static class AdDialogFragment extends DialogFragment {
+    public class AdDialogFragment extends DialogFragment {
 
         private int NEGATIVE_BUTTON_DISABLED_TIME = 5;
 
@@ -133,8 +137,6 @@ public class AdDialogHelper implements AdListener {
                 @Override
                 public void onClick(View v) {
                     getDialog().dismiss();
-                    mClient.getAdDialogFactory()
-                           .requestAd();
                 }
             })
                    .setLeftButton(getActivity().getString(R.string.game_ad_dlg_buy), new View.OnClickListener() {
@@ -152,12 +154,6 @@ public class AdDialogHelper implements AdListener {
             continueButtonStep(0, NEGATIVE_BUTTON_DISABLED_TIME);
 
             return dialog;
-        }
-
-        @Override
-        public void onDestroy() {
-            super.onDestroy();
-            mClient.getAdDialogFactory().mAdView.destroy();
         }
 
         @Override
@@ -181,46 +177,21 @@ public class AdDialogHelper implements AdListener {
         @Override
         public void onDetach() {
             super.onDetach();
-            View adView = mClient.getAdDialogFactory().mAdView;
-            ViewGroup adParent = (ViewGroup) adView.getParent();
-            if (adParent != null) {
-                adParent.removeView(adView);
-            }
-
+            mAdLoaded = false;
+            AdsHelper.requestAd(mAdView);
+            ((ViewGroup) mAdView.getParent()).removeView(mAdView);
             mClient.onAdDialogClosed();
         }
-
-    }
-
-    private void requestAd() {
-        // Initiate a generic request to load it with an ad
-        AdRequest request = new AdRequest();
-        mAdView.loadAd(request);
     }
 
     @Override
-    public void onDismissScreen(Ad arg0) {
-
-    }
-
-    @Override
-    public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
-        mAvailable = false;
-    }
+    public void onAdLoaded() {
+        mAdLoaded = true;
+    };
 
     @Override
-    public void onLeaveApplication(Ad arg0) {
-
-    }
-
-    @Override
-    public void onPresentScreen(Ad arg0) {
-
-    }
-
-    @Override
-    public void onReceiveAd(Ad arg0) {
-        mAvailable = true;
-    }
+    public void onAdFailedToLoad(int errorcode) {
+        mAdLoaded = false;
+    };
 
 }

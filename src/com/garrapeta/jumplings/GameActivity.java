@@ -17,8 +17,6 @@ import android.widget.TextView;
 import com.garrapeta.gameengine.GameView;
 import com.garrapeta.gameengine.utils.L;
 import com.garrapeta.jumplings.Tutorial.TipDialogFragment.TipDialogListener;
-import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
-import com.garrapeta.jumplings.actor.PremiumPurchaseHelper.PurchaseCallback;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.AdDialogHelper;
 import com.garrapeta.jumplings.ui.AdDialogHelper.AdDialogListener;
@@ -27,6 +25,9 @@ import com.garrapeta.jumplings.ui.GameOverDialogFactory.GameOverDialogFragment.G
 import com.garrapeta.jumplings.ui.JumplingsToast;
 import com.garrapeta.jumplings.ui.PauseDialogFactory;
 import com.garrapeta.jumplings.ui.PauseDialogFactory.PauseDialogFragment.PauseDialogListener;
+import com.garrapeta.jumplings.util.AdsHelper;
+import com.garrapeta.jumplings.util.InAppPurchaseHelper;
+import com.garrapeta.jumplings.util.InAppPurchaseHelper.PurchaseCallback;
 import com.garrapeta.jumplings.wave.CampaignWave;
 import com.garrapeta.jumplings.wave.TestWave;
 import com.garrapeta.jumplings.weapon.SwordWeapon;
@@ -73,9 +74,8 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
     private AdDialogHelper mAdDialogHelper;
 
-    // used to resolve the state of the in app billing purchases and to launch
-    // purchases
-    private PremiumPurchaseHelper mPremiumHelper;
+    // used to launch purchases
+    private InAppPurchaseHelper mInAppPurchaseHelper;
 
     public Button mTestBtn;
     public Button mSwordBtn;
@@ -174,7 +174,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
         // Preparation of ad dialog helper
         mAdDialogHelper = new AdDialogHelper(this, DIALOG_FRAGMENT_TAG);
-        mPremiumHelper = new PremiumPurchaseHelper(this);
+        mInAppPurchaseHelper = new InAppPurchaseHelper(this);
     }
 
     @Override
@@ -239,7 +239,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (L.sEnabled)
             Log.d(JumplingsApplication.TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
-        if (mPremiumHelper != null && mPremiumHelper.onActivityResult(requestCode, resultCode, data)) {
+        if (mInAppPurchaseHelper != null && mInAppPurchaseHelper.onActivityResult(requestCode, resultCode, data)) {
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -461,7 +461,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
      * @return if the dialog has been shown.
      */
     public void showAdDialogIfAvailable() {
-        if (PermData.areAdsEnabled(this) && mPremiumHelper.isPremiumPurchaseStateKnown(this) && !mPremiumHelper.isPremiumPurchased(this)) {
+        if (AdsHelper.shoulShowAds(this)) {
             mAdDialogHelper.showIfAvailable();
         }
     }
@@ -525,7 +525,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     public void onPurchaseBtnClicked() {
         FlurryHelper.logBuyBtnClickedFromGame();
-        mPremiumHelper.purchasePremiumAsync(this, new PurchaseCallback() {
+        mInAppPurchaseHelper.purchasePremiumAsync(this, new PurchaseCallback() {
             @Override
             public void onPurchaseFinished(boolean purchased) {
                 if (L.sEnabled)

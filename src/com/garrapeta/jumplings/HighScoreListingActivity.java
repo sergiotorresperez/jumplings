@@ -24,7 +24,6 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
 import com.garrapeta.gameengine.utils.L;
-import com.garrapeta.jumplings.actor.PremiumPurchaseHelper;
 import com.garrapeta.jumplings.comms.BackendConnectionException;
 import com.garrapeta.jumplings.comms.BackendConnector;
 import com.garrapeta.jumplings.comms.BackendConnectorCallback;
@@ -33,7 +32,9 @@ import com.garrapeta.jumplings.comms.RequestModel;
 import com.garrapeta.jumplings.comms.ResponseModel;
 import com.garrapeta.jumplings.flurry.FlurryHelper;
 import com.garrapeta.jumplings.ui.JumplingsToast;
+import com.garrapeta.jumplings.util.AdsHelper;
 import com.garrapeta.jumplings.util.Utils;
+import com.google.android.gms.ads.AdView;
 
 @SuppressWarnings("deprecation")
 public class HighScoreListingActivity extends TabActivity implements OnTabChangeListener {
@@ -54,6 +55,9 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
 
     // -----------------------------------------------------------------
     // Variables
+
+    // BaseGameActivity deleteme;
+    // GoogleApiClient c;
 
     private List<Score> mLocalScoreList;
     private List<Score> mGlobalScoreList;
@@ -174,16 +178,13 @@ public class HighScoreListingActivity extends TabActivity implements OnTabChange
         });
         updateSubmitScoresBtnVisibility();
 
-        // Ads
-        final boolean showAds;
-        if (PermData.areAdsEnabled(this)) {
-            final PremiumPurchaseHelper premiumHelper = new PremiumPurchaseHelper(this);
-            showAds = (premiumHelper.isPremiumPurchaseStateKnown(this) && !premiumHelper.isPremiumPurchased(this));
-            premiumHelper.dispose();
+        final AdView adView = (AdView) findViewById(R.id.highscoresListing_advertising_banner_view);
+        if (AdsHelper.shoulShowAds(this)) {
+            AdsHelper.requestAd(adView);
+            adView.setVisibility(View.VISIBLE);
         } else {
-            showAds = false;
+            adView.setVisibility(View.GONE);
         }
-        findViewById(R.id.highscoresListing_advertising_banner_view).setVisibility(showAds ? View.VISIBLE : View.GONE);
 
         if (Utils.isNetworkAvailable(this)) {
             downloadScores();
