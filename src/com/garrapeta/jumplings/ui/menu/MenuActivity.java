@@ -9,8 +9,6 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.garrapeta.gameengine.GameView;
@@ -29,12 +27,11 @@ import com.garrapeta.jumplings.util.AdsHelper;
 import com.garrapeta.jumplings.util.FlurryHelper;
 import com.garrapeta.jumplings.util.GooglePlayGamesLeaderboardHelper;
 import com.garrapeta.jumplings.util.InAppPurchaseHelper;
-import com.garrapeta.jumplings.util.PermData;
 import com.garrapeta.jumplings.util.InAppPurchaseHelper.PurchaseCallback;
 import com.garrapeta.jumplings.util.InAppPurchaseHelper.PurchaseStateQueryCallback;
+import com.garrapeta.jumplings.util.PermData;
 import com.garrapeta.jumplings.util.Utils;
 import com.garrapeta.jumplings.view.dialog.PurchaseDialogFactory;
-import com.garrapeta.jumplings.view.dialog.PurchaseDialogFactory.PurchaseDialogFragment;
 import com.garrapeta.jumplings.view.dialog.PurchaseDialogFactory.PurchaseDialogFragment.PurchaseDialogListener;
 import com.google.android.gms.ads.AdView;
 import com.google.example.games.basegameutils.BaseGameActivity;
@@ -42,33 +39,29 @@ import com.google.example.games.basegameutils.BaseGameActivity;
 /**
  * Activity implementing the menu screen
  */
-public class MenuActivity extends BaseGameActivity implements PurchaseDialogListener {
+public class MenuActivity extends BaseGameActivity implements PurchaseDialogListener, OnClickListener {
 
     private final static String TAG = MenuActivity.class.getSimpleName();
-
     /**
      * Tag used to refer to the dialog fragment
      */
     static final String DIALOG_FRAGMENT_TAG = "dialog_fragment_tag";
 
     private View mTitle;
-
-    private Button mStartBtn;
-    private ImageButton mPreferencesBtn;
-    private ImageButton mHighScoresBtn;
-    private ImageButton mAboutBtn;
-    private ImageButton mShareButton;
-    private ImageButton mPremiumBtn;
+    private View mStartBtn;
+    private View mPreferencesBtn;
+    private View mHighScoresBtn;
+    private View mAboutBtn;
+    private View mShareButton;
+    private View mPremiumBtn;
     private View mGooglePlaySignInBtn;
-
     private AdView mAdView;
     private View mDebugGroup;
 
     // used to resolve the state of the in app billing purchases
     private InAppPurchaseHelper mInAppPurchaseHelper;
 
-    /** World */
-    JumplingsWorld mWorld;
+    private JumplingsWorld mWorld;
 
     private boolean mAnimationShown = false;
 
@@ -76,92 +69,40 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // UI Setup
         setContentView(R.layout.activity_menu);
 
         mTitle = findViewById(R.id.menu_title);
 
-        mStartBtn = (Button) findViewById(R.id.menu_playBtn);
-        mStartBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNewGame();
-            }
-        });
+        mStartBtn = findViewById(R.id.menu_playBtn);
+        mStartBtn.setOnClickListener(this);
 
         mDebugGroup = findViewById(R.id.menu_debug_view_group);
 
-        Button testBtn = (Button) findViewById(R.id.menu_testBtn);
-        testBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startTest();
-            }
-        });
+        mHighScoresBtn = findViewById(R.id.menu_highScoresBtn);
+        mHighScoresBtn.setOnClickListener(this);
 
-        Button exitBtn = (Button) findViewById(R.id.menu_exitBtn);
-        exitBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mShareButton = findViewById(R.id.menu_shareBtn);
+        mShareButton.setOnClickListener(this);
 
-        mHighScoresBtn = (ImageButton) findViewById(R.id.menu_highScoresBtn);
-        mHighScoresBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showHighScores();
-            }
-        });
+        mPremiumBtn = findViewById(R.id.menu_premiumBtn);
+        mPremiumBtn.setOnClickListener(this);
 
-        mShareButton = (ImageButton) findViewById(R.id.menu_shareBtn);
-        mShareButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FlurryHelper.logShareButtonClicked();
-                Utils.share(MenuActivity.this, getString(R.string.menu_share));
-            }
-        });
+        mPreferencesBtn = findViewById(R.id.menu_preferencesBtn);
+        mPreferencesBtn.setOnClickListener(this);
 
-        mPremiumBtn = (ImageButton) findViewById(R.id.menu_premiumBtn);
-        mPremiumBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment dialog = PurchaseDialogFactory.create();
-                dialog.show(getSupportFragmentManager(), DIALOG_FRAGMENT_TAG);
-            }
-        });
+        mAboutBtn = findViewById(R.id.menu_aboutBtn);
+        mAboutBtn.setOnClickListener(this);
 
-        mPreferencesBtn = (ImageButton) findViewById(R.id.menu_preferencesBtn);
-        mPreferencesBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPreferences();
-            }
-        });
+        mGooglePlaySignInBtn = findViewById(R.id.google_plus_sign_in_button);
+        mGooglePlaySignInBtn.setOnClickListener(this);
 
-        mAboutBtn = (ImageButton) findViewById(R.id.menu_aboutBtn);
-        mAboutBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAbout();
-            }
-        });
-
-        // Ads
         mAdView = (AdView) findViewById(R.id.menu_advertising_banner_view);
 
-        // Google Play
-        mGooglePlaySignInBtn = findViewById(R.id.google_plus_sign_in_button);
-        mGooglePlaySignInBtn.setOnClickListener(new OnClickListener() {
+        View testBtn = findViewById(R.id.menu_testBtn);
+        testBtn.setOnClickListener(this);
 
-            @Override
-            public void onClick(View v) {
-                // Declared in BaseGameActivity
-                beginUserInitiatedSignIn();
-            }
-        });
+        View exitBtn = findViewById(R.id.menu_exitBtn);
+        exitBtn.setOnClickListener(this);
 
         // The UI starts invisible and becomes visible with an animation
         mTitle.setVisibility(View.INVISIBLE);
@@ -210,8 +151,6 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
 
         mWorld = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface), this);
         mWorld.setDrawDebugInfo(PermData.areDebugFeaturesEnabled(this));
-
-        // Wave setup
         mWorld.setWave(new MenuWave(mWorld));
     }
 
@@ -248,9 +187,9 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         if (L.sEnabled)
             Log.i(JumplingsApplication.TAG, "onDestroy " + this);
-        super.onDestroy();
         if (mInAppPurchaseHelper != null) {
             mInAppPurchaseHelper.dispose();
         }
@@ -322,6 +261,7 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
         mAboutBtn.setVisibility(View.VISIBLE);
         mDebugGroup.setVisibility(PermData.areDebugFeaturesEnabled(this) ? View.VISIBLE : View.GONE);
         mShareButton.setVisibility(View.VISIBLE);
+
         if (AdsHelper.shoulShowAds(this)) {
             mAdView.setVisibility(View.VISIBLE);
             mPremiumBtn.setVisibility(View.VISIBLE);
@@ -339,6 +279,41 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
         mAdView.startAnimation(fadeInAnimation);
         mShareButton.startAnimation(fadeInAnimation);
         mPremiumBtn.startAnimation(fadeInAnimation);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+        case R.id.menu_playBtn:
+            startNewGame();
+            return;
+        case R.id.menu_highScoresBtn:
+            showHighScores();
+            return;
+        case R.id.menu_shareBtn:
+            FlurryHelper.logShareButtonClicked();
+            Utils.share(MenuActivity.this, getString(R.string.menu_share));
+            return;
+        case R.id.menu_preferencesBtn:
+            showPreferences();
+            return;
+        case R.id.menu_aboutBtn:
+            showAbout();
+            return;
+        case R.id.menu_premiumBtn:
+            DialogFragment dialog = PurchaseDialogFactory.create();
+            dialog.show(getSupportFragmentManager(), DIALOG_FRAGMENT_TAG);
+            return;
+        case R.id.google_plus_sign_in_button:
+            beginUserInitiatedSignIn();
+            return;
+        case R.id.menu_testBtn:
+            startTest();
+            return;
+        case R.id.menu_exitBtn:
+            finish();
+            return;
+        }
     }
 
     private void startNewGame() {
