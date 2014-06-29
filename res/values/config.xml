@@ -4,9 +4,6 @@
     <!-- If the Logger is enabled. Only applies to debuggable builds (in production is always disable) -->
     <bool name="config_log_enabled_in_debug_build">true</bool>
 
-    <!-- Backend authentication secret. Setup in build time -->
-    <string name="config_backend_auth_secret">backend_auth_token_unset</string>
-
     <!-- If Flurry is enabled -->
     <bool name="config_flurry_enabled">@bool/config_value_default_flurry_enabled</bool>
     <bool name="config_value_default_flurry_enabled">false</bool>
@@ -20,10 +17,6 @@
     <!-- Google play leaderboard id -->
     <string name="config_google_play_games_leaderboard_id">CgkI4JiH_ckJEAIQAw</string>
 
-    <!-- URL of the score backend -->
-    <string name="config_score_server_url_production">http://garrapeta.eu.pn/jumplings/index.php</string>
-    <string name="config_score_server_url_development">http://90.221.190.9/jumplings/index.php</string>
-
     <!-- Preferences and configuration -->
     <!-- keys -->
     <string name="config_sound_key">CFGSOUND</string>
@@ -36,7 +29,6 @@
     <string name="config_debug_features_key">CFGDEBUG</string>
     <string name="config_thread_bars_key">CFGTHREADBARS</string>
     <string name="config_autoplay_key">CFGAUTOPLAY</string>
-    <string name="config_scores_server_url_key">CFGSCORESSERVERURL</string>
     <!-- values -->
     <string name="config_value_all">CFGLEVELALL</string>
     <string name="config_value_some">CFGLEVELSOME</string>
@@ -54,7 +46,6 @@
     <string name="config_value_default_debug_features">@string/config_value_false</string>
     <string name="config_value_default_thread_bars">@string/config_value_false</string>
     <string name="config_value_default_autoplay">@string/config_value_false</string>
-    <string name="config_value_default_scores_server_url">@string/config_score_server_url_development</string>
 
     <!-- Google Play BASE64 RSA App Id -->
     <string name="google_play_base64_rsa_app_id">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmDZ93iKODV+8FBhS7w3fjdtngK9mQMIYeb00S1pRWDh99bRhR4aqrs1CfCruGb73/z/p2+nTZLdTHG1I0k5AS2nlmcdtJuGq88ptKKKtPCOcb89dHhhN5pCeI+lRG4fvIZnwvhnM7OQAaLN6R1mvoF/IEwXwCl5H2zOCbbBHQVYRV5qxB9euByztD/vGSPazg5ZPtvIcNVWretffhqEd7qbcFz5+i/ejQ0qHX/jRG5MzviJltL/Bv0dRBvTAGwX/rmGfjwKss2tzTDKbRRfU+Q1Qnihg52A3DjOE7htOWXFjPI3sLQjeAnvD6/HxgPL+mvCBGx7iKe+rePmgq+TKfwIDAQAB</string>

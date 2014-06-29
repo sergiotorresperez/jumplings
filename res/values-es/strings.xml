@@ -12,7 +12,6 @@
     <string name="nav_share">Compartir</string>
     <string name="nav_play_again">Jugar otra vez</string>
     <string name="nav_menu">Menu</string>
-    <string name="nav_back">Atrás</string>
     <string name="nav_proceed">Adelante</string>
 
     <!-- Splash Activity -->
@@ -42,7 +41,7 @@
     <string name="about_credits_title">Créditos</string>
     <string name="about_credits_1">Diseño y programación por</string>
     <string name="about_credits_2">Sergio GaRRaPeTa Megaherzio</string>
-    <string name="about_credits_3">2011 - 2013</string>
+    <string name="about_credits_3">2011 &#8211; 2013</string>
     <string name="about_credits_4">Plymouth y Londres</string>
     <string name="about_credits_linkedin_profile">http://uk.linkedin.com/in/sergiotorresperez</string>
     <string name="about_credits_5">Código fuente:</string>
@@ -57,7 +56,6 @@
     <string name="about_ack_7">GF Grunge sans font por ShyFonts Type Foundry</string>
     <string name="about_ack_8">http://www.shyfonts.com</string>
     <string name="about_copyright">© 2013 Sergio Torres Pérez</string>
-    <string name="about_copyright">© 2013 Sergio Torres Pérez</string>
 
     <!-- Game Over activity -->
     <string name="gameover_name">Tu nombre: </string>
@@ -70,20 +68,11 @@
 
     <!-- High scores activity -->
     <string name="highscores_submit">Mandar</string>
-    <string name="highscores_clear">Borrar</string>
     <string name="highscores_header_number">#.</string>
     <string name="highscores_header_player_name">Jugador</string>
-    <string name="highscores_header_global_rank">Posición global</string>
     <string name="highscores_header_level">Nivel</string>
     <string name="highscores_header_score">Puntuación</string>
     <string name="highscores_local_scores">Puntuaciones locales</string>
-    <string name="highscores_global_scores">Puntuaciones globales</string>
-    <string name="highscores_submit_score_ok">Puntuaciones manadadas al servidor</string>
-    <string name="highscores_error_download_score">No se pudieron recuperar las puntuaciones globales</string>
-    <string name="highscores_error_submit_score">No se pudieton mandar las puntuaciones</string>
-    <string name="highscores_error_no_connection">Necesitas estar conectado a Internet</string>
-    <string name="highscores_error_io_error">Error al comunicar con el servidor de puntuaciones.</string>
-    <string name="highscores_error_server_error">Algo raro ha pasado en el servidor&#8230;</string>
 
     <!-- Preferences activity -->
     <string name="prefs_sound_summary">Activar o desactivar efectos de sonidos</string>

@@ -73,7 +73,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".com.garrapeta.jumplings.ui.PreferencesActivityactivity"
+            android:name="com.garrapeta.jumplings.ui.preferences.PreferencesActivity"
             android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

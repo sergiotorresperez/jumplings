@@ -1,5 +1,6 @@
 package com.garrapeta.jumplings.util;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.garrapeta.gameengine.utils.LogX;
@@ -21,6 +22,10 @@ import com.google.android.gms.games.leaderboard.Leaderboards.SubmitScoreResult;
 public class GooglePlayGamesLeaderboardHelper {
 
     private static final String TAG = GooglePlayGamesLeaderboardHelper.class.getSimpleName();
+
+    public static void showLeaderboard(final Activity activity, final GoogleApiClient apiClient) {
+        activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(apiClient, getLeaderboardId(activity)), 0);
+    }
 
     public static void submitHighestScoreIfNeeded(final Context context, final GoogleApiClient apiClient) {
         Score highestScore = PermData.getLocalHighestScore(context);

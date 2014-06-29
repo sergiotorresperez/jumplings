@@ -311,10 +311,6 @@ public class PermData {
         return getBooleanPreference(context, R.string.config_autoplay_key, R.string.config_value_default_autoplay);
     }
 
-    public static String getScoresServerUrl(Context context) {
-        return getStringPreference(context, R.string.config_scores_server_url_key, R.string.config_value_default_scores_server_url);
-    }
-
     private static boolean getBooleanPreference(Context context, int key, int defaultResId) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         Resources r = context.getResources();

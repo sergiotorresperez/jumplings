@@ -32,7 +32,6 @@ import com.garrapeta.jumplings.util.Utils;
 import com.garrapeta.jumplings.view.dialog.PurchaseDialogFactory;
 import com.garrapeta.jumplings.view.dialog.PurchaseDialogFactory.PurchaseDialogFragment.PurchaseDialogListener;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
 import com.google.example.games.basegameutils.RemindfulGameActivity;
 
@@ -207,7 +206,7 @@ public class MenuActivity extends RemindfulGameActivity implements PurchaseDialo
             beginUserInitiatedSignIn();
             return;
         case R.id.menu_google_play_games_leaderboard:
-            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(getApiClient(), getString(R.string.config_google_play_games_leaderboard_id)), 0);
+            GooglePlayGamesLeaderboardHelper.showLeaderboard(this, getApiClient());
             return;
         case R.id.menu_testBtn:
             startTest();

@@ -8,9 +8,9 @@ import android.widget.ListView;
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.util.AdsHelper;
 import com.garrapeta.jumplings.util.FlurryHelper;
+import com.garrapeta.jumplings.util.GooglePlayGamesLeaderboardHelper;
 import com.garrapeta.jumplings.util.PermData;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.RemindfulGameActivity;
 
 /**
@@ -67,6 +67,7 @@ public class ScoresActivity extends RemindfulGameActivity implements OnClickList
     public void onSignInSucceeded() {
         mGooglePlayGamesSignInBtn.setVisibility(View.GONE);
         mGooglePlayGamesLeaderboardBtn.setVisibility(View.VISIBLE);
+        GooglePlayGamesLeaderboardHelper.submitHighestScoreIfNeeded(this, getApiClient());
     }
 
     @Override
@@ -88,7 +89,7 @@ public class ScoresActivity extends RemindfulGameActivity implements OnClickList
             beginUserInitiatedSignIn();
             return;
         case R.id.highscoresListing_google_play_games_leaderboard:
-            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(getApiClient(), getString(R.string.config_google_play_games_leaderboard_id)), 0);
+            GooglePlayGamesLeaderboardHelper.showLeaderboard(this, getApiClient());
             return;
         }
     }

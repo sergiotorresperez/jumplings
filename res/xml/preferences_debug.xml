@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <ListPreference
-        android:defaultValue="@string/config_value_default_scores_server_url"
-        android:entries="@array/scores_server_url_Entries"
-        android:entryValues="@array/scores_server_url_Values"
-        android:key="@string/config_scores_server_url_key"
-        android:summary="@string/prefs_server_url_summary"
-        android:title="@string/prefs_server_url_title" />
-        
     <CheckBoxPreference
         android:defaultValue="@string/config_value_default_wireframe_mode"
         android:key="@string/config_wireframe_mode_key"

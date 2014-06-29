@@ -135,8 +135,6 @@
 		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_thread_bars" value="false"/>
 		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_autoplay" value="false"/>
 		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_flurry_enabled" value="true"/>
-		<replace file="${resource.absolute.dir}/values/config.xml" token="@string/config_score_server_url_development" value="@string/config_score_server_url_production"/>
-		<replace file="${resource.absolute.dir}/values/config.xml" token="backend_auth_token_unset" value="${backend_auth_secret}"/>
 		
 		
 		<!--if>
