@@ -5,7 +5,6 @@ import android.preference.PreferenceActivity;
 
 import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.R;
-import com.garrapeta.jumplings.R.xml;
 import com.garrapeta.jumplings.util.FlurryHelper;
 
 /**

@@ -48,11 +48,11 @@ public class WinterScenario extends LayerScenario {
         }
         {
             Bitmap bmp = bm.loadBitmap(mWorld.mActivity.getResources(), LAYER3_ID);
-            int maxHeight = (int) (viewHeight * 2);
+            int maxHeight = viewHeight * 2;
             addLayer(new Layer(this, bmp, maxHeight, 0, 0, 3, 0, true, false, viewWidth, viewHeight));
         }
         {
-            int maxHeight = (int) (viewHeight * 2);
+            int maxHeight = viewHeight * 2;
             Bitmap bmp = bm.loadBitmap(mWorld.mActivity.getResources(), LAYER4_ID);
             float initYPos = maxHeight - bmp.getHeight();
             addLayer(new Layer(this, bmp, maxHeight, 0, initYPos, 0, 0, true, false, viewWidth, viewHeight));

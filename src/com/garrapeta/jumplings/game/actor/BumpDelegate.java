@@ -4,6 +4,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.garrapeta.gameengine.Box2DActor;
 import com.garrapeta.jumplings.game.JumplingsGameWorld;
+import com.garrapeta.jumplings.game.JumplingsWorld;
 
 /**
  * Common implementation for all {@link IBumpable}, to let objects implementing
@@ -58,7 +59,7 @@ public class BumpDelegate {
             mRemainingTime = BUMP_TIME;
             actor.getWorld()
                  .getSoundManager()
-                 .play(JumplingsGameWorld.SAMPLE_ENEMY_PAIN);
+                 .play(JumplingsWorld.SAMPLE_ENEMY_PAIN);
         }
         anthrophoDelegate.setEyesOpened(!bumped);
     }

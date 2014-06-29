@@ -11,9 +11,6 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 
 import com.garrapeta.jumplings.R;
-import com.garrapeta.jumplings.R.anim;
-import com.garrapeta.jumplings.R.id;
-import com.garrapeta.jumplings.R.layout;
 import com.garrapeta.jumplings.ui.menu.MenuActivity;
 import com.garrapeta.jumplings.util.AdsHelper;
 import com.garrapeta.jumplings.util.FlurryHelper;
@@ -21,7 +18,7 @@ import com.garrapeta.jumplings.util.FlurryHelper;
 /**
  * Activity implementing the Splash screen
  */
-public class SplashActivity extends Activity {
+public class SplashActivity extends Activity implements OnClickListener {
 
     private View mTitleView;
     private View mSubtitleView;
@@ -34,18 +31,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
 
         View root = findViewById(R.id.splash_root);
-        root.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (AdsHelper.shoulShowAds(SplashActivity.this)) {
-                    // if the premium state is not known ignore the click
-                    return;
-                }
-
-                mQuickExit = true;
-                openMenuActivity();
-            }
-        });
+        root.setOnClickListener(this);
 
         mTitleView = findViewById(R.id.splash_title);
         mSubtitleView = findViewById(R.id.splash_subtitle);
@@ -151,6 +137,16 @@ public class SplashActivity extends Activity {
         overridePendingTransition(0, 0);
         Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (AdsHelper.shoulShowAds(SplashActivity.this)) {
+            // if the premium state is not known ignore the click
+            return;
+        }
+        mQuickExit = true;
+        openMenuActivity();
     }
 
 }

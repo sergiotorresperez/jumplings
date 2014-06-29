@@ -47,6 +47,7 @@ public class SwordWeapon extends Weapon {
         mSwipe.onTouchEvent(info);
     }
 
+    @Override
     public short getWeaponCode() {
         return WEAPON_CODE_SWORD;
     }

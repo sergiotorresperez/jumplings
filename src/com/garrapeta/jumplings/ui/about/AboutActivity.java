@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.garrapeta.jumplings.R;
-import com.garrapeta.jumplings.R.layout;
 import com.garrapeta.jumplings.util.FlurryHelper;
 
 /**

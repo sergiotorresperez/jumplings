@@ -70,6 +70,7 @@ public class DebrisActor extends JumplingActor<JumplingsWorld> {
         init(null);
     }
 
+    @Override
     public void init(PointF worldPos) {
         super.init(worldPos);
         mLifeTime = mLongevity;
@@ -93,6 +94,7 @@ public class DebrisActor extends JumplingActor<JumplingsWorld> {
         }
     }
 
+    @Override
     protected void drawBitmaps(Canvas canvas) {
         mPaint.setAlpha(mAlpha);
         getWorld().drawBitmap(canvas, mMainBody, mBitmap, mPaint);

@@ -602,6 +602,7 @@ public class IabHelper {
         checkSetupDone("queryInventory");
         flagStartAsync("refresh inventory");
         (new Thread(new Runnable() {
+            @Override
             public void run() {
                 IabResult result = new IabResult(BILLING_RESPONSE_RESULT_OK, "Inventory refresh successful.");
                 Inventory inv = null;
@@ -610,6 +611,7 @@ public class IabHelper {
                     final IabResult result_f = result;
                     final Inventory inv_f = inv;
                     handler.post(new Runnable() {
+                        @Override
                         public void run() {
                             listener.onQueryInventoryFinished(result_f, inv_f);
                         }
@@ -928,6 +930,7 @@ public class IabHelper {
         final Handler handler = new Handler();
         flagStartAsync("consume");
         (new Thread(new Runnable() {
+            @Override
             public void run() {
                 final List<IabResult> results = new ArrayList<IabResult>();
                 for (Purchase purchase : purchases) {
@@ -937,6 +940,7 @@ public class IabHelper {
 
                         if (singleListener != null) {
                             handler.post(new Runnable() {
+                                @Override
                                 public void run() {
                                     singleListener.onConsumeFinished(purchases.get(0), results.get(0));
                                 }
@@ -944,6 +948,7 @@ public class IabHelper {
                         }
                         if (multiListener != null) {
                             handler.post(new Runnable() {
+                                @Override
                                 public void run() {
                                     multiListener.onConsumeMultiFinished(purchases, results);
                                 }

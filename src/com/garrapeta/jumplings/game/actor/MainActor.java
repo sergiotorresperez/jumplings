@@ -41,11 +41,11 @@ public abstract class MainActor extends JumplingActor<JumplingsGameWorld> implem
     public static double getBaseThread(short code) {
         switch (code) {
         case RoundEnemyActor.JUMPER_CODE_SIMPLE:
-            return RoundEnemyActor.getSimpleEnemyBaseThread();
+            return EnemyActor.getSimpleEnemyBaseThread();
         case DoubleEnemyActor.JUMPER_CODE_DOUBLE:
             return DoubleEnemyActor.getDoubleEnemyBaseThread();
         case DoubleSonEnemyActor.JUMPER_CODE_DOUBLE_SON:
-            return DoubleSonEnemyActor.getSimpleEnemyBaseThread();
+            return EnemyActor.getSimpleEnemyBaseThread();
         case SplitterEnemyActor.JUMPER_CODE_SPLITTER_SIMPLE:
             return SplitterEnemyActor.getSplitterBaseThread(0);
         case SplitterEnemyActor.JUMPER_CODE_SPLITTER_DOUBLE:

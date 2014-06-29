@@ -52,7 +52,7 @@ public class DesertScenario extends LayerScenario {
             addLayer(new Layer(this, bmp, maxHeight, 0, 0, 0, 0, false, false, viewWidth, viewHeight));
         }
         {
-            int maxHeight = (int) (viewHeight * 2);
+            int maxHeight = viewHeight * 2;
             Bitmap bmp = bm.loadBitmap(mWorld.mActivity.getResources(), LAYER4_ID);
             float initYPos = maxHeight - bmp.getHeight();
             addLayer(new Layer(this, bmp, maxHeight, 0, initYPos, 0, 0, true, false, viewWidth, viewHeight));

@@ -56,6 +56,7 @@ public class InAppPurchaseHelper {
         if (!mIsSetUp) {
             LogX.d(TAG, "Starting setup.");
             mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                @Override
                 public void onIabSetupFinished(IabResult result) {
                     LogX.d(TAG, "Setup finished.");
 
@@ -108,6 +109,7 @@ public class InAppPurchaseHelper {
         if (!mIsSetUp) {
             LogX.d(TAG, "Starting setup.");
             mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                @Override
                 public void onIabSetupFinished(IabResult result) {
                     LogX.d(TAG, "Setup finished.");
 

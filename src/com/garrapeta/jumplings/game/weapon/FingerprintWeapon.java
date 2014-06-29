@@ -26,6 +26,7 @@ public class FingerprintWeapon extends TapWeapon {
         super(jgWorld, 100);
     }
 
+    @Override
     public short getWeaponCode() {
         return WEAPON_CODE_FINGERPRINT;
     }

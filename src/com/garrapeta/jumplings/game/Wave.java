@@ -2,7 +2,7 @@ package com.garrapeta.jumplings.game;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.widget.Button;
+import android.view.View;
 
 import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.utils.PhysicsUtils;
@@ -208,9 +208,7 @@ public abstract class Wave<T extends JumplingsWorld> implements GameEventsListen
     public void dispose() {
     }
 
-    // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-    public void onTestButtonClicked(Button testBtn) {
+    public void onTestButtonClicked(View testBtn) {
     }
-    // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 
 }

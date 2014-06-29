@@ -75,6 +75,7 @@ public abstract class EnemyActor extends MainActor {
         mBumpDelegate = new BumpDelegate(this);
     }
 
+    @Override
     public void init(PointF worldPos) {
         super.init(worldPos);
         mBumpDelegate.reset(mAnthtopoDelegate);

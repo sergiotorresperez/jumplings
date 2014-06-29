@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.garrapeta.gameengine.utils.LogX;
@@ -32,34 +32,21 @@ import com.google.android.gms.ads.AdView;
 import com.google.example.games.basegameutils.BaseGameActivity;
 
 /**
- * Actividad para introducir un nuevo High Score
- * 
- * @author GaRRaPeTa
+ * Activity where the player can introduce a new score
  */
-public class GameOverActivity extends BaseGameActivity {
+public class GameOverActivity extends BaseGameActivity implements OnClickListener, TextWatcher, OnEditorActionListener {
 
-    // -----------------------------------------------------------------
-    // Constantes
-
-    /** Clave para pasar highScore entre actividades */
     public static final String NEW_HIGHSCORE_KEY = Score.class.getCanonicalName();
-
     /** Minimum length of the username */
     private static final int MINIMUM_NAME_LENGTH = 5;
 
-    // ------------------------------------------------------------------
-    // Variables
-
+    private String mWaveKey;
     private Score mPlayerScore;
 
-    private Button mSaveScoreButton;
-
     private EditText mPlayerNameEditText;
-
+    private View mSaveScoreButton;
     private View mScoreIntroductionView;
     private View mNextActionView;
-
-    private String mWaveKey;
 
     /** Called when the activity is first created. */
     @Override
@@ -90,14 +77,8 @@ public class GameOverActivity extends BaseGameActivity {
     private void initGui() {
         setContentView(R.layout.activity_gameover);
 
-        Button shareButton = (Button) findViewById(R.id.gameover_shareBtn);
-        shareButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FlurryHelper.logShareButtonClicked();
-                Utils.share(GameOverActivity.this, getShareScoreMessage());
-            }
-        });
+        View shareButton = findViewById(R.id.gameover_shareBtn);
+        shareButton.setOnClickListener(this);
 
         final boolean newHighScore = mPlayerScore.mScore > 0 && Score.getLocalHighScoresPosition(this, mPlayerScore.mScore) < Score.MAX_LOCAL_HIGHSCORE_COUNT;
 
@@ -131,91 +112,27 @@ public class GameOverActivity extends BaseGameActivity {
                                                 .length();
             mPlayerNameEditText.setSelection(textLength, textLength);
 
-            mPlayerNameEditText.addTextChangedListener(new TextWatcher() {
+            mPlayerNameEditText.addTextChangedListener(this);
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    onUsernameEditTextChanged(s);
-                }
-
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                }
-            });
-
-            mPlayerNameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-                @Override
-                public boolean onEditorAction(TextView tv, int actionId, KeyEvent event) {
-                    // If the event is a key-down event on the "enter"
-                    // button
-                    // TODO: Event is sometimes null:
-                    // http://stackoverflow.com/questions/11301061/null-keyevent-and-actionid-0-in-oneditoraction-jelly-bean-nexus-7
-                    if (event != null && (event.getAction() == KeyEvent.ACTION_DOWN) && (actionId == EditorInfo.IME_NULL)) {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(GameOverActivity.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(tv.getWindowToken(), 0);
-                        return true;
-                    }
-                    return false;
-
-                }
-            });
+            mPlayerNameEditText.setOnEditorActionListener(this);
         } else {
             mScoreIntroductionView.setVisibility(View.INVISIBLE);
             mNextActionView.setVisibility(View.VISIBLE);
         }
 
-        mSaveScoreButton = (Button) findViewById(R.id.gameover_saveScoreBtn);
-        mSaveScoreButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isUsernameValid(mPlayerNameEditText.getText())) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(mPlayerNameEditText.getWindowToken(), 0);
-                    saveHighScore();
-                } else {
-                    final String message = getResources().getString(R.string.gameover_invalid_username, MINIMUM_NAME_LENGTH);
-                    JumplingsToast.show(GameOverActivity.this, message, JumplingsToast.LENGTH_LONG);
-                }
-            }
-        });
+        mSaveScoreButton = findViewById(R.id.gameover_saveScoreBtn);
+        mSaveScoreButton.setOnClickListener(this);
 
         if (mWaveKey != null) {
-            Button replayButton = (Button) findViewById(R.id.gameover_replayBtn);
-            replayButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                    Intent i = new Intent(GameOverActivity.this, GameActivity.class);
-                    i.putExtra(GameActivity.WAVE_BUNDLE_KEY, mWaveKey);
-
-                    startActivity(i);
-                }
-            });
+            View replayButton = findViewById(R.id.gameover_replayBtn);
+            replayButton.setOnClickListener(this);
         }
 
-        Button menuButton = (Button) findViewById(R.id.gameover_menuBtn);
-        menuButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                Intent i = new Intent(GameOverActivity.this, MenuActivity.class);
-                startActivity(i);
-            }
-        });
+        View menuButton = findViewById(R.id.gameover_menuBtn);
+        menuButton.setOnClickListener(this);
 
-        Button viewHighScoresButton = (Button) findViewById(R.id.gameover_viewHighScoresBtn);
-        viewHighScoresButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(GameOverActivity.this, ScoresActivity.class);
-                startActivity(intent);
-            }
-        });
+        View viewHighScoresButton = findViewById(R.id.gameover_viewHighScoresBtn);
+        viewHighScoresButton.setOnClickListener(this);
 
         final AdView adView = (AdView) findViewById(R.id.gameover_advertising_banner_view);
         if (AdsHelper.shoulShowAds(this)) {
@@ -227,9 +144,6 @@ public class GameOverActivity extends BaseGameActivity {
         }
     }
 
-    /**
-     * Salva el score
-     */
     private void saveHighScore() {
         mPlayerScore.mPlayerName = mPlayerNameEditText.getText()
                                                       .toString();
@@ -274,6 +188,88 @@ public class GameOverActivity extends BaseGameActivity {
              .show();
 
         GooglePlayGamesLeaderboardHelper.submitHighestScoreIfNeeded(this, getApiClient());
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        onUsernameEditTextChanged(s);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+    }
+
+    @Override
+    public boolean onEditorAction(TextView tv, int actionId, KeyEvent event) {
+        // If the event is a key-down event on the "enter"
+        // button
+        // TODO: Event is sometimes null:
+        // http://stackoverflow.com/questions/11301061/null-keyevent-and-actionid-0-in-oneditoraction-jelly-bean-nexus-7
+        if (event != null && (event.getAction() == KeyEvent.ACTION_DOWN) && (actionId == EditorInfo.IME_NULL)) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(tv.getWindowToken(), 0);
+            return true;
+        }
+        return false;
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+        case R.id.gameover_shareBtn:
+            share();
+            return;
+        case R.id.gameover_saveScoreBtn:
+            savePlayerScore();
+            return;
+        case R.id.gameover_replayBtn:
+            startReplayGame();
+            return;
+        case R.id.gameover_menuBtn:
+            startGameOverClicked();
+            return;
+        case R.id.gameover_viewHighScoresBtn:
+            startHighScoresActivity();
+            return;
+        }
+    }
+
+    private void startReplayGame() {
+        finish();
+        Intent i = new Intent(GameOverActivity.this, GameActivity.class);
+        i.putExtra(GameActivity.WAVE_BUNDLE_KEY, mWaveKey);
+        startActivity(i);
+    }
+
+    private void startHighScoresActivity() {
+        Intent intent = new Intent(GameOverActivity.this, ScoresActivity.class);
+        startActivity(intent);
+    }
+
+    private void savePlayerScore() {
+        if (isUsernameValid(mPlayerNameEditText.getText())) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mPlayerNameEditText.getWindowToken(), 0);
+            saveHighScore();
+        } else {
+            final String message = getResources().getString(R.string.gameover_invalid_username, MINIMUM_NAME_LENGTH);
+            JumplingsToast.show(GameOverActivity.this, message, JumplingsToast.LENGTH_LONG);
+        }
+    }
+
+    private void share() {
+        FlurryHelper.logShareButtonClicked();
+        Utils.share(GameOverActivity.this, getShareScoreMessage());
+    }
+
+    private void startGameOverClicked() {
+        finish();
+        startActivity(new Intent(GameOverActivity.this, MenuActivity.class));
     }
 
 }

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,6 +19,7 @@ import com.garrapeta.jumplings.game.JumplingsGameWorld;
 import com.garrapeta.jumplings.game.Player;
 import com.garrapeta.jumplings.game.Score;
 import com.garrapeta.jumplings.game.Tutorial.TipDialogFragment.TipDialogListener;
+import com.garrapeta.jumplings.game.Wave;
 import com.garrapeta.jumplings.game.wave.CampaignWave;
 import com.garrapeta.jumplings.game.wave.TestWave;
 import com.garrapeta.jumplings.game.weapon.SwordWeapon;
@@ -38,72 +38,39 @@ import com.garrapeta.jumplings.view.dialog.GameOverDialogFactory.GameOverDialogF
 import com.garrapeta.jumplings.view.dialog.PauseDialogFactory;
 import com.garrapeta.jumplings.view.dialog.PauseDialogFactory.PauseDialogFragment.PauseDialogListener;
 
-public class GameActivity extends FragmentActivity implements TipDialogListener, AdDialogListener, PauseDialogListener, GameOverDialogListener {
+/**
+ * Activity where the game itself happens.
+ */
+public class GameActivity extends FragmentActivity implements TipDialogListener, AdDialogListener, PauseDialogListener, GameOverDialogListener, OnClickListener {
 
-    // -----------------------------------------------------------------
-    // Constantes
-
-    // Constantes de keys del bundle
     public static final String WAVE_BUNDLE_KEY = "waveKey";
-
-    /** Lapso de parpadeo de la barra de vida, en ms */
-    private static final int LIFEBAR_BLINKING_LAPSE = 100;
-
-    /**
-     * Tag used to refer to the dialog fragment
-     */
+    private static final int LIFEBAR_BLINKING_LAPSE = 100; // In ms
     public static final String DIALOG_FRAGMENT_TAG = "dialog_fragment_tag";
-
     private final int SWORD_PROGRESS_BAR_MAX = 100;
 
-    // ----------------------------------------------------- Variables de
-    // instancia
-
-    /**
-     * Mundo
-     */
     public JumplingsGameWorld mWorld;
+    private String waveKey;
+    private boolean mBlinkingLifeBar = false;
 
-    /** Wave actual */
-    String waveKey;
-
-    private ImageButton mPauseBtn;
-
-    ViewGroup mLifeCounterView;
+    private TextView mScoreTextView;
+    private TextView mLocalHighScoreTextView;
+    public View mTestBtn;
+    public View mSwordBtn;
+    private View mPauseBtn;
+    private ViewGroup mLifeCounterView;
     private ProgressBar mSpecialWeaponBar;
-
-    boolean mBlinkingLifeBar = false;
-
-    TextView mScoreTextView;
-
-    TextView mLocalHighScoreTextView;
-
     private AdDialogHelper mAdDialogHelper;
-
-    // used to launch purchases
     private InAppPurchaseHelper mInAppPurchaseHelper;
 
-    public Button mTestBtn;
-    public Button mSwordBtn;
-
-    // -------------------------------------------------- M�todos de Activity
-
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialisation of views and GUI
         setContentView(R.layout.activity_game);
 
-        mPauseBtn = (ImageButton) findViewById(R.id.game_pauseBtn);
-        mPauseBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pauseGame();
-                showPauseDialog();
-            }
-        });
+        mPauseBtn = findViewById(R.id.game_pauseBtn);
+        mPauseBtn.setOnClickListener(this);
+
         mLifeCounterView = (ViewGroup) findViewById(R.id.lifes_counter_layout);
         mSpecialWeaponBar = (ProgressBar) findViewById(R.id.game_specialWeaponBar);
         mSpecialWeaponBar.setMax(SWORD_PROGRESS_BAR_MAX);
@@ -124,62 +91,28 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
             waveKey = b.getString(WAVE_BUNDLE_KEY);
         }
 
-        // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-        // DEBUG
-
-        if (waveKey == null) {
-            waveKey = TestWave.WAVE_KEY;
-        }
-
-        // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-        // DEBUG
-
         mWorld = new JumplingsGameWorld(this, (GameView) findViewById(R.id.game_surface), this);
         mWorld.setDrawDebugInfo(PermData.areDebugFeaturesEnabled(this));
-
-        // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-        // DEBUG
-
-        if (PermData.areDebugFeaturesEnabled(this)) {
-            mTestBtn = (Button) findViewById(R.id.game_testBtn);
-            mTestBtn.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mWorld.getWave()
-                          .onTestButtonClicked(mTestBtn);
-                }
-            });
-
-            // Menu de armas
-            mSwordBtn = (Button) findViewById(R.id.game_swordBtn);
-            mSwordBtn.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mWorld.setWeapon(SwordWeapon.WEAPON_CODE_SWORD);
-                }
-            });
-        }
-
-        // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-        // DEBUG
 
         updateLifeCounterView();
         updateScoreTextView();
 
-        // Preparaci�n de la wave
+        if (PermData.areDebugFeaturesEnabled(this)) {
+            mTestBtn = (Button) findViewById(R.id.game_testBtn);
+            mTestBtn.setOnClickListener(this);
+
+            mSwordBtn = (Button) findViewById(R.id.game_swordBtn);
+            mSwordBtn.setOnClickListener(this);
+        }
 
         if (waveKey.equals(CampaignWave.WAVE_KEY)) {
             mWorld.setWave(new CampaignWave(mWorld));
-            // } else if (waveKey.equals(CampaignTutorialWave.WAVE_KEY)) {
-            // world.wave = new CampaignTutorialWave(world, null, 1);
         } else if (waveKey.equals(TestWave.WAVE_KEY)) {
             mWorld.setWave(new TestWave(mWorld));
-            // jgWorld.wave = new CampaignSurvivalWave(jgWorld, null);
         } else {
             throw new IllegalArgumentException("Cannot create wave: " + waveKey);
         }
 
-        // Preparation of ad dialog helper
         mAdDialogHelper = new AdDialogHelper(this, DIALOG_FRAGMENT_TAG);
         mInAppPurchaseHelper = new InAppPurchaseHelper(this);
     }
@@ -245,22 +178,18 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    // ---------------------------------------------------- M�todos propios
-
     public JumplingsGameWorld getWorld() {
         return mWorld;
     }
 
-    /**
-     * va a la actividad de introducci�n de nuevo highscores
-     */
     private void gotoGameOverActivity() {
         finish();
-        Intent intent = new Intent(this, GameOverActivity.class);
+        final Intent intent = new Intent(this, GameOverActivity.class);
 
-        Score highScore = new Score(this, mWorld.getPlayer()
-                                                .getScore(), mWorld.getWave()
-                                                                   .getLevel());
+        final Player player = mWorld.getPlayer();
+        final int level = mWorld.getWave()
+                                .getLevel();
+        Score highScore = new Score(this, player.getScore(), level);
 
         intent.putExtra(GameOverActivity.NEW_HIGHSCORE_KEY, highScore);
         intent.putExtra(GameActivity.WAVE_BUNDLE_KEY, waveKey);
@@ -277,17 +206,12 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         startActivity(i);
     }
 
-    // ------------------------------ M�todos de gesti�n del estado del mundo
-
     @Override
     public void onBackPressed() {
         pauseGame();
         showPauseDialog();
     }
 
-    /**
-     * Pausa el juego
-     */
     void pauseGame() {
         if (!mWorld.isPaused()) {
             mWorld.pause();
@@ -306,23 +230,18 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         mPauseBtn.setVisibility(View.INVISIBLE);
     }
 
-    /**
-     * Contin�a el juego
-     */
     void resumeGame() {
         mPauseBtn.setVisibility(View.VISIBLE);
         mWorld.resume();
     }
 
-    /**
-     * Invocado al morir el jugador
-     */
     public void onGameOver() {
         mWorld.getScenario()
               .onGameOver();
-        FlurryHelper.logGameOver(mWorld.currentGameMillis(), mWorld.getWave()
-                                                                   .getLevel(), mWorld.getPlayer()
-                                                                                      .getScore());
+        final Wave<?> wave = mWorld.getWave();
+        final int score = mWorld.getPlayer()
+                                .getScore();
+        FlurryHelper.logGameOver(mWorld.currentGameMillis(), wave.getLevel(), score);
 
         runOnUiThread(new Runnable() {
             @Override
@@ -333,18 +252,13 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         });
     }
 
-    // ---------------------------- M�todos de componentes de interacci�n
-
-    /**
-     * Actualizaci�n del contador de vidas
-     */
     public void updateLifeCounterView() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Player player = mWorld.getPlayer();
                 int lifesLeft = player.getLifes();
-                ViewGroup lifes = (ViewGroup) mLifeCounterView;
+                ViewGroup lifes = mLifeCounterView;
                 int count = lifes.getChildCount();
                 for (int i = 0; i < count; i++) {
                     View life = lifes.getChildAt(i);
@@ -396,9 +310,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         });
     }
 
-    /**
-     * Actualizaci�n del texto de score
-     */
     public void updateScoreTextView() {
         runOnUiThread(new Runnable() {
             @Override
@@ -410,9 +321,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
     }
 
-    /**
-     * Deja la barra de vida parpadeando
-     */
     public void startBlinkingLifeBar() {
         if (!mBlinkingLifeBar) {
             mBlinkingLifeBar = true;
@@ -443,9 +351,6 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         }
     }
 
-    /**
-     * Para el parpadero de la barra de vida
-     */
     public void stopBlinkingLifeBar() {
         mBlinkingLifeBar = false;
         runOnUiThread(new Runnable() {
@@ -557,6 +462,24 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
                 JumplingsToast.show(GameActivity.this, message, JumplingsToast.LENGTH_SHORT);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+        case R.id.game_pauseBtn:
+            pauseGame();
+            showPauseDialog();
+            return;
+        case R.id.game_testBtn:
+            mWorld.getWave()
+                  .onTestButtonClicked(mTestBtn);
+            return;
+        case R.id.game_swordBtn:
+            mWorld.setWeapon(SwordWeapon.WEAPON_CODE_SWORD);
+            return;
+        }
+
     }
 
 }

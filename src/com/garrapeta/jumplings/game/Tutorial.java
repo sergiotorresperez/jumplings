@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.garrapeta.jumplings.R;
-import com.garrapeta.jumplings.R.string;
 import com.garrapeta.jumplings.game.actor.BombActor;
 import com.garrapeta.jumplings.game.actor.DoubleEnemyActor;
 import com.garrapeta.jumplings.game.actor.EnemyActor;

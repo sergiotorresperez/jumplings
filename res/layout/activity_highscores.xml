@@ -53,14 +53,7 @@
             android:layout_marginLeft="@dimen/ui_spacing"
             android:gravity="right" >
 
-            <com.garrapeta.jumplings.view.CustomFontButton
-                android:id="@+id/highscoresListing_clearLocalScoresBtn"
-                style="@style/ColorfulButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/highscores_clear"
-                android:visibility="gone" />
-
+            
             <com.garrapeta.jumplings.view.CustomFontButton
                 android:id="@+id/highscoresListing_submitBtn"
                 style="@style/ColorfulButton"
