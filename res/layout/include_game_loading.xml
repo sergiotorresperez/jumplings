@@ -11,7 +11,7 @@
         android:indeterminate="true"
         style="@android:style/Widget.ProgressBar.Horizontal" />
 
-    <com.garrapeta.jumplings.ui.CustomFontTextView
+    <com.garrapeta.jumplings.view.CustomFontTextView
         style="@style/MainFont.h1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

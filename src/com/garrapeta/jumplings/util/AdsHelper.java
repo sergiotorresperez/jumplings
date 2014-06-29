@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.garrapeta.jumplings.PermData;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.mediation.admob.AdMobExtras;

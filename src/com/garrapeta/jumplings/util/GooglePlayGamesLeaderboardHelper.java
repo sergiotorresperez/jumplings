@@ -3,9 +3,8 @@ package com.garrapeta.jumplings.util;
 import android.content.Context;
 import android.util.Log;
 
-import com.garrapeta.jumplings.PermData;
 import com.garrapeta.jumplings.R;
-import com.garrapeta.jumplings.Score;
+import com.garrapeta.jumplings.game.Score;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;

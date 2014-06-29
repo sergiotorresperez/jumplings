@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/highscores_activity_list_padding"
     android:paddingRight="@dimen/highscores_activity_list_padding" >
 
-    <com.garrapeta.jumplings.ui.CustomFontTextView
+    <com.garrapeta.jumplings.view.CustomFontTextView
         android:id="@+id/scoreHeader_index"
         style="@style/MainFont.ScoreListHeaderText"
         android:layout_width="0dp"
@@ -14,7 +14,7 @@
         android:layout_weight="0.05"
         android:text="@string/highscores_header_number" />
 
-    <com.garrapeta.jumplings.ui.CustomFontTextView
+    <com.garrapeta.jumplings.view.CustomFontTextView
         android:id="@+id/scoreHeader_playerName"
         style="@style/MainFont.ScoreListHeaderText"
         android:layout_width="0dp"
@@ -22,7 +22,7 @@
         android:layout_weight="0.45"
         android:text="@string/highscores_header_player_name" />
 
-    <com.garrapeta.jumplings.ui.CustomFontTextView
+    <com.garrapeta.jumplings.view.CustomFontTextView
         android:id="@+id/scoreHeader_globalRank"
         style="@style/MainFont.ScoreListHeaderText"
         android:layout_width="0dp"
@@ -31,7 +31,7 @@
         android:gravity="right"
         android:text="@string/highscores_header_global_rank" />
 
-    <com.garrapeta.jumplings.ui.CustomFontTextView
+    <com.garrapeta.jumplings.view.CustomFontTextView
         android:id="@+id/scoreHeader_level"
         style="@style/MainFont.ScoreListHeaderText"
         android:layout_width="0dp"
@@ -40,7 +40,7 @@
         android:gravity="right"
         android:text="@string/highscores_header_level" />
 
-    <com.garrapeta.jumplings.ui.CustomFontTextView
+    <com.garrapeta.jumplings.view.CustomFontTextView
         android:id="@+id/scoreHeader_score"
         style="@style/MainFont.ScoreListHeaderText"
         android:layout_width="0dp"

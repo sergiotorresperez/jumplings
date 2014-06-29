@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" >
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
+        <com.garrapeta.jumplings.view.CustomFontTextView
             android:id="@+id/splash_title"
             style="@style/MainFont"
             android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             android:textSize="80dp"
             android:textStyle="bold" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
+        <com.garrapeta.jumplings.view.CustomFontTextView
             android:id="@+id/splash_subtitle"
             style="@style/MainFont"
             android:layout_width="wrap_content"

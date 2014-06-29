@@ -141,14 +141,14 @@
             android:layout_centerHorizontal="true"
             android:orientation="horizontal" >
 
-            <com.garrapeta.jumplings.ui.CustomFontButton
+            <com.garrapeta.jumplings.view.CustomFontButton
                 android:id="@+id/menu_testBtn"
                 style="@style/ColorfulButton.Menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_test" />
 
-            <com.garrapeta.jumplings.ui.CustomFontButton
+            <com.garrapeta.jumplings.view.CustomFontButton
                 android:id="@+id/menu_exitBtn"
                 style="@style/ColorfulButton.Menu"
                 android:layout_width="wrap_content"

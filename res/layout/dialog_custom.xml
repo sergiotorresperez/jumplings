@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:padding="5dp" >
 
-    <com.garrapeta.jumplings.ui.CustomFontTextView
+    <com.garrapeta.jumplings.view.CustomFontTextView
         android:id="@+id/dialog_message_big"
         style="@style/MainFont.h2"
         android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
         android:gravity="center_horizontal"
         android:visibility="gone" />
 
-    <com.garrapeta.jumplings.ui.CustomFontTextView
+    <com.garrapeta.jumplings.view.CustomFontTextView
         android:id="@+id/dialog_message_small"
         style="@style/MainFont.h4"
         android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal" >
 
-        <com.garrapeta.jumplings.ui.CustomFontButton
+        <com.garrapeta.jumplings.view.CustomFontButton
             android:id="@+id/dialog_left_btn"
             style="@style/ColorfulButton"
             android:layout_width="0dp"
@@ -50,7 +50,7 @@
             android:layout_weight="0.5"
             android:visibility="gone" />
 
-        <com.garrapeta.jumplings.ui.CustomFontButton
+        <com.garrapeta.jumplings.view.CustomFontButton
             android:id="@+id/dialog_right_btn"
             style="@style/ColorfulButton"
             android:layout_width="0dp"

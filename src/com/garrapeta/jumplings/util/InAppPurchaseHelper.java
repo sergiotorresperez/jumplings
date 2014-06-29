@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.garrapeta.gameengine.utils.L;
-import com.garrapeta.jumplings.PermData;
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.billing.util.IabHelper;
 import com.garrapeta.jumplings.billing.util.IabHelper.OnIabPurchaseFinishedListener;

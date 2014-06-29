@@ -7,7 +7,7 @@ import android.content.res.Configuration;
 import android.util.Log;
 
 import com.garrapeta.gameengine.utils.L;
-import com.garrapeta.jumplings.flurry.FlurryHelper;
+import com.garrapeta.jumplings.util.FlurryHelper;
 
 /**
  * Encapsula algunas variables y estado global de la aplicaci�n,
