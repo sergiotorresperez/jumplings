@@ -107,6 +107,18 @@
             android:value="@string/config_google_play_games_app_id" />
 
         <!-- /Google play games services -->
+
+
+        <!--
+             Crashlitics API key 
+             NOTE: as the ant build is picking this value from here, we need to hardcode the string here. 
+                   Do NOT move this to a resource string and reference it as @string/crashlitics. It won't work.
+        -->
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="2c7fa6a1cec34dccd1783ce1944c4fbad87641a4" />
+        <!-- Crashlytics -->
+
     </application>
 
 </manifest>

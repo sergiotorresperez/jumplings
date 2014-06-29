@@ -67,6 +67,12 @@
 	<!-- version-tag: custom -->
 	<import file="${sdk.dir}/tools/ant/build.xml" />
 
+	<!-- 
+    This is to upload to Crashlytics the proguard mapping file.
+    @see https://crashlytics.com/downloads/ant
+    See the instructions at the top of crashlytics_build.xml
+    for information about nonstandard builds. -->
+	<import file="./build-libs/crashlytics-devtools/crashlytics_build_base.xml" />
 
 	<!--
     	********************************************************************************************************
@@ -91,67 +97,68 @@
 	<target name="jumplings-release" description="release" depends="-jumplings-pre-build">
 		<antcall target="release" />
 	</target>
-	
+
 	<!-- Builds the debug and release builds -->
 	<target name="jumplings-all" description="Builds the debug and release builds">
 		<antcall target="jumplings-debug" />
 		<antcall target="jumplings-release" />
 	</target>
-			
+
 	<!--
     	****************************************    "PRIVATE" TASKS     ****************************************
     -->
 
-    <target name="-jumplings-pre-build">
+	<target name="-jumplings-pre-build">
 		<!-- cleans build directory -->
 		<delete dir="${build.folder.dir}" />
-        <!-- copy the AndroidManifest -->
-        <copy todir="${build.folder.dir}" file="AndroidManifest.xml" failonerror="true" />
-    </target>
-	
+		<delete dir="./bin" />
+		<!-- copy the AndroidManifest -->
+		<copy todir="${build.folder.dir}" file="AndroidManifest.xml" failonerror="true" />
+	</target>
+
 	<!--
     	This target exists in the original android build file. The original one is empty, and it is called just before startting to 
     	compile, after the release or debug targets have been called.
     	It is some kind of "template method" we can "override" to do stuff before the code is compiled. 
+    	
+    	Also, Override Android's -pre-build target to invoke the Crashlytics pre-build target.
     -->
 	<target name="-pre-build">
 		<echo> Performing pre-build operations </echo>
 
 		<!-- copy files to build directory -->
-        <copy todir="${build.folder.dir}" failonerror="true">
-            <fileset dir="." />
-        </copy>
-        	
+		<copy todir="${build.folder.dir}" failonerror="true">
+			<fileset dir="." excludes="./bin" />
+		</copy>
+
+
 		<!-- read the AndroidManifest -->
 		<xmlproperty file="${manifest.file}" collapseAttributes="true" />
 		<!-- check versionName is specified -->
 		<fail message="android:versionName not found in AndroidManifest" unless="manifest.android:versionName" />
 
-		<!-- CONFIG PROPERTIES -->
+		<!-- We need to change the default values for this used by crashlytics -->
+		<property name="crashlytics.manifest.path" location="${manifest.file}" />
+		<property name="crashlytics.res.path" location="${resource.absolute.dir}" />
 
-		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_ads" value="true"/>
-		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_paint_bitmaps" value="true"/>
-		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_wireframe_mode" value="false"/>
-		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_thread_bars" value="false"/>
-		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_autoplay" value="false"/>
-		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_flurry_enabled" value="true"/>
-		
-		
-		<!--if>
-			<condition>
-				<equals arg1="${build.target}" arg2="debug" />
-			</condition>
-			<then>
-			</then>
-		</if>
-		<if>
-			<condition>
-				<equals arg1="${build.target}" arg2="release" />
-			</condition>
-			<then>
-			</then>
-		</if-->
+		<antcall target="-process-config-properties" />
+
 	</target>
+
+	<target name="-process-config-properties" depends="crashlytics-pre-build">
+		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_ads" value="true" />
+		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_paint_bitmaps" value="true" />
+		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_wireframe_mode" value="false" />
+		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_thread_bars" value="false" />
+		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_autoplay" value="false" />
+		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_flurry_enabled" value="true" />
+		<replace file="${resource.absolute.dir}/values/config.xml" token="@bool/config_value_default_crashlytics_enabled" value="true" />
+	</target>
+
+	<!--
+		Override Android's -code-gen target to first invoke the Crashlytics code-gen target.
+	-->
+	<target name="-code-gen" depends="crashlytics-code-gen, android_rules.-code-gen" />
 
 	<!--
     	This target exists in the original android build file. The original one is empty, and it is called just before finishing the 
@@ -181,6 +188,11 @@
 			</then>
 		</if>
 	</target>
+
+	<!--
+		Override Android's -post-package target to invoke the Crashlytics post-package target.
+	-->
+	<target name="-post-package" depends="android_rules.-post-package, crashlytics-post-package" />
 
 
 </project>
