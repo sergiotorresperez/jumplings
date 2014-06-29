@@ -127,8 +127,17 @@
 		<echo> Performing pre-build operations </echo>
 
 		<!-- copy files to build directory -->
-		<copy todir="${build.folder.dir}" failonerror="true">
-			<fileset dir="." excludes="./bin" />
+		<copy todir="${build.folder.dir}/src" failonerror="true">
+			<fileset dir="./src"  />
+		</copy>
+		<copy todir="${build.folder.dir}/res" failonerror="true">
+			<fileset dir="res"  />
+		</copy>
+		<copy todir="${build.folder.dir}/assets" failonerror="true">
+			<fileset dir="./assets"  />
+		</copy>
+		<copy todir="${build.folder.dir}/libs" failonerror="true">
+			<fileset dir="./libs"  />
 		</copy>
 
 

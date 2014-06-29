@@ -3,5 +3,6 @@
 /build
 /release
 local.properties
-crashlytics.properties
+/crashlytics.properties
 *.keystore
+assets/crashlytics-build.properties
