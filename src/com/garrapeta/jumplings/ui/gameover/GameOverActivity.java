@@ -1,5 +1,6 @@
 package com.garrapeta.jumplings.ui.gameover;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.jumplings.JumplingsApplication;
@@ -24,17 +24,15 @@ import com.garrapeta.jumplings.ui.menu.MenuActivity;
 import com.garrapeta.jumplings.ui.scores.ScoresActivity;
 import com.garrapeta.jumplings.util.AdsHelper;
 import com.garrapeta.jumplings.util.FlurryHelper;
-import com.garrapeta.jumplings.util.GooglePlayGamesLeaderboardHelper;
 import com.garrapeta.jumplings.util.PermData;
 import com.garrapeta.jumplings.util.Utils;
 import com.garrapeta.jumplings.view.JumplingsToast;
 import com.google.android.gms.ads.AdView;
-import com.google.example.games.basegameutils.BaseGameActivity;
 
 /**
  * Activity where the player can introduce a new score
  */
-public class GameOverActivity extends BaseGameActivity implements OnClickListener, TextWatcher, OnEditorActionListener {
+public class GameOverActivity extends Activity implements OnClickListener, TextWatcher, OnEditorActionListener {
 
     public static final String NEW_HIGHSCORE_KEY = Score.class.getCanonicalName();
     /** Minimum length of the username */
@@ -173,21 +171,6 @@ public class GameOverActivity extends BaseGameActivity implements OnClickListene
         text = text.toString()
                    .trim();
         return (text != null && text.length() >= MINIMUM_NAME_LENGTH);
-    }
-
-    @Override
-    public void onSignInFailed() {
-        Toast.makeText(this, "failed", Toast.LENGTH_SHORT)
-             .show();
-
-    }
-
-    @Override
-    public void onSignInSucceeded() {
-        Toast.makeText(this, "oK!!", Toast.LENGTH_SHORT)
-             .show();
-
-        GooglePlayGamesLeaderboardHelper.submitHighestScoreIfNeeded(this, getApiClient());
     }
 
     @Override

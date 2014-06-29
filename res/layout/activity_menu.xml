@@ -17,24 +17,6 @@
     <!-- UI -->
 
 
-    <!-- sign-in button -->
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/google_plus_sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp" />
-
-    <!-- sign-out button -->
-
-    <Button
-        android:id="@+id/sign_out_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:text="Sign Out"
-        android:visibility="gone" />
-
     <!-- ADMOB -->
 
     <com.google.android.gms.ads.AdView
@@ -85,8 +67,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
             android:src="@drawable/icon_preferences"
             tools:ignore="ContentDescription" >
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/menu_premiumBtn"
+            style="@style/ColorfulButton.Menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toRightOf="@+id/menu_preferencesBtn"
+            android:src="@drawable/icon_premium" >
         </ImageButton>
 
         <ImageButton
@@ -101,14 +95,25 @@
         </ImageButton>
 
         <ImageButton
-            android:id="@+id/menu_premiumBtn"
+            android:id="@+id/menu_google_play_games_sign_in"
             style="@style/ColorfulButton.Menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignWithParentIfMissing="true"
             android:layout_toLeftOf="@+id/menu_highScoresBtn"
-            android:src="@drawable/icon_premium" >
+            android:src="@drawable/icon_google_play_games" >
+        </ImageButton>
+
+        <ImageButton
+            android:layout_below="@+id/menu_google_play_games_sign_in"
+            android:id="@+id/menu_google_play_games_leaderboard"
+            style="@style/ColorfulButton.Menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toLeftOf="@+id/menu_highScoresBtn"
+            android:src="@drawable/icon_google_leaderboard" >
         </ImageButton>
 
         <ImageButton

@@ -8,7 +8,6 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import com.garrapeta.gameengine.GameView;
 import com.garrapeta.gameengine.utils.LogX;
@@ -33,12 +32,14 @@ import com.garrapeta.jumplings.util.Utils;
 import com.garrapeta.jumplings.view.dialog.PurchaseDialogFactory;
 import com.garrapeta.jumplings.view.dialog.PurchaseDialogFactory.PurchaseDialogFragment.PurchaseDialogListener;
 import com.google.android.gms.ads.AdView;
-import com.google.example.games.basegameutils.BaseGameActivity;
+import com.google.android.gms.games.Games;
+import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
+import com.google.example.games.basegameutils.RemindfulGameActivity;
 
 /**
  * Activity implementing the menu screen
  */
-public class MenuActivity extends BaseGameActivity implements PurchaseDialogListener, OnClickListener {
+public class MenuActivity extends RemindfulGameActivity implements PurchaseDialogListener, OnClickListener, GameHelperListener {
 
     private final static String TAG = MenuActivity.class.getSimpleName();
     /**
@@ -54,15 +55,16 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
     private View mShareButton;
     private View mPremiumBtn;
     private View mGooglePlaySignInBtn;
+    private View mGooglePlayLeaderboardBtn;
     private AdView mAdView;
     private View mDebugGroup;
-
-    // used to resolve the state of the in app billing purchases
-    private InAppPurchaseHelper mInAppPurchaseHelper;
 
     private JumplingsWorld mWorld;
 
     private boolean mAnimationShown = false;
+
+    // used to resolve the state of the in app billing purchases
+    private InAppPurchaseHelper mInAppPurchaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +94,11 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
         mAboutBtn = findViewById(R.id.menu_aboutBtn);
         mAboutBtn.setOnClickListener(this);
 
-        mGooglePlaySignInBtn = findViewById(R.id.google_plus_sign_in_button);
+        mGooglePlaySignInBtn = findViewById(R.id.menu_google_play_games_sign_in);
         mGooglePlaySignInBtn.setOnClickListener(this);
+
+        mGooglePlayLeaderboardBtn = findViewById(R.id.menu_google_play_games_leaderboard);
+        mGooglePlayLeaderboardBtn.setOnClickListener(this);
 
         mAdView = (AdView) findViewById(R.id.menu_advertising_banner_view);
 
@@ -113,35 +118,15 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
         mShareButton.setVisibility(View.INVISIBLE);
         mAdView.setVisibility(View.INVISIBLE);
         mPremiumBtn.setVisibility(View.INVISIBLE);
+        mGooglePlaySignInBtn.setVisibility(View.INVISIBLE);
+        mGooglePlayLeaderboardBtn.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         LogX.i(JumplingsApplication.TAG, "onStart " + this);
-
-        // Query the state of the purchase
-        mInAppPurchaseHelper = new InAppPurchaseHelper(this);
-        if (PermData.isPremiumPurchaseStateKnown(this)) {
-            LogX.d(TAG, "Premium purchase state known. No need to query.");
-            startAnimation(PermData.isPremiumPurchased(this));
-        } else {
-            LogX.d(TAG, "Premium purchase state unknown. Querying for it.");
-            mInAppPurchaseHelper.queryIsPremiumPurchasedAsync(this, new PurchaseStateQueryCallback() {
-                @Override
-                public void onPurchaseStateQueryFinished(boolean purchased) {
-                    startAnimation(purchased);
-                }
-
-                @Override
-                public void onPurchaseStateQueryError(String message) {
-                    LogX.i(TAG, "Error querying purchase state " + message);
-                    // we assume it is purchased
-                    startAnimation(true);
-                }
-            });
-        }
-
         FlurryHelper.onStartSession(this);
 
         mWorld = new JumplingsWorld(this, (GameView) findViewById(R.id.menu_gamesurface), this);
@@ -193,6 +178,111 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+        case R.id.menu_playBtn:
+            startNewGame();
+            return;
+        case R.id.menu_highScoresBtn:
+            showHighScores();
+            return;
+        case R.id.menu_shareBtn:
+            FlurryHelper.logShareButtonClicked();
+            Utils.share(MenuActivity.this, getString(R.string.menu_share));
+            return;
+        case R.id.menu_preferencesBtn:
+            showPreferences();
+            return;
+        case R.id.menu_aboutBtn:
+            showAbout();
+            return;
+        case R.id.menu_premiumBtn:
+            DialogFragment dialog = PurchaseDialogFactory.create();
+            dialog.show(getSupportFragmentManager(), DIALOG_FRAGMENT_TAG);
+            return;
+        case R.id.menu_google_play_games_sign_in:
+            beginUserInitiatedSignIn();
+            return;
+        case R.id.menu_google_play_games_leaderboard:
+            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(getApiClient(), getString(R.string.config_google_play_games_leaderboard_id)), 0);
+            return;
+        case R.id.menu_testBtn:
+            startTest();
+            return;
+        case R.id.menu_exitBtn:
+            finish();
+            return;
+        }
+    }
+
+    @Override
+    public void onPurchaseBtnClicked() {
+        FlurryHelper.logBuyBtnClickedFromHome();
+        mInAppPurchaseHelper.purchasePremiumAsync(this, new PurchaseCallback() {
+            @Override
+            public void onPurchaseFinished(boolean purchased) {
+                FlurryHelper.logPurchasedFromHome();
+                onPremiumStateUpdate(purchased);
+            }
+
+            @Override
+            public void onPurchaseError(String message) {
+                LogX.i(TAG, "Error querying purchase state " + message);
+            }
+        });
+    }
+
+    @Override
+    protected boolean getDefaultConnectOnStart() {
+        return true;
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+        resolvePurchaseState();
+        GooglePlayGamesLeaderboardHelper.submitHighestScoreIfNeeded(this, getApiClient());
+    }
+
+    @Override
+    public void onSignInFailed() {
+        resolvePurchaseState();
+    }
+
+    private void resolvePurchaseState() {
+        // Query the state of the purchase
+        mInAppPurchaseHelper = new InAppPurchaseHelper(this);
+        if (PermData.isPremiumPurchaseStateKnown(this)) {
+            LogX.d(TAG, "Premium purchase state known. No need to query.");
+            startAnimation(PermData.isPremiumPurchased(this));
+        } else {
+            LogX.d(TAG, "Premium purchase state unknown. Querying for it.");
+            mInAppPurchaseHelper.queryIsPremiumPurchasedAsync(this, new PurchaseStateQueryCallback() {
+                @Override
+                public void onPurchaseStateQueryFinished(boolean purchased) {
+                    startAnimation(purchased);
+                }
+
+                @Override
+                public void onPurchaseStateQueryError(String message) {
+                    LogX.i(TAG, "Error querying purchase state " + message);
+                    // we assume it is purchased
+                    startAnimation(true);
+                }
+            });
+        }
+    }
+
+    private void onPremiumStateUpdate(boolean purchased) {
+        LogX.i(TAG, "Premium upgrade purchased: " + purchased);
+        if (!AdsHelper.shoulShowAds(this)) {
+            // this will prevent the animations to start, and the views will
+            // never become visible
+            mAdView.setVisibility(View.GONE);
+            mPremiumBtn.setVisibility(View.GONE);
+        }
     }
 
     private void startAnimation(boolean purchased) {
@@ -256,9 +346,21 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
             mAdView.setVisibility(View.VISIBLE);
             mPremiumBtn.setVisibility(View.VISIBLE);
             AdsHelper.requestAd(mAdView);
+            mPremiumBtn.startAnimation(fadeInAnimation);
         } else {
             mAdView.setVisibility(View.GONE);
             mPremiumBtn.setVisibility(View.GONE);
+        }
+
+        if (getGameHelper().getApiClient()
+                           .isConnected()) {
+            mGooglePlaySignInBtn.setVisibility(View.GONE);
+            mGooglePlayLeaderboardBtn.setVisibility(View.VISIBLE);
+            mGooglePlayLeaderboardBtn.startAnimation(fadeInAnimation);
+        } else {
+            mGooglePlaySignInBtn.setVisibility(View.VISIBLE);
+            mGooglePlayLeaderboardBtn.setVisibility(View.GONE);
+            mGooglePlaySignInBtn.startAnimation(fadeInAnimation);
         }
 
         mStartBtn.startAnimation(fadeInAnimation);
@@ -268,42 +370,6 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
         mDebugGroup.startAnimation(fadeInAnimation);
         mAdView.startAnimation(fadeInAnimation);
         mShareButton.startAnimation(fadeInAnimation);
-        mPremiumBtn.startAnimation(fadeInAnimation);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-        case R.id.menu_playBtn:
-            startNewGame();
-            return;
-        case R.id.menu_highScoresBtn:
-            showHighScores();
-            return;
-        case R.id.menu_shareBtn:
-            FlurryHelper.logShareButtonClicked();
-            Utils.share(MenuActivity.this, getString(R.string.menu_share));
-            return;
-        case R.id.menu_preferencesBtn:
-            showPreferences();
-            return;
-        case R.id.menu_aboutBtn:
-            showAbout();
-            return;
-        case R.id.menu_premiumBtn:
-            DialogFragment dialog = PurchaseDialogFactory.create();
-            dialog.show(getSupportFragmentManager(), DIALOG_FRAGMENT_TAG);
-            return;
-        case R.id.google_plus_sign_in_button:
-            beginUserInitiatedSignIn();
-            return;
-        case R.id.menu_testBtn:
-            startTest();
-            return;
-        case R.id.menu_exitBtn:
-            finish();
-            return;
-        }
     }
 
     private void startNewGame() {
@@ -332,49 +398,6 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
     private void showAbout() {
         Intent i = new Intent(this, AboutActivity.class);
         startActivity(i);
-    }
-
-    private void onPremiumStateUpdate(boolean purchased) {
-        LogX.i(TAG, "Premium upgrade purchased: " + purchased);
-        if (!AdsHelper.shoulShowAds(this)) {
-            // this will prevent the animations to start, and the views will
-            // never become visible
-            mAdView.setVisibility(View.GONE);
-            mPremiumBtn.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void onPurchaseBtnClicked() {
-        FlurryHelper.logBuyBtnClickedFromHome();
-        mInAppPurchaseHelper.purchasePremiumAsync(this, new PurchaseCallback() {
-            @Override
-            public void onPurchaseFinished(boolean purchased) {
-                FlurryHelper.logPurchasedFromHome();
-                onPremiumStateUpdate(purchased);
-            }
-
-            @Override
-            public void onPurchaseError(String message) {
-                LogX.i(TAG, "Error querying purchase state " + message);
-            }
-        });
-    }
-
-    @Override
-    public void onSignInFailed() {
-        Toast.makeText(this, "failed", Toast.LENGTH_SHORT)
-             .show();
-
-    }
-
-    @Override
-    public void onSignInSucceeded() {
-        Toast.makeText(this, "oK!!", Toast.LENGTH_SHORT)
-             .show();
-
-        GooglePlayGamesLeaderboardHelper.submitHighestScoreIfNeeded(this, getApiClient());
-
     }
 
 }

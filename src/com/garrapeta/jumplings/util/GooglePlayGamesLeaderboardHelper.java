@@ -33,9 +33,13 @@ public class GooglePlayGamesLeaderboardHelper {
             return;
         }
 
+        submitHightScore(context, apiClient, highestScoreValue);
+    }
+
+    private static void submitHightScore(final Context context, final GoogleApiClient apiClient, final long highestScoreValue) {
         LogX.i(TAG, "Submitting score to Google leaderboard");
 
-        PendingResult<SubmitScoreResult> result = Games.Leaderboards.submitScoreImmediate(apiClient, getLeaderboardId(context), highestScoreValue);
+        final PendingResult<SubmitScoreResult> result = Games.Leaderboards.submitScoreImmediate(apiClient, getLeaderboardId(context), highestScoreValue);
         result.setResultCallback(new ResultCallback<Leaderboards.SubmitScoreResult>() {
 
             @Override
