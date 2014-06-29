@@ -47,7 +47,6 @@ public class JumplingsApplication extends Application {
             Crashlytics.getInstance()
                        .setDebugMode(isDebugBuild(this));
             Crashlytics.start(this);
-            Crashlytics.logException(new RuntimeException("test3"));
         }
     }
 
