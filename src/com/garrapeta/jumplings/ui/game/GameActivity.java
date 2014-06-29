@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.garrapeta.gameengine.GameView;
-import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.game.JumplingsGameWorld;
@@ -29,16 +28,14 @@ import com.garrapeta.jumplings.ui.menu.MenuActivity;
 import com.garrapeta.jumplings.util.AdsHelper;
 import com.garrapeta.jumplings.util.FlurryHelper;
 import com.garrapeta.jumplings.util.InAppPurchaseHelper;
-import com.garrapeta.jumplings.util.PermData;
 import com.garrapeta.jumplings.util.InAppPurchaseHelper.PurchaseCallback;
+import com.garrapeta.jumplings.util.PermData;
 import com.garrapeta.jumplings.view.JumplingsToast;
 import com.garrapeta.jumplings.view.dialog.AdDialogHelper;
-import com.garrapeta.jumplings.view.dialog.GameOverDialogFactory;
-import com.garrapeta.jumplings.view.dialog.PauseDialogFactory;
 import com.garrapeta.jumplings.view.dialog.AdDialogHelper.AdDialogListener;
-import com.garrapeta.jumplings.view.dialog.GameOverDialogFactory.GameOverDialogFragment;
+import com.garrapeta.jumplings.view.dialog.GameOverDialogFactory;
 import com.garrapeta.jumplings.view.dialog.GameOverDialogFactory.GameOverDialogFragment.GameOverDialogListener;
-import com.garrapeta.jumplings.view.dialog.PauseDialogFactory.PauseDialogFragment;
+import com.garrapeta.jumplings.view.dialog.PauseDialogFactory;
 import com.garrapeta.jumplings.view.dialog.PauseDialogFactory.PauseDialogFragment.PauseDialogListener;
 
 public class GameActivity extends FragmentActivity implements TipDialogListener, AdDialogListener, PauseDialogListener, GameOverDialogListener {
@@ -190,8 +187,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onStart() {
         super.onStart();
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onStart " + this);
+        LogX.i(JumplingsApplication.TAG, "onStart " + this);
         // FIXME: no se realiza repintado
         FlurryHelper.onStartSession(this);
     }
@@ -199,23 +195,20 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onStop() {
         super.onStop();
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onStop " + this);
+        LogX.i(JumplingsApplication.TAG, "onStop " + this);
         FlurryHelper.onEndSession(this);
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onRestart " + this);
+        LogX.i(JumplingsApplication.TAG, "onRestart " + this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onPause " + this);
+        LogX.i(JumplingsApplication.TAG, "onPause " + this);
         if (!mWorld.isGameOver()) {
             pauseGame();
         }
@@ -224,8 +217,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onResume() {
         super.onResume();
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onResume " + this);
+        LogX.i(JumplingsApplication.TAG, "onResume " + this);
         if (mWorld.isPaused()) {
             showPauseDialog();
         }
@@ -236,8 +228,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onDestroy " + this);
+        LogX.i(JumplingsApplication.TAG, "onDestroy " + this);
         mWorld.finish();
         // If the user presses the on / off button of the phone and the activity
         // is destroyed, we want to show the menu activity when going to the
@@ -247,8 +238,7 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (L.sEnabled)
-            Log.d(JumplingsApplication.TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+        LogX.d(JumplingsApplication.TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
         if (mInAppPurchaseHelper != null && mInAppPurchaseHelper.onActivityResult(requestCode, resultCode, data)) {
             return;
         }
@@ -539,16 +529,14 @@ public class GameActivity extends FragmentActivity implements TipDialogListener,
         mInAppPurchaseHelper.purchasePremiumAsync(this, new PurchaseCallback() {
             @Override
             public void onPurchaseFinished(boolean purchased) {
-                if (L.sEnabled)
-                    Log.i(JumplingsApplication.TAG, "Premium purchased.");
+                LogX.i(JumplingsApplication.TAG, "Premium purchased.");
                 FlurryHelper.logPurchasedFromGame();
                 mWorld.resume();
             }
 
             @Override
             public void onPurchaseError(String message) {
-                if (L.sEnabled)
-                    Log.e(JumplingsApplication.TAG, "Error querying purchase state " + message);
+                LogX.e(JumplingsApplication.TAG, "Error querying purchase state " + message);
                 mWorld.resume();
             }
         });

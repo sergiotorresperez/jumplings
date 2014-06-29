@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,12 +14,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.R;
-import com.garrapeta.jumplings.R.id;
-import com.garrapeta.jumplings.R.layout;
-import com.garrapeta.jumplings.R.string;
 import com.garrapeta.jumplings.game.Score;
 import com.garrapeta.jumplings.util.AdsHelper;
 import com.garrapeta.jumplings.util.FlurryHelper;
@@ -52,8 +48,7 @@ public class ScoresActivity extends BaseGameActivity {
 
         setContentView(R.layout.activity_highscores);
 
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onCreate " + this);
+        LogX.i(JumplingsApplication.TAG, "onCreate " + this);
 
         mLocalScoreList = PermData.getLocalScoresList(this);
         mLocalHighScoresView = (ListView) findViewById(R.id.highscoresListing_localHighScoresListView);

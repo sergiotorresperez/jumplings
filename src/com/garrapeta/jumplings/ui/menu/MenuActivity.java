@@ -3,7 +3,6 @@ package com.garrapeta.jumplings.ui.menu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -12,7 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.garrapeta.gameengine.GameView;
-import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.game.JumplingsWorld;
@@ -119,18 +118,15 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
     @Override
     protected void onStart() {
         super.onStart();
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onStart " + this);
+        LogX.i(JumplingsApplication.TAG, "onStart " + this);
 
         // Query the state of the purchase
         mInAppPurchaseHelper = new InAppPurchaseHelper(this);
         if (PermData.isPremiumPurchaseStateKnown(this)) {
-            if (L.sEnabled)
-                Log.d(TAG, "Premium purchase state known. No need to query.");
+            LogX.d(TAG, "Premium purchase state known. No need to query.");
             startAnimation(PermData.isPremiumPurchased(this));
         } else {
-            if (L.sEnabled)
-                Log.d(TAG, "Premium purchase state unknown. Querying for it.");
+            LogX.d(TAG, "Premium purchase state unknown. Querying for it.");
             mInAppPurchaseHelper.queryIsPremiumPurchasedAsync(this, new PurchaseStateQueryCallback() {
                 @Override
                 public void onPurchaseStateQueryFinished(boolean purchased) {
@@ -139,8 +135,7 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
 
                 @Override
                 public void onPurchaseStateQueryError(String message) {
-                    if (L.sEnabled)
-                        Log.i(TAG, "Error querying purchase state " + message);
+                    LogX.i(TAG, "Error querying purchase state " + message);
                     // we assume it is purchased
                     startAnimation(true);
                 }
@@ -157,8 +152,7 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
     @Override
     protected void onPause() {
         super.onPause();
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onPause " + this);
+        LogX.i(JumplingsApplication.TAG, "onPause " + this);
         if (mWorld.isRunning()) {
             mWorld.pause();
         }
@@ -167,16 +161,14 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
     @Override
     protected void onResume() {
         super.onResume();
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onResume " + this);
+        LogX.i(JumplingsApplication.TAG, "onResume " + this);
         mWorld.resume();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onStop " + this);
+        LogX.i(JumplingsApplication.TAG, "onStop " + this);
         FlurryHelper.onEndSession(this);
 
         if (mWorld.isRunning()) {
@@ -188,8 +180,7 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onDestroy " + this);
+        LogX.i(JumplingsApplication.TAG, "onDestroy " + this);
         if (mInAppPurchaseHelper != null) {
             mInAppPurchaseHelper.dispose();
         }
@@ -197,8 +188,7 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (L.sEnabled)
-            Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+        LogX.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
         if (mInAppPurchaseHelper != null && mInAppPurchaseHelper.onActivityResult(requestCode, resultCode, data)) {
             return;
         }
@@ -345,8 +335,7 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
     }
 
     private void onPremiumStateUpdate(boolean purchased) {
-        if (L.sEnabled)
-            Log.i(TAG, "Premium upgrade purchased: " + purchased);
+        LogX.i(TAG, "Premium upgrade purchased: " + purchased);
         if (!AdsHelper.shoulShowAds(this)) {
             // this will prevent the animations to start, and the views will
             // never become visible
@@ -367,8 +356,7 @@ public class MenuActivity extends BaseGameActivity implements PurchaseDialogList
 
             @Override
             public void onPurchaseError(String message) {
-                if (L.sEnabled)
-                    Log.i(TAG, "Error querying purchase state " + message);
+                LogX.i(TAG, "Error querying purchase state " + message);
             }
         });
     }

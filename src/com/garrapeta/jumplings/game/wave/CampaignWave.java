@@ -1,10 +1,8 @@
 package com.garrapeta.jumplings.game.wave;
 
-import android.util.Log;
-
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
-import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.jumplings.game.JumplingsGameWorld;
 import com.garrapeta.jumplings.game.Player;
 import com.garrapeta.jumplings.game.Wave;
@@ -78,8 +76,7 @@ public class CampaignWave extends Wave<JumplingsGameWorld> implements ICampaignW
     @Override
     public void start() {
         super.start();
-        if (L.sEnabled)
-            Log.i(TAG, "Starting Wave Campaign");
+        LogX.i(TAG, "Starting Wave Campaign");
         mScenario.init();
         scheduleNextWave(FIRST_WAVE_DELAY);
     }
@@ -121,14 +118,12 @@ public class CampaignWave extends Wave<JumplingsGameWorld> implements ICampaignW
 
     @Override
     public void onChildWaveStarted() {
-        if (L.sEnabled)
-            Log.i(TAG, "Wave started");
+        LogX.i(TAG, "Wave started");
     }
 
     @Override
     public void onChildWaveEnded() {
-        if (L.sEnabled)
-            Log.i(TAG, "Wave ended");
+        LogX.i(TAG, "Wave ended");
         mCurrentWave.pause();
         mLevel++;
         scheduleNextWave(INTER_WAVE_DELAY);
@@ -143,7 +138,7 @@ public class CampaignWave extends Wave<JumplingsGameWorld> implements ICampaignW
 
     private void switchWave() {
         if (mWorld.currentGameMillis() - lastAdTimeStamp > ADS_MIN_TIME_LAPSE) {
-            // Se muestra anuncio
+            // Show Ad
             mWorld.mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

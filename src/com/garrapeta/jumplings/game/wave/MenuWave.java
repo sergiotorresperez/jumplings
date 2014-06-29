@@ -2,13 +2,12 @@ package com.garrapeta.jumplings.game.wave;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.Actor;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
-import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.jumplings.game.JumplingsWorld;
 import com.garrapeta.jumplings.game.Wave;
 import com.garrapeta.jumplings.game.actor.IntroActor;
@@ -40,8 +39,7 @@ public class MenuWave extends Wave<JumplingsWorld> {
     @Override
     public void start() {
         super.start();
-        if (L.sEnabled)
-            Log.i(TAG, "Starting Intro Wave");
+        LogX.i(TAG, "Starting Intro Wave");
         scheduleIntroActorCreation();
     }
 
@@ -83,8 +81,7 @@ public class MenuWave extends Wave<JumplingsWorld> {
     }
 
     private void createIntroActor() {
-        if (L.sEnabled)
-            Log.i(TAG, "Creating intro jumpling");
+        LogX.i(TAG, "Creating intro jumpling");
 
         float worldXPos;
         float worldYPos;

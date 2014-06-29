@@ -2,12 +2,11 @@ package com.garrapeta.jumplings.game.wave;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
 import com.garrapeta.gameengine.GameWorld;
 import com.garrapeta.gameengine.SyncGameMessage;
-import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.gameengine.utils.PhysicsUtils;
 import com.garrapeta.jumplings.game.JumplingsGameWorld;
 import com.garrapeta.jumplings.game.Player;
@@ -172,11 +171,8 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
             }
         } while (MainActor.getBaseThread(code) > getMaxThreat());
 
-        if (L.sEnabled)
-            Log.i(TAG, "Next enemy code: " + code);
+        LogX.i(TAG, "Next enemy code: " + code);
 
-        // if (L.sEnabled) Log.w("stp", "Next " + code + " maxBombs " + maxBombs
-        // + " currentBombs " + getWorld().mBombActors.size());
         return code;
     }
 
@@ -218,8 +214,7 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
         if (mainActor != null) {
             mainActor.setLinearVelocity(initVel.x, initVel.y);
             getWorld().addActor(mainActor);
-            if (L.sEnabled)
-                Log.i(TAG, "Added mainActor: " + mNextJumperCode);
+            LogX.i(TAG, "Added mainActor: " + mNextJumperCode);
             mNextJumperCode = JUMPER_CODE_NULL;
             return threat;
 
@@ -233,19 +228,19 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
 
         switch (rand) {
         case 0:
-            // arriba
+            // up
             createInitPosAndVelTop(pos, vel);
             break;
         case 1:
-            // abajo
+            // down
             createInitPosAndVelBottom(pos, vel);
             break;
         case 2:
-            // izquierda
+            // left
             createInitPosAndVelLeft(pos, vel);
             break;
         case 3:
-            // derecha
+            // right
             createInitPosAndVelRight(pos, vel);
             break;
         }
@@ -354,9 +349,8 @@ public class GameWave extends AllowanceWave<JumplingsGameWorld> {
                                                                       .getLifes());
 
         float lapse = POWERUP_BASE_LAPSE - (wounds * (POWERUP_BASE_LAPSE / Player.DEFAUL_INIT_LIFES));
-        if (L.sEnabled)
-            Log.i(TAG, "Next power up in: " + lapse + " ms (" + getWorld().getPlayer()
-                                                                          .getLifes() + " lives)");
+        LogX.i(TAG, "Next power up in: " + lapse + " ms (" + getWorld().getPlayer()
+                                                                       .getLifes() + " lives)");
         return lapse;
     }
 

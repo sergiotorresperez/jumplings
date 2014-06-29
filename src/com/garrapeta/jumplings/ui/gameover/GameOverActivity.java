@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,13 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.R;
-import com.garrapeta.jumplings.R.drawable;
-import com.garrapeta.jumplings.R.id;
-import com.garrapeta.jumplings.R.layout;
-import com.garrapeta.jumplings.R.string;
 import com.garrapeta.jumplings.game.Score;
 import com.garrapeta.jumplings.ui.game.GameActivity;
 import com.garrapeta.jumplings.ui.menu.MenuActivity;
@@ -64,22 +59,14 @@ public class GameOverActivity extends BaseGameActivity {
     private View mScoreIntroductionView;
     private View mNextActionView;
 
-    /** Wave de la partida jugada */
     private String mWaveKey;
-
-    // -------------------------------------------------------- Variables
-    // est�ticas
-
-    // -------------------------------------------------------- M�todos de
-    // Activity
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (L.sEnabled)
-            Log.i(JumplingsApplication.TAG, "onCreate " + this);
+        LogX.i(JumplingsApplication.TAG, "onCreate " + this);
 
         mWaveKey = null;
         mWaveKey = getIntent().getStringExtra(GameActivity.WAVE_BUNDLE_KEY);

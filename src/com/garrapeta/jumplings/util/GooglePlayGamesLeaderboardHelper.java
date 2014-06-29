@@ -1,8 +1,8 @@
 package com.garrapeta.jumplings.util;
 
 import android.content.Context;
-import android.util.Log;
 
+import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.game.Score;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -29,11 +29,11 @@ public class GooglePlayGamesLeaderboardHelper {
         }
         final long highestScoreValue = highestScore.mScore;
         if (PermData.getHighestScoreSentToLeaderboard(context) > highestScoreValue) {
-            Log.d(TAG, "A higher score has been already submitted. No need to submit.");
+            LogX.d(TAG, "A higher score has been already submitted. No need to submit.");
             return;
         }
 
-        Log.i(TAG, "Submitting score to Google leaderboard");
+        LogX.i(TAG, "Submitting score to Google leaderboard");
 
         PendingResult<SubmitScoreResult> result = Games.Leaderboards.submitScoreImmediate(apiClient, getLeaderboardId(context), highestScoreValue);
         result.setResultCallback(new ResultCallback<Leaderboards.SubmitScoreResult>() {
@@ -41,7 +41,7 @@ public class GooglePlayGamesLeaderboardHelper {
             @Override
             public void onResult(SubmitScoreResult finalResult) {
                 Status status = finalResult.getStatus();
-                Log.i(TAG, "Result of the score submission: " + status);
+                LogX.i(TAG, "Result of the score submission: " + status);
                 if (status.getStatusCode() == GamesStatusCodes.STATUS_OK) {
                     PermData.saveHighestScoreSentToLeaderboard(context, highestScoreValue);
                 }

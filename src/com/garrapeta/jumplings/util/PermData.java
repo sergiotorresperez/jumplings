@@ -8,14 +8,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
-import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.jumplings.JumplingsApplication;
 import com.garrapeta.jumplings.R;
-import com.garrapeta.jumplings.R.string;
 import com.garrapeta.jumplings.game.Score;
-import com.garrapeta.jumplings.game.Tutorial;
 import com.garrapeta.jumplings.game.Tutorial.TipId;
 
 public class PermData {
@@ -352,8 +349,7 @@ public class PermData {
         } else if (str.equals(r.getString(R.string.config_value_none))) {
             return CFG_LEVEL_NONE;
         } else {
-            if (L.sEnabled)
-                Log.w(JumplingsApplication.TAG, "Invalid configuration level string: " + str);
+            LogX.w(JumplingsApplication.TAG, "Invalid configuration level string: " + str);
             throw new IllegalArgumentException("Illegal configuration value: " + str);
         }
     }

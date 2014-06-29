@@ -4,9 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
-import android.util.Log;
 
-import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.jumplings.util.FlurryHelper;
 
 /**
@@ -27,11 +26,10 @@ public class JumplingsApplication extends Application {
         super.onCreate();
 
         // enable or disable the logger
-        L.setEnabled(isDebugBuild(this) && this.getResources()
-                                               .getBoolean(R.bool.config_log_enabled_in_debug_build));
+        LogX.setEnabled(isDebugBuild(this) && this.getResources()
+                                                  .getBoolean(R.bool.config_log_enabled_in_debug_build));
 
-        if (L.sEnabled)
-            Log.i(TAG, "onCreate " + this);
+        LogX.i(TAG, "onCreate " + this);
 
         // Flurry initialization
         final boolean flurryEnabled = getResources().getBoolean(R.bool.config_flurry_enabled);
@@ -42,22 +40,19 @@ public class JumplingsApplication extends Application {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (L.sEnabled)
-            Log.i(TAG, "onConfigurationChanged " + this);
+        LogX.i(TAG, "onConfigurationChanged " + this);
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        if (L.sEnabled)
-            Log.w(TAG, "onLowMemory " + this);
+        LogX.w(TAG, "onLowMemory " + this);
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-        if (L.sEnabled)
-            Log.i(TAG, "onTerminate " + this);
+        LogX.i(TAG, "onTerminate " + this);
     }
 
     /**

@@ -32,10 +32,9 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.android.vending.billing.IInAppBillingService;
-import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.gameengine.utils.LogX;
 
 /**
  * Provides convenience methods for in-app billing. You can create one instance
@@ -403,7 +402,7 @@ public class IabHelper {
         }
     }
 
-    /**
+/**
      * Handles an activity result that's part of the purchase flow in in-app
      * billing. If you are calling {@link #launchPurchaseFlow}, then you must
      * call this method from your Activity's {@link android.app.Activity
@@ -962,17 +961,14 @@ public class IabHelper {
     }
 
     void logDebug(String msg) {
-        if (L.sEnabled)
-            Log.d(mDebugTag, msg);
+        LogX.d(mDebugTag, msg);
     }
 
     void logError(String msg) {
-        if (L.sEnabled)
-            Log.e(mDebugTag, "In-app billing error: " + msg);
+        LogX.e(mDebugTag, "In-app billing error: " + msg);
     }
 
     void logWarn(String msg) {
-        if (L.sEnabled)
-            Log.w(mDebugTag, "In-app billing warning: " + msg);
+        LogX.w(mDebugTag, "In-app billing warning: " + msg);
     }
 }
