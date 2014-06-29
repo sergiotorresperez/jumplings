@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.crashlytics.android.Crashlytics;
 import com.garrapeta.gameengine.BitmapManager;
 import com.garrapeta.gameengine.Box2DWorld;
 import com.garrapeta.gameengine.GameView;
@@ -25,7 +26,6 @@ import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.game.actor.JumplingActor;
 import com.garrapeta.jumplings.game.actor.JumplingsFactory;
 import com.garrapeta.jumplings.game.actor.WallActor;
-import com.garrapeta.jumplings.util.FlurryHelper;
 import com.garrapeta.jumplings.util.PermData;
 import com.garrapeta.jumplings.view.dialog.ErrorDialogFactory;
 
@@ -77,8 +77,7 @@ public class JumplingsWorld extends Box2DWorld {
     // ----------------------------------------------------------- Constructor
 
     public JumplingsWorld(FragmentActivity activity, GameView gameView, Context context) {
-        super(gameView, context, PermData.isSoundEnabled(context) ? PermData.CFG_LEVEL_ALL : PermData.CFG_LEVEL_NONE,
-                PermData.getVibratorLevel(context));
+        super(gameView, context, PermData.isSoundEnabled(context) ? PermData.CFG_LEVEL_ALL : PermData.CFG_LEVEL_NONE, PermData.getVibratorLevel(context));
         mActivity = activity;
         mFactory = new JumplingsFactory(this);
         mDrawActorBitmaps = PermData.paintActorBitmaps(mActivity);
@@ -249,7 +248,7 @@ public class JumplingsWorld extends Box2DWorld {
     @Override
     public void onError(Throwable error) {
         LogX.e(TAG, "Game error!", error);
-        FlurryHelper.onGameEngineError(error);
+        Crashlytics.logException(error);
 
         // show error dialog
         mActivity.runOnUiThread(new Runnable() {

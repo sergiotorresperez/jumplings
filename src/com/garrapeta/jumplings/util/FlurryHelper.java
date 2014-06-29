@@ -27,7 +27,6 @@ public class FlurryHelper {
     private final static String EVENT_PURCHASED_FROM_HOME = "buy_purchased_from_home";
     private final static String EVENT_PURCHASED_FROM_GAME = "buy_purchased_from_game";
 
-    private final static String ERROR_GAME_ENGINE = "game_engine";
     private static final String EVENT_GAME_OVER_PARAM_GAME_DURATION = "duration_in_game_millis";
     private static final String EVENT_GAME_OVER_PARAM_LEVEL = "level";
     private static final String EVENT_GAME_OVER_PARAM_SCORE = "score";
@@ -143,13 +142,6 @@ public class FlurryHelper {
         checkInitialized();
         if (sIsEnabled) {
             FlurryAgent.onEndSession(context);
-        }
-    }
-
-    public static void onGameEngineError(Throwable t) {
-        checkInitialized();
-        if (sIsEnabled) {
-            FlurryAgent.onError(ERROR_GAME_ENGINE, "Error in game engine", t);
         }
     }
 

@@ -8,6 +8,10 @@
     <bool name="config_flurry_enabled">@bool/config_value_default_flurry_enabled</bool>
     <bool name="config_value_default_flurry_enabled">false</bool>
 
+    <!-- If Crashlytics is enabled -->
+    <bool name="config_crashlytics_enabled">@bool/config_value_default_crashlytics_enabled</bool>
+    <bool name="config_value_default_crashlytics_enabled">false</bool>
+    
     <!-- Flurry API Key -->
     <string name="config_flurry_api_key">TFRC6DJ8GSJD6D8X7S2K</string>
 
