@@ -21,38 +21,38 @@
             android:gravity="center_horizontal"
             android:orientation="vertical" >
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.h1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.h2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_subtitle" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.h3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/about_activity_vertical_spacing"
                 android:text="@string/about_howto_title" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_howto_1" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_howto_2" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,132 +60,132 @@
                 android:drawableLeft="@drawable/about_red"
                 android:text="@string/about_howto_red" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/about_orange"
                 android:text="@string/about_howto_orange" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/about_yellow"
                 android:text="@string/about_howto_yellow" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/about_bomb"
                 android:text="@string/about_howto_bomb" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/about_lifeup"
                 android:text="@string/about_howto_lifeup" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/about_sword"
                 android:text="@string/about_howto_sable" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.h3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/about_activity_vertical_spacing"
                 android:text="@string/about_scores_title" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_scores_1" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.h3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/about_activity_vertical_spacing"
                 android:text="@string/about_credits_title" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_credits_1" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.h4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_credits_2" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_credits_3" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_credits_4" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/icon_linkedin"
                 android:text="@string/about_credits_linkedin_profile" />
             
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 android:layout_marginTop="@dimen/about_activity_vertical_spacing_small"
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_credits_5" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_credits_source_repository" />
             
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.h3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/about_activity_vertical_spacing"
                 android:text="@string/about_ack_title" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_ack_1" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_ack_2" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 android:layout_marginTop="@dimen/about_activity_vertical_spacing_small"
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_ack_3" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                 android:linksClickable="true"
                 android:text="@string/about_ack_4" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 android:layout_marginTop="@dimen/about_activity_vertical_spacing_small"
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
@@ -202,7 +202,7 @@
                 android:linksClickable="true"
                 android:text="@string/about_ack_5" />
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -210,7 +210,7 @@
                 android:linksClickable="true"
                 android:text="@string/about_ack_6" />
 
-             <com.garrapeta.jumplings.ui.CustomFontTextView
+             <com.garrapeta.jumplings.view.CustomFontTextView
                 android:layout_marginTop="@dimen/about_activity_vertical_spacing_small"
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
@@ -219,7 +219,7 @@
                 android:linksClickable="true"
                 android:text="@string/about_ack_7" />
             
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.About"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -227,7 +227,7 @@
                 android:linksClickable="true"
                 android:text="@string/about_ack_8" />
             
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 style="@style/MainFont.h4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

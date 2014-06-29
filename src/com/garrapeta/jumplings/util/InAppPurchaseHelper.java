@@ -3,10 +3,8 @@ package com.garrapeta.jumplings.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
-import com.garrapeta.gameengine.utils.L;
-import com.garrapeta.jumplings.PermData;
+import com.garrapeta.gameengine.utils.LogX;
 import com.garrapeta.jumplings.R;
 import com.garrapeta.jumplings.billing.util.IabHelper;
 import com.garrapeta.jumplings.billing.util.IabHelper.OnIabPurchaseFinishedListener;
@@ -43,8 +41,7 @@ public class InAppPurchaseHelper {
     public InAppPurchaseHelper(Context context) {
         // Create the helper, passing it our context and the public key to
         // verify signatures with
-        if (L.sEnabled)
-            Log.d(TAG, "Creating IAB helper.");
+        LogX.d(TAG, "Creating IAB helper.");
         mHelper = new IabHelper(context, getAppIdKey(context));
         mNoAdsSKU = context.getString(R.string.inapp_sku_noads);
     }
@@ -57,12 +54,11 @@ public class InAppPurchaseHelper {
      */
     public void queryIsPremiumPurchasedAsync(final Context context, final PurchaseStateQueryCallback listener) {
         if (!mIsSetUp) {
-            if (L.sEnabled)
-                Log.d(TAG, "Starting setup.");
+            LogX.d(TAG, "Starting setup.");
             mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                @Override
                 public void onIabSetupFinished(IabResult result) {
-                    if (L.sEnabled)
-                        Log.d(TAG, "Setup finished.");
+                    LogX.d(TAG, "Setup finished.");
 
                     if (!result.isSuccess()) {
                         if (listener != null) {
@@ -77,14 +73,12 @@ public class InAppPurchaseHelper {
             return;
         }
 
-        if (L.sEnabled)
-            Log.i(TAG, "Querying inventory.");
+        LogX.i(TAG, "Querying inventory.");
         mHelper.queryInventoryAsync(new QueryInventoryFinishedListener() {
             @Override
             public void onQueryInventoryFinished(IabResult result, Inventory inv) {
                 if (!result.isSuccess()) {
-                    if (L.sEnabled)
-                        Log.e(TAG, "Querying inventory resulted in error: " + result.getMessage());
+                    LogX.e(TAG, "Querying inventory resulted in error: " + result.getMessage());
                     if (listener != null) {
                         listener.onPurchaseStateQueryError("Error querying user inventory: " + result.getMessage());
                     }
@@ -95,8 +89,7 @@ public class InAppPurchaseHelper {
                         // 0 means purchased
                         isPurchased = (purchase.getPurchaseState() == 0);
                     }
-                    if (L.sEnabled)
-                        Log.i(TAG, "Querying inventory finished. Is purchased: " + isPurchased);
+                    LogX.i(TAG, "Querying inventory finished. Is purchased: " + isPurchased);
                     PermData.setPremiumPurchased(context, isPurchased);
                     if (listener != null) {
                         listener.onPurchaseStateQueryFinished(isPurchased);
@@ -114,12 +107,11 @@ public class InAppPurchaseHelper {
      */
     public void purchasePremiumAsync(final Activity activity, final PurchaseCallback listener) {
         if (!mIsSetUp) {
-            if (L.sEnabled)
-                Log.d(TAG, "Starting setup.");
+            LogX.d(TAG, "Starting setup.");
             mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                @Override
                 public void onIabSetupFinished(IabResult result) {
-                    if (L.sEnabled)
-                        Log.d(TAG, "Setup finished.");
+                    LogX.d(TAG, "Setup finished.");
 
                     if (!result.isSuccess()) {
                         if (listener != null) {
@@ -134,14 +126,12 @@ public class InAppPurchaseHelper {
             return;
         }
 
-        if (L.sEnabled)
-            Log.i(TAG, "Launching purchase process");
+        LogX.i(TAG, "Launching purchase process");
         mHelper.launchPurchaseFlow(activity, mNoAdsSKU, RC_REQUEST, new OnIabPurchaseFinishedListener() {
             @Override
             public void onIabPurchaseFinished(IabResult result, Purchase info) {
                 if (!result.isSuccess()) {
-                    if (L.sEnabled)
-                        Log.e(TAG, "Purchase process finished with error: " + result.getMessage());
+                    LogX.e(TAG, "Purchase process finished with error: " + result.getMessage());
                     if (listener != null) {
                         listener.onPurchaseError("Error purchasing item: " + result.getMessage());
                     }
@@ -151,8 +141,7 @@ public class InAppPurchaseHelper {
                         // 0 means purchased
                         isPurchased = (info.getPurchaseState() == 0);
                     }
-                    if (L.sEnabled)
-                        Log.i(TAG, "Purchase process finished. Is purchased: " + isPurchased);
+                    LogX.i(TAG, "Purchase process finished. Is purchased: " + isPurchased);
                     PermData.setPremiumPurchased(activity, isPurchased);
                     if (listener != null) {
                         listener.onPurchaseFinished(isPurchased);
@@ -171,8 +160,7 @@ public class InAppPurchaseHelper {
      * @return
      */
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (L.sEnabled)
-            Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+        LogX.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
 
         // Pass on the activity result to the helper for handling
         if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
@@ -181,8 +169,7 @@ public class InAppPurchaseHelper {
             // billing...
             return false;
         } else {
-            if (L.sEnabled)
-                Log.d(TAG, "onActivityResult handled by IABUtil.");
+            LogX.d(TAG, "onActivityResult handled by IABUtil.");
             return true;
         }
     }
@@ -191,9 +178,7 @@ public class InAppPurchaseHelper {
      * Frees resources
      */
     public void dispose() {
-        // very important:
-        if (L.sEnabled)
-            Log.d(TAG, "Destroying helper.");
+        LogX.d(TAG, "Destroying helper.");
         if (mHelper != null) {
             mHelper.dispose();
             mHelper = null;

@@ -16,9 +16,5 @@
         <item>Production</item>
         <item>Development</item>
     </string-array>
-     
-    <string-array name="scores_server_url_Values">
-        <item>@string/config_score_server_url_production</item>
-        <item>@string/config_score_server_url_development</item>
-    </string-array> 
+
 </resources>

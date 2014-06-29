@@ -16,11 +16,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="10dp" >
 
             <!-- Score: XX -->
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 android:id="@+id/gameover_scoreTextView"
                 style="@style/MainFont.h1"
                 android:layout_width="wrap_content"
@@ -28,7 +29,7 @@
 
             <!-- Mensaje -->
 
-            <com.garrapeta.jumplings.ui.CustomFontTextView
+            <com.garrapeta.jumplings.view.CustomFontTextView
                 android:id="@+id/gameover_messageTextView"
                 style="@style/MainFont.h2"
                 android:layout_width="wrap_content"
@@ -42,7 +43,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" >
 
             <!-- NAME INTRODUCTION -->
 
@@ -59,30 +60,29 @@
                     android:id="@+id/gameover_playerNameEditText"
                     android:layout_width="210dp"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:imeOptions="actionDone|flagNoExtractUi"
                     android:inputType="textPersonName"
-                    android:layout_centerInParent="true"
                     android:maxLength="40" >
                 </EditText>
 
-                <com.garrapeta.jumplings.ui.CustomFontTextView
+                <com.garrapeta.jumplings.view.CustomFontTextView
                     style="@style/MainFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/gameover_name" 
+                    android:layout_above="@+id/gameover_playerNameEditText"
                     android:layout_alignLeft="@+id/gameover_playerNameEditText"
-                    android:layout_above="@+id/gameover_playerNameEditText"/>
+                    android:text="@string/gameover_name" />
 
-                <com.garrapeta.jumplings.ui.CustomFontButton
+                <com.garrapeta.jumplings.view.CustomFontButton
                     android:id="@+id/gameover_saveScoreBtn"
                     style="@style/ColorfulButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/gameover_playerNameEditText"
-                    android:layout_marginLeft="@dimen/ui_spacing"
                     android:layout_alignBottom="@+id/gameover_playerNameEditText"
+                    android:layout_marginLeft="@dimen/ui_spacing"
+                    android:layout_toRightOf="@+id/gameover_playerNameEditText"
                     android:text="@string/nav_ok" />
-                
             </RelativeLayout>
             <!-- /NAME INTRODUCTION -->
 
@@ -103,7 +103,7 @@
                     android:layout_gravity="center_horizontal"
                     android:orientation="horizontal" >
 
-                    <com.garrapeta.jumplings.ui.CustomFontButton
+                    <com.garrapeta.jumplings.view.CustomFontButton
                         android:id="@+id/gameover_shareBtn"
                         style="@style/ColorfulButton"
                         android:layout_width="wrap_content"
@@ -111,13 +111,13 @@
                         android:drawableLeft="@drawable/icon_share"
                         android:text="@string/nav_share" />
 
-                    <com.garrapeta.jumplings.ui.CustomFontButton
+                    <com.garrapeta.jumplings.view.CustomFontButton
                         android:id="@+id/gameover_viewHighScoresBtn"
                         style="@style/ColorfulButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/icon_score"
                         android:layout_marginLeft="@dimen/ui_spacing"
+                        android:drawableLeft="@drawable/icon_score"
                         android:text="@string/gameover_view_high_scores" />
                 </LinearLayout>
 
@@ -128,14 +128,14 @@
                     android:layout_marginTop="@dimen/ui_spacing"
                     android:orientation="horizontal" >
 
-                    <com.garrapeta.jumplings.ui.CustomFontButton
+                    <com.garrapeta.jumplings.view.CustomFontButton
                         android:id="@+id/gameover_replayBtn"
                         style="@style/ColorfulButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/nav_play_again" />
 
-                    <com.garrapeta.jumplings.ui.CustomFontButton
+                    <com.garrapeta.jumplings.view.CustomFontButton
                         android:id="@+id/gameover_menuBtn"
                         style="@style/ColorfulButton"
                         android:layout_width="wrap_content"
@@ -161,7 +161,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/admob_off_game_ad_unit"  />
+        ads:adUnitId="@string/admob_off_game_ad_unit" />
     <!-- /ADMOB -->
 
 </RelativeLayout>

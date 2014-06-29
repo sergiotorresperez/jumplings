@@ -25,9 +25,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
 import android.text.TextUtils;
-import android.util.Log;
 
-import com.garrapeta.gameengine.utils.L;
+import com.garrapeta.gameengine.utils.LogX;
 
 /**
  * Security-related methods. For a secure implementation, all of this code
@@ -59,8 +58,7 @@ public class Security {
      */
     public static boolean verifyPurchase(String base64PublicKey, String signedData, String signature) {
         if (signedData == null) {
-            if (L.sEnabled)
-                Log.e(TAG, "data is null");
+            LogX.e(TAG, "data is null");
             return false;
         }
 
@@ -69,8 +67,7 @@ public class Security {
             PublicKey key = Security.generatePublicKey(base64PublicKey);
             verified = Security.verify(key, signedData, signature);
             if (!verified) {
-                if (L.sEnabled)
-                    Log.w(TAG, "signature does not match data.");
+                LogX.w(TAG, "signature does not match data.");
                 return false;
             }
         }
@@ -94,12 +91,10 @@ public class Security {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         } catch (InvalidKeySpecException e) {
-            if (L.sEnabled)
-                Log.e(TAG, "Invalid key specification.");
+            LogX.e(TAG, "Invalid key specification.");
             throw new IllegalArgumentException(e);
         } catch (Base64DecoderException e) {
-            if (L.sEnabled)
-                Log.e(TAG, "Base64 decoding failed.");
+            LogX.e(TAG, "Base64 decoding failed.");
             throw new IllegalArgumentException(e);
         }
     }
@@ -123,23 +118,18 @@ public class Security {
             sig.initVerify(publicKey);
             sig.update(signedData.getBytes());
             if (!sig.verify(Base64.decode(signature))) {
-                if (L.sEnabled)
-                    Log.e(TAG, "Signature verification failed.");
+                LogX.e(TAG, "Signature verification failed.");
                 return false;
             }
             return true;
         } catch (NoSuchAlgorithmException e) {
-            if (L.sEnabled)
-                Log.e(TAG, "NoSuchAlgorithmException.");
+            LogX.e(TAG, "NoSuchAlgorithmException.");
         } catch (InvalidKeyException e) {
-            if (L.sEnabled)
-                Log.e(TAG, "Invalid key specification.");
+            LogX.e(TAG, "Invalid key specification.");
         } catch (SignatureException e) {
-            if (L.sEnabled)
-                Log.e(TAG, "Signature exception.");
+            LogX.e(TAG, "Signature exception.");
         } catch (Base64DecoderException e) {
-            if (L.sEnabled)
-                Log.e(TAG, "Base64 decoding failed.");
+            LogX.e(TAG, "Base64 decoding failed.");
         }
         return false;
     }

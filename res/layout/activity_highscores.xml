@@ -1,156 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/white" >
+    android:background="@android:color/white"
+    tools:ignore="ContentDescription" >
 
-    <!-- Tabs -->
+    <include
+        android:id="@+id/highscoresListing_localScoresHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_score_header" />
 
-    <TabHost
-        android:id="@android:id/tabhost"
+    <ListView
+        android:id="@+id/highscoresListing_localHighScoresListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/highscoresListing_buttons"
-        android:layout_alignParentTop="true" >
+        android:layout_above="@+id/highscoresListing_advertising_banner_view"
+        android:layout_below="@+id/highscoresListing_localScoresHeader"
+        android:orientation="vertical" >
+    </ListView>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical" >
+    <!-- ADMOB -->
 
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:tabStripLeft="@drawable/custom_tab_strip_selector"
-                android:tabStripRight="@drawable/custom_tab_strip_selector" />
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/highscoresListing_advertising_banner_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_off_game_ad_unit" />
+    <!-- /ADMOB -->
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
-
-                <!-- TAB 1 CONTENT -->
-
-                <LinearLayout
-                    android:id="@+id/highscoresListing_localScoresTabContent"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical" >
-
-                    <!-- header -->
-
-                    <include
-                        android:id="@+id/highscoresListing_localScoresHeader"
-                        layout="@layout/include_score_header" />
-
-                    <!-- lista de scores -->
-
-                    <ListView
-                        android:id="@+id/highscoresListing_localHighScoresListView"
-                        android:layout_width="fill_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical" >
-                    </ListView>
-                    <!-- /lista de scores -->
-                </LinearLayout>
-                <!-- /TAB 1 CONTENT -->
-
-
-                <!-- TAB 2 CONTENT -->
-
-                <LinearLayout
-                    android:id="@+id/highscoresListing_globalScoresTabContent"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical" >
-
-                    <!-- header -->
-
-                    <include
-                        android:id="@+id/highscoresListing_localScoresHeader"
-                        layout="@layout/include_score_header" />
-
-                    <!-- lista de scores -->
-
-                    <ListView
-                        android:id="@+id/highscoresListing_globalHighScoresListView"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:orientation="vertical" >
-                    </ListView>
-                </LinearLayout>
-                <!-- /TAB 2 CONTENT -->
-
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
-
-    <!-- Botones -->
-
-    <RelativeLayout
-        android:id="@+id/highscoresListing_buttons"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/highscoresListing_google_play_games_sign_in"
+        style="@style/ColorfulButton.Menu"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:gravity="right"
-        android:paddingLeft="@dimen/ui_spacing"
-        android:paddingRight="@dimen/ui_spacing" >
+        android:layout_margin="10dp"
+        android:src="@drawable/icon_google_play_games" >
+    </ImageButton>
 
-        <!-- ADMOB -->
-
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/highscoresListing_advertising_banner_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/admob_off_game_ad_unit" />
-        <!-- /ADMOB -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/ui_spacing"
-            android:gravity="right" >
-
-            <com.garrapeta.jumplings.ui.CustomFontButton
-                android:id="@+id/highscoresListing_clearLocalScoresBtn"
-                style="@style/ColorfulButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/highscores_clear"
-                android:visibility="gone" />
-
-            <com.garrapeta.jumplings.ui.CustomFontButton
-                android:id="@+id/highscoresListing_submitBtn"
-                style="@style/ColorfulButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/ui_spacing"
-                android:text="@string/highscores_submit" />
-
-            <com.garrapeta.jumplings.ui.CustomFontButton
-                android:id="@+id/highscoresListing_backBtn"
-                style="@style/ColorfulButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/ui_spacing"
-                android:text="@string/nav_back" />
-        </LinearLayout>
-    </RelativeLayout>
-    <!-- /Botones -->
-
-    <ProgressBar
-        android:id="@+id/highscoresListing_progress_bar"
+    <ImageButton
+        android:id="@+id/highscoresListing_google_play_games_leaderboard"
+        style="@style/ColorfulButton.Menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:layout_marginRight="6dip"
-        android:indeterminate="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:src="@drawable/icon_google_leaderboard"
+        tools:ignore="ContentDescription" >
+    </ImageButton>
 
 </RelativeLayout>

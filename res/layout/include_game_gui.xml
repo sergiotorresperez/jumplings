@@ -22,21 +22,21 @@
 
         <!-- scores -->
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
+        <com.garrapeta.jumplings.view.CustomFontTextView
             android:id="@+id/game_scoreTextView"
             style="@style/MainFont.GameScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
+        <com.garrapeta.jumplings.view.CustomFontTextView
             android:id="@+id/game_levelTextView"
             style="@style/MainFont.GameScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <com.garrapeta.jumplings.ui.CustomFontTextView
+        <com.garrapeta.jumplings.view.CustomFontTextView
             android:id="@+id/game_localHightscoreTextView"
             style="@style/MainFont.GameScore"
             android:layout_width="wrap_content"

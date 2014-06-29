@@ -12,7 +12,6 @@
     <string name="nav_share">Share</string>
     <string name="nav_play_again">Play again</string>
     <string name="nav_menu">Menu</string>
-    <string name="nav_back">Back</string>
     <string name="nav_proceed">Proceed</string>
 
     <!-- Splash Activity -->
@@ -42,7 +41,7 @@
     <string name="about_credits_title">Credits</string>
     <string name="about_credits_1">Code and design by</string>
     <string name="about_credits_2">Sergio GaRRaPeTa Megaherzio</string>
-    <string name="about_credits_3">2011 - 2013</string>
+    <string name="about_credits_3">2011 &#8211; 2013</string>
     <string name="about_credits_4">Plymouth and London</string>
     <string name="about_credits_linkedin_profile">http://uk.linkedin.com/in/sergiotorresperez</string>
     <string name="about_credits_5">Source code:</string>
@@ -62,27 +61,16 @@
     <string name="gameover_name">Your name: </string>
     <string name="gameover_view_high_scores">View high scores</string>
     <string name="gameover_your_score">Your score: %1$d</string>
-    <string name="gameover_beaten">You\'ve beaten the high score!</string>
-    <string name="gameover_highscore_is">"High score is %1$d"</string>
+    <string name="gameover_beaten">You\'ve beaten the best score!</string>
+    <string name="gameover_highscore_is">"Best score is %1$d"</string>
     <string name="gameover_share">"I've achieved %1$d points in The Jumplings!. Download it for free at http://play.google.com/store/apps/details?id=com.garrapeta.jumplings"</string>
     <string name="gameover_invalid_username">"Enter a name at least %1$d characters long"</string>
 
     <!-- High scores activity -->
-    <string name="highscores_submit">Submit</string>
-    <string name="highscores_clear">Clear</string>
     <string name="highscores_header_number">#.</string>
     <string name="highscores_header_player_name">Player Name</string>
-    <string name="highscores_header_global_rank">Global Rank</string>
     <string name="highscores_header_level">Level</string>
     <string name="highscores_header_score">Score</string>
-    <string name="highscores_local_scores">Local scores</string>
-    <string name="highscores_global_scores">Global scores</string>
-    <string name="highscores_submit_score_ok">Scores submitted</string>
-    <string name="highscores_error_download_score">Could not download scores</string>
-    <string name="highscores_error_submit_score">Could not submit scores</string>
-    <string name="highscores_error_no_connection">You need to be connected to the Internet</string>
-    <string name="highscores_error_io_error">Error communicating with the score server.</string>
-    <string name="highscores_error_server_error">Something wrong happened in the server&#8230;</string>
 
     <!-- Preferences activity -->
     <string name="prefs_sound_summary">Enable or disable sound</string>
@@ -93,8 +81,6 @@
     <string name="prefs_flash_title">Flash effect level</string>
     <string name="prefs_shake_summary">Define the level of the screen shake effect</string>
     <string name="prefs_shake_title">Screen shake effect level</string>
-    <string name="prefs_ads_summary">Enable or disable ads (if not premium)</string>
-    <string name="prefs_ads_title">Enable ads</string>
     <string name="prefs_paint_bitmaps_summary">Paint ot not the bitmaps of the Jumplings</string>
     <string name="prefs_paint_bitmaps_title">Paint bitmaps</string>
     <string name="prefs_wireframe_mode_summary">Paint the shapes of the actors and the grid of world</string>
@@ -119,7 +105,7 @@
     <string name="game_ad_dlg_continue_in_secs">Play (%1$d)</string>
     <string name="game_ad_dlg_buy">Get rid of ads</string>
     <string name="game_loading">Loading&#8230;</string>
-    <string name="game_highscore">Highscore: %1$d</string>
+    <string name="game_highscore">Best score: %1$d</string>
     <string name="game_level">Level %1$d</string>
     <string name="game_combo">%1$d x combo!</string>
 
