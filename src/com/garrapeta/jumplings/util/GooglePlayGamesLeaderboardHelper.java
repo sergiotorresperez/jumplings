@@ -22,9 +22,11 @@ import com.google.android.gms.games.leaderboard.Leaderboards.SubmitScoreResult;
 public class GooglePlayGamesLeaderboardHelper {
 
     private static final String TAG = GooglePlayGamesLeaderboardHelper.class.getSimpleName();
+    
+	private static final int REQUEST_CODE = 0x7EAD;
 
     public static void showLeaderboard(final Activity activity, final GoogleApiClient apiClient) {
-        activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(apiClient, getLeaderboardId(activity)), 0);
+        activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(apiClient, getLeaderboardId(activity)), REQUEST_CODE);
     }
 
     public static void submitHighestScoreIfNeeded(final Context context, final GoogleApiClient apiClient) {
